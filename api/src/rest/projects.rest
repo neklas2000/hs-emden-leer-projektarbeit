@@ -1,0 +1,8 @@
+# Get all projects
+GET http://localhost/api/v1/projects
+
+
+###
+
+# Get a specific project
+GET http://localhost/api/v1/projects/c94c5795-a051-11ee-b998-0242c0a87002

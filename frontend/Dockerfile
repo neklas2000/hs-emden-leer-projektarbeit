@@ -11,4 +11,4 @@ RUN npm run build
 FROM nginx
 
 COPY ./frontend/nginx/default.conf.template /etc/nginx/templates/default.conf.template
-COPY --from=build /app/client/build /usr/share/nginx/html
+COPY --from=build /app/client/dist/frontend/browser /usr/share/nginx/html

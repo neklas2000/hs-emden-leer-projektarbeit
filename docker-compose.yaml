@@ -38,19 +38,17 @@ services:
 
   database:
     container_name: projektarbeit_database
-    image: mysql:8.2
+    image: mariadb:latest
     restart: always
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_DB: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_NAME}
     ports:
       - '127.0.0.1:${DB_PORT}:${DB_PORT}'
     expose:
       - '${DB_PORT}'
     volumes:
-      - mysql_volume:/var/lib/postgresql/data
-      - ./api/database_structure.sql:/db.sql
+      - mysql_volume:/var/lib/mysql
 
 volumes:
   mysql_volume:
