@@ -1,0 +1,62 @@
+<mat-sidenav-container [autosize]="!match('lt-xs')">
+  <mat-sidenav
+    style="width: 256px; overflow: hidden;"
+    class="mat-elevation-z4"
+    [fixedInViewport]="match('lt-xs')"
+    [mode]="match('lt-xs') ? 'over' : 'side'"
+    [opened]="!match('lt-xs')"
+    #sidenav
+  >
+    <div style="overflow: hidden;">
+      <div class="branding-logo" (click)="navigateTo('/')" #svgContainer>
+        HS Logo
+      </div>
+      <mat-nav-list>
+        @for (navigationGroup of navigationGroups; track navigationGroup.id) {
+          <div mat-list-item class="subheader" style="padding-left: 8px; display: flex; align-items: center;" [style.backgroundColor]="!isLightMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'">
+            <h3 matLine>{{ navigationGroup.label }}</h3>
+          </div>
+
+          @for (navigationItem of navigationGroup.items; track navigationItem.id) {
+            <mat-divider></mat-divider>
+            <a
+              mat-list-item
+              [routerLink]="navigationItem.to"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="onNavigationClick()"
+            >
+              <div style="display: flex; align-items: center; column-gap: 16px;">
+                <mat-icon>{{ navigationItem.icon }}</mat-icon>
+                <h3 matLine>{{ navigationItem.label }}</h3>
+              </div>
+            </a>
+          }
+        }
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class='mat-elevation-z6' color='primary' style='display: flex; flex-direction: row; justify-content: space-between;'>
+      @if (match('lt-xs')) {
+        <button mat-icon-button (click)="sidenav.open()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
+      {{ title }}
+      <button mat-icon-button (click)='toggleThemeMode()' matTooltip='{{ isLightMode ? "Dark" : "Light" }} Mode aktivieren'>
+        @if (!isLightMode) {
+          <mat-icon>light_mode</mat-icon>
+        } @else {
+          <mat-icon>dark_mode</mat-icon>
+        }
+      </button>
+    </mat-toolbar>
+    <main style='height: calc(100vh - 128px); padding: 16px; overflow-y: auto;'>
+      <router-outlet></router-outlet>
+    </main>
+    <mat-toolbar color='accent'>
+      Footer
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>

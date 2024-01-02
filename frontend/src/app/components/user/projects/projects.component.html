@@ -1,0 +1,27 @@
+<mat-nav-list>
+  @for (project of projects; track project.id) {
+    <a
+      mat-list-item
+      [routerLink]="['/projects', project.id]"
+    >
+      <span matListItemTitle>{{ project.name }}</span>
+      <span matListItemLine>
+        vom Typ "{{ project.type }}" -
+        Gestartet am: {{ project.officialStart | date:'dd.MM.yyyy' }} -
+        @if (project.officialEnd) {
+          Beendet am: {{ project.officialEnd | date:'dd.MM.yyyy' }} -
+        }
+        Berichtsintervall: {{ project.reportInterval }} Tage
+      </span>
+    </a>
+  } @empty {
+    <mat-list-item>
+      <span matListItemTitle>Sie besitzen noch keine Projekte</span>
+    </mat-list-item>
+  }
+</mat-nav-list>
+<div class='fab-button-toolbar'>
+  <button mat-fab color='accent'>
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

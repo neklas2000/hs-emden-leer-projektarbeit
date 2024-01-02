@@ -1,0 +1,42 @@
+<div style="display: flex; flex-direction: column; row-gap: 16px;">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Ergebnisse
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport?.deliverables || '' | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Ziele
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport?.objectives || '' | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Risiken
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport?.hazards || '' | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Sonstiges
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport?.other || '' | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,156 @@
+@if (project === null) {
+  <p>Auf Basis der ID, die innerhalb der URL zu finden ist, konnte kein Projekt gefunden werden</p>
+} @else {
+  <div style="display: flex; flex-direction: column; row-gap: 16px;">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ project.name }}</mat-card-title>
+        <mat-card-subtitle>vom Typ "{{ project.type }}"</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>
+              Berichtszeitraum: {{ project.officialStart | date:'dd.MM.yyyy' }} bis
+              @if (project.officialEnd) {
+                {{ project.officialEnd | date:'dd.MM.yyyy' }}
+              } @else {
+                TBA
+              }
+            </span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>
+              Berichtsintervall: {{ project.reportInterval }}
+              @if (project.reportInterval !== 1) {
+                Tage
+              } @else {
+                Tag
+              }
+            </span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    <div style="display: flex; flex-direction: row; column-gap: 16px;">
+      <mat-card style="flex: 50%;">
+        <mat-card-header>
+          <mat-card-title>Studierende</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="height: calc(100% - 48px);">
+          <mat-list>
+            @for (student of contributors; track student.id) {
+              <mat-list-item>
+                <span matListItemTitle>{{ student.firstName }} {{ student.lastName }} ({{ student.matriculationNumber }})</span>
+                <span matListItemLine>
+                  E-Mail-Adresse: {{ student.email }}
+                </span>
+                @if (student.phoneNumber !== null) {
+                  <span matListItemLine>
+                    Telefonnummer: {{ student.phoneNumber }}
+                  </span>
+                }
+              </mat-list-item>
+            }
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions align='end'>
+          <button (click)='openContributorDialog()' mat-button>
+            Student hinzufügen
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-card style="flex: 50%;">
+        <mat-card-header>
+          <mat-card-title>Betreuer</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="height: calc(100% - 48px);">
+          <mat-list>
+            @for (companion of viewers; track companion.id) {
+              <mat-list-item>
+                <span matListItemTitle>{{ companion.firstName }} {{ companion.lastName }}</span>
+                <span matListItemLine>
+                  E-Mail-Adresse: {{ companion.email }}
+                </span>
+                @if (companion.phoneNumber !== null) {
+                  <span matListItemLine>
+                    Telefonnummer: {{ companion.phoneNumber }}
+                  </span>
+                }
+              </mat-list-item>
+            } @empty {
+              <mat-list-item>
+                <span matListItemTitle>Dieses Projekt hat noch keine Betreuer</span>
+              </mat-list-item>
+            }
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions align='end'>
+          <button (click)='openViewerDialog()' mat-button>
+            Betreuer hinzufügen
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div style="display: flex; flex-direction: row; column-gap: 16px;">
+      <mat-card style="flex: 50%;">
+        <mat-card-header>
+          <mat-card-title>Projektberichte</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="height: calc(100% - 48px);">
+          @if (project.reports.length === 0) {
+            <mat-list>
+              <mat-list-item>
+                <span matListItemTitle>Dieses Projekt hat noch keine Berichte</span>
+              </mat-list-item>
+            </mat-list>
+          } @else {
+            <mat-nav-list>
+              @for (report of project.reports; track report.id) {
+                <a
+                  mat-list-item
+                  [routerLink]="['report', report.id]"
+                >
+                  <span matListItemTitle>
+                    {{ report.sequenceNumber }}. Projektbericht vom {{ report.reportDate | date:'dd.MM.yyyy' }}
+                  </span>
+                </a>
+              }
+            </mat-nav-list>
+          }
+        </mat-card-content>
+        <mat-card-actions align='end'>
+          <button mat-button>
+            Projektbericht hinzufügen
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-card style="flex: 50%;">
+        <mat-card-header>
+          <mat-card-title>Meilensteine</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="height: calc(100% - 48px);">
+          <mat-list>
+            @for (milestone of project.milestones; track milestone.id) {
+              <mat-list-item>
+                <span matListItemTitle>
+                  {{ milestone.name }}
+                </span>
+              </mat-list-item>
+            } @empty {
+              <mat-list-item>
+                <span matListItemTitle>Dieses Projekt hat noch keine Meilensteine</span>
+              </mat-list-item>
+            }
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions align='end'>
+          <button mat-button>
+            Meilenstein hinzufügen
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <app-milestone-trend-analysis-chart></app-milestone-trend-analysis-chart>
+  </div>
+}

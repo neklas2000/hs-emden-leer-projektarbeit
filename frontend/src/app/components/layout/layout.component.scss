@@ -1,0 +1,12 @@
+.branding-logo {
+  scale: 0.9;
+  max-width: 256px;
+  margin: 0 auto;
+  padding-top: 8px;
+
+  &:hover {
+    scale: 0.95;
+    transition: scale 500ms ease;
+    cursor: pointer;
+  }
+}
