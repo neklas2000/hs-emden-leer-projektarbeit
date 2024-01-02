@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { Nullable } from 'src/types/nullable';
 import { User } from './user';
@@ -6,9 +6,34 @@ import { ProjectMember } from './project-member';
 import { ProjectReport } from './project-report';
 import { ProjectMilestone } from './project-milestone';
 import { PrimaryGeneratedUUID } from 'src/decorators/primary-generated-uuid.decorator';
+import { BaseEntityWithExtras, RelationTypes } from './base-entity-with-extras';
 
 @Entity('project')
-export class Project extends BaseEntity {
+export class Project extends BaseEntityWithExtras {
+  static getRelationTypes(): RelationTypes {
+    return {
+      owner: User,
+      members: ProjectMember,
+      reports: ProjectReport,
+      milestones: ProjectMilestone,
+    };
+  }
+
+  static getRelations(): string[] {
+    return ['owner', 'members', 'reports', 'milestones'];
+  }
+
+  static getColumns(): string[] {
+    return [
+      'id',
+      'name',
+      'officialStart',
+      'officialEnd',
+      'reportInterval',
+      'type',
+    ];
+  }
+
   @PrimaryGeneratedUUID()
   id: string;
 

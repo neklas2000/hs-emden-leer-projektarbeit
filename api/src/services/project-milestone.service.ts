@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+
+import {
+  FindOptionsRelations,
+  FindOptionsSelect,
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
 
 import { ProjectMilestone } from 'src/entities/project-milestone';
 
@@ -11,11 +17,27 @@ export class ProjectMilestoneService {
     private projectMilestoneRepository: Repository<ProjectMilestone>,
   ) {}
 
-  findAll(): Promise<ProjectMilestone[]> {
-    return this.projectMilestoneRepository.find();
+  findAll(
+    where: FindOptionsWhere<ProjectMilestone>,
+    select: FindOptionsSelect<ProjectMilestone>,
+    relations: FindOptionsRelations<ProjectMilestone>,
+  ): Promise<ProjectMilestone[]> {
+    return this.projectMilestoneRepository.find({ where, select, relations });
   }
 
-  findOne(id: string): Promise<ProjectMilestone> {
-    return this.projectMilestoneRepository.findOneBy({ id });
+  findOne(
+    id: string,
+    where: FindOptionsWhere<ProjectMilestone>,
+    select: FindOptionsSelect<ProjectMilestone>,
+    relations: FindOptionsRelations<ProjectMilestone>,
+  ): Promise<ProjectMilestone> {
+    return this.projectMilestoneRepository.findOne({
+      where: {
+        ...where,
+        id,
+      },
+      select,
+      relations,
+    });
   }
 }

@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+
+import {
+  FindOptionsRelations,
+  FindOptionsSelect,
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
 
 import { ProjectMember } from 'src/entities/project-member';
 
@@ -11,11 +17,27 @@ export class ProjectMemberService {
     private projectMemberRepository: Repository<ProjectMember>,
   ) {}
 
-  findAll(): Promise<ProjectMember[]> {
-    return this.projectMemberRepository.find();
+  findAll(
+    where: FindOptionsWhere<ProjectMember>,
+    select: FindOptionsSelect<ProjectMember>,
+    relations: FindOptionsRelations<ProjectMember>,
+  ): Promise<ProjectMember[]> {
+    return this.projectMemberRepository.find({ where, select, relations });
   }
 
-  findOne(id: string): Promise<ProjectMember> {
-    return this.projectMemberRepository.findOneBy({ id });
+  findOne(
+    id: string,
+    where: FindOptionsWhere<ProjectMember>,
+    select: FindOptionsSelect<ProjectMember>,
+    relations: FindOptionsRelations<ProjectMember>,
+  ): Promise<ProjectMember> {
+    return this.projectMemberRepository.findOne({
+      where: {
+        ...where,
+        id,
+      },
+      select,
+      relations,
+    });
   }
 }

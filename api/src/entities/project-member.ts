@@ -1,8 +1,9 @@
-import { BaseEntity, Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { User } from './user';
 import { Project } from './project';
 import { PrimaryGeneratedUUID } from 'src/decorators/primary-generated-uuid.decorator';
+import { BaseEntityWithExtras, RelationTypes } from './base-entity-with-extras';
 
 export enum ProjectRole {
   Contributor = 'contributor',
@@ -10,7 +11,22 @@ export enum ProjectRole {
 }
 
 @Entity('project_member')
-export class ProjectMember extends BaseEntity {
+export class ProjectMember extends BaseEntityWithExtras {
+  static getRelationTypes(): RelationTypes {
+    return {
+      user: User,
+      project: Project,
+    };
+  }
+
+  static getRelations(): string[] {
+    return ['user', 'project'];
+  }
+
+  static getColumns(): string[] {
+    return ['id', 'role', 'invitePending'];
+  }
+
   @PrimaryGeneratedUUID()
   id: string;
 

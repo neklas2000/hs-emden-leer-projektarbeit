@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+
+import {
+  FindOptionsRelations,
+  FindOptionsSelect,
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
 
 import { MilestoneEstimate } from 'src/entities/milestone-estimate';
 
@@ -11,11 +17,27 @@ export class MilestoneEstimateService {
     private milestoneEstimateRepository: Repository<MilestoneEstimate>,
   ) {}
 
-  findAll(): Promise<MilestoneEstimate[]> {
-    return this.milestoneEstimateRepository.find();
+  findAll(
+    where: FindOptionsWhere<MilestoneEstimate>,
+    select: FindOptionsSelect<MilestoneEstimate>,
+    relations: FindOptionsRelations<MilestoneEstimate>,
+  ): Promise<MilestoneEstimate[]> {
+    return this.milestoneEstimateRepository.find({ where, select, relations });
   }
 
-  findOne(id: string): Promise<MilestoneEstimate> {
-    return this.milestoneEstimateRepository.findOneBy({ id });
+  findOne(
+    id: string,
+    where: FindOptionsWhere<MilestoneEstimate>,
+    select: FindOptionsSelect<MilestoneEstimate>,
+    relations: FindOptionsRelations<MilestoneEstimate>,
+  ): Promise<MilestoneEstimate> {
+    return this.milestoneEstimateRepository.findOne({
+      where: {
+        ...where,
+        id,
+      },
+      select,
+      relations,
+    });
   }
 }

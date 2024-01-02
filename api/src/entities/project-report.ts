@@ -1,11 +1,34 @@
-import { BaseEntity, Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { Nullable } from 'src/types/nullable';
 import { Project } from './project';
 import { PrimaryGeneratedUUID } from 'src/decorators/primary-generated-uuid.decorator';
+import { BaseEntityWithExtras, RelationTypes } from './base-entity-with-extras';
 
 @Entity('project_report')
-export class ProjectReport extends BaseEntity {
+export class ProjectReport extends BaseEntityWithExtras {
+  static getRelationTypes(): RelationTypes {
+    return {
+      project: Project,
+    };
+  }
+
+  static getRelations(): string[] {
+    return ['project'];
+  }
+
+  static getColumns(): string[] {
+    return [
+      'id',
+      'sequenceNumber',
+      'reportDate',
+      'deliverables',
+      'hazards',
+      'objectives',
+      'other',
+    ];
+  }
+
   @PrimaryGeneratedUUID()
   id: string;
 

@@ -1,10 +1,25 @@
-import { BaseEntity, Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { ProjectMilestone } from './project-milestone';
 import { PrimaryGeneratedUUID } from 'src/decorators/primary-generated-uuid.decorator';
+import { BaseEntityWithExtras, RelationTypes } from './base-entity-with-extras';
 
 @Entity('milestone_estimate')
-export class MilestoneEstimate extends BaseEntity {
+export class MilestoneEstimate extends BaseEntityWithExtras {
+  static getRelationTypes(): RelationTypes {
+    return {
+      milestone: ProjectMilestone,
+    };
+  }
+
+  static getRelations(): string[] {
+    return ['milestone'];
+  }
+
+  static getColumns(): string[] {
+    return ['id', 'reportDate', 'estimationDate', 'milestoneReached'];
+  }
+
   @PrimaryGeneratedUUID()
   id: string;
 
