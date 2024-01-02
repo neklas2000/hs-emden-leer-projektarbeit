@@ -1,0 +1,21 @@
+.markdown-editor-and-preview {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  width: 100%;
+}
+
+.markdown-editor-buttons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+  width: 100%;
+  margin: 0 16px;
+}
+
+markdown {
+  padding: 8px;
+  margin: 0 16px;
+  resize: none;
+  border-radius: 8px;
+}

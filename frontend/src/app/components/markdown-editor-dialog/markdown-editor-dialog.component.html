@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>
+  @if (data.isImage) {
+    Bitte geben Sie eine URL für Ihr Bild an
+  } @else {
+    Bitte geben Sie eine URL für Ihren Link an
+  }
+</h1>
+<div mat-dialog-content>
+  <mat-form-field style="width: 100%;">
+    <mat-label>URL</mat-label>
+    <input matInput [(ngModel)]="uri" required>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Abbrechen</button>
+  <button mat-button [mat-dialog-close]="uri" cdkFocusInitial>Ok</button>
+</div>
