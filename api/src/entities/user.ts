@@ -1,9 +1,10 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 
 import { Nullable } from 'src/types/nullable';
 import { Project } from './project';
 import { PrimaryGeneratedUUID } from 'src/decorators/primary-generated-uuid.decorator';
 import { BaseEntityWithExtras, RelationTypes } from './base-entity-with-extras';
+import { RefreshToken } from './refresh-token';
 
 @Entity('user')
 export class User extends BaseEntityWithExtras {
@@ -52,4 +53,7 @@ export class User extends BaseEntityWithExtras {
 
   @OneToMany(() => Project, (project) => project.owner, { onDelete: 'CASCADE' })
   projects: Project[];
+
+  @OneToOne(() => RefreshToken, (refreshToken) => refreshToken.user)
+  refreshToken: RefreshToken;
 }

@@ -1,0 +1,28 @@
+# @name LoginRequest
+POST http://localhost/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "neklas.meyer@stud.hs-emden-leer.de",
+  "password": "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2"
+}
+
+###
+
+@accessToken = {{ LoginRequest.response.body.accessToken }}
+@refreshToken = {{ LoginRequest.response.body.refreshToken }}
+
+###
+
+GET http://localhost/api/v1/projects?filter[owner.id]=223ea86e-a68b-11ee-97c1-0242ac120002
+Authorization: Bearer {{accessToken}}
+
+###
+
+POST http://localhost/api/v1/auth/refresh
+Authorization: Bearer {{refreshToken}}
+
+###
+
+POST http://localhost/api/v1/auth/logout
+Authorization: Bearer {{accessToken}}

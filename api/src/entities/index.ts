@@ -3,6 +3,7 @@ import { Project } from './project';
 import { ProjectMember } from './project-member';
 import { ProjectMilestone } from './project-milestone';
 import { ProjectReport } from './project-report';
+import { RefreshToken } from './refresh-token';
 import { User } from './user';
 
 export default [
@@ -11,5 +12,6 @@ export default [
   ProjectMember,
   ProjectMilestone,
   ProjectReport,
+  RefreshToken,
   User,
 ];

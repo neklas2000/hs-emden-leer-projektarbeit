@@ -10,10 +10,10 @@ import {
 import { ProjectMemberService } from 'src/services/project-member.service';
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 import { ProjectMember } from 'src/entities/project-member';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { AccessTokenGuard } from 'src/guards/access-token.guard';
 import { Filters, SparseFieldsets, Includes } from 'src/decorators';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(AccessTokenGuard)
 @Controller('project/members')
 export class ProjectMemberController {
   constructor(private readonly projectMemberService: ProjectMemberService) {}

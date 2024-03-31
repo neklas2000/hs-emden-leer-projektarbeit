@@ -10,14 +10,14 @@ import {
 import { User } from 'src/entities/user';
 import { UserService } from 'src/services/user.service';
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { AccessTokenGuard } from 'src/guards/access-token.guard';
 import { Filters, Includes, SparseFieldsets } from 'src/decorators';
 
+@UseGuards(AccessTokenGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(
     @Filters(User)
@@ -32,7 +32,6 @@ export class UserController {
     );
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':matriculationNumber')
   findOne(
     @Param('matriculationNumber')

@@ -4,21 +4,26 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { UserModule } from './user.module';
 import { AuthenticationService } from 'src/services/authentication.service';
-import { JwtStrategy } from 'src/strategies/jwt.strategy';
+import { AccessTokenStrategy } from 'src/strategies/access-token.strategy';
 import { AuthenticationController } from 'src/controllers/authentication.controller';
+import { RefreshTokenStrategy } from 'src/strategies/refresh-token.strategy';
+import { RefreshTokenService } from 'src/services/refresh-token.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RefreshToken } from 'src/entities/refresh-token';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: {
-        expiresIn: '30m',
-      },
-    }),
+    JwtModule.register({}),
+    TypeOrmModule.forFeature([RefreshToken]),
   ],
-  providers: [AuthenticationService, JwtStrategy],
+  providers: [
+    AuthenticationService,
+    RefreshTokenService,
+    AccessTokenStrategy,
+    RefreshTokenStrategy,
+  ],
   exports: [AuthenticationService],
   controllers: [AuthenticationController],
 })

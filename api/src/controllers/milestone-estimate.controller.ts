@@ -10,10 +10,10 @@ import {
 import { MilestoneEstimateService } from 'src/services/milestone-estimate.service';
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 import { MilestoneEstimate } from 'src/entities/milestone-estimate';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { AccessTokenGuard } from 'src/guards/access-token.guard';
 import { Filters, SparseFieldsets, Includes } from 'src/decorators';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(AccessTokenGuard)
 @Controller('milestone/estimates')
 export class MilestoneEstimateController {
   constructor(

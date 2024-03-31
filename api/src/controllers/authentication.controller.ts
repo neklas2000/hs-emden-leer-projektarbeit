@@ -1,11 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 
+import { Request } from 'express';
 import { Observable } from 'rxjs';
 
-import { User } from 'src/entities/user';
+import { AccessTokenGuard } from 'src/guards/access-token.guard';
+import { RefreshTokenGuard } from 'src/guards/refresh-token.guard';
 import {
-  AccessTokenResponse,
   AuthenticationService,
+  TokensResponse,
 } from 'src/services/authentication.service';
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 
@@ -22,7 +24,7 @@ export class AuthenticationController {
   register(
     @Body()
     payload: AuthenticationPayload,
-  ): Observable<User> {
+  ): Observable<TokensResponse> {
     return promiseToObservable(
       this.authenticationService.register(payload.email, payload.password),
     );
@@ -32,9 +34,26 @@ export class AuthenticationController {
   login(
     @Body()
     payload: AuthenticationPayload,
-  ): Observable<AccessTokenResponse> {
+  ): Observable<TokensResponse> {
     return promiseToObservable(
       this.authenticationService.login(payload.email, payload.password),
+    );
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Post('logout')
+  logout(@Req() req: Request) {
+    this.authenticationService.logout(req.user['sub']);
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Post('refresh')
+  refreshTokens(@Req() req: Request) {
+    const userEmail = req.user['email'];
+    const refreshToken = req.user['refreshToken'];
+
+    return promiseToObservable(
+      this.authenticationService.refreshTokens(userEmail, refreshToken),
     );
   }
 }
