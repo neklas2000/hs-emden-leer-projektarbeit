@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
 import {
+  AuthenticationModule,
   MilestoneEstimateModule,
   ProjectMemberModule,
   ProjectMilestoneModule,
@@ -17,6 +18,7 @@ import config from './config';
     TypeOrmModule.forRootAsync({
       useFactory: () => config,
     }),
+    AuthenticationModule,
     MilestoneEstimateModule,
     ProjectMemberModule,
     ProjectMilestoneModule,

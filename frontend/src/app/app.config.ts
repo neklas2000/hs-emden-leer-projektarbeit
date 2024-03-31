@@ -1,12 +1,14 @@
 import { ApplicationConfig, SecurityContext } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+
 import { MARKED_OPTIONS, MarkedRenderer, provideMarkdown } from 'ngx-markdown';
 
 import { routes } from './app.routes';
 import { CHECKED_CHECKBOX } from '../constants/checked-checkbox';
 import { UNCHECKED_CHECKBOX } from '../constants/unchecked-checkbox';
+import { authenticationInterceptor } from './interceptors/authentication.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,6 +45,6 @@ export const appConfig: ApplicationConfig = {
         }
       },
     }),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authenticationInterceptor])),
   ]
 };

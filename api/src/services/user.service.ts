@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import { User } from 'src/entities/user';
+import { Nullable } from 'src/types/nullable';
 
 @Injectable()
 export class UserService {
@@ -39,5 +40,15 @@ export class UserService {
       select,
       relations,
     });
+  }
+
+  findByEmail(email: string): Promise<Nullable<User>> {
+    return this.userRepository.findOneBy({ email });
+  }
+
+  register(email: string, password: string): Promise<User> {
+    const user = this.userRepository.create({ email, password });
+
+    return user.save();
   }
 }

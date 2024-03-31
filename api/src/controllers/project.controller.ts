@@ -10,10 +10,10 @@ import {
 import { ProjectService } from 'src/services/project.service';
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 import { Project } from 'src/entities/project';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { Filters, Includes, SparseFieldsets } from 'src/decorators';
 
-@UseGuards(AuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('projects')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}

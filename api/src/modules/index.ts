@@ -1,3 +1,4 @@
+export * from './authentication.module';
 export * from './milestone-estimate.module';
 export * from './project-member.module';
 export * from './project-milestone.module';

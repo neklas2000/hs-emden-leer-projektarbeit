@@ -57,8 +57,8 @@ export class JsonApiDatastore {
     return this.http.get<T>(`/api/v1/${url}`);
   }
 
-  private POST<T>(url: string, payload: any): Observable<T> {
-    return this.http.post<T>(url, payload);
+  POST<T>(url: string, payload: any): Observable<T> {
+    return this.http.post<T>(`/api/v1/${url}`, payload);
   }
 
   private parseJsonApiQuery(query: JsonApiQueries): string {

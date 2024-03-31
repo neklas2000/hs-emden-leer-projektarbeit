@@ -10,10 +10,10 @@ import {
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 import { ProjectMilestone } from 'src/entities/project-milestone';
 import { ProjectMilestoneService } from 'src/services/project-milestone.service';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { Filters, SparseFieldsets, Includes } from 'src/decorators';
 
-@UseGuards(AuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('project/milestones')
 export class ProjectMilestoneController {
   constructor(

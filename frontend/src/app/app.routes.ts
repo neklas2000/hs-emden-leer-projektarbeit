@@ -27,8 +27,19 @@ export const routes: Routes = [
         path: 'auth',
         component: AuthComponent,
         children: [
-          { path: 'login', component: LoginComponent, title: 'Anmelden' },
-          { path: 'register', component: RegisterComponent, title: 'Registrieren' },
+          {
+            path: 'login',
+            component: LoginComponent,
+            title: 'Anmelden',
+            resolve: {
+              logo: layoutLogoResolver,
+            },
+          },
+          {
+            path: 'register',
+            component: RegisterComponent,
+            title: 'Registrieren',
+          },
         ],
       },
       { path: 'profile', component: ProfileComponent, title: 'Mein Profil' },
