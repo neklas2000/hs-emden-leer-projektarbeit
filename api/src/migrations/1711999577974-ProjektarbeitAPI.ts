@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class ProjektarbeitAPI1711909005106 implements MigrationInterface {
-  name = 'ProjektarbeitAPI1711909005106';
+export class ProjektarbeitAPI1711999577974 implements MigrationInterface {
+  name = 'ProjektarbeitAPI1711999577974';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE \`refresh_token\` (\`id\` uuid NOT NULL DEFAULT UUID(), \`token\` varchar(255) NOT NULL, \`userId\` uuid NULL, UNIQUE INDEX \`REL_8e913e288156c133999341156a\` (\`userId\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`token_whitelist\` (\`id\` uuid NOT NULL DEFAULT UUID(), \`access_token\` varchar(255) NULL, \`access_token_expiration_date\` datetime NOT NULL, \`refresh_token\` varchar(255) NULL, \`refresh_token_expiration_date\` datetime NOT NULL, \`userId\` uuid NULL, UNIQUE INDEX \`REL_fbe0e932e64303e1f63e3e16f5\` (\`userId\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
       `CREATE TABLE \`user\` (\`id\` uuid NOT NULL DEFAULT UUID(), \`matriculation_number\` int NOT NULL, \`first_name\` varchar(255) NOT NULL, \`last_name\` varchar(255) NOT NULL, \`email\` varchar(255) NOT NULL, \`password\` varchar(255) NULL, \`phone_number\` varchar(255) NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
@@ -26,7 +26,7 @@ export class ProjektarbeitAPI1711909005106 implements MigrationInterface {
       `CREATE TABLE \`milestone_estimate\` (\`id\` uuid NOT NULL DEFAULT UUID(), \`report_date\` date NOT NULL DEFAULT CURRENT_DATE, \`estimation_date\` date NOT NULL, \`milestone_reached\` tinyint NOT NULL, \`milestoneId\` uuid NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
-      `ALTER TABLE \`refresh_token\` ADD CONSTRAINT \`FK_8e913e288156c133999341156ad\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+      `ALTER TABLE \`token_whitelist\` ADD CONSTRAINT \`FK_fbe0e932e64303e1f63e3e16f5e\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
       `ALTER TABLE \`project_member\` ADD CONSTRAINT \`FK_e7520163dafa7c1104fd672caad\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
@@ -68,7 +68,7 @@ export class ProjektarbeitAPI1711909005106 implements MigrationInterface {
       `ALTER TABLE \`project_member\` DROP FOREIGN KEY \`FK_e7520163dafa7c1104fd672caad\``,
     );
     await queryRunner.query(
-      `ALTER TABLE \`refresh_token\` DROP FOREIGN KEY \`FK_8e913e288156c133999341156ad\``,
+      `ALTER TABLE \`token_whitelist\` DROP FOREIGN KEY \`FK_fbe0e932e64303e1f63e3e16f5e\``,
     );
     await queryRunner.query(`DROP TABLE \`milestone_estimate\``);
     await queryRunner.query(`DROP TABLE \`project_milestone\``);
@@ -77,8 +77,8 @@ export class ProjektarbeitAPI1711909005106 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE \`project_member\``);
     await queryRunner.query(`DROP TABLE \`user\``);
     await queryRunner.query(
-      `DROP INDEX \`REL_8e913e288156c133999341156a\` ON \`refresh_token\``,
+      `DROP INDEX \`REL_fbe0e932e64303e1f63e3e16f5\` ON \`token_whitelist\``,
     );
-    await queryRunner.query(`DROP TABLE \`refresh_token\``);
+    await queryRunner.query(`DROP TABLE \`token_whitelist\``);
   }
 }

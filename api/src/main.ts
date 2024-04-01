@@ -1,5 +1,6 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 
+import cookieParser from 'cookie-parser';
 import { createDatabase } from 'typeorm-extension';
 
 import { AppModule } from './app.module';
@@ -17,6 +18,7 @@ export async function bootstrap(port: number) {
   app.setGlobalPrefix('/api/v1');
   const httpAdapterHost = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost));
+  app.use(cookieParser());
 
   await app.listen(port);
 }

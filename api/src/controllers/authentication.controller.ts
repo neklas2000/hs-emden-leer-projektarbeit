@@ -1,5 +1,6 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
 
+import { Response } from 'express';
 import { Observable } from 'rxjs';
 
 import { User } from 'src/decorators/user.decorator';
@@ -7,15 +8,19 @@ import { AccessTokenGuard } from 'src/guards/access-token.guard';
 import { RefreshTokenGuard } from 'src/guards/refresh-token.guard';
 import {
   AuthenticationService,
-  DeleteResult,
   TokensResponse,
   TokensWithUserResponse,
 } from 'src/services/authentication.service';
+import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from 'src/tokens';
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 
 type AuthenticationPayload = {
   email: string;
   password: string;
+};
+
+type DeleteResult = {
+  success: boolean;
 };
 
 @Controller('auth')
@@ -36,26 +41,97 @@ export class AuthenticationController {
   login(
     @Body()
     payload: AuthenticationPayload,
+    @Res({ passthrough: true })
+    res: Response,
   ): Observable<TokensWithUserResponse> {
-    return promiseToObservable(
-      this.authenticationService.login(payload.email, payload.password),
-    );
+    const answer$ = new Promise<TokensWithUserResponse>(async (resolve) => {
+      const result = await this.authenticationService.login(
+        payload.email,
+        payload.password,
+      );
+
+      res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        expires: new Date(Date.now() + 30 * 60 * 1000),
+      });
+
+      res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      });
+
+      resolve(result);
+    });
+
+    return promiseToObservable(answer$);
   }
 
   @UseGuards(AccessTokenGuard)
   @Post('logout')
-  logout(@User() user: Express.User): Observable<DeleteResult> {
-    return this.authenticationService.logout(user['sub']);
+  logout(
+    @User()
+    user: Express.User,
+    @Res({ passthrough: true })
+    res: Response,
+  ): Observable<DeleteResult> {
+    const answer$ = new Promise<DeleteResult>(async (resolve) => {
+      const result = await this.authenticationService.logout(user['sub']);
+
+      let success = false;
+
+      if (result.affected && result.affected === 1) success = true;
+
+      if (success) {
+        res.clearCookie(ACCESS_TOKEN_COOKIE);
+        res.clearCookie(REFRESH_TOKEN_COOKIE);
+      }
+
+      resolve({
+        success,
+      });
+    });
+
+    return promiseToObservable(answer$);
   }
 
   @UseGuards(RefreshTokenGuard)
   @Post('refresh')
-  refreshTokens(@User() user: Express.User): Observable<TokensResponse> {
+  refreshTokens(
+    @User()
+    user: Express.User,
+    @Res({ passthrough: true })
+    res: Response,
+  ): Observable<TokensResponse> {
     const userEmail = user['email'];
     const refreshToken = user['refreshToken'];
 
-    return promiseToObservable(
-      this.authenticationService.refreshTokens(userEmail, refreshToken),
-    );
+    const answer$ = new Promise<TokensResponse>(async (resolve) => {
+      const result = await this.authenticationService.refreshTokens(
+        userEmail,
+        refreshToken,
+      );
+
+      res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        expires: new Date(Date.now() + 30 * 60 * 1000),
+      });
+
+      res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      });
+
+      resolve(result);
+    });
+
+    return promiseToObservable(answer$);
   }
 }

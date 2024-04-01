@@ -2,15 +2,16 @@ import { JwtService } from '@nestjs/jwt';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import * as crypto from 'crypto-js';
-import { Observable, of, switchMap, take } from 'rxjs';
-import { DeepPartial } from 'typeorm';
+import { DeepPartial, DeleteResult } from 'typeorm';
 
 import { IncorrectCredentialsException } from 'src/exceptions/incorrect-credentials.exception';
 import { UserService } from './user.service';
 import { UserAlreadyExistsException } from 'src/exceptions/user-already-exists.exception';
 import { User } from 'src/entities/user';
-import { RefreshTokenService } from './refresh-token.service';
-import { promiseToObservable } from 'src/utils/promise-to-oberservable';
+import {
+  TokenPairAndOwner,
+  TokenWhitelistService,
+} from './token-whitelist.service';
 
 export type TokensResponse = {
   accessToken: string;
@@ -21,16 +22,12 @@ export type TokensWithUserResponse = TokensResponse & {
   user: DeepPartial<User>;
 };
 
-export type DeleteResult = {
-  success: boolean;
-};
-
 @Injectable()
 export class AuthenticationService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-    private readonly refreshTokenService: RefreshTokenService,
+    private readonly tokenWhitelistService: TokenWhitelistService,
   ) {}
 
   async register(
@@ -50,7 +47,10 @@ export class AuthenticationService {
       registeredUser.id,
       registeredUser.email,
     );
-    await this.updateRefreshToken(registeredUser.id, tokens.refreshToken);
+    await this.updateWhitelistedTokens({
+      ...tokens,
+      userId: registeredUser.id,
+    });
 
     return {
       ...tokens,
@@ -75,7 +75,10 @@ export class AuthenticationService {
       userWithoutPassword.id,
       userWithoutPassword.email,
     );
-    await this.updateRefreshToken(userWithoutPassword.id, tokens.refreshToken);
+    await this.updateWhitelistedTokens({
+      ...tokens,
+      userId: userWithoutPassword.id,
+    });
 
     return {
       ...tokens,
@@ -83,19 +86,8 @@ export class AuthenticationService {
     };
   }
 
-  logout(userId: string): Observable<DeleteResult> {
-    return promiseToObservable(this.refreshTokenService.delete(userId)).pipe(
-      take(1),
-      switchMap((result) => {
-        let success = false;
-
-        if (result.affected && result.affected === 1) success = true;
-
-        return of({
-          success,
-        });
-      }),
-    );
+  logout(userId: string): Promise<DeleteResult> {
+    return this.tokenWhitelistService.delete(userId);
   }
 
   async refreshTokens(
@@ -108,9 +100,11 @@ export class AuthenticationService {
       throw new ForbiddenException('Access Denied');
     }
 
-    const refreshTokenEntry = await this.refreshTokenService.findById(user.id);
+    const tokenWhitelistEntry = await this.tokenWhitelistService.findByUser(
+      user.id,
+    );
 
-    if (!refreshTokenEntry) {
+    if (!tokenWhitelistEntry) {
       throw new ForbiddenException('Access Denied');
     }
 
@@ -118,25 +112,36 @@ export class AuthenticationService {
       .SHA256(refreshToken)
       .toString(crypto.enc.Hex);
 
-    if (hashedRefreshedToken !== refreshTokenEntry.token) {
+    if (hashedRefreshedToken !== tokenWhitelistEntry.refreshToken) {
       throw new ForbiddenException('Access Denied');
     }
 
     const tokens = await this.generateTokens(user.id, user.email);
-    await this.updateRefreshToken(user.id, tokens.refreshToken);
+    await this.updateWhitelistedTokens({
+      ...tokens,
+      userId: user.id,
+    });
 
     return tokens;
   }
 
-  async updateRefreshToken(
-    userId: string,
-    refreshToken: string,
-  ): Promise<void> {
+  async updateWhitelistedTokens({
+    refreshToken,
+    accessToken,
+    userId,
+  }: TokenPairAndOwner): Promise<void> {
     const hashedRefreshedToken = crypto
       .SHA256(refreshToken)
       .toString(crypto.enc.Hex);
+    const hashedAccessToken = crypto
+      .SHA256(accessToken)
+      .toString(crypto.enc.Hex);
 
-    await this.refreshTokenService.update(userId, hashedRefreshedToken);
+    await this.tokenWhitelistService.update({
+      userId,
+      accessToken: hashedAccessToken,
+      refreshToken: hashedRefreshedToken,
+    });
   }
 
   async generateTokens(userId: string, email: string): Promise<TokensResponse> {
