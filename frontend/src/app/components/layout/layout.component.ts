@@ -12,12 +12,15 @@ import { MediaMatcher } from '@angular/cdk/layout';
 
 import { MediaMatching } from '../../services/media-matching.service';
 import { ThemeMode, ThemeService } from '../../services/theme.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { take } from 'rxjs';
 
 type NavigationItem = {
   id: number;
-  to: string;
+  to?: string;
   label: string;
   icon?: string;
+  clickEvent?: () => void;
 };
 
 type NavigationGroup = {
@@ -70,7 +73,9 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy,
           id: 3,
           label: 'Abmelden',
           icon: 'logout',
-          to: '/auth/logout',
+          clickEvent: () => {
+            this.logout();
+          }
         },
       ],
     },
@@ -102,6 +107,7 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy,
     private readonly theme: ThemeService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
+    private readonly authenticationService: AuthenticationService,
   ) {
     super(changeDetectorRef, media);
 
@@ -140,5 +146,15 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy,
 
   get isLightMode(): boolean {
     return this.currentThemeMode === ThemeMode.LIGHT;
+  }
+
+  logout(): void {
+    this.authenticationService.logout().pipe(take(1)).subscribe((successful) => {
+      if (successful) {
+        this.router.navigateByUrl('/auth/login');
+      } else {
+        // TODO: show snackbar
+      }
+    });
   }
 }

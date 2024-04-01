@@ -13,6 +13,7 @@ import { layoutLogoResolver } from './resolvers/layout-logo.resolver';
 import { userProjectsResolver } from './resolvers/user-projects.resolver';
 import { ReportDetailsComponent } from './components/user/report-details/report-details.component';
 import { reportDetailsResolver } from './resolvers/report-details.resolver';
+import { authenticationGuard } from './guards/authentication.guard';
 
 export const routes: Routes = [
   {
@@ -42,7 +43,12 @@ export const routes: Routes = [
           },
         ],
       },
-      { path: 'profile', component: ProfileComponent, title: 'Mein Profil' },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        title: 'Mein Profil',
+        canActivate: [authenticationGuard],
+      },
       {
         path: 'projects',
         component: ProjectsComponent,
@@ -50,6 +56,7 @@ export const routes: Routes = [
         resolve: {
           projects: userProjectsResolver,
         },
+        canActivate: [authenticationGuard],
       },
       {
         path: 'projects/:id',
@@ -57,7 +64,8 @@ export const routes: Routes = [
         title: 'Projektdetails',
         resolve: {
           project: projectDetailsResolver
-        }
+        },
+        canActivate: [authenticationGuard],
       },
       {
         path: 'projects/:projectId/report/:reportId',
@@ -66,6 +74,7 @@ export const routes: Routes = [
         resolve: {
           report: reportDetailsResolver,
         },
+        canActivate: [authenticationGuard],
       },
     ],
   },

@@ -19,18 +19,32 @@
 
           @for (navigationItem of navigationGroup.items; track navigationItem.id) {
             <mat-divider></mat-divider>
-            <a
-              mat-list-item
-              [routerLink]="navigationItem.to"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="onNavigationClick()"
-            >
-              <div style="display: flex; align-items: center; column-gap: 16px;">
-                <mat-icon>{{ navigationItem.icon }}</mat-icon>
-                <h3 matLine>{{ navigationItem.label }}</h3>
-              </div>
-            </a>
+            @if (navigationItem.clickEvent) {
+              <a
+                mat-list-item
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="onNavigationClick(); navigationItem.clickEvent();"
+              >
+                <div style="display: flex; align-items: center; column-gap: 16px;">
+                  <mat-icon>{{ navigationItem.icon }}</mat-icon>
+                  <h3 matLine>{{ navigationItem.label }}</h3>
+                </div>
+              </a>
+            } @else if (navigationItem.to) {
+              <a
+                mat-list-item
+                [routerLink]="navigationItem.to"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="onNavigationClick()"
+              >
+                <div style="display: flex; align-items: center; column-gap: 16px;">
+                  <mat-icon>{{ navigationItem.icon }}</mat-icon>
+                  <h3 matLine>{{ navigationItem.label }}</h3>
+                </div>
+              </a>
+            }
           }
         }
       </mat-nav-list>

@@ -14,6 +14,14 @@ type TokensResponse = {
   refreshToken: string;
 };
 
+type TokensWithUserResponse = TokensResponse & {
+  user: User;
+};
+
+type LogoutResponse = {
+  success: boolean;
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +42,7 @@ export class AuthenticationService {
   login(email: string, password: string): Observable<boolean | HttpException> {
     const hashedPassword = crypto.SHA256(password).toString(crypto.enc.Hex);
 
-    return this.jsonApiDatastore.POST<TokensResponse>(
+    return this.jsonApiDatastore.POST<TokensWithUserResponse>(
       'auth/login',
       {
         email,
@@ -45,6 +53,7 @@ export class AuthenticationService {
       map((response) => {
         this.accessToken = response.accessToken;
         this.refreshToken = response.refreshToken;
+        this.user.next(response.user);
 
         return true;
       }),
@@ -54,10 +63,19 @@ export class AuthenticationService {
     );
   }
 
-  logout(): void {
-    this.accessToken = null;
-    this.refreshToken = null;
-    this.user.next(null);
+  logout(): Observable<boolean> {
+    return this.jsonApiDatastore.POST<LogoutResponse>('auth/logout', {})
+      .pipe(take(1), switchMap((result) => {
+        if (result.success === true) {
+          this.accessToken = null;
+          this.refreshToken = null;
+          this.user.next(null);
+
+          return of(true);
+        }
+
+        return of(false);
+      }));
   }
 
   getAccessToken(): Nullable<string> {
@@ -86,5 +104,9 @@ export class AuthenticationService {
           }));
         })
       );
+  }
+
+  isAuthenticated(): boolean {
+    return this.user.value !== null;
   }
 }

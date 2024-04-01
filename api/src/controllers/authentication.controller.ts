@@ -1,13 +1,15 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 
-import { Request } from 'express';
 import { Observable } from 'rxjs';
 
+import { User } from 'src/decorators/user.decorator';
 import { AccessTokenGuard } from 'src/guards/access-token.guard';
 import { RefreshTokenGuard } from 'src/guards/refresh-token.guard';
 import {
   AuthenticationService,
+  DeleteResult,
   TokensResponse,
+  TokensWithUserResponse,
 } from 'src/services/authentication.service';
 import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 
@@ -24,7 +26,7 @@ export class AuthenticationController {
   register(
     @Body()
     payload: AuthenticationPayload,
-  ): Observable<TokensResponse> {
+  ): Observable<TokensWithUserResponse> {
     return promiseToObservable(
       this.authenticationService.register(payload.email, payload.password),
     );
@@ -34,7 +36,7 @@ export class AuthenticationController {
   login(
     @Body()
     payload: AuthenticationPayload,
-  ): Observable<TokensResponse> {
+  ): Observable<TokensWithUserResponse> {
     return promiseToObservable(
       this.authenticationService.login(payload.email, payload.password),
     );
@@ -42,15 +44,15 @@ export class AuthenticationController {
 
   @UseGuards(AccessTokenGuard)
   @Post('logout')
-  logout(@Req() req: Request) {
-    this.authenticationService.logout(req.user['sub']);
+  logout(@User() user: Express.User): Observable<DeleteResult> {
+    return this.authenticationService.logout(user['sub']);
   }
 
   @UseGuards(RefreshTokenGuard)
   @Post('refresh')
-  refreshTokens(@Req() req: Request) {
-    const userEmail = req.user['email'];
-    const refreshToken = req.user['refreshToken'];
+  refreshTokens(@User() user: Express.User): Observable<TokensResponse> {
+    const userEmail = user['email'];
+    const refreshToken = user['refreshToken'];
 
     return promiseToObservable(
       this.authenticationService.refreshTokens(userEmail, refreshToken),

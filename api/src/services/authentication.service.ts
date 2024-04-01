@@ -2,6 +2,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import * as crypto from 'crypto-js';
+import { Observable, of, switchMap, take } from 'rxjs';
 import { DeepPartial } from 'typeorm';
 
 import { IncorrectCredentialsException } from 'src/exceptions/incorrect-credentials.exception';
@@ -9,11 +10,19 @@ import { UserService } from './user.service';
 import { UserAlreadyExistsException } from 'src/exceptions/user-already-exists.exception';
 import { User } from 'src/entities/user';
 import { RefreshTokenService } from './refresh-token.service';
-import { RefreshToken } from 'src/entities/refresh-token';
+import { promiseToObservable } from 'src/utils/promise-to-oberservable';
 
 export type TokensResponse = {
   accessToken: string;
   refreshToken: string;
+};
+
+export type TokensWithUserResponse = TokensResponse & {
+  user: DeepPartial<User>;
+};
+
+export type DeleteResult = {
+  success: boolean;
 };
 
 @Injectable()
@@ -24,7 +33,10 @@ export class AuthenticationService {
     private readonly refreshTokenService: RefreshTokenService,
   ) {}
 
-  async register(email: string, password: string): Promise<TokensResponse> {
+  async register(
+    email: string,
+    password: string,
+  ): Promise<TokensWithUserResponse> {
     const user = await this.userService.findByEmail(email);
 
     if (user !== null) {
@@ -32,6 +44,7 @@ export class AuthenticationService {
     }
 
     const registeredUser = await this.userService.register(email, password);
+    delete registeredUser.password;
 
     const tokens = await this.generateTokens(
       registeredUser.id,
@@ -39,10 +52,16 @@ export class AuthenticationService {
     );
     await this.updateRefreshToken(registeredUser.id, tokens.refreshToken);
 
-    return tokens;
+    return {
+      ...tokens,
+      user: registeredUser,
+    };
   }
 
-  async login(email: string, password: string): Promise<TokensResponse> {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<TokensWithUserResponse> {
     const user = await this.userService.findByEmail(email);
 
     if (!user || user.password !== password) {
@@ -58,11 +77,25 @@ export class AuthenticationService {
     );
     await this.updateRefreshToken(userWithoutPassword.id, tokens.refreshToken);
 
-    return tokens;
+    return {
+      ...tokens,
+      user: userWithoutPassword,
+    };
   }
 
-  async logout(userId: string): Promise<RefreshToken> {
-    return this.refreshTokenService.delete(userId);
+  logout(userId: string): Observable<DeleteResult> {
+    return promiseToObservable(this.refreshTokenService.delete(userId)).pipe(
+      take(1),
+      switchMap((result) => {
+        let success = false;
+
+        if (result.affected && result.affected === 1) success = true;
+
+        return of({
+          success,
+        });
+      }),
+    );
   }
 
   async refreshTokens(
