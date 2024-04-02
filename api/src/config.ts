@@ -1,6 +1,12 @@
 import { DataSourceOptions } from 'typeorm';
 
-import Entities from './entities';
+import { MilestoneEstimate } from './project/milestone/estimate/entities';
+import { Project } from './project/entities';
+import { ProjectMember } from './project/member/entities';
+import { ProjectMilestone } from './project/milestone/entities';
+import { ProjectReport } from './project/report/entities';
+import { TokenWhitelist } from './authentication/entities';
+import { User } from './user/entities';
 
 export default {
   type: 'mariadb',
@@ -9,7 +15,15 @@ export default {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: Entities,
+  entities: [
+    MilestoneEstimate,
+    Project,
+    ProjectMember,
+    ProjectMilestone,
+    ProjectReport,
+    TokenWhitelist,
+    User,
+  ],
   migrations: [__dirname + '/migrations/*{.js,.ts}'],
   migrationsTableName: 'type_orm_migrations',
   logging: true,

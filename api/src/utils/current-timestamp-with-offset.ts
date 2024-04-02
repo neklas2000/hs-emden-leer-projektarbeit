@@ -1,4 +1,4 @@
-type TimeUnit = 'days' | 'minutes';
+export type TimeUnit = 'days' | 'minutes';
 
 export function currentTimestampWithOffset(offset: number, unit: TimeUnit) {
   const timeUnitMap = {

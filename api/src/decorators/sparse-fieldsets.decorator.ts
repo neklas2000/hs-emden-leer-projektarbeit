@@ -1,8 +1,9 @@
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 
 import { Request } from 'express';
-import { BaseEntityWithExtras } from 'src/entities/base-entity-with-extras';
 import { FindOptionsSelect, getMetadataArgsStorage } from 'typeorm';
+
+import { BaseEntityWithExtras } from '../common';
 
 export const SparseFieldsets = createParamDecorator(
   <T extends BaseEntityWithExtras>(

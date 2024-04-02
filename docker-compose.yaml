@@ -40,7 +40,9 @@ services:
 
   database:
     container_name: projektarbeit_database
-    image: mariadb:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
