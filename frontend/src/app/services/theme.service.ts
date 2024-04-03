@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export enum ThemeMode {

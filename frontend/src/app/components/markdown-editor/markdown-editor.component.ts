@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { MarkdownComponent } from 'ngx-markdown';
 import { take } from 'rxjs';
 
@@ -35,16 +36,15 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
   @ViewChild('editorButtons') editorButtons!: ElementRef<HTMLElement>;
   @Input() label: string = 'Textarea';
+
   markdown: string = '';
   previewOpen: boolean = false;
   touched = false;
   disabled = false;
+
   private currentCursorPosition!: [number, number];
   private cursorPositionUpdateBlocked: boolean = false;
   private shiftPressed: boolean = false;
-
-  onChange = (markdown: string) => { };
-  onTouched = () => { };
 
   constructor(public dialog: MatDialog) { }
 
@@ -59,6 +59,9 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
       }
     });
   }
+
+  onChange = (markdown: string) => { };
+  onTouched = () => { };
 
   writeValue(markdown: string): void {
     this.markdown = markdown;
@@ -96,10 +99,8 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
       if (ev.key === 'Shift') this.shiftPressed = false;
     }
 
-    this.currentCursorPosition = [
-      this.textArea.nativeElement.selectionStart,
-      this.textArea.nativeElement.selectionEnd
-    ];
+    const { selectionStart, selectionEnd } = this.textArea.nativeElement;
+    this.currentCursorPosition = [selectionStart, selectionEnd];
   }
 
   changeIndentation(ev: KeyboardEvent): void {
@@ -243,20 +244,22 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     this.cursorPositionUpdateBlocked = true;
     const dialogRef = this.dialog.open(MarkdownEditorDialogComponent, {
       data: {
-        isImage: false
-      }
+        isImage: false,
+      },
     });
 
-    dialogRef.afterClosed().pipe(take(1)).subscribe((result) => {
-      result = result ?? '';
-      this.cursorPositionUpdateBlocked = false;
+    dialogRef.afterClosed()
+      .pipe(take(1))
+      .subscribe((result) => {
+        result = result ?? '';
+        this.cursorPositionUpdateBlocked = false;
 
-      if (!this.extendMarkdown(`[enter link description here](${result})`, [1, 28])) {
-        this.formatMarkdown(`[:selection](${result})`, 1, false);
-      }
+        if (!this.extendMarkdown(`[enter link description here](${result})`, [1, 28])) {
+          this.formatMarkdown(`[:selection](${result})`, 1, false);
+        }
 
-      this.onInputChange();
-    });
+        this.onInputChange();
+      });
   }
 
   formatImage(): void {
@@ -265,20 +268,22 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     this.cursorPositionUpdateBlocked = true;
     const dialogRef = this.dialog.open(MarkdownEditorDialogComponent, {
       data: {
-        isImage: true
-      }
+        isImage: true,
+      },
     });
 
-    dialogRef.afterClosed().pipe(take(1)).subscribe((result) => {
-      result = result ?? '';
-      this.cursorPositionUpdateBlocked = false;
+    dialogRef.afterClosed()
+      .pipe(take(1))
+      .subscribe((result) => {
+        result = result ?? '';
+        this.cursorPositionUpdateBlocked = false;
 
-      if (!this.extendMarkdown(`![enter image description here](${result})`, [2, 30])) {
-        this.formatMarkdown(`![:selection](${result})`, 2, false);
-      }
+        if (!this.extendMarkdown(`![enter image description here](${result})`, [2, 30])) {
+          this.formatMarkdown(`![:selection](${result})`, 2, false);
+        }
 
-      this.onInputChange();
-    });
+        this.onInputChange();
+      });
   }
 
   private extendMarkdown(content: string, startOffsets: [number, number]): boolean {

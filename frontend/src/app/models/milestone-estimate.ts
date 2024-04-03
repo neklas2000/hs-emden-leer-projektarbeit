@@ -5,9 +5,9 @@ import { ApiRoutes, BaseModel } from './base-model';
 
 export class MilestoneEstimate extends BaseModel {
   public static override ROUTES: ApiRoutes = {
-    LOAD_ALL: '',
-    LOAD: '',
-    ADD: '',
+    LOAD_ALL: 'milestone/estimates',
+    LOAD: 'milestone/estimates/:id',
+    ADD: 'milestone/estimates',
   };
 
   id: Nullable<string> = null;

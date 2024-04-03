@@ -263,3 +263,26 @@ $altTheme: mat.define-dark-theme($theme-primary, $theme-accent, $theme-warn);
 .apexcharts-tooltip {
   color: #0A0A0A !important;
 }
+
+* {
+  --info: #17A2B8;
+  --success: #28A745;
+  --warning: #FD7E14;
+  --pending: #FFC107;
+  --done: var(--success);
+}
+
+.fab-button-toolbar {
+  width: 72px;
+  height: 72px;
+  position: absolute;
+  top: 0;
+  margin-top: 36px;
+  right: 0;
+  margin-right: 96px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mat-sidenav-content-background-color);
+}

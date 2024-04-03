@@ -1,7 +1,7 @@
 @if (project === null) {
   <p>Auf Basis der ID, die innerhalb der URL zu finden ist, konnte kein Projekt gefunden werden</p>
 } @else {
-  <div style="display: flex; flex-direction: column; row-gap: 16px;">
+  <div class="flex flex-col gap-y-4">
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{ project.name }}</mat-card-title>
@@ -32,7 +32,7 @@
         </mat-list>
       </mat-card-content>
     </mat-card>
-    <div style="display: flex; flex-direction: row; column-gap: 16px;">
+    <div class="flex flex-row gap-x-4">
       <mat-card style="flex: 50%;">
         <mat-card-header>
           <mat-card-title>Studierende</mat-card-title>
@@ -92,7 +92,7 @@
         </mat-card-actions>
       </mat-card>
     </div>
-    <div style="display: flex; flex-direction: row; column-gap: 16px;">
+    <div class="flex flex-row gap-x-4">
       <mat-card style="flex: 50%;">
         <mat-card-header>
           <mat-card-title>Projektberichte</mat-card-title>
@@ -120,7 +120,7 @@
           }
         </mat-card-content>
         <mat-card-actions align='end'>
-          <button mat-button>
+          <button [routerLink]="['report/new']" mat-button>
             Projektbericht hinzufügen
           </button>
         </mat-card-actions>
@@ -133,6 +133,11 @@
           <mat-list>
             @for (milestone of project.milestones; track milestone.id) {
               <mat-list-item>
+                @if (isMilestoneReached(milestone.estimates)) {
+                  <mat-icon style="color: var(--done);" matTooltip="Abgeschlossen" matListItemIcon>check_small</mat-icon>
+                } @else {
+                  <mat-icon style="color: var(--pending);" matTooltip="Noch in Arbeit" matListItemIcon>pending</mat-icon>
+                }
                 <span matListItemTitle>
                   {{ milestone.name }}
                 </span>
@@ -145,12 +150,25 @@
           </mat-list>
         </mat-card-content>
         <mat-card-actions align='end'>
+          <button class="mr-4" [routerLink]="['estimates/edit']" mat-button>
+            Schätzungen bearbeiten/hinzufügen
+          </button>
           <button mat-button>
             Meilenstein hinzufügen
           </button>
         </mat-card-actions>
       </mat-card>
     </div>
-    <app-milestone-trend-analysis-chart></app-milestone-trend-analysis-chart>
+    <app-milestone-trend-analysis-chart
+      [interval]="project.reportInterval"
+      [startDate]="project.officialStart"
+      [endDate]="project.officialEnd"
+      [milestones]="project.milestones">
+    </app-milestone-trend-analysis-chart>
+  </div>
+  <div class="fab-button-toolbar">
+    <button color="accent" [routerLink]="['edit']" mat-fab>
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 }

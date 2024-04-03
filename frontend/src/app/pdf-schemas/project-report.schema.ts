@@ -5,6 +5,8 @@ import { Content, DynamicBackground, TDocumentDefinitions } from 'pdfmake/interf
 import htmlToPdfmake from 'html-to-pdfmake';
 
 import { parseCheckbox } from './parse-checkbox';
+import { PdfSchema } from './pdf-schema';
+import { DateTime } from 'luxon';
 
 export type ProjectReportContent<E = string> = {
   projectTitle: string;
@@ -20,12 +22,13 @@ export type ProjectReportContent<E = string> = {
   hazards: E;
   objectives: E;
   other: E;
+  milestoneTrendAnalysis: string;
 };
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectReportSchema {
+export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
   constructor(private readonly markdownService: MarkdownService) {}
 
 	async populate(
@@ -75,7 +78,7 @@ export class ProjectReportSchema {
 							border: [false, false, false, false],
 							alignment: 'right'
 						}, {
-							text: `${content.reportStart} - ${content.reportEnd}`,
+							text: `${DateTime.fromSQL(content.reportStart).toFormat('dd.MM.yyyy')} - ${content.reportEnd ? DateTime.fromSQL(content.reportEnd).toFormat('dd.MM.yyyy') : 'TBA'}`,
 							color: 'red',
 							border: [true, true, false, false],
 							colSpan: 2
@@ -93,7 +96,7 @@ export class ProjectReportSchema {
 							alignment: 'right',
 							border: [false, true, false, false]
 						}, {
-							text: content.reportDate,
+							text: DateTime.fromSQL(content.reportDate).toFormat('dd.MM.yyyy'),
 							bold: true,
 							border: [false, true, true, false]
 						}], [{
@@ -184,7 +187,7 @@ export class ProjectReportSchema {
 						}],
 						...content.companions.map((companion, idx, arr) => {
 							const row = [];
-							row.push({ text: `${companion.academicTitle || ''} ${companion.firstName} ${companion.lastName}` });
+							row.push({ text: `${companion?.academicTitle || ''} ${companion.firstName} ${companion.lastName}` });
 							row.push({ text: companion.email });
 							row.push({ text: companion.phoneNumber || '' });
 
@@ -226,8 +229,12 @@ export class ProjectReportSchema {
 							border: [false, false, false, false]
 						}], [content.other]],
             dontBreakRows: true
-					}
-				}
+					},
+				},
+        {
+          image: content.milestoneTrendAnalysis,
+          width: 515,
+        },
 			]
 		};
 	}

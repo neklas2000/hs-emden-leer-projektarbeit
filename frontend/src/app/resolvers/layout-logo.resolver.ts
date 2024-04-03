@@ -1,13 +1,13 @@
-import { ResolveFn } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import { inject } from '@angular/core';
 
-import { map, of, switchMap, take } from 'rxjs';
+import { Observable, of, switchMap, take } from 'rxjs';
 
 import { CachingService } from '../services/caching.service';
 
-export const layoutLogoResolver: ResolveFn<string> = (
-  route,
-  state,
+export const layoutLogoResolver: ResolveFn<Observable<string>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
   cache: CachingService = inject(CachingService),
 ) => {
   return cache.logo$.pipe(

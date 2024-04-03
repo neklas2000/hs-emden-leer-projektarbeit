@@ -1,0 +1,54 @@
+@if (projectReport === null) {
+  <p>Auf Basis der ID, die innerhalb der URL zu finden ist, konnte kein Projektbericht gefunden werden.</p>
+} @else {
+  <div class="flex flex-col gap-y-4">
+    <mat-card>
+      <mat-card-content class="!flex justify-evenly">
+        <span>Berichtszeitpunkt: {{ projectReport.reportDate | date:'dd.MM.yyyy' }}</span>
+        <span>Folgenummer: {{ projectReport.sequenceNumber }}</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Ergebnisse</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-markdown-editor label="Ergebnisse" [(ngModel)]="deliverables"></app-markdown-editor>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Ziele</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-markdown-editor label="Ziele" [(ngModel)]="objectives"></app-markdown-editor>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Risiken</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-markdown-editor label="Risiken" [(ngModel)]="hazards"></app-markdown-editor>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Sonstiges</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-markdown-editor label="Sonstiges" [(ngModel)]="other"></app-markdown-editor>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-actions align="end">
+        <button (click)="cancel()" class="mr-4" mat-button>
+          Abbrechen
+        </button>
+        <button (click)="save()" mat-button>
+          Speichern
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+}

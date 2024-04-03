@@ -14,6 +14,15 @@ import { userProjectsResolver } from './resolvers/user-projects.resolver';
 import { ReportDetailsComponent } from './components/user/report-details/report-details.component';
 import { reportDetailsResolver } from './resolvers/report-details.resolver';
 import { authenticationGuard } from './guards/authentication.guard';
+import { NewProjectComponent } from './components/user/new-project/new-project.component';
+import { EditProjectComponent } from './components/user/edit-project/edit-project.component';
+import { projectEditResolver } from './resolvers/project-edit.resolver';
+import { EditMilestoneEstimatesComponent } from './components/edit-milestone-estimates/edit-milestone-estimates.component';
+import { milestoneEstimatesEditResolver } from './resolvers/milestone-estimates-edit.resolver';
+import { milestoneEstimatesProjectResolver } from './resolvers/milestone-estimates-project.resolver';
+import { NewReportComponent } from './components/user/new-report/new-report.component';
+import { EditReportComponent } from './components/user/edit-report/edit-report.component';
+import { reportEditResolver } from './resolvers/report-edit.resolver';
 
 export const routes: Routes = [
   {
@@ -23,7 +32,11 @@ export const routes: Routes = [
       logo: layoutLogoResolver,
     },
     children: [
-      { path: '', component: HomeComponent, title: 'HS Emden/Leer - MTA' },
+      {
+        path: '',
+        component: HomeComponent,
+        title: 'HS Emden/Leer - MTA',
+      },
       {
         path: 'auth',
         component: AuthComponent,
@@ -59,12 +72,43 @@ export const routes: Routes = [
         canActivate: [authenticationGuard],
       },
       {
+        path: 'projects/new',
+        component: NewProjectComponent,
+        title: 'Neues Projekte',
+        canActivate: [authenticationGuard],
+      },
+      {
         path: 'projects/:id',
         component: ProjectDetailsComponent,
         title: 'Projektdetails',
         resolve: {
-          project: projectDetailsResolver
+          project: projectDetailsResolver,
         },
+        canActivate: [authenticationGuard],
+      },
+      {
+        path: 'projects/:id/edit',
+        component: EditProjectComponent,
+        title: 'Projekt bearbeiten',
+        resolve: {
+          project: projectEditResolver,
+        },
+        canActivate: [authenticationGuard],
+      },
+      {
+        path: 'projects/:id/estimates/edit',
+        component: EditMilestoneEstimatesComponent,
+        title: 'Meilensteinprognosen bearbeiten',
+        resolve: {
+          milestones: milestoneEstimatesEditResolver,
+          project: milestoneEstimatesProjectResolver,
+        },
+        canActivate: [authenticationGuard],
+      },
+      {
+        path: 'projects/:projectId/report/new',
+        component: NewReportComponent,
+        title: 'Projektbericht erstellen',
         canActivate: [authenticationGuard],
       },
       {
@@ -73,6 +117,15 @@ export const routes: Routes = [
         title: 'Projektbericht Details',
         resolve: {
           report: reportDetailsResolver,
+        },
+        canActivate: [authenticationGuard],
+      },
+      {
+        path: 'projects/:projectId/report/:reportId/edit',
+        component: EditReportComponent,
+        title: 'Projektbericht bearbeiten',
+        resolve: {
+          report: reportEditResolver,
         },
         canActivate: [authenticationGuard],
       },

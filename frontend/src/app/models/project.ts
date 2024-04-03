@@ -15,8 +15,8 @@ export class Project extends BaseModel {
 
   id!: string;
   name!: string;
-  officialStart?: string = currentDate();
-  officialEnd?: Nullable<string> = null;
+  officialStart: string = currentDate();
+  officialEnd: Nullable<string> = null;
   reportInterval: number = 7;
   type!: string;
   owner!: User;

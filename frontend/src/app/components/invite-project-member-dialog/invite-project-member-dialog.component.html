@@ -11,8 +11,8 @@
     }
   }
 </h1>
-<div mat-dialog-content style="display: flex; flex-direction: column; row-gap: 16px;">
-  <mat-form-field style="width: 100%;">
+<div class="flex flex-col gap-y-4" mat-dialog-content>
+  <mat-form-field class="w-full">
     <mat-label>Benutzer</mat-label>
     <mat-select [(value)]='selectedUser'>
       @for (user of users | async; track user.id) {
@@ -20,7 +20,7 @@
       }
     </mat-select>
   </mat-form-field>
-  <mat-form-field style="width: 100%;">
+  <mat-form-field class="w-full">
     <mat-label>Rolle</mat-label>
     <mat-select [(value)]='data.role'>
       <mat-option value='contributor'>Studierender</mat-option>

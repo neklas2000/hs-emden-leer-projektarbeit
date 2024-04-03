@@ -60,15 +60,55 @@ export class HttpException {
     }
   }
 
-  get headers() {
+  get headers(): any {
     return this.httpHeaders;
   }
 
-  get baseDetails() {
-    return this.baseInformation;
+  get code(): string {
+    return this.detailedInformation.code;
   }
 
-  get details() {
-    return this.detailedInformation;
+  get description(): string {
+    return this.detailedInformation.description;
+  }
+
+  get message(): string {
+    if (this.detailedInformation.message.length === 0) {
+      return this.baseInformation.message;
+    }
+
+    return this.detailedInformation.message;
+  }
+
+  get requestPath(): string {
+    return this.detailedInformation.path;
+  }
+
+  get timestamp(): string {
+    return this.detailedInformation.timestamp;
+  }
+
+  get fullRequestUrl(): string {
+    return this.baseInformation.url;
+  }
+
+  get status(): number {
+    if (this.detailedInformation.status !== 0) {
+      return this.detailedInformation.status;
+    }
+
+    return this.baseInformation.status;
+  }
+
+  get statusText(): string {
+    return this.baseInformation.statusText;
+  }
+
+  get name(): string {
+    return this.baseInformation.name;
+  }
+
+  get ok(): boolean {
+    return this.baseInformation.ok;
   }
 }

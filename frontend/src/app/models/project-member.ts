@@ -9,9 +9,9 @@ export enum ProjectRole {
 
 export class ProjectMember extends BaseModel {
   public static override ROUTES: ApiRoutes = {
-    LOAD_ALL: '',
-    LOAD: '',
-    ADD: '',
+    LOAD_ALL: 'project/members',
+    LOAD: 'project/members/:id',
+    ADD: 'project/members',
   };
 
   id!: string;

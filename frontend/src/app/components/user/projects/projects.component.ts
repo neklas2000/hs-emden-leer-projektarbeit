@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Project } from '../../../models/project';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-projects',

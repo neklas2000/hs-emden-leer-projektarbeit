@@ -12,6 +12,8 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
+import { Nullable } from '../../types/nullable';
+
 type DialogData = {
   isImage: boolean;
 };
@@ -33,7 +35,7 @@ type DialogData = {
   styleUrl: './markdown-editor-dialog.component.scss'
 })
 export class MarkdownEditorDialogComponent {
-  uri: string | null = null;
+  uri: Nullable<string> = null;
 
   constructor(
     public dialogRef: MatDialogRef<MarkdownEditorDialogComponent>,

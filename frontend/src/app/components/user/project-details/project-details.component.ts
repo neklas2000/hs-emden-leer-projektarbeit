@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule, DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { take } from 'rxjs';
 
@@ -9,12 +14,9 @@ import { Nullable } from '../../../types/nullable';
 import { Project } from '../../../models/project';
 import { ProjectRole } from '../../../models/project-member';
 import { User } from '../../../models/user';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { CommonModule, DatePipe } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { InviteProjectMemberDialogComponent } from '../../invite-project-member-dialog/invite-project-member-dialog.component';
 import { MilestoneTrendAnalysisChartComponent } from '../../milestone-trend-analysis-chart/milestone-trend-analysis-chart.component';
+import { MilestoneEstimate } from '../../../models/milestone-estimate';
 
 @Component({
   selector: 'app-project-details',
@@ -28,6 +30,7 @@ import { MilestoneTrendAnalysisChartComponent } from '../../milestone-trend-anal
     RouterModule,
     CommonModule,
     MilestoneTrendAnalysisChartComponent,
+    MatTooltipModule,
   ],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss'
@@ -100,5 +103,9 @@ export class ProjectDetailsComponent implements OnInit {
     dialogRef.afterClosed().pipe(take(1)).subscribe((result) => {
       console.log(result);
     });
+  }
+
+  isMilestoneReached(estimates: MilestoneEstimate[]): boolean {
+    return estimates.filter((estimate) => estimate.milestoneReached).length > 0;
   }
 }

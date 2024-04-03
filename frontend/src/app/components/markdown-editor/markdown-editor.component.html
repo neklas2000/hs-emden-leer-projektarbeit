@@ -53,8 +53,10 @@
     (input)='onInputChange()'
   >
     <mat-label>{{ label }}</mat-label>
-    <textarea matInput [(ngModel)]='markdown' rows='10' #textArea maxlength='16777215'></textarea>
-    <mat-hint align="end">{{ textArea.value.length }}/16777215</mat-hint>
+    <textarea [(ngModel)]='markdown' rows='10' #textArea maxlength='16777215' matInput></textarea>
+    @if (textArea.value.length / 16777215 >= 0.9) {
+      <mat-hint align="end">{{ textArea.value.length }}/16777215</mat-hint>
+    }
   </mat-form-field>
   <markdown
     lineNumbers
