@@ -7,7 +7,7 @@ import { Project } from '@Models/project';
 import { projectEditResolver } from './project-edit.resolver';
 import { Nullable } from '@Types';
 
-describe('projectEditResolver', () => {
+describe('Resolver: projectEditResolver', () => {
   const executeResolver: ResolveFn<Nullable<Observable<Project>>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => projectEditResolver(...resolverParameters));
 

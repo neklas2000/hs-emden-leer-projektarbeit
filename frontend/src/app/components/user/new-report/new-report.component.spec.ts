@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewReportComponent } from './new-report.component';
 
-describe('NewReportComponent', () => {
+describe('Component: NewReportComponent', () => {
   let component: NewReportComponent;
   let fixture: ComponentFixture<NewReportComponent>;
 
@@ -11,7 +11,7 @@ describe('NewReportComponent', () => {
       imports: [NewReportComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(NewReportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

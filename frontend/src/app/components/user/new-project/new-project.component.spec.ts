@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewProjectComponent } from './new-project.component';
 
-describe('NewProjectComponent', () => {
+describe('Component: NewProjectComponent', () => {
   let component: NewProjectComponent;
   let fixture: ComponentFixture<NewProjectComponent>;
 
@@ -11,7 +11,7 @@ describe('NewProjectComponent', () => {
       imports: [NewProjectComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(NewProjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

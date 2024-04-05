@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { layoutLogoResolver } from './layout-logo.resolver';
 
-describe('layoutLogoResolver', () => {
+describe('Resolver: layoutLogoResolver', () => {
   const executeResolver: ResolveFn<Observable<string>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => layoutLogoResolver(...resolverParameters));
 

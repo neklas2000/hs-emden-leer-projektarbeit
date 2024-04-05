@@ -1,12 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 
+import { provideMarkdown } from 'ngx-markdown';
+
 import { PdfService } from './pdf.service';
 
-describe('PdfService', () => {
+describe('Service: PdfService', () => {
   let service: PdfService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        provideMarkdown(),
+      ],
+    });
+
     service = TestBed.inject(PdfService);
   });
 

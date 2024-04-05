@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { milestoneEstimatesEditResolver } from './milestone-estimates-edit.resolver';
 import { ProjectMilestone } from '@Models/project-milestone';
 
-describe('milestoneEstimatesEditResolver', () => {
+describe('Resolver: milestoneEstimatesEditResolver', () => {
   const executeResolver: ResolveFn<Observable<ProjectMilestone[]>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => milestoneEstimatesEditResolver(...resolverParameters));
 

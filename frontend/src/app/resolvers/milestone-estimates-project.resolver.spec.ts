@@ -7,7 +7,7 @@ import { milestoneEstimatesProjectResolver } from './milestone-estimates-project
 import { Project } from '@Models/project';
 import { Nullable } from '@Types';
 
-describe('milestoneEstimatesProjectResolver', () => {
+describe('Resolver: milestoneEstimatesProjectResolver', () => {
   const executeResolver: ResolveFn<Nullable<Observable<Project>>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => milestoneEstimatesProjectResolver(...resolverParameters));
 

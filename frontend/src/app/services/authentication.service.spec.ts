@@ -1,12 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from './authentication.service';
+import { JsonApiDatastore } from './json-api-datastore.service';
 
-describe('AuthenticationService', () => {
+describe('Service: AuthenticationService', () => {
   let service: AuthenticationService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        JsonApiDatastore,
+        provideHttpClient(),
+      ]
+    });
     service = TestBed.inject(AuthenticationService);
   });
 
