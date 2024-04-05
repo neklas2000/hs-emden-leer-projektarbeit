@@ -1,12 +1,11 @@
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-
 import { Injectable } from '@angular/core';
 
-import { ProjectReportContent, ProjectReportSchema } from '../pdf-schemas/project-report.schema';
-import { Nullable } from '../types/nullable';
-import { Undefinable } from '../types/undefinable';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Content } from 'pdfmake/interfaces';
+
+import { ProjectReportContent, ProjectReportSchema } from '@PdfSchemas/project-report.schema';
+import { Nullable, Undefinable } from '@Types';
 
 @Injectable({
   providedIn: 'root'

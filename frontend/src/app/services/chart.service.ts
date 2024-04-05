@@ -14,8 +14,8 @@ import {
 } from 'ng-apexcharts';
 import ApexCharts from 'apexcharts';
 
-import { Nullable } from '../types/nullable';
-import { ProjectMilestone } from '../models/project-milestone';
+import { ProjectMilestone } from '@Models/project-milestone';
+import { Nullable } from '@Types';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;

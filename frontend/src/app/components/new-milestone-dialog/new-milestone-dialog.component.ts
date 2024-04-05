@@ -5,7 +5,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { ProjectMilestone } from '../../models/project-milestone';
+import { ProjectMilestone } from '@Models/project-milestone';
 
 @Component({
   selector: 'app-new-milestone-dialog',

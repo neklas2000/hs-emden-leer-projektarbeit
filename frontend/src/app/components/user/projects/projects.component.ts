@@ -5,7 +5,7 @@ import { MatListModule } from '@angular/material/list';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Project } from '../../../models/project';
+import { Project } from '@Models/project';
 
 @Component({
   selector: 'app-projects',

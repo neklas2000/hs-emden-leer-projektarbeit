@@ -3,9 +3,9 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 
 import { Observable } from 'rxjs';
 
-import { Nullable } from '../types/nullable';
-import { Project } from '../models/project';
-import { JsonApiDatastore } from '../services/json-api-datastore.service';
+import { Project } from '@Models/project';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { Nullable } from '@Types';
 
 export const projectDetailsResolver: ResolveFn<Nullable<Observable<Project>>> = (
   route: ActivatedRouteSnapshot,

@@ -3,9 +3,9 @@ import { inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { JsonApiDatastore } from '../services/json-api-datastore.service';
-import { ProjectReport } from '../models/project-report';
-import { Nullable } from '../types/nullable';
+import { ProjectReport } from '@Models/project-report';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { Nullable } from '@Types';
 
 export const reportDetailsResolver: ResolveFn<Nullable<Observable<ProjectReport>>> = (
   route: ActivatedRouteSnapshot,

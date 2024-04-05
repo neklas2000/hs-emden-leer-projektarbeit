@@ -1,9 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 
 import { catchError, throwError } from 'rxjs';
 
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '@Services/authentication.service';
 
 export const authenticationInterceptor: HttpInterceptorFn = (
   request: HttpRequest<any>,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DateTime, DurationUnits, Interval } from 'luxon';
 
-import { Nullable } from '../types/nullable';
+import { Nullable } from '@Types';
 
 @Injectable({
   providedIn: 'root'

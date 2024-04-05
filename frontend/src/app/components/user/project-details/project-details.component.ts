@@ -10,13 +10,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { take } from 'rxjs';
 
-import { Nullable } from '../../../types/nullable';
-import { Project } from '../../../models/project';
-import { ProjectRole } from '../../../models/project-member';
-import { User } from '../../../models/user';
-import { InviteProjectMemberDialogComponent } from '../../invite-project-member-dialog/invite-project-member-dialog.component';
-import { MilestoneTrendAnalysisChartComponent } from '../../milestone-trend-analysis-chart/milestone-trend-analysis-chart.component';
-import { MilestoneEstimate } from '../../../models/milestone-estimate';
+import {
+  InviteProjectMemberDialogComponent
+} from '../../invite-project-member-dialog/invite-project-member-dialog.component';
+import {
+  MilestoneTrendAnalysisChartComponent
+} from '../../milestone-trend-analysis-chart/milestone-trend-analysis-chart.component';
+import { Project } from '@Models/project';
+import { ProjectRole } from '@Models/project-member';
+import { User } from '@Models/user';
+import { MilestoneEstimate } from '@Models/milestone-estimate';
+import { Nullable } from '@Types';
 
 @Component({
   selector: 'app-project-details',

@@ -6,9 +6,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { MARKED_OPTIONS, MarkedRenderer, provideMarkdown } from 'ngx-markdown';
 
 import { routes } from './app.routes';
-import { CHECKED_CHECKBOX } from '../constants/checked-checkbox';
-import { UNCHECKED_CHECKBOX } from '../constants/unchecked-checkbox';
-import { authenticationInterceptor } from './interceptors/authentication.interceptor';
+import { CHECKED_CHECKBOX, UNCHECKED_CHECKBOX } from '../constants';
+import { authenticationInterceptor } from '@Interceptors/authentication.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,4 +1,4 @@
-import { JsonApiQueries } from '../types/json-api-queries';
+import { JsonApiQueries } from '@Types';
 
 export function parseJsonApiQuery(query?: JsonApiQueries): string {
   if (!query) return '';

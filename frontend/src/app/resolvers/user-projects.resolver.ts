@@ -3,9 +3,9 @@ import { inject } from '@angular/core';
 
 import { Observable, switchMap, take } from 'rxjs';
 
-import { Project } from '../models/project';
-import { JsonApiDatastore } from '../services/json-api-datastore.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { Project } from '@Models/project';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { AuthenticationService } from '@Services/authentication.service';
 
 export const userProjectsResolver: ResolveFn<Observable<Project[]>> = (
   route,

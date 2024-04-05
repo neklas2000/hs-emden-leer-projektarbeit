@@ -1,4 +1,4 @@
-import { Nullable } from './nullable';
+import { Nullable } from '@Types';
 
 export class Tupel<T1, T2 = T1> {
   private values: [Nullable<T1>, Nullable<T2>] = [null, null];

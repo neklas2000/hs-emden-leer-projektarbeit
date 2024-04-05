@@ -1,6 +1,6 @@
-import { User } from './user';
-import { Project } from './project';
 import { ApiRoutes, BaseModel } from './base-model';
+import { Project } from './project';
+import { User } from './user';
 
 export enum ProjectRole {
   Contributor = 'contributor',

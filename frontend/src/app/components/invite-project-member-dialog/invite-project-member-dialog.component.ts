@@ -10,10 +10,10 @@ import { AsyncPipe } from '@angular/common';
 
 import { Observable, take } from 'rxjs';
 
-import { ProjectRole } from '../../models/project-member';
-import { Nullable } from '../../types/nullable';
-import { JsonApiDatastore } from '../../services/json-api-datastore.service';
-import { User } from '../../models/user';
+import { ProjectRole } from '@Models/project-member';
+import { User } from '@Models/user';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { Nullable } from '@Types';
 
 type DialogData = {
   role: Nullable<ProjectRole>;

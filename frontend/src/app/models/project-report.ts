@@ -1,7 +1,7 @@
-import { Nullable } from '../types/nullable';
-import { Project } from './project';
-import { currentDate } from '../utils/current-date';
 import { ApiRoutes, BaseModel } from './base-model';
+import { Project } from './project';
+import { Nullable } from '@Types';
+import { currentDate } from '@Utils/current-date';
 
 export class ProjectReport extends BaseModel {
   public static override ROUTES: ApiRoutes = {

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 import { Observable, of, switchMap, take } from 'rxjs';
 
-import { CachingService } from '../services/caching.service';
+import { CachingService } from '@Services/caching.service';
 
 export const layoutLogoResolver: ResolveFn<Observable<string>> = (
   route: ActivatedRouteSnapshot,

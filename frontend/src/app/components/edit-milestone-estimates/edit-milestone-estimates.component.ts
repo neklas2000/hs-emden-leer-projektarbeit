@@ -14,14 +14,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 
 import { EditMilestoneEstimatesTabComponent } from '../edit-milestone-estimates-tab/edit-milestone-estimates-tab.component';
-import { ProjectMilestone } from '../../models/project-milestone';
-import { Nullable } from '../../types/nullable';
-import { Project } from '../../models/project';
-import { DateService } from '../../services/date.service';
-import { JsonApiDatastore } from '../../services/json-api-datastore.service';
-import { SnackbarService } from '../../services/snackbar.service';
+import { ProjectMilestone } from '@Models/project-milestone';
+import { Project } from '@Models/project';
 import { NewMilestoneDialogComponent } from '../new-milestone-dialog/new-milestone-dialog.component';
-import { HttpException } from '../../types/http-exception';
+import { DateService } from '@Services/date.service';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { Nullable } from '@Types';
+import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'app-edit-milestone-estimates',

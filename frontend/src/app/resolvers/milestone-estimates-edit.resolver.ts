@@ -3,8 +3,8 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 
 import { Observable } from 'rxjs';
 
-import { ProjectMilestone } from '../models/project-milestone';
-import { JsonApiDatastore } from '../services/json-api-datastore.service';
+import { ProjectMilestone } from '@Models/project-milestone';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
 
 export const milestoneEstimatesEditResolver: ResolveFn<Observable<ProjectMilestone[]>> = (
   route: ActivatedRouteSnapshot,

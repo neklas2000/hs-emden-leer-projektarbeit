@@ -1,6 +1,6 @@
-import { Nullable } from '../types/nullable';
 import { ApiRoutes, BaseModel } from './base-model';
 import { Project } from './project';
+import { Nullable } from '@Types';
 
 export class User extends BaseModel {
   public static override ROUTES: ApiRoutes = {

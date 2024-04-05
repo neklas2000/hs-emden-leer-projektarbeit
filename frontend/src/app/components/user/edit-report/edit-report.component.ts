@@ -8,13 +8,12 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 
 import { take } from 'rxjs';
 
-import { MarkdownEditorComponent } from '../../markdown-editor/markdown-editor.component';
-import { Nullable } from '../../../types/nullable';
-import { ProjectReport } from '../../../models/project-report';
-import { SnackbarService } from '../../../services/snackbar.service';
-import { ProjectReportService } from '../../../services/project-report.service';
-import { DeepPartial } from '../../../types/deep-partial';
-import { HttpException } from '../../../types/http-exception';
+import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
+import { ProjectReport } from '@Models/project-report';
+import { SnackbarService } from '@Services/snackbar.service';
+import { ProjectReportService } from '@Services/project-report.service';
+import { Nullable, DeepPartial } from '@Types';
+import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'app-edit-report',

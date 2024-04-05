@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 import { MarkdownPipe } from 'ngx-markdown';
 import { take } from 'rxjs';
 
-import { Nullable } from '../../../types/nullable';
-import { ProjectReport } from '../../../models/project-report';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { ChartService } from '../../../services/chart.service';
-import { PdfService } from '../../../services/pdf.service';
-import { JsonApiDatastore } from '../../../services/json-api-datastore.service';
-import { SnackbarService } from '../../../services/snackbar.service';
-import { Project } from '../../../models/project';
-import { ProjectRole } from '../../../models/project-member';
-import { HttpException } from '../../../types/http-exception';
-import { MatButtonModule } from '@angular/material/button';
+import { ProjectReport } from '@Models/project-report';
+import { Project } from '@Models/project';
+import { ProjectRole } from '@Models/project-member';
+import { ChartService } from '@Services/chart.service';
+import { PdfService } from '@Services/pdf.service';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { Nullable } from '@Types';
+import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'app-report-details',

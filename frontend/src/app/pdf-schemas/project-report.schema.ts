@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
+import htmlToPdfmake from 'html-to-pdfmake';
+import { DateTime } from 'luxon';
 import { MarkdownService } from 'ngx-markdown';
 import { Content, DynamicBackground, TDocumentDefinitions } from 'pdfmake/interfaces';
-import htmlToPdfmake from 'html-to-pdfmake';
 
 import { parseCheckbox } from './parse-checkbox';
 import { PdfSchema } from './pdf-schema';
-import { DateTime } from 'luxon';
 
 export type ProjectReportContent<E = string> = {
   projectTitle: string;

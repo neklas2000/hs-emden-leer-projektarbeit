@@ -10,10 +10,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterOutlet, RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 
-import { MediaMatching } from '../../services/media-matching.service';
-import { ThemeMode, ThemeService } from '../../services/theme.service';
-import { AuthenticationService } from '../../services/authentication.service';
 import { take } from 'rxjs';
+
+import { MediaMatching } from '@Services/media-matching.service';
+import { ThemeMode, ThemeService } from '@Services/theme.service';
+import { AuthenticationService } from '@Services/authentication.service';
 
 type NavigationItem = {
   id: number;

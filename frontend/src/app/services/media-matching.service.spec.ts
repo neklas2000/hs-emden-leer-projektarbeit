@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MediaMatchingService } from './media-matching.service';
+import { MediaMatching } from './media-matching.service';
 
-describe('MediaMatchingService', () => {
-  let service: MediaMatchingService;
+describe('Service: MediaMatching', () => {
+  let service: MediaMatching;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MediaMatchingService);
+    service = TestBed.inject(MediaMatching);
   });
 
   it('should be created', () => {

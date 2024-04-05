@@ -3,10 +3,9 @@ import { inject } from '@angular/core';
 
 import { Observable, catchError, forkJoin, of, switchMap } from 'rxjs';
 
-import { HttpException } from '../types/http-exception';
-import { JsonApiQueries } from '../types/json-api-queries';
-import { parseJsonApiQuery } from '../utils/parse-json-api-query';
-import { RequestIds } from '../types/request-ids';
+import { JsonApiQueries, RequestIds } from '@Types';
+import { HttpException } from '@Utils/http-exception';
+import { parseJsonApiQuery } from '@Utils/parse-json-api-query';
 
 type SuccessResponse = {
   success: boolean;

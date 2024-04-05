@@ -2,9 +2,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 
-import { Nullable } from '../../types/nullable';
-import { ProjectMilestone } from '../../models/project-milestone';
-import { ChartService, ChartOptions } from '../../services/chart.service';
+import { ProjectMilestone } from '@Models/project-milestone';
+import { ChartService, ChartOptions } from '@Services/chart.service';
+import { Nullable } from '@Types';
 
 @Component({
   selector: 'app-milestone-trend-analysis-chart',

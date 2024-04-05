@@ -1,6 +1,6 @@
 import { Content, DynamicBackground, TDocumentDefinitions } from 'pdfmake/interfaces';
 
-import { Undefinable } from '../types/undefinable';
+import { Undefinable } from '@Types';
 
 export interface PdfSchema<T> {
   populate(

@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
+import { Observable } from 'rxjs';
+
 import { milestoneEstimatesEditResolver } from './milestone-estimates-edit.resolver';
+import { ProjectMilestone } from '@Models/project-milestone';
 
 describe('milestoneEstimatesEditResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
+  const executeResolver: ResolveFn<Observable<ProjectMilestone[]>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => milestoneEstimatesEditResolver(...resolverParameters));
 
   beforeEach(() => {

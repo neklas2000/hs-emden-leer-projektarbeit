@@ -1,7 +1,7 @@
-import { Project } from './project';
-import { MilestoneEstimate } from './milestone-estimate';
-import { Nullable } from '../types/nullable';
 import { ApiRoutes, BaseModel } from './base-model';
+import { MilestoneEstimate } from './milestone-estimate';
+import { Project } from './project';
+import { Nullable } from '@Types';
 
 export class ProjectMilestone extends BaseModel {
   public static override ROUTES: ApiRoutes = {

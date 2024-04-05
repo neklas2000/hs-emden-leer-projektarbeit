@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable, forkJoin } from 'rxjs';
 
-import { BaseModel } from '../models/base-model';
-import { Nullable } from '../types/nullable';
+import { BaseModel } from '@Models/base-model';
+import { Nullable } from '@Types';
 
 type JsonApiQueries = {
   includes?: string[];

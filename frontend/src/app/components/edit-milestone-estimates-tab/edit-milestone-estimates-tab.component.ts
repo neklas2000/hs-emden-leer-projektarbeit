@@ -9,19 +9,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { ProjectMilestone } from '../../models/project-milestone';
-import { Nullable } from '../../types/nullable';
-import { ChartOptions, ChartService, FreeMarkers } from '../../services/chart.service';
-import { Tupel } from '../../types/tupel';
-import { MatDialog } from '@angular/material/dialog';
-import { JsonApiDatastore } from '../../services/json-api-datastore.service';
-import { SnackbarService } from '../../services/snackbar.service';
-import { DateService } from '../../services/date.service';
-import { MilestoneEstimate } from '../../models/milestone-estimate';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { take } from 'rxjs';
+
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ProjectMilestone } from '@Models/project-milestone';
+import { MilestoneEstimate } from '@Models/milestone-estimate';
+import { ChartOptions, ChartService, FreeMarkers } from '@Services/chart.service';
+import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { DateService } from '@Services/date.service';
+import { Nullable } from '@Types';
+import { Tupel } from '@Utils/tupel';
 
 type ApexChartEventConfig = {
   /**

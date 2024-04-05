@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 import * as crypto from 'crypto-js';
 import { BehaviorSubject, Observable, catchError, map, of, switchMap, take } from 'rxjs';
 
-import { Nullable } from '../types/nullable';
-import { User } from '../models/user';
 import { JsonApiDatastore } from './json-api-datastore.service';
-import { HttpException } from '../types/http-exception';
+import { User } from '@Models/user';
+import { Nullable } from '@Types';
+import { HttpException } from '@Utils/http-exception';
 
 type TokensResponse = {
   accessToken: string;

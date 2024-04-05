@@ -1,10 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
-import { reportDetailsResolver } from './report-details.resolver';
+import { Observable } from 'rxjs';
 
-describe('reportDetailsResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
+import { ProjectReport } from '@Models/project-report';
+import { reportDetailsResolver } from './report-details.resolver';
+import { Nullable } from '@Types';
+
+describe('Resolver: reportDetailsResolver', () => {
+  const executeResolver: ResolveFn<Nullable<Observable<ProjectReport>>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => reportDetailsResolver(...resolverParameters));
 
   beforeEach(() => {

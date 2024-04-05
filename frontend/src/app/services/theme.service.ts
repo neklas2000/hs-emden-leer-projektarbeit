@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export enum ThemeMode {
   LIGHT = 'LIGHT',
-  DARK = 'DARK'
+  DARK = 'DARK',
 }
 
 @Injectable({

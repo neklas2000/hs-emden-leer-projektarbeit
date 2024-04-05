@@ -1,12 +1,15 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test:firefox": "ng test --code-coverage --browsers Firefox",
+    "test:firefox-headless": "ng test --code-coverage --browsers FirefoxHeadless",
+    "test:chrome": "ng test --code-coverage --browsers Chrome",
+    "test:chrome-headless": "ng test --code-coverage --browsers ChromeHeadless"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +54,8 @@
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
+    "karma-firefox-launcher": "^2.1.3",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.32",

@@ -1,7 +1,7 @@
-import { ProjectMilestone } from './project-milestone';
-import { currentDate } from '../utils/current-date';
-import { Nullable } from '../types/nullable';
 import { ApiRoutes, BaseModel } from './base-model';
+import { ProjectMilestone } from './project-milestone';
+import { Nullable } from '@Types';
+import { currentDate } from '@Utils/current-date';
 
 export class MilestoneEstimate extends BaseModel {
   public static override ROUTES: ApiRoutes = {
