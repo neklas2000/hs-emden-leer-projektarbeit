@@ -55,7 +55,7 @@ module.exports = function (config) {
       'Firefox',
       'FirefoxHeadless',
     ],
-    singleRun: false,
+    singleRun: process.env.SINGLE_RUN || false,
     restartOnFileChange: true,
   });
 };
