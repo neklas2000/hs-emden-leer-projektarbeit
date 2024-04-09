@@ -23,6 +23,7 @@
     "^@Filters/(.*)$": ["<rootDir>/../src/filters/$1"],
     "^@Exceptions/(.*)$": ["<rootDir>/../src/exceptions/$1"],
     "^@Decorators/(.*)$": ["<rootDir>/../src/decorators/$1"],
-    "^@Common/(.*)$": ["<rootDir>/../src/common/$1"]
+    "^@Common/(.*)$": ["<rootDir>/../src/common/$1"],
+    "^@Mocks/Providers/(.*)$": ["<rootDir>/../src/mocks/providers/$1"]
   }
 }

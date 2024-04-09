@@ -8,7 +8,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest --watchAll",
+    "test": "jest --coverage --watchAll",
     "schema:sync": "npx typeorm schema:sync -d build/src/type-orm.config.js",
     "migrations:generate": "npx typeorm migration:generate -d build/src/type-orm.config.js build/src/migrations/ProjektarbeitAPI",
     "migrations:revert": "npx typeorm migration:revert -d build/src/type-orm.config.js"
@@ -73,7 +73,23 @@
     "collectCoverageFrom": [
       "**/*.[jt]s"
     ],
-    "coverageDirectory": "./coverage",
+    "coverageDirectory": "../coverage/api",
+    "coverageReporters": [
+      "clover",
+      "text-summary",
+      "html"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/mocks"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "lines": 100,
+        "statements": 100,
+        "functions": 100
+      }
+    },
     "testEnvironment": "node",
     "moduleNameMapper": {
       "^@Routes/Authentication/(.*)$": ["<rootDir>/../src/authentication/$1"],
@@ -92,7 +108,8 @@
       "^@Filters/(.*)$": ["<rootDir>/../src/filters/$1"],
       "^@Exceptions/(.*)$": ["<rootDir>/../src/exceptions/$1"],
       "^@Decorators/(.*)$": ["<rootDir>/../src/decorators/$1"],
-      "^@Common/(.*)$": ["<rootDir>/../src/common/$1"]
+      "^@Common/(.*)$": ["<rootDir>/../src/common/$1"],
+      "^@Mocks/Providers/(.*)$": ["<rootDir>/../src/mocks/providers/$1"]
     }
   }
 }
