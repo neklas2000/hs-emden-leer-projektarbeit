@@ -5,7 +5,7 @@ import { createDatabase } from 'typeorm-extension';
 
 import { AppModule } from './app.module';
 import config from './config';
-import { AllExceptionsFilter } from './filters';
+import { AllExceptionsFilter } from '@Filters/all-exceptions.filter';
 
 export async function bootstrap(port: number) {
   await createDatabase({

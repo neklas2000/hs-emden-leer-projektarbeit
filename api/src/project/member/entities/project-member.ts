@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 
-import { User } from '../../../user/entities';
-import { Project } from '../../entities';
-import { PrimaryGeneratedUUID } from '../../../decorators';
-import { BaseEntityWithExtras, RelationTypes } from '../../../common';
+import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
+import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
+import { Project } from '@Routes/Project/entities';
+import { User } from '@Routes/User/entities';
 
 export enum ProjectRole {
   Contributor = 'contributor',

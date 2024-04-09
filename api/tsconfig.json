@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "Node16",
     "module": "NodeNext",
     "declaration": true,
     "removeComments": true,
@@ -9,7 +11,7 @@
     "target": "ES6",
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -17,7 +19,26 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "lib": ["ESNext"]
+    "lib": ["ESNext"],
+    "paths": {
+      "@Routes/Authentication/*": ["authentication/*"],
+      "@Routes/Profile/*": ["profile/*"],
+      "@Routes/Project/*": ["project/*"],
+      "@Routes/ProjectMember/*": ["project/member/*"],
+      "@Routes/ProjectMilestone/*": ["project/milestone/*"],
+      "@Routes/MilestoneEstimate/*": ["project/milestone/estimate/*"],
+      "@Routes/ProjectReport/*": ["project/report/*"],
+      "@Routes/User/*": ["user/*"],
+      "@Utils/*": ["utils/*"],
+      "@Types/*": ["types/*"],
+      "@Tokens/*": ["tokens/*"],
+      "@Strategies/*": ["strategies/*"],
+      "@Guards/*": ["guards/*"],
+      "@Filters/*": ["filters/*"],
+      "@Exceptions/*": ["exceptions/*"],
+      "@Decorators/*": ["decorators/*"],
+      "@Common/*": ["common/*"]
+    }
   },
   "include": [
     "src/**/*.ts",

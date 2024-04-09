@@ -7,9 +7,9 @@ import { DeepPartial, DeleteResult } from 'typeorm';
 import {
   IncorrectCredentialsException,
   UserAlreadyExistsException,
-} from '../../exceptions';
-import { UserService } from '../../user/services/user.service';
-import { User } from '../../user/entities';
+} from '@Exceptions/index';
+import { UserService } from '@Routes/User/services';
+import { User } from '@Routes/User/entities';
 import {
   TokenPairAndOwner,
   TokenWhitelistService,

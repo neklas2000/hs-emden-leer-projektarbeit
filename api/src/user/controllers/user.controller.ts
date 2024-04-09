@@ -7,11 +7,11 @@ import {
   FindOptionsWhere,
 } from 'typeorm';
 
-import { User } from '../entities';
-import { UserService } from '../services';
-import { promiseToObservable } from '../../utils';
-import { AccessTokenGuard } from '../../guards';
-import { Filters, Includes, SparseFieldsets } from '../../decorators';
+import { Filters, Includes, SparseFieldsets } from '@Decorators/index';
+import { AccessTokenGuard } from '@Guards/access-token.guard';
+import { User } from '@Routes/User/entities';
+import { UserService } from '@Routes/User/services';
+import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
 @Controller('users')

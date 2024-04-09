@@ -8,7 +8,7 @@ import {
   Repository,
 } from 'typeorm';
 
-import { MilestoneEstimate } from '../entities';
+import { MilestoneEstimate } from '@Routes/MilestoneEstimate/entities';
 
 @Injectable()
 export class MilestoneEstimateService {

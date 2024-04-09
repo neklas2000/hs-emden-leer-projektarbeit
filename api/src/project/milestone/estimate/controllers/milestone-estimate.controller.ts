@@ -7,11 +7,11 @@ import {
   FindOptionsRelations,
 } from 'typeorm';
 
-import { MilestoneEstimateService } from '../services';
-import { promiseToObservable } from '../../../../utils';
-import { MilestoneEstimate } from '../entities';
-import { AccessTokenGuard } from '../../../../guards';
-import { Filters, SparseFieldsets, Includes } from '../../../../decorators';
+import { Filters, SparseFieldsets, Includes } from '@Decorators/index';
+import { AccessTokenGuard } from '@Guards/access-token.guard';
+import { MilestoneEstimateService } from '@Routes/MilestoneEstimate/services';
+import { MilestoneEstimate } from '@Routes/MilestoneEstimate/entities';
+import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
 @Controller('milestone/estimates')

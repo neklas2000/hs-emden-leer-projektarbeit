@@ -3,15 +3,15 @@ import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { Observable } from 'rxjs';
 
-import { User } from '../../decorators/user.decorator';
-import { AccessTokenGuard, RefreshTokenGuard } from '../../guards';
+import { User } from '@Decorators/user.decorator';
+import { AccessTokenGuard, RefreshTokenGuard } from '@Guards/index';
 import {
   AuthenticationService,
   TokensResponse,
   TokensWithUserResponse,
-} from '../services';
-import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../tokens';
-import { promiseToObservable } from '../../utils';
+} from '@Routes/Authentication/services';
+import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '@Tokens/index';
+import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 type AuthenticationPayload = {
   email: string;

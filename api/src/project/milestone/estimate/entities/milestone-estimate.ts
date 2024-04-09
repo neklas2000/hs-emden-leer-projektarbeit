@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 
-import { ProjectMilestone } from '../../entities';
-import { PrimaryGeneratedUUID } from '../../../../decorators';
-import { BaseEntityWithExtras, RelationTypes } from '../../../../common';
+import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
+import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
+import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
 
 @Entity('milestone_estimate')
 export class MilestoneEstimate extends BaseEntityWithExtras {

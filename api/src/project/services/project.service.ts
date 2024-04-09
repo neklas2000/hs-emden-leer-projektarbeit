@@ -8,7 +8,7 @@ import {
   Repository,
 } from 'typeorm';
 
-import { Project } from '../entities';
+import { Project } from '@Routes/Project/entities';
 
 @Injectable()
 export class ProjectService {

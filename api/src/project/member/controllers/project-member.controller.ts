@@ -7,11 +7,11 @@ import {
   FindOptionsRelations,
 } from 'typeorm';
 
-import { ProjectMemberService } from '../services';
-import { promiseToObservable } from '../../../utils';
-import { ProjectMember } from '../entities';
-import { AccessTokenGuard } from '../../../guards';
-import { Filters, SparseFieldsets, Includes } from '../../../decorators';
+import { Filters, SparseFieldsets, Includes } from '@Decorators/index';
+import { AccessTokenGuard } from '@Guards/access-token.guard';
+import { ProjectMember } from '@Routes/ProjectMember/entities';
+import { ProjectMemberService } from '@Routes/ProjectMember/services';
+import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
 @Controller('project/members')

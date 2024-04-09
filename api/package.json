@@ -74,6 +74,25 @@
       "**/*.[jt]s"
     ],
     "coverageDirectory": "./coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@Routes/Authentication/(.*)$": ["<rootDir>/../src/authentication/$1"],
+      "^@Routes/Profile/(.*)$": ["<rootDir>/../src/profile/$1"],
+      "^@Routes/Project/(.*)$": ["<rootDir>/../src/project/$1"],
+      "^@Routes/ProjectMember/(.*)$": ["<rootDir>/../src/project/member/$1"],
+      "^@Routes/ProjectMilestone/(.*)$": ["<rootDir>/../src/project/milestone/$1"],
+      "^@Routes/MilestoneEstimate/(.*)$": ["<rootDir>/../src/project/milestone/estimate/$1"],
+      "^@Routes/ProjectReport/(.*)$": ["<rootDir>/../src/project/report/$1"],
+      "^@Routes/User/(.*)$": ["<rootDir>/../src/user/$1"],
+      "^@Utils/(.*)$": ["<rootDir>/../src/utils/$1"],
+      "^@Types/(.*)$": ["<rootDir>/../src/types/$1"],
+      "^@Tokens/(.*)$": ["<rootDir>/../src/tokens/$1"],
+      "^@Strategies/(.*)$": ["<rootDir>/../src/strategies/$1"],
+      "^@Guards/(.*)$": ["<rootDir>/../src/guards/$1"],
+      "^@Filters/(.*)$": ["<rootDir>/../src/filters/$1"],
+      "^@Exceptions/(.*)$": ["<rootDir>/../src/exceptions/$1"],
+      "^@Decorators/(.*)$": ["<rootDir>/../src/decorators/$1"],
+      "^@Common/(.*)$": ["<rootDir>/../src/common/$1"]
+    }
   }
 }

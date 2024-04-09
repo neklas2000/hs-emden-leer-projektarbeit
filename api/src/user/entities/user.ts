@@ -1,10 +1,10 @@
 import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 
-import { Nullable } from '../../types';
-import { Project } from '../../project/entities';
-import { PrimaryGeneratedUUID } from '../../decorators';
-import { BaseEntityWithExtras, RelationTypes } from '../../common';
-import { TokenWhitelist } from '../../authentication/entities';
+import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
+import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
+import { Project } from '@Routes/Project/entities';
+import { TokenWhitelist } from '@Routes/Authentication/entities';
+import { Nullable } from '@Types/index';
 
 @Entity('user')
 export class User extends BaseEntityWithExtras {

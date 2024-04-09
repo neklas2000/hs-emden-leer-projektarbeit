@@ -3,11 +3,11 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { UserModule } from '../user/user.module';
-import { AccessTokenStrategy, RefreshTokenStrategy } from '../strategies';
 import { AuthenticationController } from './controllers';
 import { TokenWhitelist } from './entities';
+import { UserModule } from '@Routes/User/user.module';
 import { AuthenticationService, TokenWhitelistService } from './services';
+import { AccessTokenStrategy, RefreshTokenStrategy } from '@Strategies/index';
 
 @Module({
   imports: [

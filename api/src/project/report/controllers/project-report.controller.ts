@@ -8,12 +8,12 @@ import {
   DeepPartial,
 } from 'typeorm';
 
-import { promiseToObservable } from '../../../utils';
-import { ProjectReport } from '../entities';
-import { ProjectReportService } from '../services';
-import { AccessTokenGuard } from '../../../guards';
-import { Filters, SparseFieldsets, Includes } from '../../../decorators';
-import { Success } from '../../../types';
+import { Filters, SparseFieldsets, Includes } from '@Decorators/index';
+import { AccessTokenGuard } from '@Guards/access-token.guard';
+import { ProjectReport } from '@Routes/ProjectReport/entities';
+import { ProjectReportService } from '@Routes/ProjectReport/services';
+import { Success } from '@Types/index';
+import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
 @Controller('project/reports')

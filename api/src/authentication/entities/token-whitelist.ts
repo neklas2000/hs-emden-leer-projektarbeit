@@ -1,7 +1,7 @@
 import { BaseEntity, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
-import { PrimaryGeneratedUUID } from '../../decorators';
-import { User } from '../../user/entities/user';
+import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
+import { User } from '@Routes/User/entities';
 
 @Entity('token_whitelist')
 export class TokenWhitelist extends BaseEntity {

@@ -4,8 +4,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { TokenWhitelistService } from '../authentication/services';
-import { ACCESS_TOKEN_COOKIE } from '../tokens';
+import { TokenWhitelistService } from '@Routes/Authentication/services';
+import { ACCESS_TOKEN_COOKIE } from '@Tokens/index';
 
 type JwtPayload = {
   sub: string;

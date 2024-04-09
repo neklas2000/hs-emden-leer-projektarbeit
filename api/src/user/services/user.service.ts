@@ -8,8 +8,8 @@ import {
   Repository,
 } from 'typeorm';
 
-import { User } from '../entities';
-import { Nullable } from '../../types';
+import { User } from '@Routes/User/entities';
+import { Nullable } from '@Types/index';
 
 @Injectable()
 export class UserService {

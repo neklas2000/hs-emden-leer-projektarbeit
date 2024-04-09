@@ -8,11 +8,11 @@ import {
   DeepPartial,
 } from 'typeorm';
 
-import { promiseToObservable } from '../../../utils';
-import { ProjectMilestone } from '../entities';
-import { ProjectMilestoneService } from '../services';
-import { AccessTokenGuard } from '../../../guards';
-import { Filters, SparseFieldsets, Includes } from '../../../decorators';
+import { Filters, SparseFieldsets, Includes } from '@Decorators/index';
+import { AccessTokenGuard } from '@Guards/access-token.guard';
+import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
+import { ProjectMilestoneService } from '@Routes/ProjectMilestone/services';
+import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
 @Controller('project/milestones')

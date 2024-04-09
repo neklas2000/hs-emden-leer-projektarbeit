@@ -3,7 +3,7 @@ import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 import { Request } from 'express';
 import { FindOptionsWhere } from 'typeorm';
 
-import { BaseEntityWithExtras } from '../common';
+import { BaseEntityWithExtras } from '@Common/index';
 
 export const Filters = createParamDecorator(
   <T extends BaseEntityWithExtras>(

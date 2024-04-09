@@ -9,7 +9,7 @@ import {
   Repository,
 } from 'typeorm';
 
-import { ProjectMilestone } from '../entities';
+import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
 
 @Injectable()
 export class ProjectMilestoneService {

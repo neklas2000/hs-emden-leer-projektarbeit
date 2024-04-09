@@ -4,8 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as crypto from 'crypto-js';
 import { DeleteResult, Repository } from 'typeorm';
 
-import { TokenWhitelist } from '../entities';
-import { currentTimestampWithOffset } from '../../utils';
+import { TokenWhitelist } from '@Routes/Authentication/entities';
+import { currentTimestampWithOffset } from '@Utils/current-timestamp-with-offset';
 
 export type TokenPairAndOwner = {
   accessToken: string;

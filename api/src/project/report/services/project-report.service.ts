@@ -9,11 +9,11 @@ import {
   Repository,
 } from 'typeorm';
 
-import { ProjectReport } from '../entities';
 import {
   BadRequestException,
   NoAffectedRowException,
-} from '../../../exceptions';
+} from '@Exceptions/index';
+import { ProjectReport } from '@Routes/ProjectReport/entities';
 
 @Injectable()
 export class ProjectReportService {

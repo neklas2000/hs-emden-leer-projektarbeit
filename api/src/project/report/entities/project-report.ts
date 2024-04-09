@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 
-import { Nullable } from '../../../types';
-import { Project } from '../../entities';
-import { PrimaryGeneratedUUID } from '../../../decorators';
-import { BaseEntityWithExtras, RelationTypes } from '../../../common';
+import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
+import { PrimaryGeneratedUUID } from '@Decorators/index';
+import { Project } from '@Routes/Project/entities';
+import { Nullable } from '@Types/index';
 
 @Entity('project_report')
 export class ProjectReport extends BaseEntityWithExtras {

@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
-import { Project } from '../../entities';
-import { MilestoneEstimate } from '../estimate/entities';
-import { PrimaryGeneratedUUID } from '../../../decorators';
-import { BaseEntityWithExtras, RelationTypes } from '../../../common';
+import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
+import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
+import { MilestoneEstimate } from '@Routes/MilestoneEstimate/entities';
+import { Project } from '@Routes/Project/entities';
 
 @Entity('project_milestone')
 export class ProjectMilestone extends BaseEntityWithExtras {

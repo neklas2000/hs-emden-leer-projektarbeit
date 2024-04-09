@@ -1,12 +1,12 @@
 import { DataSourceOptions } from 'typeorm';
 
-import { MilestoneEstimate } from './project/milestone/estimate/entities';
-import { Project } from './project/entities';
-import { ProjectMember } from './project/member/entities';
-import { ProjectMilestone } from './project/milestone/entities';
-import { ProjectReport } from './project/report/entities';
-import { TokenWhitelist } from './authentication/entities';
-import { User } from './user/entities';
+import { MilestoneEstimate } from '@Routes/MilestoneEstimate/entities';
+import { Project } from '@Routes/Project/entities';
+import { ProjectMember } from '@Routes/ProjectMember/entities';
+import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
+import { ProjectReport } from '@Routes/ProjectReport/entities';
+import { TokenWhitelist } from '@Routes/Authentication/entities';
+import { User } from '@Routes/User/entities';
 
 export default {
   type: 'mariadb',

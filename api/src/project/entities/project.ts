@@ -1,12 +1,12 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
-import { Nullable } from '../../types';
-import { User } from '../../user/entities';
-import { ProjectMember } from '../member/entities';
-import { ProjectReport } from '../report/entities';
-import { ProjectMilestone } from '../milestone/entities';
-import { PrimaryGeneratedUUID } from '../../decorators';
-import { BaseEntityWithExtras, RelationTypes } from '../../common';
+import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
+import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
+import { User } from '@Routes/User/entities';
+import { ProjectMember } from '@Routes/ProjectMember/entities';
+import { ProjectReport } from '@Routes/ProjectReport/entities';
+import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
+import { Nullable } from '@Types/index';
 
 @Entity('project')
 export class Project extends BaseEntityWithExtras {

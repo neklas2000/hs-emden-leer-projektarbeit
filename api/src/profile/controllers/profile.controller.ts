@@ -1,7 +1,7 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 
-import { User } from '../../decorators';
-import { AccessTokenGuard } from '../../guards';
+import { User } from '@Decorators/user.decorator';
+import { AccessTokenGuard } from '@Guards/access-token.guard';
 
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
