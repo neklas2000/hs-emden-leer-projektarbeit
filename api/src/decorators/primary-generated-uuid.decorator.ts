@@ -15,15 +15,13 @@ import { Column, ColumnOptions } from 'typeorm';
  * The part `...options` allows to provide any additional options, which can be
  * defined as a parameter of this decorator.
  */
-export function PrimaryGeneratedUUID(
-  options: ColumnOptions = {},
-): PropertyDecorator {
-  return function (target: object, propertyKey: string | symbol) {
-    Column({
-      type: 'uuid',
-      default: () => 'UUID()',
-      primary: true,
-      ...options,
-    })(target, propertyKey);
-  };
+export function PrimaryGeneratedUUID(options: ColumnOptions = {}): PropertyDecorator {
+	return function (target: object, propertyKey: string | symbol) {
+		Column({
+			type: 'uuid',
+			default: () => 'UUID()',
+			primary: true,
+			...options,
+		})(target, propertyKey);
+	};
 }

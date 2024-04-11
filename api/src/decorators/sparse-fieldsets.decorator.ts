@@ -1,95 +1,84 @@
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 
 import { Request } from 'express';
-import { FindOptionsSelect, getMetadataArgsStorage } from 'typeorm';
+import { FindOptionsSelect } from 'typeorm';
 
 import { BaseEntityWithExtras } from '@Common/index';
 
-export const SparseFieldsets = createParamDecorator(
-  <T extends BaseEntityWithExtras>(
-    entity: typeof BaseEntityWithExtras,
-    ctx: ExecutionContext,
-  ) => {
-    const entityMetadata =
-      getMetadataArgsStorage().tables.filter(
-        (table) => table.target === entity,
-      )[0] || null;
+export const sparseFieldsetsFactory = <T extends BaseEntityWithExtras>(
+	entity: typeof BaseEntityWithExtras,
+	ctx: ExecutionContext,
+) => {
+	const request = ctx.switchToHttp().getRequest<Request>();
+	const sparseFieldsets: FindOptionsSelect<T> = {};
 
-    const request = ctx.switchToHttp().getRequest<Request>();
-    const sparseFieldsets: FindOptionsSelect<T> = {};
+	const assignPartialSparseFieldsets = (
+		fieldsets: object,
+		tables: string[],
+		fields: string[],
+		subEntity: typeof BaseEntityWithExtras,
+	) => {
+		const table = tables[0];
+		tables = tables.slice(1);
+		fieldsets[table] = {
+			...(fieldsets[table] || {}),
+		};
+		const relations = subEntity.getRelationTypes();
 
-    if (!entityMetadata) return sparseFieldsets;
+		if (!(table in relations)) return;
 
-    const assignPartialSparseFieldsets = (
-      fieldsets: object,
-      tables: string[],
-      fields: string[],
-      subEntity: typeof BaseEntityWithExtras,
-    ) => {
-      const table = tables[0];
-      tables = tables.slice(1);
-      fieldsets[table] = {
-        ...(fieldsets[table] || {}),
-      };
-      const relations = subEntity.getRelationTypes();
+		subEntity = relations[table];
 
-      if (!(table in relations)) return;
+		if (tables.length === 0) {
+			const columns = subEntity.getColumns();
 
-      subEntity = relations[table];
+			for (const field of fields) {
+				if (!columns.includes(field)) continue;
 
-      if (tables.length === 0) {
-        const columns = subEntity.getColumns();
+				fieldsets[table][field] = true;
+			}
 
-        for (const field of fields) {
-          if (!columns.includes(field)) continue;
+			return;
+		}
 
-          fieldsets[table][field] = true;
-        }
+		assignPartialSparseFieldsets(fieldsets[table], tables, fields, subEntity);
+	};
 
-        return;
-      }
+	const assignSparseFieldsets = (fieldsets: object, table: string, fields: string[]) => {
+		if (table === entity.name.toLowerCase()) {
+			const columns = entity.getColumns();
 
-      assignPartialSparseFieldsets(fieldsets[table], tables, fields, subEntity);
-    };
+			for (const field of fields) {
+				if (!columns.includes(field)) continue;
 
-    const assignSparseFieldsets = (
-      fieldsets: object,
-      table: string,
-      fields: string[],
-    ) => {
-      if (table === entityMetadata.name) {
-        const columns = entity.getColumns();
+				fieldsets[field] = true;
+			}
 
-        for (const field of fields) {
-          if (!columns.includes(field)) continue;
+			return;
+		}
 
-          fieldsets[field] = true;
-        }
+		assignPartialSparseFieldsets(fieldsets, table.split('.'), fields, entity);
+	};
 
-        return;
-      }
+	if (Object.hasOwn(request.query, 'fields')) {
+		for (const table in request.query.fields as {
+			[table: string]: string | string[];
+		}) {
+			const fields: string[] = [];
 
-      assignPartialSparseFieldsets(fieldsets, table.split('.'), fields, entity);
-    };
+			if (Array.isArray(request.query.fields[table])) {
+				for (const entry of request.query.fields[table] as string[]) {
+					fields.push(...entry.split(','));
+				}
+			} else {
+				fields.push(...(request.query.fields[table] as string).split(','));
+			}
 
-    if (Object.hasOwn(request.query, 'fields')) {
-      for (const table in request.query.fields as {
-        [table: string]: string | string[];
-      }) {
-        const fields: string[] = [];
+			assignSparseFieldsets(sparseFieldsets, table, fields);
+		}
+	}
 
-        if (Array.isArray(request.query.fields[table])) {
-          for (const entry of request.query.fields[table] as string[]) {
-            fields.push(...entry.split(','));
-          }
-        } else {
-          fields.push(...(request.query.fields[table] as string).split(','));
-        }
+	return sparseFieldsets;
+};
 
-        assignSparseFieldsets(sparseFieldsets, table, fields);
-      }
-    }
-
-    return sparseFieldsets;
-  },
-);
+export const SparseFieldsets = createParamDecorator(sparseFieldsetsFactory);

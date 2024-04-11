@@ -38,7 +38,8 @@
       "@Exceptions/*": ["exceptions/*"],
       "@Decorators/*": ["decorators/*"],
       "@Common/*": ["common/*"],
-      "@Mocks/Providers/*": ["mocks/providers/*"]
+      "@Mocks/Providers/*": ["mocks/providers/*"],
+      "@Mocks/Helpers/*": ["mocks/helpers/*"]
     }
   },
   "include": [

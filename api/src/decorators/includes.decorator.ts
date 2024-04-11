@@ -7,57 +7,53 @@ import { BaseEntityWithExtras } from '@Common/index';
 
 export type JsonApiIncludes = string[];
 
-export const Includes = createParamDecorator(
-  <T extends BaseEntityWithExtras>(
-    entity: typeof BaseEntityWithExtras,
-    ctx: ExecutionContext,
-  ) => {
-    const request = ctx.switchToHttp().getRequest<Request>();
-    const relations: FindOptionsRelations<T> = {};
+export const includesFactory = <T extends BaseEntityWithExtras>(
+	entity: typeof BaseEntityWithExtras,
+	ctx: ExecutionContext,
+) => {
+	const request = ctx.switchToHttp().getRequest<Request>();
+	const relations: FindOptionsRelations<T> = {};
 
-    const assignPartialIncludes = (
-      relations: object,
-      includes: string[],
-      entity: typeof BaseEntityWithExtras,
-    ) => {
-      const include = includes[0];
-      includes = includes.slice(1);
-      const existingRelations = entity.getRelations();
+	const assignPartialIncludes = (
+		relations: object,
+		includes: string[],
+		entity: typeof BaseEntityWithExtras,
+	) => {
+		const include = includes[0];
+		includes = includes.slice(1);
+		const existingRelations = entity.getRelations();
 
-      if (!existingRelations.includes(include)) return;
+		if (!existingRelations.includes(include)) return;
 
-      if (includes.length === 0) {
-        relations[include] = true;
+		if (includes.length === 0) {
+			relations[include] = true;
 
-        return;
-      }
+			return;
+		}
 
-      relations[include] = {
-        ...(relations[include] || {}),
-      };
-      assignPartialIncludes(
-        relations[include],
-        includes,
-        entity.getRelationTypes()[include],
-      );
-    };
+		relations[include] = {
+			...(relations[include] || {}),
+		};
+		assignPartialIncludes(relations[include], includes, entity.getRelationTypes()[include]);
+	};
 
-    if (Object.hasOwn(request.query, 'include')) {
-      const includes: string[] = [];
+	if (Object.hasOwn(request.query, 'include')) {
+		const includes: string[] = [];
 
-      if (Array.isArray(request.query.include)) {
-        for (const entry of request.query.include as string[]) {
-          includes.push(...entry.split(','));
-        }
-      } else {
-        includes.push(...(request.query.include as string).split(','));
-      }
+		if (Array.isArray(request.query.include)) {
+			for (const entry of request.query.include as string[]) {
+				includes.push(...entry.split(','));
+			}
+		} else {
+			includes.push(...(request.query.include as string).split(','));
+		}
 
-      for (const include of includes) {
-        assignPartialIncludes(relations, include.split('.'), entity);
-      }
-    }
+		for (const include of includes) {
+			assignPartialIncludes(relations, include.split('.'), entity);
+		}
+	}
 
-    return relations;
-  },
-);
+	return relations;
+};
+
+export const Includes = createParamDecorator(includesFactory);
