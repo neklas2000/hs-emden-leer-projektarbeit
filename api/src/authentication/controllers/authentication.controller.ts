@@ -18,7 +18,7 @@ type AuthenticationPayload = {
 	password: string;
 };
 
-type DeleteResult = {
+type LogoutResult = {
 	success: boolean;
 };
 
@@ -43,27 +43,26 @@ export class AuthenticationController {
 		@Res({ passthrough: true })
 		res: Response,
 	): Observable<TokensWithUserResponse> {
-		const answer$ = new Promise<TokensWithUserResponse>(async (resolve) => {
-			const result = await this.authenticationService.login(payload.email, payload.password);
+		return promiseToObservable(
+			this.authenticationService.login(payload.email, payload.password),
+			(result) => {
+				res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
+					httpOnly: true,
+					secure: true,
+					sameSite: 'lax',
+					expires: new Date(Date.now() + 30 * 60 * 1000),
+				});
 
-			res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
-				httpOnly: true,
-				secure: true,
-				sameSite: 'lax',
-				expires: new Date(Date.now() + 30 * 60 * 1000),
-			});
+				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
+					httpOnly: true,
+					secure: true,
+					sameSite: 'lax',
+					expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+				});
 
-			res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
-				httpOnly: true,
-				secure: true,
-				sameSite: 'lax',
-				expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-			});
-
-			resolve(result);
-		});
-
-		return promiseToObservable(answer$);
+				return result;
+			},
+		);
 	}
 
 	@UseGuards(AccessTokenGuard)
@@ -73,25 +72,22 @@ export class AuthenticationController {
 		user: Express.User,
 		@Res({ passthrough: true })
 		res: Response,
-	): Observable<DeleteResult> {
-		const answer$ = new Promise<DeleteResult>(async (resolve) => {
-			const result = await this.authenticationService.logout(user['sub']);
+	): Observable<LogoutResult> {
+		return promiseToObservable(
+			this.authenticationService.logout(user['sub']),
+			(result) => {
+				let success = false;
 
-			let success = false;
+				if (result.affected && result.affected === 1) success = true;
 
-			if (result.affected && result.affected === 1) success = true;
+				if (success) {
+					res.clearCookie(ACCESS_TOKEN_COOKIE);
+					res.clearCookie(REFRESH_TOKEN_COOKIE);
+				}
 
-			if (success) {
-				res.clearCookie(ACCESS_TOKEN_COOKIE);
-				res.clearCookie(REFRESH_TOKEN_COOKIE);
-			}
-
-			resolve({
-				success,
-			});
-		});
-
-		return promiseToObservable(answer$);
+				return { success } as LogoutResult;
+			},
+		) as Observable<LogoutResult>;
 	}
 
 	@UseGuards(RefreshTokenGuard)
@@ -105,26 +101,25 @@ export class AuthenticationController {
 		const userEmail = user['email'];
 		const refreshToken = user['refreshToken'];
 
-		const answer$ = new Promise<TokensResponse>(async (resolve) => {
-			const result = await this.authenticationService.refreshTokens(userEmail, refreshToken);
+		return promiseToObservable(
+			this.authenticationService.refreshTokens(userEmail, refreshToken),
+			(result) => {
+				res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
+					httpOnly: true,
+					secure: true,
+					sameSite: 'lax',
+					expires: new Date(Date.now() + 30 * 60 * 1000),
+				});
 
-			res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
-				httpOnly: true,
-				secure: true,
-				sameSite: 'lax',
-				expires: new Date(Date.now() + 30 * 60 * 1000),
-			});
+				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
+					httpOnly: true,
+					secure: true,
+					sameSite: 'lax',
+					expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+				});
 
-			res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
-				httpOnly: true,
-				secure: true,
-				sameSite: 'lax',
-				expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-			});
-
-			resolve(result);
-		});
-
-		return promiseToObservable(answer$);
+				return result;
+			},
+		);
 	}
 }
