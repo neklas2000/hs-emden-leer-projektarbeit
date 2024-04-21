@@ -1,13 +1,17 @@
 import { currentTimestampWithOffset } from './current-timestamp-with-offset';
 
 describe('Util: currentTimestampWithOffset', () => {
+	const oldEnv = { ...process.env };
+
 	beforeEach(() => {
+		process.env.TZ = 'Europe/Berlin';
 		jest.useFakeTimers();
 		jest.setSystemTime(new Date('2024-01-01T06:00:00'));
 	});
 
 	afterEach(() => {
 		jest.useRealTimers();
+		process.env = oldEnv;
 	});
 
 	it('should get the current timestamp with an offset of 7 days', () => {

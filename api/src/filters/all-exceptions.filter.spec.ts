@@ -10,6 +10,7 @@ describe('Filter: AllExceptionsFilter', () => {
 	const oldEnv = { ...process.env };
 
 	beforeEach(async () => {
+		process.env.TZ = 'Europe/Berlin';
 		jest.useFakeTimers();
 		jest.setSystemTime(new Date('2024-01-01T06:00:00'));
 
@@ -32,7 +33,6 @@ describe('Filter: AllExceptionsFilter', () => {
 
 		httpAdapterHost = module.get(HttpAdapterHost);
 		filter = module.get(AllExceptionsFilter);
-		process.env.TZ = 'Europe/Berlin';
 	});
 
 	afterEach(() => {
