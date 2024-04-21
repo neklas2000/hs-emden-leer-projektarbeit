@@ -23,7 +23,7 @@ jobs:
           name: Install Dependencies
           command: |
             cd frontend
-            npm install
+            npm install --legacy-peer-deps
       - save_cache:
           key: frontend-cache-{{ checksum "frontend/package-lock.json" }}
           paths:
@@ -46,7 +46,7 @@ jobs:
           name: Install Dependencies
           command: |
             cd frontend
-            npm install
+            npm install --legacy-peer-deps
       - save_cache:
           key: frontend-cache-{{ checksum "frontend/package-lock.json" }}
           paths:
@@ -69,7 +69,7 @@ jobs:
           name: Install Dependencies
           command: |
             cd api
-            npm install
+            npm install --legacy-peer-deps
       - save_cache:
           key: api-cache-{{ checksum "api/package-lock.json" }}
           paths:
@@ -92,7 +92,7 @@ jobs:
           name: Install Dependencies
           command: |
             cd api
-            npm install
+            npm install --legacy-peer-deps
       - save_cache:
           key: api-cache-{{ checksum "api/package-lock.json" }}
           paths:
@@ -115,7 +115,7 @@ jobs:
           name: Install Dependencies
           command: |
             cd api
-            npm install
+            npm install --legacy-peer-deps
       - save_cache:
           key: api-cache-{{ checksum "api/package-lock.json" }}
           paths:
