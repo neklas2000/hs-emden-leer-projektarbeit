@@ -9,7 +9,8 @@
     "test:firefox": "ng test --code-coverage --browsers Firefox",
     "test:firefox-headless": "ng test --code-coverage --browsers FirefoxHeadless",
     "test:chrome": "ng test --code-coverage --browsers Chrome",
-    "test:chrome-headless": "ng test --code-coverage --browsers ChromeHeadless"
+    "test:chrome-headless": "ng test --code-coverage --browsers ChromeHeadless",
+    "test:ci": "ng test --karma-config=karma-ci.config.js --no-progress"
   },
   "private": true,
   "dependencies": {
