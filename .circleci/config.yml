@@ -8,6 +8,8 @@ jobs:
     working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3-browsers
+        environment:
+          TZ: "Europe/Berlin"
     steps:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
@@ -38,6 +40,8 @@ jobs:
     working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
+        environment:
+          TZ: "Europe/Berlin"
     steps:
       - checkout
       - restore_cache:
@@ -61,6 +65,8 @@ jobs:
     working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
+        environment:
+          TZ: "Europe/Berlin"
     steps:
       - checkout
       - restore_cache:
@@ -84,6 +90,8 @@ jobs:
     working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
+        environment:
+          TZ: "Europe/Berlin"
     steps:
       - checkout
       - restore_cache:
@@ -107,6 +115,8 @@ jobs:
     working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
+        environment:
+          TZ: "Europe/Berlin"
     steps:
       - checkout
       - restore_cache:
