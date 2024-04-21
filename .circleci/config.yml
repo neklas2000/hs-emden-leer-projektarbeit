@@ -78,7 +78,7 @@ jobs:
           name: Run Unit Tests
           command: |
             cd api
-            npx jest --silent --no-watch --no-watchAll --coverage=false
+            npm run test:ci
 
   api_e2e_tests:
     working_directory: ~/project

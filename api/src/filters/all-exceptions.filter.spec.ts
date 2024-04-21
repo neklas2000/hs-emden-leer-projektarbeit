@@ -7,6 +7,7 @@ import { AllExceptionsFilter } from './all-exceptions.filter';
 describe('Filter: AllExceptionsFilter', () => {
 	let filter: AllExceptionsFilter;
 	let httpAdapterHost: HttpAdapterHost;
+	const oldEnv = { ...process.env };
 
 	beforeEach(async () => {
 		jest.useFakeTimers();
@@ -31,10 +32,12 @@ describe('Filter: AllExceptionsFilter', () => {
 
 		httpAdapterHost = module.get(HttpAdapterHost);
 		filter = module.get(AllExceptionsFilter);
+		process.env.TZ = 'Europe/Berlin';
 	});
 
 	afterEach(() => {
 		jest.useRealTimers();
+		process.env = oldEnv;
 	});
 
 	it('should be created', () => {
