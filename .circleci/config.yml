@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   frontend_unit_tests:
-    working_directory: ~/project/frontend
+    working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3-browsers
     steps:
@@ -18,94 +18,113 @@ jobs:
             chromedriver --version
       - checkout
       - restore_cache:
-          key: frontend-cache-{{ checksum "package-lock.json" }}
+          key: frontend-cache-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: |
+            cd frontend
+            npm install
       - save_cache:
-          key: frontend-cache-{{ checksum "package-lock.json" }}
+          key: frontend-cache-{{ checksum "frontend/package-lock.json" }}
           paths:
             - "node_modules"
       - run:
           name: Run Unit Tests
-          command: npm run test:ci
+          command: |
+            cd frontend
+            npm run test:ci
 
   frontend_build:
-    working_directory: ~/project/frontend
+    working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
     steps:
       - checkout
       - restore_cache:
-          key: frontend-cache-{{ checksum "package-lock.json" }}
+          key: frontend-cache-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: |
+            cd frontend
+            npm install
       - save_cache:
-          key: frontend-cache-{{ checksum "package-lock.json" }}
+          key: frontend-cache-{{ checksum "frontend/package-lock.json" }}
           paths:
             - "node_modules"
       - run:
           name: Building Client
-          command: npm run build
+          command: |
+            cd frontend
+            npm run build
 
   api_unit_tests:
-    working_directory: ~/project/api
+    working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
     steps:
       - checkout
       - restore_cache:
-          key: api-cache-{{ checksum "package-lock.json" }}
+          key: api-cache-{{ checksum "api/package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: |
+            cd api
+            npm install
       - save_cache:
-          key: api-cache-{{ checksum "package-lock.json" }}
+          key: api-cache-{{ checksum "api/package-lock.json" }}
           paths:
             - "node_modules"
       - run:
           name: Run Unit Tests
-          command: npx jest --silent
+          command: |
+            cd api
+            npx jest --silent --no-watch --no-watchAll --coverage=false
 
   api_e2e_tests:
-    working_directory: ~/project/api
+    working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
     steps:
       - checkout
       - restore_cache:
-          key: api-cache-{{ checksum "package-lock.json" }}
+          key: api-cache-{{ checksum "api/package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: |
+            cd api
+            npm install
       - save_cache:
-          key: api-cache-{{ checksum "package-lock.json" }}
+          key: api-cache-{{ checksum "api/package-lock.json" }}
           paths:
             - "node_modules"
       - run:
           name: Run e2e Tests
-          command: npm run test:e2e
+          command: |
+            cd api
+            npm run test:e2e
 
   api_build:
-    working_directory: ~/project/api
+    working_directory: ~/project
     docker:
       - image: cimg/node:21.7.3
     steps:
       - checkout
       - restore_cache:
-          key: api-cache-{{ checksum "package-lock.json" }}
+          key: api-cache-{{ checksum "api/package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: |
+            cd api
+            npm install
       - save_cache:
-          key: api-cache-{{ checksum "package-lock.json" }}
+          key: api-cache-{{ checksum "api/package-lock.json" }}
           paths:
             - "node_modules"
       - run:
           name: Building API
-          command: npm run build
-
+          command: |
+            cd api
+            npm run build
 
 workflows:
   frontend_test_and_build:
