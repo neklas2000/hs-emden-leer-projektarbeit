@@ -145,9 +145,9 @@ jobs:
       - run:
           name: Test Environment Variable
           command: |
-            echo $REGISTRY_PASS | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
-            docker build -t $REGISTRY/studium/semester-6/projektarbeit/api -f api/Dockerfile api/
-            docker push $REGISTRY/studium/semester-6/projektarbeit/api
+            echo $REGISTRY_PASS | docker login gitlab.technik-emden.de:5050 --username $REGISTRY_USER --password-stdin
+            docker build -t gitlab.technik-emden.de:5050/studium/semester-6/projektarbeit/api -f api/Dockerfile api/
+            docker push gitlab.technik-emden.de:5050/studium/semester-6/projektarbeit/api
 
   frontend_deploy:
     working_directory: ~/project
@@ -158,9 +158,9 @@ jobs:
       - run:
           name: Test Environment Variable
           command: |
-            echo $REGISTRY_PASS | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
-            docker build -t $REGISTRY/studium/semester-6/projektarbeit/frontend -f frontend/Dockerfile frontend/
-            docker push $REGISTRY/studium/semester-6/projektarbeit/frontend
+            echo $REGISTRY_PASS | docker login gitlab.technik-emden.de:5050 --username $REGISTRY_USER --password-stdin
+            docker build -t gitlab.technik-emden.de:5050/studium/semester-6/projektarbeit/frontend -f frontend/Dockerfile frontend/
+            docker push gitlab.technik-emden.de:5050/studium/semester-6/projektarbeit/frontend
 
 workflows:
   app_test_build_and_deploy:
