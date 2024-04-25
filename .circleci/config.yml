@@ -136,16 +136,35 @@ jobs:
             cd api
             npm run build
 
+  api_deploy:
+    working_directory: ~/project
+    docker:
+      - image: cimg/base:2024.02
+    steps:
+      - checkout
+      - run:
+          name: Test Environment Variable
+          command: |
+            echo $REGISTRY_USER
+
+  frontend_deploy:
+    working_directory: ~/project
+    docker:
+      - image: cimg/base:2024.02
+    steps:
+      - checkout
+      - run:
+          name: Test Environment Variable
+          command: |
+            echo $REGISTRY_PASS
+
 workflows:
-  frontend_test_and_build:
+  app_test_build_and_deploy:
     jobs:
       - frontend_unit_tests
       - frontend_build:
           requires:
             - frontend_unit_tests
-
-  api_test_and_build:
-    jobs:
       - api_unit_tests
       - api_e2e_tests:
           requires:
@@ -153,3 +172,9 @@ workflows:
       - api_build:
           requires:
             - api_e2e_tests
+      - api_deploy:
+          requires:
+            - api_build
+      - frontend_deploy:
+          requires:
+            - frontend_build
