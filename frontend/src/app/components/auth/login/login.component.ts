@@ -64,6 +64,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
       });
   }
 
+  toggleHide(ev: MouseEvent): void {
+    ev.preventDefault();
+
+    this.hide = !this.hide;
+  }
+
   get email(): string {
     return this.formGroup.get('email')?.value || '';
   }

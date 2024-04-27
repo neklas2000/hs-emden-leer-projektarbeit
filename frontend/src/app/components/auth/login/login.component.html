@@ -19,7 +19,7 @@
         <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
       }
     </mat-form-field>
-    <button (click)="hide = !hide" mat-icon-button>
+    <button (click)="toggleHide($event)" mat-icon-button>
       <mat-icon>
         @if (hide) {
           visibility_off
