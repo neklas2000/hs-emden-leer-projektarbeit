@@ -27,7 +27,6 @@ import { UserAlreadyExistsException } from '@Exceptions/user-already-exists.exce
 describe('Service: AuthenticationService', () => {
 	const PREVIOUS_PROCESS_ENVIRONMENT = process.env;
 	let service: AuthenticationService;
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	let userService: UserService;
 	let jwtService: JwtService;
 	let tokenWhitelist: TokenWhitelistService;

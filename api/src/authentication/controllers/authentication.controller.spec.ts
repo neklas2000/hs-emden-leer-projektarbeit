@@ -1,12 +1,13 @@
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 
-import { AuthenticationService, TokenWhitelistService } from '../services';
+import { take } from 'rxjs';
+
 import { AuthenticationController } from './authentication.controller';
-import { UserService } from '@Routes/User/services';
 import { provideUserRepository } from '@Mocks/Providers/user-repository.provider';
 import { provideTokenWhitelistRepository } from '@Mocks/Providers/token-whitelist-repository.provider';
-import { take } from 'rxjs';
+import { UserService } from '@Routes/User/services';
+import { AuthenticationService, TokenWhitelistService } from '../services';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '@Tokens/index';
 
 describe('Controller: AuthenticationController', () => {

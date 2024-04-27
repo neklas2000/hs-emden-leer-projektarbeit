@@ -4,12 +4,11 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { TokenWhitelist } from '@Routes/Authentication/entities';
 import { createRepositoryFunctions } from './repository-functions';
 
-export const TOKEN_WHITELIST_REPOSITORY_TOKEN =
-  getRepositoryToken(TokenWhitelist);
+export const TOKEN_WHITELIST_REPOSITORY_TOKEN = getRepositoryToken(TokenWhitelist);
 
 export const provideTokenWhitelistRepository: () => Provider = () => {
-  return {
-    provide: TOKEN_WHITELIST_REPOSITORY_TOKEN,
-    useFactory: jest.fn(() => createRepositoryFunctions<TokenWhitelist>()),
-  };
+	return {
+		provide: TOKEN_WHITELIST_REPOSITORY_TOKEN,
+		useFactory: jest.fn(() => createRepositoryFunctions<TokenWhitelist>()),
+	};
 };

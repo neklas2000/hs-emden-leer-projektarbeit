@@ -73,21 +73,18 @@ export class AuthenticationController {
 		@Res({ passthrough: true })
 		res: Response,
 	): Observable<LogoutResult> {
-		return promiseToObservable(
-			this.authenticationService.logout(user['sub']),
-			(result) => {
-				let success = false;
+		return promiseToObservable(this.authenticationService.logout(user['sub']), (result) => {
+			let success = false;
 
-				if (result.affected && result.affected === 1) success = true;
+			if (result.affected && result.affected === 1) success = true;
 
-				if (success) {
-					res.clearCookie(ACCESS_TOKEN_COOKIE);
-					res.clearCookie(REFRESH_TOKEN_COOKIE);
-				}
+			if (success) {
+				res.clearCookie(ACCESS_TOKEN_COOKIE);
+				res.clearCookie(REFRESH_TOKEN_COOKIE);
+			}
 
-				return { success } as LogoutResult;
-			},
-		) as Observable<LogoutResult>;
+			return { success } as LogoutResult;
+		}) as Observable<LogoutResult>;
 	}
 
 	@UseGuards(RefreshTokenGuard)

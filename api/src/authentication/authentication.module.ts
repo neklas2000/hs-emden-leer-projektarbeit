@@ -10,19 +10,19 @@ import { AuthenticationService, TokenWhitelistService } from './services';
 import { AccessTokenStrategy, RefreshTokenStrategy } from '@Strategies/index';
 
 @Module({
-  imports: [
-    UserModule,
-    PassportModule,
-    JwtModule.register({}),
-    TypeOrmModule.forFeature([TokenWhitelist]),
-  ],
-  providers: [
-    AuthenticationService,
-    TokenWhitelistService,
-    AccessTokenStrategy,
-    RefreshTokenStrategy,
-  ],
-  exports: [AuthenticationService],
-  controllers: [AuthenticationController],
+	imports: [
+		UserModule,
+		PassportModule,
+		JwtModule.register({}),
+		TypeOrmModule.forFeature([TokenWhitelist]),
+	],
+	providers: [
+		AuthenticationService,
+		TokenWhitelistService,
+		AccessTokenStrategy,
+		RefreshTokenStrategy,
+	],
+	exports: [AuthenticationService],
+	controllers: [AuthenticationController],
 })
 export class AuthenticationModule {}

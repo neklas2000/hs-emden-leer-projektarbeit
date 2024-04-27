@@ -6,11 +6,11 @@ import { AccessTokenGuard } from '@Guards/access-token.guard';
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
 export class ProfileController {
-  @Get()
-  getProfile(
-    @User()
-    user: Express.User,
-  ) {
-    return user;
-  }
+	@Get()
+	getProfile(
+		@User()
+		user: Express.User,
+	) {
+		return user;
+	}
 }

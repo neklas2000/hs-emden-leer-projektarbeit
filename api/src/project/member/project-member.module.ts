@@ -6,8 +6,8 @@ import { ProjectMember } from './entities';
 import { ProjectMemberService } from './services';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProjectMember])],
-  providers: [ProjectMemberService],
-  controllers: [ProjectMemberController],
+	imports: [TypeOrmModule.forFeature([ProjectMember])],
+	providers: [ProjectMemberService],
+	controllers: [ProjectMemberController],
 })
 export class ProjectMemberModule {}

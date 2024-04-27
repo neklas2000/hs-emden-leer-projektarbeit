@@ -8,92 +8,74 @@ import { TokenWhitelist } from '@Routes/Authentication/entities';
 import { currentTimestampWithOffset } from '@Utils/current-timestamp-with-offset';
 
 export type TokenPairAndOwner = {
-  accessToken: string;
-  refreshToken: string;
-  userId: string;
+	accessToken: string;
+	refreshToken: string;
+	userId: string;
 };
 
 @Injectable()
 export class TokenWhitelistService {
-  constructor(
-    @InjectRepository(TokenWhitelist)
-    private readonly tokenWhitelistRepository: Repository<TokenWhitelist>,
-  ) {}
+	constructor(
+		@InjectRepository(TokenWhitelist)
+		private readonly tokenWhitelistRepository: Repository<TokenWhitelist>,
+	) {}
 
-  async update({
-    accessToken,
-    refreshToken,
-    userId,
-  }: TokenPairAndOwner): Promise<void> {
-    const tokenWhitelistEntry = await this.findByUser(userId);
+	async update({ accessToken, refreshToken, userId }: TokenPairAndOwner): Promise<void> {
+		const tokenWhitelistEntry = await this.findByUser(userId);
 
-    if (tokenWhitelistEntry !== null) {
-      await this.tokenWhitelistRepository.remove(tokenWhitelistEntry);
-    }
+		if (tokenWhitelistEntry !== null) {
+			await this.tokenWhitelistRepository.remove(tokenWhitelistEntry);
+		}
 
-    const accessTokenExpirationDate = currentTimestampWithOffset(30, 'minutes');
-    console.log('Expiration Date to be stored: ' + accessTokenExpirationDate);
+		const accessTokenExpirationDate = currentTimestampWithOffset(30, 'minutes');
+		console.log('Expiration Date to be stored: ' + accessTokenExpirationDate);
 
-    const newRecord = this.tokenWhitelistRepository.create({
-      user: {
-        id: userId,
-      },
-      accessToken,
-      accessTokenExpirationDate,
-      refreshToken,
-      refreshTokenExpirationDate: currentTimestampWithOffset(7, 'days'),
-    });
+		const newRecord = this.tokenWhitelistRepository.create({
+			user: {
+				id: userId,
+			},
+			accessToken,
+			accessTokenExpirationDate,
+			refreshToken,
+			refreshTokenExpirationDate: currentTimestampWithOffset(7, 'days'),
+		});
 
-    await newRecord.save();
+		await newRecord.save();
+	}
 
-    return;
-  }
+	delete(userId: string): Promise<DeleteResult> {
+		return this.tokenWhitelistRepository.delete({
+			user: {
+				id: userId,
+			},
+		});
+	}
 
-  delete(userId: string): Promise<DeleteResult> {
-    return this.tokenWhitelistRepository.delete({
-      user: {
-        id: userId,
-      },
-    });
-  }
+	findByUser(userId: string): Promise<TokenWhitelist> {
+		return this.tokenWhitelistRepository.findOne({
+			where: {
+				user: {
+					id: userId,
+				},
+			},
+		});
+	}
 
-  findByUser(userId: string): Promise<TokenWhitelist> {
-    return this.tokenWhitelistRepository.findOne({
-      where: {
-        user: {
-          id: userId,
-        },
-      },
-    });
-  }
+	async verifyAccessToken(userId: string, accessToken: string): Promise<boolean> {
+		const hashedAccessToken = crypto.SHA256(accessToken).toString(crypto.enc.Hex);
+		const tokenWhitelistEntry = await this.findByUser(userId);
 
-  async verifyAccessToken(
-    userId: string,
-    accessToken: string,
-  ): Promise<boolean> {
-    const hashedAccessToken = crypto
-      .SHA256(accessToken)
-      .toString(crypto.enc.Hex);
+		if (tokenWhitelistEntry === null) return false;
 
-    const tokenWhitelistEntry = await this.findByUser(userId);
+		return tokenWhitelistEntry.accessToken === hashedAccessToken;
+	}
 
-    if (tokenWhitelistEntry === null) return false;
+	async verifyRefreshToken(userId: string, refreshToken: string): Promise<boolean> {
+		const hashedRefreshToken = crypto.SHA256(refreshToken).toString(crypto.enc.Hex);
+		const tokenWhitelistEntry = await this.findByUser(userId);
 
-    return tokenWhitelistEntry.accessToken === hashedAccessToken;
-  }
+		if (tokenWhitelistEntry === null) return false;
 
-  async verifyRefreshToken(
-    userId: string,
-    refreshToken: string,
-  ): Promise<boolean> {
-    const hashedRefreshToken = crypto
-      .SHA256(refreshToken)
-      .toString(crypto.enc.Hex);
-
-    const tokenWhitelistEntry = await this.findByUser(userId);
-
-    if (tokenWhitelistEntry === null) return false;
-
-    return tokenWhitelistEntry.refreshToken === hashedRefreshToken;
-  }
+		return tokenWhitelistEntry.refreshToken === hashedRefreshToken;
+	}
 }

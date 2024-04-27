@@ -7,32 +7,32 @@ import { Project } from '@Routes/Project/entities';
 
 @Entity('project_milestone')
 export class ProjectMilestone extends BaseEntityWithExtras {
-  static getRelationTypes(): RelationTypes {
-    return {
-      project: Project,
-      estimates: MilestoneEstimate,
-    };
-  }
+	static getRelationTypes(): RelationTypes {
+		return {
+			project: Project,
+			estimates: MilestoneEstimate,
+		};
+	}
 
-  static getRelations(): string[] {
-    return ['project', 'estimates'];
-  }
+	static getRelations(): string[] {
+		return ['project', 'estimates'];
+	}
 
-  static getColumns(): string[] {
-    return ['id', 'name'];
-  }
+	static getColumns(): string[] {
+		return ['id', 'name'];
+	}
 
-  @PrimaryGeneratedUUID()
-  id: string;
+	@PrimaryGeneratedUUID()
+	id: string;
 
-  @Column()
-  name: string;
+	@Column()
+	name: string;
 
-  @ManyToOne(() => Project, (project) => project.milestones)
-  project: Project;
+	@ManyToOne(() => Project, (project) => project.milestones)
+	project: Project;
 
-  @OneToMany(() => MilestoneEstimate, (estimate) => estimate.milestone, {
-    onDelete: 'CASCADE',
-  })
-  estimates: MilestoneEstimate[];
+	@OneToMany(() => MilestoneEstimate, (estimate) => estimate.milestone, {
+		onDelete: 'CASCADE',
+	})
+	estimates: MilestoneEstimate[];
 }

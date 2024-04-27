@@ -6,8 +6,8 @@ import { MilestoneEstimate } from './entities';
 import { MilestoneEstimateService } from './services';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MilestoneEstimate])],
-  providers: [MilestoneEstimateService],
-  controllers: [MilestoneEstimateController],
+	imports: [TypeOrmModule.forFeature([MilestoneEstimate])],
+	providers: [MilestoneEstimateService],
+	controllers: [MilestoneEstimateController],
 })
 export class MilestoneEstimateModule {}

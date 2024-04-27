@@ -14,20 +14,20 @@ import { ProjectReportModule } from '@Routes/ProjectReport/project-report.module
 import { UserModule } from '@Routes/User/user.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: () => config,
-    }),
-    AuthenticationModule,
-    MilestoneEstimateModule,
-    ProfileModule,
-    ProjectMemberModule,
-    ProjectMilestoneModule,
-    ProjectModule,
-    ProjectReportModule,
-    UserModule,
-  ],
+	imports: [
+		TypeOrmModule.forRootAsync({
+			useFactory: () => config,
+		}),
+		AuthenticationModule,
+		MilestoneEstimateModule,
+		ProfileModule,
+		ProjectMemberModule,
+		ProjectMilestoneModule,
+		ProjectModule,
+		ProjectReportModule,
+		UserModule,
+	],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) {}
+	constructor(private dataSource: DataSource) {}
 }

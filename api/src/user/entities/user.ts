@@ -8,52 +8,52 @@ import { Nullable } from '@Types/index';
 
 @Entity('user')
 export class User extends BaseEntityWithExtras {
-  static getRelationTypes(): RelationTypes {
-    return {
-      projects: Project,
-    };
-  }
+	static getRelationTypes(): RelationTypes {
+		return {
+			projects: Project,
+		};
+	}
 
-  static getRelations(): string[] {
-    return ['projects'];
-  }
+	static getRelations(): string[] {
+		return ['projects'];
+	}
 
-  static getColumns(): string[] {
-    return [
-      'id',
-      'matriculationNumber',
-      'firstName',
-      'lastName',
-      'email',
-      'password',
-      'phoneNumber',
-    ];
-  }
+	static getColumns(): string[] {
+		return [
+			'id',
+			'matriculationNumber',
+			'firstName',
+			'lastName',
+			'email',
+			'password',
+			'phoneNumber',
+		];
+	}
 
-  @PrimaryGeneratedUUID()
-  id: string;
+	@PrimaryGeneratedUUID()
+	id: string;
 
-  @Column({ name: 'matriculation_number' })
-  matriculationNumber: number;
+	@Column({ name: 'matriculation_number' })
+	matriculationNumber: number;
 
-  @Column({ name: 'first_name' })
-  firstName: string;
+	@Column({ name: 'first_name' })
+	firstName: string;
 
-  @Column({ name: 'last_name' })
-  lastName: string;
+	@Column({ name: 'last_name' })
+	lastName: string;
 
-  @Column()
-  email: string;
+	@Column()
+	email: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  password: Nullable<string>;
+	@Column({ type: 'varchar', nullable: true })
+	password: Nullable<string>;
 
-  @Column({ name: 'phone_number', nullable: true, type: 'varchar' })
-  phoneNumber: Nullable<string>;
+	@Column({ name: 'phone_number', nullable: true, type: 'varchar' })
+	phoneNumber: Nullable<string>;
 
-  @OneToMany(() => Project, (project) => project.owner, { onDelete: 'CASCADE' })
-  projects: Project[];
+	@OneToMany(() => Project, (project) => project.owner, { onDelete: 'CASCADE' })
+	projects: Project[];
 
-  @OneToOne(() => TokenWhitelist, (tokenWhitelist) => tokenWhitelist.user)
-  tokenPair: TokenWhitelist;
+	@OneToOne(() => TokenWhitelist, (tokenWhitelist) => tokenWhitelist.user)
+	tokenPair: TokenWhitelist;
 }

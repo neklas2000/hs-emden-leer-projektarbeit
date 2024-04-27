@@ -7,49 +7,41 @@ import { Nullable } from '@Types/index';
 
 @Entity('project_report')
 export class ProjectReport extends BaseEntityWithExtras {
-  static getRelationTypes(): RelationTypes {
-    return {
-      project: Project,
-    };
-  }
+	static getRelationTypes(): RelationTypes {
+		return {
+			project: Project,
+		};
+	}
 
-  static getRelations(): string[] {
-    return ['project'];
-  }
+	static getRelations(): string[] {
+		return ['project'];
+	}
 
-  static getColumns(): string[] {
-    return [
-      'id',
-      'sequenceNumber',
-      'reportDate',
-      'deliverables',
-      'hazards',
-      'objectives',
-      'other',
-    ];
-  }
+	static getColumns(): string[] {
+		return ['id', 'sequenceNumber', 'reportDate', 'deliverables', 'hazards', 'objectives', 'other'];
+	}
 
-  @PrimaryGeneratedUUID()
-  id: string;
+	@PrimaryGeneratedUUID()
+	id: string;
 
-  @Column({ name: 'sequence_number' })
-  sequenceNumber: number;
+	@Column({ name: 'sequence_number' })
+	sequenceNumber: number;
 
-  @Column({ name: 'report_date', default: () => 'CURRENT_DATE', type: 'date' })
-  reportDate: string;
+	@Column({ name: 'report_date', default: () => 'CURRENT_DATE', type: 'date' })
+	reportDate: string;
 
-  @Column({ type: 'mediumtext' })
-  deliverables: string;
+	@Column({ type: 'mediumtext' })
+	deliverables: string;
 
-  @Column({ type: 'mediumtext' })
-  hazards: string;
+	@Column({ type: 'mediumtext' })
+	hazards: string;
 
-  @Column({ type: 'mediumtext' })
-  objectives: string;
+	@Column({ type: 'mediumtext' })
+	objectives: string;
 
-  @Column({ type: 'mediumtext', nullable: true })
-  other: Nullable<string>;
+	@Column({ type: 'mediumtext', nullable: true })
+	other: Nullable<string>;
 
-  @ManyToOne(() => Project, (project) => project.reports)
-  project: Project;
+	@ManyToOne(() => Project, (project) => project.reports)
+	project: Project;
 }
