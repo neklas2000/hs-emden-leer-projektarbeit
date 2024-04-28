@@ -7,6 +7,7 @@ import { User } from '@Decorators/user.decorator';
 import { AccessTokenGuard, RefreshTokenGuard } from '@Guards/index';
 import {
 	AuthenticationService,
+	RegisterPayload,
 	TokensResponse,
 	TokensWithUserResponse,
 } from '@Routes/Authentication/services';
@@ -29,11 +30,9 @@ export class AuthenticationController {
 	@Post('register')
 	register(
 		@Body()
-		payload: AuthenticationPayload,
+		payload: RegisterPayload,
 	): Observable<TokensWithUserResponse> {
-		return promiseToObservable(
-			this.authenticationService.register(payload.email, payload.password),
-		);
+		return promiseToObservable(this.authenticationService.register(payload));
 	}
 
 	@Post('login')

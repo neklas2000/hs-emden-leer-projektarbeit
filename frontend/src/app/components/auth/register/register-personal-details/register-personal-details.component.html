@@ -1,0 +1,39 @@
+<form [formGroup]="form" class="flex flex-col">
+  <mat-form-field class="w-full">
+    <mat-label>Akademischer Titel</mat-label>
+    <input type="text" formControlName="academicTitle" matInput />
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label aria-required="true">Vorname</mat-label>
+    <input type="text" formControlName="firstName" aria-required="true" required matInput />
+    @if (form.get('firstName')?.hasError('required')) {
+      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label aria-required="true">Nachname</mat-label>
+    <input type="text" formControlName="lastName" aria-required="true" required matInput />
+    @if (form.get('lastName')?.hasError('required')) {
+      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label aria-required="true">Matrikelnummer</mat-label>
+    <input type="number" formControlName="matriculationNumber" aria-required="true" pattern="\d+" required matInput />
+    @if (form.get('matriculationNumber')?.hasError('required')) {
+      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+    } @else if (form.get('matriculationNumber')?.hasError('pattern')) {
+      <mat-error>Für die Matrikelnummer wird eine Ganzzahl erwartet</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label>Telefonnummer</mat-label>
+    <input type="text" formControlName="phoneNumber" matInput />
+    <mat-icon matPrefix>phone</mat-icon>
+  </mat-form-field>
+  <div class="mt-8 flex flex-row justify-end">
+    <button (click)="onBackClick()" mat-button>Zurück</button>
+    <button (click)="onCancelClick()" color="accent" mat-button>Abbrechen</button>
+    <button type="submit" (click)="onNextClick()" [disabled]="form.invalid" color="primary" mat-button>Registrieren</button>
+  </div>
+</form>

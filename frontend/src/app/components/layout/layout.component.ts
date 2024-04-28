@@ -52,7 +52,8 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy,
   @ViewChild('sidenav') sidenav!: MatSidenav;
   @ViewChild('svgContainer') svgContainer!: ElementRef<HTMLDivElement>;
 
-  title: string = 'Meilensteintrendanalyse - Hochschule Emden/Leer';
+  title: string = 'Meilensteintrendanalyse';
+  subtitle: string = 'Hochschule Emden/Leer';
   navigationGroups: NavigationGroup[] = [
     {
       id: 1,

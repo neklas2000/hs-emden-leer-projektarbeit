@@ -49,9 +49,6 @@ export const routes: Routes = [
             path: 'login',
             component: LoginComponent,
             title: 'Anmelden',
-            resolve: {
-              logo: layoutLogoResolver,
-            },
           },
           {
             path: 'register',

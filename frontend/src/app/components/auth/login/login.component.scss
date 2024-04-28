@@ -1,0 +1,18 @@
+.scale-image {
+  display: flex;
+  padding-top: 2rem;
+  margin: 0 auto 4rem;
+  scale: 1.5;
+
+  @media (max-width: 959.99px) {
+    padding-top: 1rem;
+    margin-bottom: 2rem;
+    scale: 1.25;
+  }
+
+  @media (max-width: 599.99px) {
+    padding-top: 0.5rem;
+    margin-bottom: 1rem;
+    scale: 0.9;
+  }
+}

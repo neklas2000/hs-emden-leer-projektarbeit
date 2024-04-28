@@ -1,1 +1,37 @@
-<p>register works!</p>
+<div class="flex flex-row">
+  <mat-card class="w-full">
+    <mat-card-content class="!flex flex-col items-center">
+      <img
+        class="scale-image"
+        alt="In diesem Bild wird das Logo der Hochschule Emden/Leer dargestellt."
+        src="/assets/hsel-logo_dark-mode.svg"
+        [style.display]="themeMode === 'DARK' ? 'block' : 'none'"
+      />
+      <img
+        class="scale-image"
+        alt="In diesem Bild wird das Logo der Hochschule Emden/Leer dargestellt."
+        src="/assets/hsel-logo_light-mode.svg"
+        [style.display]="themeMode === 'DARK' ? 'none' : 'block'"
+      />
+      <app-register-credentials
+        class="w-full"
+        (onCancel)="cancel()"
+        (onNext)="nextStep($event)"
+        [style.display]="step === 0 ? 'block' : 'none'"
+        #provideCredentials>
+      </app-register-credentials>
+      <app-register-personal-details
+        class="w-full"
+        (onBack)="oneStepBack()"
+        (onCancel)="cancel()"
+        (onNext)="registerUser(true)"
+        [style.display]="step === 1 ? 'block' : 'none'"
+        #providePersonalDetails>
+      </app-register-personal-details>
+      <div class="w-full flex-col gap-y-4 items-center py-8 px-4 text-center" [style.display]="step === 2 ? 'flex' : 'none'">
+        <span>Sie wurden erfolgreich registriert.</span>
+        <span>In Kürze werden Sie zur Startseite umgeleitet.</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

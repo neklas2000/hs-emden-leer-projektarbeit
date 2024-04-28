@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { DataSourceOptions } from 'typeorm';
 
 import { MilestoneEstimate } from '@Routes/MilestoneEstimate/entities';

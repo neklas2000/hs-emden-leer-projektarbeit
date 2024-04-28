@@ -61,10 +61,10 @@ describe('Controller: AuthenticationController', () => {
 			})
 			.pipe(take(1))
 			.subscribe((result) => {
-				expect(authenticationService.register).toHaveBeenCalledWith(
-					'max.mustermann@gmx.de',
-					'secure password',
-				);
+				expect(authenticationService.register).toHaveBeenCalledWith({
+					email: 'max.mustermann@gmx.de',
+					password: 'secure password',
+				});
 				expect(result).toEqual({
 					accessToken: 'accessToken',
 					refreshToken: 'refreshToken',

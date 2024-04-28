@@ -9,6 +9,11 @@ import { UserService } from '@Routes/User/services';
 import { User } from '@Routes/User/entities';
 import { TokenPairAndOwner, TokenWhitelistService } from './token-whitelist.service';
 
+export type RegisterPayload = DeepPartial<User> & {
+	email: string;
+	password: string;
+};
+
 export type TokensResponse = {
 	accessToken: string;
 	refreshToken: string;
@@ -26,14 +31,14 @@ export class AuthenticationService {
 		private readonly tokenWhitelistService: TokenWhitelistService,
 	) {}
 
-	async register(email: string, password: string): Promise<TokensWithUserResponse> {
+	async register({ email, ...userData }: RegisterPayload): Promise<TokensWithUserResponse> {
 		const user = await this.userService.findByEmail(email);
 
 		if (user !== null) {
 			throw new UserAlreadyExistsException(email, null);
 		}
 
-		const registeredUser = await this.userService.register(email, password);
+		const registeredUser = await this.userService.register({ email, ...userData });
 		delete registeredUser.password;
 
 		const tokens = await this.generateTokens(registeredUser.id, registeredUser.email);

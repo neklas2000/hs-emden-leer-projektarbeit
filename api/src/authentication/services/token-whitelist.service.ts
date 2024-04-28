@@ -28,7 +28,6 @@ export class TokenWhitelistService {
 		}
 
 		const accessTokenExpirationDate = currentTimestampWithOffset(30, 'minutes');
-		console.log('Expiration Date to be stored: ' + accessTokenExpirationDate);
 
 		const newRecord = this.tokenWhitelistRepository.create({
 			user: {

@@ -66,13 +66,15 @@ describe('Service: AuthenticationService', () => {
 			jest.spyOn(userService, 'findByEmail').mockResolvedValue({} as any);
 			jest.spyOn(userService, 'register');
 
-			service.register('max.mustermann@gmx.de', 'secure password').catch((exception) => {
-				expect(userService.findByEmail).toHaveBeenCalledWith('max.mustermann@gmx.de');
-				expect(userService.register).not.toHaveBeenCalled();
-				expect(exception).toBeInstanceOf(UserAlreadyExistsException);
+			service
+				.register({ email: 'max.mustermann@gmx.de', password: 'secure password' })
+				.catch((exception) => {
+					expect(userService.findByEmail).toHaveBeenCalledWith('max.mustermann@gmx.de');
+					expect(userService.register).not.toHaveBeenCalled();
+					expect(exception).toBeInstanceOf(UserAlreadyExistsException);
 
-				done();
-			});
+					done();
+				});
 		});
 
 		it('should register a new user and return the tokens', (done) => {
@@ -88,29 +90,31 @@ describe('Service: AuthenticationService', () => {
 			});
 			jest.spyOn(service, 'updateWhitelistedTokens').mockImplementation(() => Promise.resolve());
 
-			service.register('max.mustermann@gmx.de', 'secure password').then((result) => {
-				expect(userService.findByEmail).toHaveBeenCalledWith('max.mustermann@gmx.de');
-				expect(userService.register).toHaveBeenCalledWith(
-					'max.mustermann@gmx.de',
-					'secure password',
-				);
-				expect(service.generateTokens).toHaveBeenCalledWith('1', 'max.mustermann@gmx.de');
-				expect(service.updateWhitelistedTokens).toHaveBeenCalledWith({
-					accessToken: 'accessToken',
-					refreshToken: 'refreshToken',
-					userId: '1',
-				});
-				expect(result).toEqual({
-					accessToken: 'accessToken',
-					refreshToken: 'refreshToken',
-					user: {
-						id: '1',
+			service
+				.register({ email: 'max.mustermann@gmx.de', password: 'secure password' })
+				.then((result) => {
+					expect(userService.findByEmail).toHaveBeenCalledWith('max.mustermann@gmx.de');
+					expect(userService.register).toHaveBeenCalledWith({
 						email: 'max.mustermann@gmx.de',
-					},
-				});
+						password: 'secure password',
+					});
+					expect(service.generateTokens).toHaveBeenCalledWith('1', 'max.mustermann@gmx.de');
+					expect(service.updateWhitelistedTokens).toHaveBeenCalledWith({
+						accessToken: 'accessToken',
+						refreshToken: 'refreshToken',
+						userId: '1',
+					});
+					expect(result).toEqual({
+						accessToken: 'accessToken',
+						refreshToken: 'refreshToken',
+						user: {
+							id: '1',
+							email: 'max.mustermann@gmx.de',
+						},
+					});
 
-				done();
-			});
+					done();
+				});
 		});
 	});
 

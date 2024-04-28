@@ -21,18 +21,20 @@ export class JsonApiConnectorService {
     this.resourcePrefix = prefix;
   }
 
-  create<T>(route: string, resource: T, ...additionalResources: T[]): Observable<T | T[]> {
+  create<T, T_RETURN = T>(route: string, resource: T): Observable<T_RETURN> {
     const uri = this.getUri(route);
 
-    if (additionalResources.length === 0) {
-      return this.httpClient.post<T>(uri, resource)
-        .pipe(catchError((err) => {
-          throw new HttpException(err);
-        }));
-    }
+    return this.httpClient.post<T_RETURN>(uri, resource)
+      .pipe(catchError((err) => {
+        throw new HttpException(err);
+      }));
+  }
 
-    return forkJoin([resource, ...additionalResources].map((entry) => {
-      return this.httpClient.post<T>(uri, entry)
+  createAll<T, T_RETURN = T>(route: string, ...resources: T[]): Observable<T_RETURN[]> {
+    const uri = this.getUri(route);
+
+    return forkJoin([...resources].map((entry) => {
+      return this.httpClient.post<T_RETURN>(uri, entry)
         .pipe(catchError((err) => {
           throw new HttpException(err);
         }));

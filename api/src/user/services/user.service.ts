@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { FindOptionsRelations, FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
+import {
+	DeepPartial,
+	FindOptionsRelations,
+	FindOptionsSelect,
+	FindOptionsWhere,
+	Repository,
+} from 'typeorm';
 
 import { User } from '@Routes/User/entities';
 import { Nullable } from '@Types/index';
@@ -41,8 +47,8 @@ export class UserService {
 		return this.userRepository.findOneBy({ email });
 	}
 
-	register(email: string, password: string): Promise<User> {
-		const user = this.userRepository.create({ email, password });
+	register(userData: DeepPartial<User>): Promise<User> {
+		const user = this.userRepository.create(userData);
 
 		return user.save();
 	}

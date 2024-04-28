@@ -21,6 +21,7 @@ export class User extends BaseEntityWithExtras {
 	static getColumns(): string[] {
 		return [
 			'id',
+			'academicTitle',
 			'matriculationNumber',
 			'firstName',
 			'lastName',
@@ -33,20 +34,23 @@ export class User extends BaseEntityWithExtras {
 	@PrimaryGeneratedUUID()
 	id: string;
 
-	@Column({ name: 'matriculation_number' })
-	matriculationNumber: number;
+	@Column({ name: 'academic_title', nullable: true, type: 'varchar' })
+	academicTitle: Nullable<string>;
 
-	@Column({ name: 'first_name' })
-	firstName: string;
+	@Column({ name: 'matriculation_number', nullable: true, type: 'int' })
+	matriculationNumber: Nullable<number>;
 
-	@Column({ name: 'last_name' })
-	lastName: string;
+	@Column({ name: 'first_name', nullable: true, type: 'varchar' })
+	firstName: Nullable<string>;
+
+	@Column({ name: 'last_name', nullable: true, type: 'varchar' })
+	lastName: Nullable<string>;
 
 	@Column()
 	email: string;
 
-	@Column({ type: 'varchar', nullable: true })
-	password: Nullable<string>;
+	@Column({ type: 'varchar' })
+	password: string;
 
 	@Column({ name: 'phone_number', nullable: true, type: 'varchar' })
 	phoneNumber: Nullable<string>;

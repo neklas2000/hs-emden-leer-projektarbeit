@@ -77,15 +77,17 @@ describe('Service: UserService', () => {
 		};
 		jest.spyOn(repository, 'create').mockReturnValue(user as any);
 
-		service.register('max.mustermann@gmx.de', 'securePassword').then((result) => {
-			expect(repository.create).toHaveBeenCalledWith({
-				email: 'max.mustermann@gmx.de',
-				password: 'securePassword',
-			});
-			expect(user.save).toHaveBeenCalled();
-			expect(result).toEqual('User');
+		service
+			.register({ email: 'max.mustermann@gmx.de', password: 'securePassword' })
+			.then((result) => {
+				expect(repository.create).toHaveBeenCalledWith({
+					email: 'max.mustermann@gmx.de',
+					password: 'securePassword',
+				});
+				expect(user.save).toHaveBeenCalled();
+				expect(result).toEqual('User');
 
-			done();
-		});
+				done();
+			});
 	});
 });

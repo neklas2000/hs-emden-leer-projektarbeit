@@ -57,7 +57,11 @@
           <mat-icon>menu</mat-icon>
         </button>
       }
-      {{ title }}
+      @if (match('lt-xs')) {
+        {{ title }}
+      } @else {
+        {{ title }} - {{ subtitle }}
+      }
       <button mat-icon-button (click)='toggleThemeMode()' matTooltip='{{ isLightMode ? "Dark" : "Light" }} Mode aktivieren'>
         @if (!isLightMode) {
           <mat-icon>light_mode</mat-icon>
@@ -69,8 +73,9 @@
     <main style='height: calc(100vh - 128px); padding: 16px; overflow-y: auto;'>
       <router-outlet></router-outlet>
     </main>
-    <mat-toolbar color='accent'>
-      Footer
+    <mat-toolbar color='accent' class="flex flex-row justify-around">
+      <a href="https://www.hs-emden-leer.de/generische-seiten/impressum" target="_blank">Impressum</a>
+      <a href="https://www.hs-emden-leer.de/datenschutz" target="_blank">Datenschutz</a>
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,14 +1,16 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 import { AuthenticationService } from '@Services/authentication.service';
+import { Undefinable } from '@Types';
+import { ThemeMode, ThemeService } from '@Services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -25,42 +27,44 @@ import { AuthenticationService } from '@Services/authentication.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit, AfterViewInit {
-  @ViewChild('svgContainer') svgContainer!: ElementRef<HTMLDivElement>;
-
+export class LoginComponent implements OnInit, OnDestroy {
   hide: boolean = true;
   formGroup: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
-  private logo!: string;
+  themeMode: ThemeMode = ThemeMode.DARK;
+  private themeSubscription: Undefinable<Subscription> = undefined;
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly activatedRoute: ActivatedRoute,
     private readonly authenticationService: AuthenticationService,
     private readonly router: Router,
+    private readonly theme: ThemeService,
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.pipe(take(1)).subscribe(({ logo }) => {
-      this.logo = logo;
+    this.themeSubscription = this.theme.modeStateChanged$.subscribe((mode) => {
+      this.themeMode = mode;
     });
   }
 
-  ngAfterViewInit(): void {
-    this.svgContainer.nativeElement.innerHTML = this.logo;
+  ngOnDestroy(): void {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 
   login(): void {
     this.authenticationService.login(this.email, this.password)
       .pipe(take(1))
-      .subscribe((result) => {
-        if (typeof result === 'boolean' && result == true) {
+      .subscribe({
+        next: () => {
           this.router.navigateByUrl('/');
-        } else {
-          console.log(result);
-        }
+        },
+        error: (err) => {
+          console.log(err);
+        },
       });
   }
 
