@@ -1,4 +1,3 @@
-export * from './layout-logo.resolver';
 export * from './milestone-estimates-edit.resolver';
 export * from './milestone-estimates-project.resolver';
 export * from './project-details.resolver';

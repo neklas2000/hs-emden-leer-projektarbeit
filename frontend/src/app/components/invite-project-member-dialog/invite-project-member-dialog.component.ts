@@ -20,7 +20,7 @@ type DialogData = {
 };
 
 @Component({
-  selector: 'app-invite-project-member-dialog',
+  selector: 'hsel-invite-project-member-dialog',
   standalone: true,
   imports: [
     MatFormFieldModule,

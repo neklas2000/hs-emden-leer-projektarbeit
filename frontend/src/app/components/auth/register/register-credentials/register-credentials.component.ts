@@ -1,4 +1,3 @@
-import { Undefinable } from '@Types';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,7 +5,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+
 import { Subscription } from 'rxjs';
+
+import { Undefinable } from '@Types';
 
 export type Credentials = {
   password: string;
@@ -14,7 +16,7 @@ export type Credentials = {
 };
 
 @Component({
-  selector: 'app-register-credentials',
+  selector: 'hsel-register-credentials',
   standalone: true,
   imports: [
     FormsModule,

@@ -37,7 +37,7 @@ type ApexChartEventConfig = {
 };
 
 @Component({
-  selector: 'app-edit-milestone-estimates-tab',
+  selector: 'hsel-edit-milestone-estimates-tab',
   standalone: true,
   imports: [
     MatInputModule,

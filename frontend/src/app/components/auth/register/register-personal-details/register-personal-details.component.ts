@@ -16,7 +16,7 @@ export type PersonalDetails = {
 };
 
 @Component({
-  selector: 'app-register-personal-details',
+  selector: 'hsel-register-personal-details',
   standalone: true,
   imports: [
     FormsModule,

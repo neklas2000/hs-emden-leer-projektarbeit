@@ -25,3 +25,18 @@ body {
     text-decoration: underline;
   }
 }
+
+// Adding custom css classes to the components layer of tailwindcss
+@layer components {
+  .s-150 {
+    scale: 1.5;
+  }
+
+  .s-125 {
+    scale: 1.25;
+  }
+
+  .s-90 {
+    scale: 0.9;
+  }
+}

@@ -1,19 +1,18 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-
-import { Subscription } from 'rxjs';
 
 import { Credentials, RegisterCredentialsComponent } from './register-credentials/register-credentials.component';
 import { PersonalDetails, RegisterPersonalDetailsComponent } from './register-personal-details/register-personal-details.component';
 import { AuthenticationService } from '@Services/authentication.service';
-import { Nullable, Undefinable } from '@Types';
-import { ThemeMode, ThemeService } from '@Services/theme.service';
+import { Nullable } from '@Types';
+import { LogoComponent } from '@Components/logo/logo.component';
 
 @Component({
-  selector: 'app-register',
+  selector: 'hsel-register',
   standalone: true,
   imports: [
+    LogoComponent,
     RegisterCredentialsComponent,
     RegisterPersonalDetailsComponent,
     MatCardModule,
@@ -21,31 +20,16 @@ import { ThemeMode, ThemeService } from '@Services/theme.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent {
   @ViewChild('provideCredentials') provideCredentials!: RegisterCredentialsComponent;
 	@ViewChild('providePersonalDetails') providePersonalDetails!: RegisterPersonalDetailsComponent;
 
   step: number = 0;
-  themeMode: ThemeMode = ThemeMode.DARK;
-  private themeSubscription: Undefinable<Subscription> = undefined;
 
   constructor(
     private readonly authenticationService: AuthenticationService,
     private readonly router: Router,
-    private readonly theme: ThemeService,
   ) {}
-
-  ngOnInit(): void {
-    this.themeSubscription = this.theme.modeStateChanged$.subscribe((mode) => {
-      this.themeMode = mode;
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.themeSubscription) {
-      this.themeSubscription.unsubscribe();
-    }
-  }
 
   oneStepBack(): void {
     this.step = 0;

@@ -16,7 +16,7 @@ import { Nullable, DeepPartial } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 
 @Component({
-  selector: 'app-edit-report',
+  selector: 'hsel-edit-report',
   standalone: true,
   imports: [
     MarkdownEditorComponent,

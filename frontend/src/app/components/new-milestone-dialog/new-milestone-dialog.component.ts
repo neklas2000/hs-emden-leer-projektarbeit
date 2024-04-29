@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ProjectMilestone } from '@Models/project-milestone';
 
 @Component({
-  selector: 'app-new-milestone-dialog',
+  selector: 'hsel-new-milestone-dialog',
   standalone: true,
   imports: [
     MatFormFieldModule,

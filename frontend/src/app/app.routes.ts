@@ -18,7 +18,6 @@ import {
 } from '@Components';
 import { authenticationGuard } from '@Guards/authentication.guard';
 import {
-  layoutLogoResolver,
   milestoneEstimatesEditResolver,
   milestoneEstimatesProjectResolver,
   projectDetailsResolver,
@@ -32,9 +31,6 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    resolve: {
-      logo: layoutLogoResolver,
-    },
     children: [
       {
         path: '',

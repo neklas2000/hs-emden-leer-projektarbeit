@@ -1,9 +1,6 @@
 <mat-nav-list>
   @for (project of projects; track project.id) {
-    <a
-      mat-list-item
-      [routerLink]="['/projects', project.id]"
-    >
+    <a [routerLink]="['/projects', project.id]" mat-list-item>
       <span matListItemTitle>{{ project.name }}</span>
       <span matListItemLine>
         vom Typ "{{ project.type }}" -
@@ -11,7 +8,7 @@
         @if (project.officialEnd) {
           Beendet am: {{ project.officialEnd | date:'dd.MM.yyyy' }} -
         }
-        Berichtsintervall: {{ project.reportInterval }} Tage
+        Berichtsintervall: {{ project.reportInterval }} Tag/e
       </span>
     </a>
   } @empty {

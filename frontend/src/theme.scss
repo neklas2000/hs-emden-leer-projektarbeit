@@ -254,9 +254,10 @@ $altTheme: mat.define-dark-theme($theme-primary, $theme-accent, $theme-warn);
 
 .material-icons {
   font-size: 24px;
-  font-family: 'Material Icons Outlined', 'Material Icons';
+  font-family: 'Material Icons Outlined', 'Material Icons', sans-serif;
+
   .mat-badge-content {
-    font-family: 'Roboto';
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   }
 }
 
@@ -285,4 +286,11 @@ $altTheme: mat.define-dark-theme($theme-primary, $theme-accent, $theme-warn);
   justify-content: center;
   align-items: center;
   background-color: var(--mat-sidenav-content-background-color);
+
+  @media (max-width: 599.99px) {
+    bottom: 64px;
+    top: unset !important;
+    margin-top: unset !important;
+    margin-right: unset !important;
+  }
 }

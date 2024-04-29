@@ -12,7 +12,7 @@ import { take } from 'rxjs';
 import { MarkdownEditorDialogComponent } from '../markdown-editor-dialog/markdown-editor-dialog.component';
 
 @Component({
-  selector: 'app-markdown-editor',
+  selector: 'hsel-markdown-editor',
   standalone: true,
   imports: [
     MarkdownComponent,

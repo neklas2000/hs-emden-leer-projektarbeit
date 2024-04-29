@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Project } from '@Models/project';
 
 @Component({
-  selector: 'app-projects',
+  selector: 'hsel-projects',
   standalone: true,
   imports: [
     CommonModule,

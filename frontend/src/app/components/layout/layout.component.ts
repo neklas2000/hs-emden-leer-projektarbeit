@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,14 +7,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterOutlet, RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 import { MediaMatching } from '@Services/media-matching.service';
 import { ThemeMode, ThemeService } from '@Services/theme.service';
 import { AuthenticationService } from '@Services/authentication.service';
+import { Undefinable } from '@Types';
+import { SnackbarService } from '@Services/snackbar.service';
+import { LogoComponent } from '@Components/logo/logo.component';
 
 type NavigationItem = {
   id: number;
@@ -31,9 +34,10 @@ type NavigationGroup = {
 };
 
 @Component({
-  selector: 'app-layout',
+  selector: 'hsel-layout',
   standalone: true,
   imports: [
+    LogoComponent,
     CommonModule,
     RouterOutlet,
     MatToolbarModule,
@@ -48,9 +52,8 @@ type NavigationGroup = {
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
-export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy, AfterViewInit {
+export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;
-  @ViewChild('svgContainer') svgContainer!: ElementRef<HTMLDivElement>;
 
   title: string = 'Meilensteintrendanalyse';
   subtitle: string = 'Hochschule Emden/Leer';
@@ -100,35 +103,31 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy,
       ],
     },
   ];
-  private currentThemeMode!: ThemeMode;
-  private logo!: string;
+  private themeMode!: ThemeMode;
+  private themeSubscription: Undefinable<Subscription> = undefined;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private readonly theme: ThemeService,
     private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute,
     private readonly authenticationService: AuthenticationService,
+    private readonly snackbar: SnackbarService,
   ) {
     super(changeDetectorRef, media);
-
-    this.theme.modeStateChanged$.subscribe((mode) => {
-      this.currentThemeMode = mode;
-    });
   }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ logo }) => {
-      this.logo = logo;
+    this.themeSubscription = this.theme.modeStateChanged$.subscribe((mode) => {
+      this.themeMode = mode;
     });
   }
 
-  ngAfterViewInit(): void {
-    this.svgContainer.nativeElement.innerHTML = this.logo;
-  }
-
   ngOnDestroy(): void {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
+
     this.destroy();
   }
 
@@ -147,7 +146,7 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy,
   }
 
   get isLightMode(): boolean {
-    return this.currentThemeMode === ThemeMode.LIGHT;
+    return this.themeMode === ThemeMode.LIGHT;
   }
 
   logout(): void {
@@ -155,7 +154,7 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy,
       if (successful) {
         this.router.navigateByUrl('/auth/login');
       } else {
-        // TODO: show snackbar
+        this.snackbar.open('Sie konnten nicht abgemeldet werden');
       }
     });
   }

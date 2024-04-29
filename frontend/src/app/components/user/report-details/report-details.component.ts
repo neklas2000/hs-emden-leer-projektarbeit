@@ -21,7 +21,7 @@ import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 
 @Component({
-  selector: 'app-report-details',
+  selector: 'hsel-report-details',
   standalone: true,
   imports: [
     MarkdownPipe,

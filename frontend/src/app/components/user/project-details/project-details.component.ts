@@ -23,7 +23,7 @@ import { MilestoneEstimate } from '@Models/milestone-estimate';
 import { Nullable } from '@Types';
 
 @Component({
-  selector: 'app-project-details',
+  selector: 'hsel-project-details',
   standalone: true,
   imports: [
     MatCardModule,

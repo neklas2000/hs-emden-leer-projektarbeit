@@ -19,3 +19,19 @@ a {
     text-decoration: underline;
   }
 }
+
+.background-dark-mode {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.background-light-mode {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.main-content {
+  height: calc(100vh - var(--mat-toolbar-standard-height) - var(--mat-toolbar-standard-height));
+
+  @media (max-width: 599px) {
+    height: calc(100vh - var(--mat-toolbar-mobile-height) - var(--mat-toolbar-mobile-height));
+  }
+}

@@ -7,7 +7,7 @@ import { ChartService, ChartOptions } from '@Services/chart.service';
 import { Nullable } from '@Types';
 
 @Component({
-  selector: 'app-milestone-trend-analysis-chart',
+  selector: 'hsel-milestone-trend-analysis-chart',
   standalone: true,
   imports: [NgApexchartsModule],
   templateUrl: './milestone-trend-analysis-chart.component.html',

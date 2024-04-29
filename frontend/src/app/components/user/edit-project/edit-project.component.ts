@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-edit-project',
+  selector: 'hsel-edit-project',
   standalone: true,
   imports: [],
   templateUrl: './edit-project.component.html',

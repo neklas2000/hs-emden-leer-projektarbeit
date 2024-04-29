@@ -1,19 +1,22 @@
 <mat-sidenav-container [autosize]="!match('lt-xs')">
   <mat-sidenav
-    style="width: 256px; overflow: hidden;"
-    class="mat-elevation-z4"
+    class="mat-elevation-z4 overflow-hidden w-64"
     [fixedInViewport]="match('lt-xs')"
     [mode]="match('lt-xs') ? 'over' : 'side'"
     [opened]="!match('lt-xs')"
     #sidenav
   >
-    <div style="overflow: hidden;">
-      <div class="branding-logo" (click)="navigateTo('/')" #svgContainer>
-        HS Logo
+    <div class="overflow-hidden">
+      <div class="branding-logo" (click)="navigateTo('/')" (keypress)="navigateTo('/')">
+        <hsel-logo imgClasses="max-w-inherit" class="max-w-inherit"></hsel-logo>
       </div>
       <mat-nav-list>
         @for (navigationGroup of navigationGroups; track navigationGroup.id) {
-          <div mat-list-item class="subheader" style="padding-left: 8px; display: flex; align-items: center;" [style.backgroundColor]="!isLightMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'">
+          <div
+            class="pl-2 flex items-center"
+            [ngClass]="!isLightMode ? 'background-dark-mode' : 'background-light-mode'"
+            mat-list-item
+          >
             <h3 matLine>{{ navigationGroup.label }}</h3>
           </div>
 
@@ -21,25 +24,25 @@
             <mat-divider></mat-divider>
             @if (navigationItem.clickEvent) {
               <a
-                mat-list-item
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="onNavigationClick(); navigationItem.clickEvent();"
+                mat-list-item
               >
-                <div style="display: flex; align-items: center; column-gap: 16px;">
+                <div class="flex items-center gap-x-4">
                   <mat-icon>{{ navigationItem.icon }}</mat-icon>
                   <h3 matLine>{{ navigationItem.label }}</h3>
                 </div>
               </a>
             } @else if (navigationItem.to) {
               <a
-                mat-list-item
                 [routerLink]="navigationItem.to"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="onNavigationClick()"
+                mat-list-item
               >
-                <div style="display: flex; align-items: center; column-gap: 16px;">
+                <div class="flex items-center gap-x-4">
                   <mat-icon>{{ navigationItem.icon }}</mat-icon>
                   <h3 matLine>{{ navigationItem.label }}</h3>
                 </div>
@@ -51,9 +54,9 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar class='mat-elevation-z6' color='primary' style='display: flex; flex-direction: row; justify-content: space-between;'>
+    <mat-toolbar class='mat-elevation-z6 flex flex-row justify-between' color='primary'>
       @if (match('lt-xs')) {
-        <button mat-icon-button (click)="sidenav.open()">
+        <button (click)="sidenav.open()" mat-icon-button>
           <mat-icon>menu</mat-icon>
         </button>
       }
@@ -62,7 +65,11 @@
       } @else {
         {{ title }} - {{ subtitle }}
       }
-      <button mat-icon-button (click)='toggleThemeMode()' matTooltip='{{ isLightMode ? "Dark" : "Light" }} Mode aktivieren'>
+      <button
+        (click)='toggleThemeMode()'
+        matTooltip='{{ isLightMode ? "Dark" : "Light" }} Mode aktivieren'
+        mat-icon-button
+      >
         @if (!isLightMode) {
           <mat-icon>light_mode</mat-icon>
         } @else {
@@ -70,12 +77,16 @@
         }
       </button>
     </mat-toolbar>
-    <main style='height: calc(100vh - 128px); padding: 16px; overflow-y: auto;'>
+    <main class="p-4 overflow-y-auto main-content">
       <router-outlet></router-outlet>
     </main>
     <mat-toolbar color='accent' class="flex flex-row justify-around">
-      <a href="https://www.hs-emden-leer.de/generische-seiten/impressum" target="_blank">Impressum</a>
-      <a href="https://www.hs-emden-leer.de/datenschutz" target="_blank">Datenschutz</a>
+      <a href="https://www.hs-emden-leer.de/generische-seiten/impressum" target="_blank">
+        Impressum
+      </a>
+      <a href="https://www.hs-emden-leer.de/datenschutz" target="_blank">
+        Datenschutz
+      </a>
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>

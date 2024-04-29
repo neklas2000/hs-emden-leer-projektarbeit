@@ -2,12 +2,12 @@
   @for (milestone of milestones; track milestone.id) {
     <mat-tab [label]="milestone.name">
       <div class="overflow-hidden p-2">
-        <app-edit-milestone-estimates-tab #tabContent
+        <hsel-edit-milestone-estimates-tab #tabContent
           [milestone]="milestone"
           [reportDates]="reportDates"
           [interval]="project?.reportInterval || 7"
           [renderChart]="$first">
-        </app-edit-milestone-estimates-tab>
+        </hsel-edit-milestone-estimates-tab>
       </div>
     </mat-tab>
   }

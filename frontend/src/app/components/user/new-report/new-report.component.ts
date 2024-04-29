@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-new-report',
+  selector: 'hsel-new-report',
   standalone: true,
   imports: [],
   templateUrl: './new-report.component.html',

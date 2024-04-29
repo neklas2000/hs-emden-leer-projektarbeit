@@ -1,0 +1,12 @@
+<img
+  [ngClass]="imgClasses"
+  alt="In diesem Bild wird das Logo der Hochschule Emden/Leer dargestellt."
+  src="/assets/hsel-logo_dark-mode.svg"
+  [style.display]="themeMode === 'DARK' ? 'block' : 'none'"
+/>
+<img
+  [ngClass]="imgClasses"
+  alt="In diesem Bild wird das Logo der Hochschule Emden/Leer dargestellt."
+  src="/assets/hsel-logo_light-mode.svg"
+  [style.display]="themeMode === 'DARK' ? 'none' : 'block'"
+/>

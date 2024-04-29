@@ -7,7 +7,7 @@ type ConfirmationDialogData = {
 };
 
 @Component({
-  selector: 'app-confirmation-dialog',
+  selector: 'hsel-confirmation-dialog',
   standalone: true,
   imports: [
     MatDialogModule,

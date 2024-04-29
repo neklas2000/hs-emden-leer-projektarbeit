@@ -24,7 +24,7 @@ import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 
 @Component({
-  selector: 'app-edit-milestone-estimates',
+  selector: 'hsel-edit-milestone-estimates',
   standalone: true,
   imports: [
     MatInputModule,
@@ -70,8 +70,8 @@ export class EditMilestoneEstimatesComponent implements OnInit {
         this.project = project;
 
         this.milestones.forEach((milestone) => {
-          milestone.estimates = milestone.estimates.sort((estimateA, estimateB) => {
-            return this.date.compare(estimateA.estimationDate || '', estimateB.estimationDate || '');
+          milestone.estimates.sort((estimateA, estimateB) => {
+            return this.date.compare(estimateA.estimationDate ?? '', estimateB.estimationDate ?? '');
           });
         })
 

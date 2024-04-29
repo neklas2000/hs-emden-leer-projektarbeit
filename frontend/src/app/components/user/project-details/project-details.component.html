@@ -159,12 +159,12 @@
         </mat-card-actions>
       </mat-card>
     </div>
-    <app-milestone-trend-analysis-chart
+    <hsel-milestone-trend-analysis-chart
       [interval]="project.reportInterval"
       [startDate]="project.officialStart"
       [endDate]="project.officialEnd"
       [milestones]="project.milestones">
-    </app-milestone-trend-analysis-chart>
+    </hsel-milestone-trend-analysis-chart>
   </div>
   <div class="fab-button-toolbar">
     <button color="accent" [routerLink]="['edit']" mat-fab>

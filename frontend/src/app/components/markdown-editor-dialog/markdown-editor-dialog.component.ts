@@ -19,7 +19,7 @@ type DialogData = {
 };
 
 @Component({
-  selector: 'app-markdown-editor-dialog',
+  selector: 'hsel-markdown-editor-dialog',
   standalone: true,
   imports: [
     MatFormFieldModule,
