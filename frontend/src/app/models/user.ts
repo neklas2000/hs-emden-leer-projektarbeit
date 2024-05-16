@@ -10,6 +10,7 @@ export class User extends BaseModel {
   };
 
   id: Nullable<string> = null;
+  academicTitle: Nullable<string> = null;
   matriculationNumber: number = 0;
   firstName: string = '';
   lastName: string = '';

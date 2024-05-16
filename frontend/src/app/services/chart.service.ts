@@ -338,12 +338,6 @@ export class ChartService {
         const data = await chart.dataURI();
 
         resolve((data as any).imgURI);
-
-        /**
-         * In case the svg element needs to be returned this line can be used.
-         * This results in a better quality but the charts legend won't be exported, too.
-         */
-        //resolve(this.getSvgElement(div)?.innerHTML || '');
       } catch (err) {
         reject(err);
       } finally {
@@ -351,22 +345,4 @@ export class ChartService {
       }
     });
   }
-
-  // private getSvgElement(div: HTMLDivElement): Nullable<SVGElement> {
-  //   let child = div.firstChild;
-
-  //   while (child && !(child instanceof SVGElement) && child.hasChildNodes()) {
-  //     child = child.firstChild;
-  //   }
-
-  //   if (!child) return null;
-
-  //   const svgElement = child as SVGElement;
-  //   svgElement.setAttribute(
-  //     'viewBox',
-  //     `0 0 ${svgElement.getAttribute('width')} ${svgElement.getAttribute('height')}`,
-  //   );
-
-  //   return svgElement;
-  // }
 }

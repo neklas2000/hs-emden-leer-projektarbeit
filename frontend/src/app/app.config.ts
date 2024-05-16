@@ -8,6 +8,7 @@ import { MARKED_OPTIONS, MarkedRenderer, provideMarkdown } from 'ngx-markdown';
 import { routes } from './app.routes';
 import { CHECKED_CHECKBOX, UNCHECKED_CHECKBOX } from '../constants';
 import { authenticationInterceptor } from '@Interceptors/authentication.interceptor';
+import { credentialsInterceptor } from '@Interceptors/credentials.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,6 +45,6 @@ export const appConfig: ApplicationConfig = {
         }
       },
     }),
-    provideHttpClient(withInterceptors([authenticationInterceptor])),
+    provideHttpClient(withInterceptors([authenticationInterceptor, credentialsInterceptor])),
   ]
 };

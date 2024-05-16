@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Subscription } from 'rxjs';
 
 import { Undefinable } from '@Types';
+import { FormValidators } from '../../../../validators';
 
 export type Credentials = {
   password: string;
@@ -35,24 +36,9 @@ export class RegisterCredentialsComponent implements OnInit, OnDestroy {
   @Output() onNext: EventEmitter<boolean> = new EventEmitter();
 
   form: FormGroup = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    passwordRepeat: [
-      '',
-      [
-        Validators.required,
-        (control: AbstractControl): ValidationErrors | null => {
-          if (!control.value || String(control.value).length === 0) return null;
-          if (String(control.value) === String(this.form.get('password')?.value ?? '')) return null;
-
-          return {
-            passwordMatch: {
-              value: control.value,
-            },
-          };
-        },
-      ],
-    ],
+    email: ['', [FormValidators.required, FormValidators.email]],
+    password: ['', [FormValidators.required]],
+    passwordRepeat: ['', [FormValidators.required, FormValidators.matchWith('password')]],
     providePersonalDetails: [true, []],
   });
   hidePassword: boolean = true;

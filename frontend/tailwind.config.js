@@ -7,6 +7,10 @@ module.exports = {
     extend: {
       maxWidth: {
         'inherit': 'inherit',
+        '3/4': '75%',
+      },
+      flex: {
+        '1/2': '50%',
       },
     },
     screens: {

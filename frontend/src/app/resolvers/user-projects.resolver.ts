@@ -1,7 +1,7 @@
 import { ResolveFn } from '@angular/router';
 import { inject } from '@angular/core';
 
-import { Observable, switchMap, take } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Project } from '@Models/project';
 import { JsonApiDatastore } from '@Services/json-api-datastore.service';
@@ -13,14 +13,14 @@ export const userProjectsResolver: ResolveFn<Observable<Project[]>> = (
   jsonApiDatastore: JsonApiDatastore = inject(JsonApiDatastore),
   authentication: AuthenticationService = inject(AuthenticationService),
 ) => {
-  return authentication.user$.pipe(take(1), switchMap((user) => {
-    if (user === null || user.id === null) return [];
+  const userId = authentication.getUser();
 
-    return jsonApiDatastore
-      .loadAll<Project>(Project, {
-        filters: {
-          'owner.id': user.id,
-        },
-      });
-  }));
+  if (!userId) return of([]);
+
+  return jsonApiDatastore
+    .loadAll<Project>(Project, {
+      filters: {
+        'owner.id': userId,
+      },
+    });
 };

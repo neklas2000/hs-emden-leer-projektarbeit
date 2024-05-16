@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+
+import { of } from 'rxjs';
 
 import { ProfileComponent } from './profile.component';
 
@@ -8,7 +11,15 @@ describe('Component: ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfileComponent]
+      imports: [ProfileComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: of({}),
+          },
+        },
+      ],
     })
     .compileComponents();
 

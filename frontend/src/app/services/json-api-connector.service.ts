@@ -3,12 +3,18 @@ import { inject } from '@angular/core';
 
 import { Observable, catchError, forkJoin, of, switchMap } from 'rxjs';
 
-import { JsonApiQueries, RequestIds } from '@Types';
+import { JsonApiQueries, RequestIds, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { parseJsonApiQuery } from '@Utils/parse-json-api-query';
 
 type SuccessResponse = {
   success: boolean;
+};
+
+type ReadParameters = {
+  route?: string;
+  ids?: RequestIds | string;
+  query?: JsonApiQueries;
 };
 
 export class JsonApiConnectorService {
@@ -50,8 +56,13 @@ export class JsonApiConnectorService {
       }));
   }
 
-  read<T>(route: string, ids: RequestIds | string, query?: JsonApiQueries): Observable<T> {
-    const uri = this.getUri(this.replaceIds(route, ids)) + parseJsonApiQuery(query);
+  read<T>(params?: ReadParameters): Observable<T> {
+    let uri = this.getUri();
+
+    if (params) {
+      const { route, ids, query } = params;
+      uri = this.getUri(this.replaceIds(route, ids)) + parseJsonApiQuery(query);
+    }
 
     return this.httpClient.get<T>(uri)
       .pipe(catchError((err) => {
@@ -71,7 +82,10 @@ export class JsonApiConnectorService {
       );
   }
 
-  private replaceIds(route: string, ids: RequestIds | string): string {
+  private replaceIds(route?: string, ids?: RequestIds | string): Undefinable<string> {
+    if (!route) return undefined;
+    if (!ids) return route;
+
     if (typeof ids === 'string') {
       route = route.replace(':id', ids);
     } else {
@@ -83,12 +97,14 @@ export class JsonApiConnectorService {
     return route;
   }
 
-  private getUri(route: string): string {
+  private getUri(route?: string): string {
     let uri: string = this.baseUrl;
 
     if (this.resourcePrefix !== '') {
       uri += `/${this.resourcePrefix}`;
     }
+
+    if (!route) return uri;
 
     return uri + `/${route}`;
   }

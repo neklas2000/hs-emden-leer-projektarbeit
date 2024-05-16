@@ -47,6 +47,10 @@ export class UserService {
 		return this.userRepository.findOneBy({ email });
 	}
 
+	findById(id: string): Promise<Nullable<User>> {
+		return this.userRepository.findOneBy({ id });
+	}
+
 	register(userData: DeepPartial<User>): Promise<User> {
 		const user = this.userRepository.create(userData);
 

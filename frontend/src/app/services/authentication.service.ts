@@ -2,11 +2,12 @@ import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import * as crypto from 'crypto-js';
-import { BehaviorSubject, Observable, map, switchMap, take } from 'rxjs';
+import { Observable, map, switchMap, take } from 'rxjs';
 
 import { JsonApiConnectorService } from './json-api-connector.service';
 import { User } from '@Models/user';
 import { DeepPartial, Nullable } from '@Types';
+import { SessionStorageService } from './session-storage.service';
 
 type TokensResponse = {
   accessToken: string;
@@ -25,17 +26,10 @@ type LogoutResponse = {
   providedIn: 'root'
 })
 export class AuthenticationService extends JsonApiConnectorService {
-  user$!: Observable<Nullable<User>>;
-
-  private user: BehaviorSubject<Nullable<User>> = new BehaviorSubject<Nullable<User>>(null);
-  private accessToken: Nullable<string> = null;
-  private refreshToken: Nullable<string> = null;
   private refreshing: boolean = false;
 
-  constructor() {
+  constructor(private readonly sessionStorage: SessionStorageService) {
     super('auth');
-
-    this.user$ = this.user.asObservable();
   }
 
   register(userData: DeepPartial<User> & { password: string; email: string; }): Observable<true> {
@@ -51,9 +45,9 @@ export class AuthenticationService extends JsonApiConnectorService {
     ).pipe(
       take(1),
       map((response) => {
-        this.accessToken = response.accessToken;
-        this.refreshToken = response.refreshToken;
-        this.user.next(response.user);
+        this.sessionStorage.setUser(response.user.id ?? '');
+        this.sessionStorage.setAccessToken(response.accessToken);
+        this.sessionStorage.setRefreshToken(response.refreshToken);
 
         return true as const;
       }),
@@ -72,9 +66,9 @@ export class AuthenticationService extends JsonApiConnectorService {
     ).pipe(
       take(1),
       map((response) => {
-        this.accessToken = response.accessToken;
-        this.refreshToken = response.refreshToken;
-        this.user.next(response.user);
+        this.sessionStorage.setUser(response.user.id ?? '');
+        this.sessionStorage.setAccessToken(response.accessToken);
+        this.sessionStorage.setRefreshToken(response.refreshToken);
 
         return true;
       }),
@@ -84,9 +78,7 @@ export class AuthenticationService extends JsonApiConnectorService {
   logout(): Observable<boolean> {
     return this.create<any, LogoutResponse>('logout', {}).pipe(take(1), map((response) => {
       if (response.success) {
-        this.accessToken = null;
-        this.refreshToken = null;
-        this.user.next(null);
+        this.sessionStorage.clear();
 
         return true;
       }
@@ -95,16 +87,20 @@ export class AuthenticationService extends JsonApiConnectorService {
     }));
   }
 
+  getUser(): Nullable<string> {
+    return this.sessionStorage.getUser();
+  }
+
   getAccessToken(): Nullable<string> {
-    return this.accessToken;
+    return this.sessionStorage.getAccessToken();
   }
 
   getRefreshToken(): Nullable<string> {
-    return this.refreshToken;
+    return this.sessionStorage.getRefreshToken();
   }
 
   refreshTokens(request: HttpRequest<any>, next: HttpHandlerFn) {
-    if (!this.refreshToken || this.refreshing) return next(request);
+    if (!this.sessionStorage.getRefreshToken() || this.refreshing) return next(request);
 
     this.refreshing = true;
 
@@ -112,18 +108,18 @@ export class AuthenticationService extends JsonApiConnectorService {
       .pipe(
         take(1),
         switchMap((tokens, index) => {
-          this.refreshToken = tokens.refreshToken;
-          this.accessToken = tokens.accessToken;
           this.refreshing = false;
+          this.sessionStorage.setAccessToken(tokens.accessToken);
+          this.sessionStorage.setRefreshToken(tokens.refreshToken);
 
           return next(request.clone({
-            headers: request.headers.set('Authorization', `Bearer ${this.accessToken}`),
+            headers: request.headers.set('Authorization', `Bearer ${tokens.accessToken}`),
           }));
         }),
       );
   }
 
   isAuthenticated(): boolean {
-    return this.user.value !== null;
+    return this.sessionStorage.getUser() !== null;
   }
 }

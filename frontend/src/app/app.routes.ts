@@ -20,6 +20,7 @@ import { authenticationGuard } from '@Guards/authentication.guard';
 import {
   milestoneEstimatesEditResolver,
   milestoneEstimatesProjectResolver,
+  profileResolver,
   projectDetailsResolver,
   projectEditResolver,
   reportDetailsResolver,
@@ -57,6 +58,9 @@ export const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         title: 'Mein Profil',
+        resolve: {
+          profile: profileResolver,
+        },
         canActivate: [authenticationGuard],
       },
       {
@@ -66,7 +70,7 @@ export const routes: Routes = [
         resolve: {
           projects: userProjectsResolver,
         },
-        canActivate: [authenticationGuard],
+        // canActivate: [authenticationGuard],
       },
       {
         path: 'projects/new',
