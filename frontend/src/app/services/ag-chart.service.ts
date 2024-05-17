@@ -152,9 +152,7 @@ export class AgChartService {
           stroke: '#808080',
           strokeWidth: 3,
           marker: {
-            shape: 'circle',
-            fill: '#808080',
-            size: 10,
+            enabled: false,
           },
           tooltip: {
             renderer: this.getTooltipRenderer(categories, '#808080'),

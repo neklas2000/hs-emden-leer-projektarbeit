@@ -1,43 +1,65 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
+import { AgChartsAngular } from 'ag-charts-angular';
+import { AgChartInstance, AgChartOptions, AgCharts } from 'ag-charts-community';
+import { Subscription } from 'rxjs';
 
 import { ProjectMilestone } from '@Models/project-milestone';
-import { ChartService, ChartOptions } from '@Services/chart.service';
 import { Nullable } from '@Types';
+import { AgChartService } from '@Services/ag-chart.service';
+import { ThemeMode, ThemeService } from '@Services/theme.service';
 
 @Component({
   selector: 'hsel-milestone-trend-analysis-chart',
   standalone: true,
-  imports: [NgApexchartsModule],
+  imports: [AgChartsAngular],
   templateUrl: './milestone-trend-analysis-chart.component.html',
   styleUrl: './milestone-trend-analysis-chart.component.scss'
 })
-export class MilestoneTrendAnalysisChartComponent implements OnInit {
-  @ViewChild("chart") chart!: ChartComponent;
+export class MilestoneTrendAnalysisChartComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('chartContainer') chartContainer!: ElementRef<HTMLDivElement>;
   @Input() startDate!: string;
   @Input() endDate: Nullable<string> = null;
   @Input() interval: number = 7;
   @Input() milestones: ProjectMilestone[] = [];
   @Input() reportDates: string[] = [];
 
-  chartOptions!: ChartOptions;
+  private options!: AgChartOptions;
+  private themeSubscription!: Subscription;
+  private chartInstance!: AgChartInstance;
 
-  constructor(private readonly chartService: ChartService) {}
+  constructor(
+    private readonly agChart: AgChartService,
+    private readonly theme: ThemeService,
+  ) {}
 
   ngOnInit(): void {
-    this.createChart();
-  }
-
-  private createChart() {
-    this.chartService.defineOptions({
+    this.agChart.defineOptions({
       start: this.startDate,
       end: this.endDate,
-      interval: this.interval,
       milestones: this.milestones,
-      reportDates: this.reportDates,
+      interval: this.interval,
     });
 
-    this.chartOptions = this.chartService.options;
+    this.options = this.agChart.options;
+  }
+
+  ngAfterViewInit(): void {
+    this.options.container = this.chartContainer.nativeElement;
+    this.chartInstance = AgCharts.create(this.options);
+
+    this.themeSubscription = this.theme.modeStateChanged$.subscribe((theme) => {
+      this.chartInstance.resetAnimations();
+
+      AgCharts.updateDelta(this.chartInstance, {
+        theme: theme === ThemeMode.DARK ? 'ag-default-dark' : 'ag-default',
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 }

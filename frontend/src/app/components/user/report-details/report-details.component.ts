@@ -13,12 +13,12 @@ import { take } from 'rxjs';
 import { ProjectReport } from '@Models/project-report';
 import { Project } from '@Models/project';
 import { ProjectRole } from '@Models/project-member';
-import { ChartService } from '@Services/chart.service';
 import { PdfService } from '@Services/pdf.service';
 import { JsonApiDatastore } from '@Services/json-api-datastore.service';
 import { SnackbarService } from '@Services/snackbar.service';
 import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
+import { AgChartService } from '@Services/ag-chart.service';
 
 @Component({
   selector: 'hsel-report-details',
@@ -41,7 +41,7 @@ export class ReportDetailsComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly apexChart: ChartService,
+    private readonly agChart: AgChartService,
     private readonly pdf: PdfService,
     private readonly jsonApiDatastore: JsonApiDatastore,
     private readonly snackbar: SnackbarService,
@@ -59,7 +59,7 @@ export class ReportDetailsComponent implements OnInit {
   downloadPdf(): void {
     const project$ = this.jsonApiDatastore.load<Project>(
       Project,
-      this.projectReport?.project?.id || null,
+      this.projectReport?.project?.id ?? null,
       {
         includes: ['owner', 'members', 'members.user', 'milestones', 'milestones.estimates'],
         sparseFieldsets: {
@@ -78,7 +78,7 @@ export class ReportDetailsComponent implements OnInit {
 
     project$.pipe(take(1)).subscribe({
       next: (project) => {
-        this.apexChart.defineOptions({
+        this.agChart.defineOptions({
           start: project.officialStart,
           end: project.officialEnd,
           milestones: project.milestones,
@@ -86,31 +86,31 @@ export class ReportDetailsComponent implements OnInit {
           chartWidth: 1000,
         });
 
-        this.apexChart.dataUri$
-          .then((svgImage) => {
+        this.agChart.dataUri$
+          .then((milestoneTrendAnalysisChart) => {
             this.pdf.generateProjectReport({
               companions: project.members
                 .filter((member) => member.role === ProjectRole.Viewer)
                 .map((member) => member.user),
-              deliverables: this.projectReport?.deliverables || '',
-              hazards: this.projectReport?.hazards || '',
-              objectives: this.projectReport?.objectives || '',
-              other: this.projectReport?.other || '',
+              deliverables: this.projectReport?.deliverables ?? '',
+              hazards: this.projectReport?.hazards ?? '',
+              objectives: this.projectReport?.objectives ?? '',
+              other: this.projectReport?.other ?? '',
               projectTitle: project.name,
               projectType: project.type,
-              reportDate: this.projectReport?.reportDate || '',
-              reportEnd: project.officialEnd || '',
+              reportDate: this.projectReport?.reportDate ?? '',
+              reportEnd: project.officialEnd ?? '',
               reportInterval: project.reportInterval,
               reportStart: project.officialStart,
-              sequenceNumber: this.projectReport?.sequenceNumber || NaN,
+              sequenceNumber: this.projectReport?.sequenceNumber ?? NaN,
               students: project.members
                 .filter((member) => member.role === ProjectRole.Contributor)
                 .map((member) => member.user).concat(project.owner),
-              milestoneTrendAnalysis: svgImage,
+              milestoneTrendAnalysis: milestoneTrendAnalysisChart,
             });
           })
-          .catch((err) => {
-            this.snackbar.open('MTA Diagramm kann nicht erzeugt werden');
+          .catch((_) => {
+            this.snackbar.open('MTA Diagramm konnte nicht erzeugt werden');
           });
       },
       error: (exception: HttpException) => {
