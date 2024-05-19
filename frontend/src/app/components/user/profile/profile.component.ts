@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,20 +8,15 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatDialog } from '@angular/material/dialog';
 
 import { take } from 'rxjs';
 
+import { Credentials, EditCredentialsComponent } from './edit-credentials/edit-credentials.component';
+import { EditPersonalInformationComponent } from './edit-personal-information/edit-personal-information.component';
 import { User } from '@Models/user';
-import { Nullable } from '@Types';
-import { FormValidators } from '../../../validators';
-
-type Form = FormGroup<{
-  academicTitle: FormControl<Nullable<string>>;
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
-  matriculationNumber: FormControl<Nullable<number>>;
-  phoneNumber: FormControl<Nullable<string>>;
-}>;
+import { DeepPartial, Nullable } from '@Types';
+import { UndefinedStringPipe } from 'app/pipes/undefined-string.pipe';
 
 @Component({
   selector: 'hsel-profile',
@@ -36,35 +31,72 @@ type Form = FormGroup<{
     MatSelectModule,
     MatIconModule,
     MatListModule,
+    EditPersonalInformationComponent,
+    UndefinedStringPipe,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
-  profile: Nullable<User> = null;
-  form: Form = this.formBuilder.group({
-    academicTitle: ['', []],
-    firstName: ['', [FormValidators.required]],
-    lastName: ['', [FormValidators.required]],
-    matriculationNumber: [null, [FormValidators.required]],
-    phoneNumber: ['', [FormValidators.phoneNumber]],
-  }) as any;
+  profile!: DeepPartial<User>;
+  private editingPersonalInformation: boolean = false;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly formBuilder: FormBuilder,
+    private readonly dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.pipe(take(1)).subscribe(({ profile }: Data) => {
       this.profile = profile;
-      this.form.setValue({
-        academicTitle: this.profile?.academicTitle ?? '',
-        firstName: this.profile?.firstName ?? '',
-        lastName: this.profile?.lastName ?? '',
-        matriculationNumber: this.profile?.matriculationNumber ?? null,
-        phoneNumber: this.profile?.phoneNumber ?? '',
-      });
+    });
+  }
+
+  editPersonalInformation(): void {
+    this.editingPersonalInformation = true;
+  }
+
+  cancelEditPersonalInformation(): void {
+    this.editingPersonalInformation = false;
+  }
+
+  get isEditingPersonalInformationActivated(): boolean {
+    return this.editingPersonalInformation;
+  }
+
+  saveEditedPersonalInformation(updatedProfile: DeepPartial<User>): void {
+    this.profile = {
+      ...this.profile,
+      ...updatedProfile,
+    };
+    this.cancelEditPersonalInformation();
+  }
+
+  editEmail(): void {
+    const dialogRef = this.dialog.open(EditCredentialsComponent, {
+      data: {
+        type: Credentials.EMAIL,
+        userId: this.profile.id,
+      },
+      minWidth: '60dvw',
+      maxWidth: '80dvw',
+    });
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((result: Nullable<string>) => {
+      if (result) {
+        this.profile.email = result;
+      }
+    });
+  }
+
+  editPassword(): void {
+    this.dialog.open(EditCredentialsComponent, {
+      data: {
+        type: Credentials.PASSWORD,
+        userId: this.profile.id,
+      },
+      minWidth: '60dvw',
+      maxWidth: '80dvw',
     });
   }
 }

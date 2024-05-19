@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 import { Observable, catchError, forkJoin, of, switchMap } from 'rxjs';
 
-import { JsonApiQueries, RequestIds, Undefinable } from '@Types';
+import { DeepPartial, JsonApiQueries, Nullable, RequestIds, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { parseJsonApiQuery } from '@Utils/parse-json-api-query';
 
@@ -56,7 +56,7 @@ export class JsonApiConnectorService {
       }));
   }
 
-  read<T>(params?: ReadParameters): Observable<T> {
+  read<T>(params?: ReadParameters): Observable<Nullable<T>> {
     let uri = this.getUri();
 
     if (params) {
@@ -70,7 +70,7 @@ export class JsonApiConnectorService {
       }));
   }
 
-  update<T>(route: string, ids: RequestIds | string, data: T): Observable<boolean> {
+  update<T>(route: string, ids: RequestIds | string, data: DeepPartial<T>): Observable<boolean> {
     const uri = this.getUri(this.replaceIds(route, ids));
 
     return this.httpClient.patch<SuccessResponse>(uri, data)

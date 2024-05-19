@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 
 import { User } from '@Models/user';
 import { ProfileService } from '@Services/profile.service';
+import { Nullable } from '@Types';
 
-export const profileResolver: ResolveFn<Observable<User>> = (
+export const profileResolver: ResolveFn<Observable<Nullable<User>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   profileService: ProfileService = inject(ProfileService),

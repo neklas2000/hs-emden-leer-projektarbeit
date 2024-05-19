@@ -1,0 +1,41 @@
+<form [formGroup]="form" class="flex flex-col gap-y-2">
+  <mat-form-field class="w-full">
+    <mat-label>Akademischer Titel</mat-label>
+    <input type="text" formControlName="academicTitle" matInput />
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label aria-required="true">Vorname</mat-label>
+    <input type="text" formControlName="firstName" aria-required="true" required matInput />
+    @if (form.get('firstName')?.hasError('required')) {
+      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label aria-required="true">Nachname</mat-label>
+    <input type="text" formControlName="lastName" aria-required="true" matInput required />
+    @if (form.get('lastName')?.hasError('required')) {
+      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label aria-required="true">Matrikelnummer</mat-label>
+    <input type="text" formControlName="matriculationNumber" aria-required="true" pattern="[0-9]+" matInput required />
+    @if (form.get('matriculationNumber')?.hasError('required')) {
+      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+    } @else if (form.get('matriculationNumber')?.hasError('pattern')) {
+      <mat-error>Für die Matrikelnummer darf nur eine Ganzzahl eingegeben werden</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label>Telefonnummer</mat-label>
+    <input type="tel" formControlName="phoneNumber" matInput />
+    <mat-icon matPrefix>phone</mat-icon>
+    @if (form.get('phoneNumber')?.hasError('phoneNumber')) {
+      <mat-error>Das Format der Telefonnummer ist nicht korrekt</mat-error>
+    }
+  </mat-form-field>
+</form>
+<div class="flex justify-end">
+  <button color="accent" (click)="onCancel.emit()" mat-button>Änderungen verwerfen</button>
+  <button color="primary" [disabled]="form.invalid" (click)="saveChanges()" mat-button>Änderungen speichern</button>
+</div>

@@ -9,6 +9,7 @@ export class FormValidators extends Validators {
    * If the phone number is not valid the error `phoneNumber` will be set.
    */
   static phoneNumber(control: AbstractControl): Nullable<ValidationErrors> {
+    if (!control.value || String(control.value).length === 0) return null;
     if (isValidPhoneNumber(control.value)) return null;
 
     return {

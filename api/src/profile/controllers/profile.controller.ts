@@ -1,6 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
+import { DeepPartial, FindOptionsWhere } from 'typeorm';
 
 import { User } from '@Decorators/user.decorator';
 import { AccessTokenGuard } from '@Guards/access-token.guard';
@@ -8,6 +9,12 @@ import { UserService } from '@Routes/User/services';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 import { Nullable } from '@Types/index';
 import { User as UserEntity } from '@Routes/User/entities';
+import { Filters } from '@Decorators/filters.decorator';
+import { IncorrectCredentialsException } from '@Exceptions/incorrect-credentials.exception';
+
+type SuccessResponse = {
+	success: boolean;
+};
 
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
@@ -26,5 +33,43 @@ export class ProfileController {
 
 			return user;
 		});
+	}
+
+	@Get(':id')
+	getProfileById(
+		@Param('id')
+		id: string,
+		@Filters(UserEntity)
+		where: FindOptionsWhere<UserEntity>,
+	): Observable<Nullable<UserEntity>> {
+		return promiseToObservable(this.userService.findByIdAndCredentials(id, where), (user) => {
+			if (!user) {
+				throw new IncorrectCredentialsException(null);
+			}
+
+			delete user.password;
+
+			return user;
+		});
+	}
+
+	@Patch(':id')
+	updateProfile(
+		@Param('id')
+		id: string,
+		@Body()
+		payload: DeepPartial<UserEntity>,
+	): Observable<SuccessResponse> {
+		return promiseToObservable(this.userService.update(id, payload), (user) => {
+			if (user) {
+				return {
+					success: true,
+				};
+			}
+
+			return {
+				success: false,
+			};
+		}) as Observable<SuccessResponse>;
 	}
 }

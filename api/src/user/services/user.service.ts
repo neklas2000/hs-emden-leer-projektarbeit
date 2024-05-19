@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import * as crypto from 'crypto-js';
 import {
 	DeepPartial,
 	FindOptionsRelations,
@@ -51,8 +52,34 @@ export class UserService {
 		return this.userRepository.findOneBy({ id });
 	}
 
+	findByIdAndCredentials(id: string, where: FindOptionsWhere<User> = {}): Promise<Nullable<User>> {
+		if (where?.password) {
+			where.password = crypto.SHA256(where.password as string).toString(crypto.enc.Hex);
+		}
+
+		return this.userRepository.findOneBy({ id, ...where });
+	}
+
 	register(userData: DeepPartial<User>): Promise<User> {
 		const user = this.userRepository.create(userData);
+
+		return user.save();
+	}
+
+	async update(id: string, payload: DeepPartial<User>): Promise<User> {
+		const user = await this.userRepository.findOneBy({ id });
+
+		if (!user) {
+			throw new NotFoundException();
+		}
+
+		if (payload?.password) {
+			payload.password = crypto.SHA256(payload.password).toString(crypto.enc.Hex);
+		}
+
+		for (const attribute in payload) {
+			user[attribute] = payload[attribute];
+		}
 
 		return user.save();
 	}
