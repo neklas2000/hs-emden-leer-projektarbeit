@@ -16,6 +16,8 @@ import { AccessTokenStrategy } from './access-token.strategy';
 import { TokenWhitelistService } from '@Routes/Authentication/services';
 import { provideTokenWhitelistRepository } from '@Mocks/Providers/token-whitelist-repository.provider';
 import { ACCESS_TOKEN_COOKIE } from '@Tokens/index';
+import { DateService } from '@Services/date.service';
+import { CryptoService } from '@Services/crypto.service';
 
 describe('Strategy: AccessTokenStrategy', () => {
 	const PREVIOUS_PROCESS_ENVIRONMENT = process.env;
@@ -28,7 +30,13 @@ describe('Strategy: AccessTokenStrategy', () => {
 		process.env.JWT_ACCESS_SECRET = 'jwt access token secret';
 
 		const module = await Test.createTestingModule({
-			providers: [AccessTokenStrategy, TokenWhitelistService, provideTokenWhitelistRepository()],
+			providers: [
+				AccessTokenStrategy,
+				TokenWhitelistService,
+				provideTokenWhitelistRepository(),
+				DateService,
+				CryptoService,
+			],
 		}).compile();
 
 		tokenWhitelist = module.get(TokenWhitelistService);

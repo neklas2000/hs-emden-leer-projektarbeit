@@ -1,3 +1,11 @@
+jest.mock('@Environment', () => ({
+	__esModule: true,
+	default: {
+		ACCESS_TOKEN_EXPIRATION: '30m',
+		REFRESH_TOKEN_EXPIRATION: '7d',
+	},
+}));
+
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 
@@ -9,10 +17,13 @@ import { provideTokenWhitelistRepository } from '@Mocks/Providers/token-whitelis
 import { UserService } from '@Routes/User/services';
 import { AuthenticationService, TokenWhitelistService } from '../services';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '@Tokens/index';
+import { DateService } from '@Services/date.service';
+import { CryptoService } from '@Services/crypto.service';
 
 describe('Controller: AuthenticationController', () => {
 	let controller: AuthenticationController;
 	let authenticationService: AuthenticationService;
+	let dateService: DateService;
 
 	beforeEach(async () => {
 		jest.useFakeTimers();
@@ -26,11 +37,14 @@ describe('Controller: AuthenticationController', () => {
 				JwtService,
 				TokenWhitelistService,
 				provideTokenWhitelistRepository(),
+				DateService,
+				CryptoService,
 			],
 			controllers: [AuthenticationController],
 		}).compile();
 
 		authenticationService = module.get(AuthenticationService);
+		dateService = module.get(DateService);
 		controller = module.get(AuthenticationController);
 	});
 
@@ -192,6 +206,12 @@ describe('Controller: AuthenticationController', () => {
 			accessToken: 'accessToken',
 			refreshToken: 'refreshToken',
 		});
+		const accessTokenExpiration = new Date('2024-01-01T06:30:00');
+		const refreshTokenExpiration = new Date('2024-01-08T06:00:00');
+		jest
+			.spyOn(dateService, 'getExpirationDateWithOffset')
+			.mockReturnValueOnce(accessTokenExpiration)
+			.mockReturnValueOnce(refreshTokenExpiration);
 
 		controller
 			.refreshTokens(
@@ -212,13 +232,13 @@ describe('Controller: AuthenticationController', () => {
 					httpOnly: true,
 					secure: true,
 					sameSite: 'lax',
-					expires: new Date('2024-01-01T06:30:00'),
+					expires: accessTokenExpiration,
 				});
 				expect(res.cookie).toHaveBeenNthCalledWith(2, REFRESH_TOKEN_COOKIE, 'refreshToken', {
 					httpOnly: true,
 					secure: true,
 					sameSite: 'lax',
-					expires: new Date('2024-01-08T06:00:00'),
+					expires: refreshTokenExpiration,
 				});
 				expect(result).toEqual({
 					accessToken: 'accessToken',

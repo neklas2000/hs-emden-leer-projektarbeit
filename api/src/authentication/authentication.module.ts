@@ -8,6 +8,8 @@ import { TokenWhitelist } from './entities';
 import { UserModule } from '@Routes/User/user.module';
 import { AuthenticationService, TokenWhitelistService } from './services';
 import { AccessTokenStrategy, RefreshTokenStrategy } from '@Strategies/index';
+import { CryptoService } from '@Services/crypto.service';
+import { DateService } from '@Services/date.service';
 
 @Module({
 	imports: [
@@ -19,6 +21,8 @@ import { AccessTokenStrategy, RefreshTokenStrategy } from '@Strategies/index';
 	providers: [
 		AuthenticationService,
 		TokenWhitelistService,
+		CryptoService,
+		DateService,
 		AccessTokenStrategy,
 		RefreshTokenStrategy,
 	],

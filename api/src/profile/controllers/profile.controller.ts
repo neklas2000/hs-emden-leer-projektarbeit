@@ -7,14 +7,10 @@ import { User } from '@Decorators/user.decorator';
 import { AccessTokenGuard } from '@Guards/access-token.guard';
 import { UserService } from '@Routes/User/services';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
-import { Nullable } from '@Types/index';
+import { Nullable, Success } from '@Types/index';
 import { User as UserEntity } from '@Routes/User/entities';
 import { Filters } from '@Decorators/filters.decorator';
 import { IncorrectCredentialsException } from '@Exceptions/incorrect-credentials.exception';
-
-type SuccessResponse = {
-	success: boolean;
-};
 
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
@@ -59,7 +55,7 @@ export class ProfileController {
 		id: string,
 		@Body()
 		payload: DeepPartial<UserEntity>,
-	): Observable<SuccessResponse> {
+	): Observable<Success> {
 		return promiseToObservable(this.userService.update(id, payload), (user) => {
 			if (user) {
 				return {
@@ -70,6 +66,6 @@ export class ProfileController {
 			return {
 				success: false,
 			};
-		}) as Observable<SuccessResponse>;
+		}) as Observable<Success>;
 	}
 }

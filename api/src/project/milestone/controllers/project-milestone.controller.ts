@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
 import { FindOptionsWhere, FindOptionsSelect, FindOptionsRelations, DeepPartial } from 'typeorm';
@@ -8,6 +8,7 @@ import { AccessTokenGuard } from '@Guards/access-token.guard';
 import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
 import { ProjectMilestoneService } from '@Routes/ProjectMilestone/services';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
+import { Success } from '@Types/index';
 
 @UseGuards(AccessTokenGuard)
 @Controller('project/milestones')
@@ -46,5 +47,19 @@ export class ProjectMilestoneController {
 		relations: FindOptionsRelations<ProjectMilestone>,
 	): Observable<ProjectMilestone> {
 		return promiseToObservable(this.projectMilestoneService.findOne(id, where, select, relations));
+	}
+
+	@Patch(':id')
+	update(
+		@Param('id')
+		id: string,
+		@Body()
+		payload: DeepPartial<ProjectMilestone>,
+	): Observable<Success> {
+		return promiseToObservable(this.projectMilestoneService.update(id, payload), (result) => {
+			return {
+				success: result,
+			};
+		}) as Observable<Success>;
 	}
 }

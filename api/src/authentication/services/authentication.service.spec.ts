@@ -1,20 +1,16 @@
-const mockSHA256Hash = {
-	toString: jest.fn(),
-};
-
-jest.mock('crypto-js', () => ({
+jest.mock('@Environment', () => ({
 	__esModule: true,
-	SHA256: jest.fn().mockReturnValue(mockSHA256Hash),
-	enc: {
-		HEX: 1,
+	default: {
+		JWT_ACCESS_SECRET: 'jwt access token secret',
+		JWT_REFRESH_SECRET: 'jwt refresh token secret',
+		ACCESS_TOKEN_EXPIRATION: '30m',
+		REFRESH_TOKEN_EXPIRATION: '7d',
 	},
 }));
 
 import { ForbiddenException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
-
-import { SHA256, enc } from 'crypto-js';
 
 import { AuthenticationService } from './authentication.service';
 import { TokenWhitelistService } from './token-whitelist.service';
@@ -23,13 +19,15 @@ import { provideTokenWhitelistRepository } from '@Mocks/Providers/token-whitelis
 import { provideUserRepository } from '@Mocks/Providers/user-repository.provider';
 import { IncorrectCredentialsException } from '@Exceptions/incorrect-credentials.exception';
 import { UserAlreadyExistsException } from '@Exceptions/user-already-exists.exception';
+import { CryptoService } from '@Services/crypto.service';
+import { DateService } from '@Services/date.service';
 
 describe('Service: AuthenticationService', () => {
-	const PREVIOUS_PROCESS_ENVIRONMENT = process.env;
 	let service: AuthenticationService;
 	let userService: UserService;
 	let jwtService: JwtService;
 	let tokenWhitelist: TokenWhitelistService;
+	let cryptoService: CryptoService;
 
 	beforeEach(async () => {
 		jest.resetModules();
@@ -42,19 +40,16 @@ describe('Service: AuthenticationService', () => {
 				UserService,
 				provideTokenWhitelistRepository(),
 				provideUserRepository(),
+				CryptoService,
+				DateService,
 			],
 		}).compile();
 
 		userService = module.get(UserService);
 		jwtService = module.get(JwtService);
 		tokenWhitelist = module.get(TokenWhitelistService);
+		cryptoService = module.get(CryptoService);
 		service = module.get(AuthenticationService);
-
-		process.env = { ...PREVIOUS_PROCESS_ENVIRONMENT };
-	});
-
-	afterAll(() => {
-		process.env = PREVIOUS_PROCESS_ENVIRONMENT;
 	});
 
 	it('should be created', () => {
@@ -79,6 +74,7 @@ describe('Service: AuthenticationService', () => {
 
 		it('should register a new user and return the tokens', (done) => {
 			jest.spyOn(userService, 'findByEmail').mockResolvedValue(null);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('secure password');
 			jest.spyOn(userService, 'register').mockResolvedValue({
 				id: '1',
 				email: 'max.mustermann@gmx.de',
@@ -153,6 +149,7 @@ describe('Service: AuthenticationService', () => {
 				email: 'max.mustermann@gmx.de',
 				password: 'secure password',
 			} as any);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('secure password');
 			jest.spyOn(service, 'generateTokens').mockResolvedValue({
 				accessToken: 'accessToken',
 				refreshToken: 'refreshToken',
@@ -200,11 +197,6 @@ describe('Service: AuthenticationService', () => {
 	});
 
 	describe('refreshTokens(string, string)', () => {
-		beforeEach(() => {
-			mockSHA256Hash.toString.mockReset().mockReturnValue('hashed refreshToken');
-			(SHA256 as jest.Mock).mockReset().mockReturnValue(mockSHA256Hash);
-		});
-
 		it('should throw an exception since no user could be found', (done) => {
 			jest.spyOn(userService, 'findByEmail').mockResolvedValue(null);
 			jest.spyOn(tokenWhitelist, 'findByUser');
@@ -228,7 +220,6 @@ describe('Service: AuthenticationService', () => {
 			service.refreshTokens('max.mustermann@gmx.de', 'refreshToken').catch((exception) => {
 				expect(userService.findByEmail).toHaveBeenCalledWith('max.mustermann@gmx.de');
 				expect(tokenWhitelist.findByUser).toHaveBeenCalledWith('1');
-				expect(SHA256).not.toHaveBeenCalled();
 				expect(exception).toBeInstanceOf(ForbiddenException);
 
 				done();
@@ -248,8 +239,6 @@ describe('Service: AuthenticationService', () => {
 			service.refreshTokens('max.mustermann@gmx.de', 'refreshToken').catch((exception) => {
 				expect(userService.findByEmail).toHaveBeenCalledWith('max.mustermann@gmx.de');
 				expect(tokenWhitelist.findByUser).toHaveBeenCalledWith('1');
-				expect(SHA256).toHaveBeenCalledWith('refreshToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.generateTokens).not.toHaveBeenCalled();
 				expect(exception).toBeInstanceOf(ForbiddenException);
 
@@ -265,6 +254,7 @@ describe('Service: AuthenticationService', () => {
 			jest.spyOn(tokenWhitelist, 'findByUser').mockResolvedValue({
 				refreshToken: 'hashed refreshToken',
 			} as any);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('hashed refreshToken');
 			const tokens = {
 				accessToken: 'new hashed accessToken',
 				refreshToken: 'new hashed refreshToken',
@@ -275,8 +265,6 @@ describe('Service: AuthenticationService', () => {
 			service.refreshTokens('max.mustermann@gmx.de', 'refreshToken').then((result) => {
 				expect(userService.findByEmail).toHaveBeenCalledWith('max.mustermann@gmx.de');
 				expect(tokenWhitelist.findByUser).toHaveBeenCalledWith('1');
-				expect(SHA256).toHaveBeenCalledWith('refreshToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.generateTokens).toHaveBeenCalledWith('1', 'max.mustermann@gmx.de');
 				expect(service.updateWhitelistedTokens).toHaveBeenCalledWith({
 					...tokens,
@@ -290,16 +278,12 @@ describe('Service: AuthenticationService', () => {
 	});
 
 	describe('updateWhitelistedTokens(TokenPairAndOwner)', () => {
-		beforeEach(() => {
-			mockSHA256Hash.toString
-				.mockReset()
-				.mockReturnValueOnce('hashed refreshToken')
-				.mockReturnValue('hashed accessToken');
-			(SHA256 as jest.Mock).mockReset().mockReturnValue(mockSHA256Hash);
-		});
-
 		it('should update whitelisted tokens', (done) => {
 			jest.spyOn(tokenWhitelist, 'update').mockResolvedValue(null);
+			jest
+				.spyOn(cryptoService, 'hash')
+				.mockReturnValueOnce('hashed refreshToken')
+				.mockReturnValueOnce('hashed accessToken');
 
 			service
 				.updateWhitelistedTokens({
@@ -308,12 +292,6 @@ describe('Service: AuthenticationService', () => {
 					userId: '1',
 				})
 				.then(() => {
-					expect(SHA256).toHaveBeenCalledTimes(2);
-					expect(mockSHA256Hash.toString).toHaveBeenCalledTimes(2);
-					expect(SHA256).toHaveBeenNthCalledWith(1, 'refreshToken');
-					expect(mockSHA256Hash.toString).toHaveBeenNthCalledWith(1, enc.Hex);
-					expect(SHA256).toHaveBeenNthCalledWith(2, 'accessToken');
-					expect(mockSHA256Hash.toString).toHaveBeenNthCalledWith(2, enc.Hex);
 					expect(tokenWhitelist.update).toHaveBeenCalledWith({
 						userId: '1',
 						accessToken: 'hashed accessToken',
@@ -330,8 +308,6 @@ describe('Service: AuthenticationService', () => {
 			.spyOn(jwtService, 'signAsync')
 			.mockResolvedValueOnce('signed access token')
 			.mockResolvedValue('signed refresh token');
-		process.env.JWT_ACCESS_SECRET = 'jwt access token secret';
-		process.env.JWT_REFRESH_SECRET = 'jwt refresh token secret';
 
 		service.generateTokens('1', 'max.mustermann@gmx.de').then((result) => {
 			expect(jwtService.signAsync).toHaveBeenCalledTimes(2);

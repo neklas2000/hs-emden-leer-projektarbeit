@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { Observable } from 'rxjs';
 
 import { User } from '@Decorators/user.decorator';
+import env from '@Environment';
 import { AccessTokenGuard, RefreshTokenGuard } from '@Guards/index';
 import {
 	AuthenticationService,
@@ -11,6 +12,7 @@ import {
 	TokensResponse,
 	TokensWithUserResponse,
 } from '@Routes/Authentication/services';
+import { DateService } from '@Services/date.service';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '@Tokens/index';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
@@ -25,7 +27,10 @@ type LogoutResult = {
 
 @Controller('auth')
 export class AuthenticationController {
-	constructor(private readonly authenticationService: AuthenticationService) {}
+	constructor(
+		private readonly authenticationService: AuthenticationService,
+		private readonly date: DateService,
+	) {}
 
 	@Post('register')
 	register(
@@ -49,14 +54,14 @@ export class AuthenticationController {
 					httpOnly: true,
 					secure: true,
 					sameSite: 'lax',
-					expires: new Date(Date.now() + 30 * 60 * 1000),
+					expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
 				});
 
 				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
 					httpOnly: true,
 					secure: true,
 					sameSite: 'lax',
-					expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+					expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
 				});
 
 				return result;
@@ -104,14 +109,14 @@ export class AuthenticationController {
 					httpOnly: true,
 					secure: true,
 					sameSite: 'lax',
-					expires: new Date(Date.now() + 30 * 60 * 1000),
+					expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
 				});
 
 				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
 					httpOnly: true,
 					secure: true,
 					sameSite: 'lax',
-					expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+					expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
 				});
 
 				return result;

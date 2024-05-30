@@ -1,13 +1,18 @@
 import { JwtService } from '@nestjs/jwt';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 
-import * as crypto from 'crypto-js';
 import { DeepPartial, DeleteResult } from 'typeorm';
 
-import { IncorrectCredentialsException, UserAlreadyExistsException } from '@Exceptions/index';
+import env from '@Environment';
+import {
+	BadRequestException,
+	IncorrectCredentialsException,
+	UserAlreadyExistsException,
+} from '@Exceptions/index';
 import { UserService } from '@Routes/User/services';
 import { User } from '@Routes/User/entities';
 import { TokenPairAndOwner, TokenWhitelistService } from './token-whitelist.service';
+import { CryptoService } from '@Services/crypto.service';
 
 export type RegisterPayload = DeepPartial<User> & {
 	email: string;
@@ -29,16 +34,25 @@ export class AuthenticationService {
 		private readonly userService: UserService,
 		private readonly jwtService: JwtService,
 		private readonly tokenWhitelistService: TokenWhitelistService,
+		private readonly crypto: CryptoService,
 	) {}
 
-	async register({ email, ...userData }: RegisterPayload): Promise<TokensWithUserResponse> {
+	async register({
+		email,
+		password,
+		...userData
+	}: RegisterPayload): Promise<TokensWithUserResponse> {
 		const user = await this.userService.findByEmail(email);
 
 		if (user !== null) {
 			throw new UserAlreadyExistsException(email, null);
 		}
 
-		const registeredUser = await this.userService.register({ email, ...userData });
+		const registeredUser = await this.userService.register({
+			email,
+			password: this.crypto.hash(password),
+			...userData,
+		});
 		delete registeredUser.password;
 
 		const tokens = await this.generateTokens(registeredUser.id, registeredUser.email);
@@ -56,7 +70,7 @@ export class AuthenticationService {
 	async login(email: string, password: string): Promise<TokensWithUserResponse> {
 		const user = await this.userService.findByEmail(email);
 
-		if (!user || user.password !== password) {
+		if (!user || user.password !== this.crypto.hash(password)) {
 			throw new IncorrectCredentialsException(null);
 		}
 
@@ -92,7 +106,7 @@ export class AuthenticationService {
 			throw new ForbiddenException('Access Denied');
 		}
 
-		const hashedRefreshedToken = crypto.SHA256(refreshToken).toString(crypto.enc.Hex);
+		const hashedRefreshedToken = this.crypto.hash(refreshToken);
 
 		if (hashedRefreshedToken !== tokenWhitelistEntry.refreshToken) {
 			throw new ForbiddenException('Access Denied');
@@ -112,8 +126,8 @@ export class AuthenticationService {
 		accessToken,
 		userId,
 	}: TokenPairAndOwner): Promise<void> {
-		const hashedRefreshedToken = crypto.SHA256(refreshToken).toString(crypto.enc.Hex);
-		const hashedAccessToken = crypto.SHA256(accessToken).toString(crypto.enc.Hex);
+		const hashedRefreshedToken = this.crypto.hash(refreshToken);
+		const hashedAccessToken = this.crypto.hash(accessToken);
 
 		await this.tokenWhitelistService.update({
 			userId,
@@ -123,32 +137,36 @@ export class AuthenticationService {
 	}
 
 	async generateTokens(userId: string, email: string): Promise<TokensResponse> {
-		const [accessToken, refreshToken] = await Promise.all([
-			this.jwtService.signAsync(
-				{
-					sub: userId,
-					email,
-				},
-				{
-					secret: process.env.JWT_ACCESS_SECRET,
-					expiresIn: '30m',
-				},
-			),
-			this.jwtService.signAsync(
-				{
-					sub: userId,
-					email,
-				},
-				{
-					secret: process.env.JWT_REFRESH_SECRET,
-					expiresIn: '7d',
-				},
-			),
-		]);
+		try {
+			const [accessToken, refreshToken] = await Promise.all([
+				this.jwtService.signAsync(
+					{
+						sub: userId,
+						email,
+					},
+					{
+						secret: env.JWT_ACCESS_SECRET,
+						expiresIn: env.ACCESS_TOKEN_EXPIRATION,
+					},
+				),
+				this.jwtService.signAsync(
+					{
+						sub: userId,
+						email,
+					},
+					{
+						secret: env.JWT_REFRESH_SECRET,
+						expiresIn: env.REFRESH_TOKEN_EXPIRATION,
+					},
+				),
+			]);
 
-		return {
-			accessToken,
-			refreshToken,
-		};
+			return {
+				accessToken,
+				refreshToken,
+			};
+		} catch (error) {
+			throw new BadRequestException(error);
+		}
 	}
 }

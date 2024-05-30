@@ -39,7 +39,9 @@
       "@Decorators/*": ["decorators/*"],
       "@Common/*": ["common/*"],
       "@Mocks/Providers/*": ["mocks/providers/*"],
-      "@Mocks/Helpers/*": ["mocks/helpers/*"]
+      "@Mocks/Helpers/*": ["mocks/helpers/*"],
+      "@Services/*": ["services/*"],
+      "@Environment": ["environment"]
     }
   },
   "include": [

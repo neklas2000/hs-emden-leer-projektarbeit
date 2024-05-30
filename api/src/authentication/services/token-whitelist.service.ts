@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import * as crypto from 'crypto-js';
 import { DeleteResult, Repository } from 'typeorm';
 
+import env from '@Environment';
 import { TokenWhitelist } from '@Routes/Authentication/entities';
-import { currentTimestampWithOffset } from '@Utils/current-timestamp-with-offset';
+import { DateService } from '@Services/date.service';
+import { CryptoService } from '@Services/crypto.service';
 
 export type TokenPairAndOwner = {
 	accessToken: string;
@@ -18,6 +19,8 @@ export class TokenWhitelistService {
 	constructor(
 		@InjectRepository(TokenWhitelist)
 		private readonly tokenWhitelistRepository: Repository<TokenWhitelist>,
+		private readonly date: DateService,
+		private readonly crypto: CryptoService,
 	) {}
 
 	async update({ accessToken, refreshToken, userId }: TokenPairAndOwner): Promise<void> {
@@ -27,7 +30,12 @@ export class TokenWhitelistService {
 			await this.tokenWhitelistRepository.remove(tokenWhitelistEntry);
 		}
 
-		const accessTokenExpirationDate = currentTimestampWithOffset(30, 'minutes');
+		const accessTokenExpirationDate = this.date.getCurrentTimestampWithOffset(
+			env.ACCESS_TOKEN_EXPIRATION,
+		);
+		const refreshTokenExpirationDate = this.date.getCurrentTimestampWithOffset(
+			env.REFRESH_TOKEN_EXPIRATION,
+		);
 
 		const newRecord = this.tokenWhitelistRepository.create({
 			user: {
@@ -36,7 +44,7 @@ export class TokenWhitelistService {
 			accessToken,
 			accessTokenExpirationDate,
 			refreshToken,
-			refreshTokenExpirationDate: currentTimestampWithOffset(7, 'days'),
+			refreshTokenExpirationDate,
 		});
 
 		await newRecord.save();
@@ -61,7 +69,7 @@ export class TokenWhitelistService {
 	}
 
 	async verifyAccessToken(userId: string, accessToken: string): Promise<boolean> {
-		const hashedAccessToken = crypto.SHA256(accessToken).toString(crypto.enc.Hex);
+		const hashedAccessToken = this.crypto.hash(accessToken);
 		const tokenWhitelistEntry = await this.findByUser(userId);
 
 		if (tokenWhitelistEntry === null) return false;
@@ -70,7 +78,7 @@ export class TokenWhitelistService {
 	}
 
 	async verifyRefreshToken(userId: string, refreshToken: string): Promise<boolean> {
-		const hashedRefreshToken = crypto.SHA256(refreshToken).toString(crypto.enc.Hex);
+		const hashedRefreshToken = this.crypto.hash(refreshToken);
 		const tokenWhitelistEntry = await this.findByUser(userId);
 
 		if (tokenWhitelistEntry === null) return false;

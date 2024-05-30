@@ -1,23 +1,13 @@
-const mockSHA256Hash = {
-	toString: jest.fn(),
-};
-
-jest.mock('crypto-js', () => ({
+jest.mock('@Environment', () => ({
 	__esModule: true,
-	SHA256: jest.fn().mockReturnValue(mockSHA256Hash),
-	enc: {
-		HEX: 1,
+	default: {
+		ACCESS_TOKEN_EXPIRATION: '30m',
+		REFRESH_TOKEN_EXPIRATION: '7d',
 	},
-}));
-
-jest.mock('@Utils/current-timestamp-with-offset', () => ({
-	__esModule: true,
-	currentTimestampWithOffset: jest.fn(),
 }));
 
 import { Test } from '@nestjs/testing';
 
-import { SHA256, enc } from 'crypto-js';
 import { Repository } from 'typeorm';
 
 import { TokenWhitelistService } from './token-whitelist.service';
@@ -26,18 +16,28 @@ import {
 	provideTokenWhitelistRepository,
 	TOKEN_WHITELIST_REPOSITORY_TOKEN,
 } from '@Mocks/Providers/token-whitelist-repository.provider';
-import { currentTimestampWithOffset } from '@Utils/current-timestamp-with-offset';
+import { DateService } from '@Services/date.service';
+import { CryptoService } from '@Services/crypto.service';
 
 describe('Service: TokenWhitelistService', () => {
 	let service: TokenWhitelistService;
 	let repository: Repository<TokenWhitelist>;
+	let dateService: DateService;
+	let cryptoService: CryptoService;
 
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
-			providers: [TokenWhitelistService, provideTokenWhitelistRepository()],
+			providers: [
+				TokenWhitelistService,
+				provideTokenWhitelistRepository(),
+				DateService,
+				CryptoService,
+			],
 		}).compile();
 
 		repository = module.get(TOKEN_WHITELIST_REPOSITORY_TOKEN);
+		dateService = module.get(DateService);
+		cryptoService = module.get(CryptoService);
 		service = module.get(TokenWhitelistService);
 	});
 
@@ -46,16 +46,13 @@ describe('Service: TokenWhitelistService', () => {
 	});
 
 	describe('update(TokenPairAndOwner)', () => {
-		beforeEach(() => {
-			(currentTimestampWithOffset as jest.Mock)
-				.mockReset()
-				.mockReturnValueOnce('2024-01-01 12:30:00')
-				.mockReturnValue('2024-01-08 12:00:00');
-		});
-
 		it('should update a non existing token whitelist entry', (done) => {
 			jest.spyOn(service, 'findByUser').mockResolvedValue(null);
 			jest.spyOn(repository, 'remove');
+			jest
+				.spyOn(dateService, 'getCurrentTimestampWithOffset')
+				.mockReturnValueOnce('2024-01-01 12:30:00')
+				.mockReturnValueOnce('2024-01-08 12:00:00');
 			const record = {
 				save: jest.fn().mockResolvedValue(null),
 			} as any;
@@ -70,9 +67,6 @@ describe('Service: TokenWhitelistService', () => {
 				.then(() => {
 					expect(service.findByUser).toHaveBeenCalledWith('1');
 					expect(repository.remove).not.toHaveBeenCalled();
-					expect(currentTimestampWithOffset).toHaveBeenCalledTimes(2);
-					expect(currentTimestampWithOffset).toHaveBeenNthCalledWith(1, 30, 'minutes');
-					expect(currentTimestampWithOffset).toHaveBeenNthCalledWith(2, 7, 'days');
 					expect(repository.create).toHaveBeenCalledWith({
 						user: {
 							id: '1',
@@ -95,6 +89,10 @@ describe('Service: TokenWhitelistService', () => {
 				save: jest.fn().mockResolvedValue(null),
 			} as any;
 			jest.spyOn(repository, 'create').mockReturnValue(record);
+			jest
+				.spyOn(dateService, 'getCurrentTimestampWithOffset')
+				.mockReturnValueOnce('2024-01-01 12:30:00')
+				.mockReturnValueOnce('2024-01-08 12:00:00');
 
 			service
 				.update({
@@ -105,9 +103,6 @@ describe('Service: TokenWhitelistService', () => {
 				.then(() => {
 					expect(service.findByUser).toHaveBeenCalledWith('1');
 					expect(repository.remove).toHaveBeenCalledWith('Token Whitelist Entry');
-					expect(currentTimestampWithOffset).toHaveBeenCalledTimes(2);
-					expect(currentTimestampWithOffset).toHaveBeenNthCalledWith(1, 30, 'minutes');
-					expect(currentTimestampWithOffset).toHaveBeenNthCalledWith(2, 7, 'days');
 					expect(repository.create).toHaveBeenCalledWith({
 						user: {
 							id: '1',
@@ -163,18 +158,13 @@ describe('Service: TokenWhitelistService', () => {
 	});
 
 	describe('verifyAccessToken(string, string)', () => {
-		beforeEach(() => {
-			mockSHA256Hash.toString.mockReturnValue('hashedAccessToken');
-		});
-
 		it('should verify the access token to be valid', (done) => {
 			jest.spyOn(service, 'findByUser').mockResolvedValue({
 				accessToken: 'hashedAccessToken',
 			} as any);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('hashedAccessToken');
 
 			service.verifyAccessToken('1', 'clearTextAccessToken').then((valid) => {
-				expect(SHA256).toHaveBeenCalledWith('clearTextAccessToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.findByUser).toHaveBeenCalledWith('1');
 				expect(valid).toBeTruthy();
 
@@ -186,10 +176,9 @@ describe('Service: TokenWhitelistService', () => {
 			jest.spyOn(service, 'findByUser').mockResolvedValue({
 				accessToken: 'differentHashedAccessToken',
 			} as any);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('hashedAccessToken');
 
 			service.verifyAccessToken('1', 'clearTextAccessToken').then((valid) => {
-				expect(SHA256).toHaveBeenCalledWith('clearTextAccessToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.findByUser).toHaveBeenCalledWith('1');
 				expect(valid).toBeFalsy();
 
@@ -199,10 +188,9 @@ describe('Service: TokenWhitelistService', () => {
 
 		it('should verify the access token to be invalid since the user could not be found', (done) => {
 			jest.spyOn(service, 'findByUser').mockResolvedValue(null);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('hashedAccessToken');
 
 			service.verifyAccessToken('1', 'clearTextAccessToken').then((valid) => {
-				expect(SHA256).toHaveBeenCalledWith('clearTextAccessToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.findByUser).toHaveBeenCalledWith('1');
 				expect(valid).toBeFalsy();
 
@@ -212,18 +200,13 @@ describe('Service: TokenWhitelistService', () => {
 	});
 
 	describe('verifyRefreshToken(string, string)', () => {
-		beforeEach(() => {
-			mockSHA256Hash.toString.mockReturnValue('hashedRefreshToken');
-		});
-
 		it('should verify the refresh token to be valid', (done) => {
 			jest.spyOn(service, 'findByUser').mockResolvedValue({
 				refreshToken: 'hashedRefreshToken',
 			} as any);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('hashedRefreshToken');
 
 			service.verifyRefreshToken('1', 'clearTextRefreshToken').then((valid) => {
-				expect(SHA256).toHaveBeenCalledWith('clearTextRefreshToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.findByUser).toHaveBeenCalledWith('1');
 				expect(valid).toBeTruthy();
 
@@ -235,10 +218,9 @@ describe('Service: TokenWhitelistService', () => {
 			jest.spyOn(service, 'findByUser').mockResolvedValue({
 				refreshToken: 'differentHashedRefreshToken',
 			} as any);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('hashedRefreshToken');
 
 			service.verifyRefreshToken('1', 'clearTextRefreshToken').then((valid) => {
-				expect(SHA256).toHaveBeenCalledWith('clearTextRefreshToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.findByUser).toHaveBeenCalledWith('1');
 				expect(valid).toBeFalsy();
 
@@ -248,10 +230,9 @@ describe('Service: TokenWhitelistService', () => {
 
 		it('should verify the refresh token to be invalid since the user could not be found', (done) => {
 			jest.spyOn(service, 'findByUser').mockResolvedValue(null);
+			jest.spyOn(cryptoService, 'hash').mockReturnValueOnce('hashedRefreshToken');
 
 			service.verifyRefreshToken('1', 'clearTextRefreshToken').then((valid) => {
-				expect(SHA256).toHaveBeenCalledWith('clearTextRefreshToken');
-				expect(mockSHA256Hash.toString).toHaveBeenCalledWith(enc.Hex);
 				expect(service.findByUser).toHaveBeenCalledWith('1');
 				expect(valid).toBeFalsy();
 

@@ -10,6 +10,8 @@ import {
 } from 'typeorm';
 
 import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
+import { NoAffectedRowException } from '@Exceptions/no-affected-row.exception';
+import { BadRequestException } from '@Exceptions/bad-request.exception';
 
 @Injectable()
 export class ProjectMilestoneService {
@@ -47,5 +49,19 @@ export class ProjectMilestoneService {
 		const entity = this.projectMilestoneRepository.create(payload);
 
 		return this.projectMilestoneRepository.save(entity, { reload: true });
+	}
+
+	async update(id: string, updatedFields: DeepPartial<ProjectMilestone>): Promise<boolean> {
+		try {
+			const updated = await this.projectMilestoneRepository.update({ id }, updatedFields);
+
+			if (updated.affected && updated.affected > 0) return true;
+
+			throw new NoAffectedRowException(null);
+		} catch (exception) {
+			if (exception instanceof NoAffectedRowException) throw exception;
+
+			throw new BadRequestException(exception);
+		}
 	}
 }

@@ -12,6 +12,7 @@ import { ProjectMilestoneModule } from '@Routes/ProjectMilestone/project-milesto
 import { ProjectModule } from '@Routes/Project/project.module';
 import { ProjectReportModule } from '@Routes/ProjectReport/project-report.module';
 import { UserModule } from '@Routes/User/user.module';
+import { ServicesModule } from '@Services/services.module';
 
 @Module({
 	imports: [
@@ -26,6 +27,7 @@ import { UserModule } from '@Routes/User/user.module';
 		ProjectModule,
 		ProjectReportModule,
 		UserModule,
+		ServicesModule,
 	],
 })
 export class AppModule {

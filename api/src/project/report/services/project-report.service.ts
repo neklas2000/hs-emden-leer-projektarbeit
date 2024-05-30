@@ -56,4 +56,10 @@ export class ProjectReportService {
 			throw new BadRequestException(exception);
 		}
 	}
+
+	create(partialReport: DeepPartial<ProjectReport>): Promise<ProjectReport> {
+		const newReport = this.projectReportRepository.create(partialReport);
+
+		return newReport.save();
+	}
 }

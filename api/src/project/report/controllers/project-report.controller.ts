@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
 import { FindOptionsWhere, FindOptionsSelect, FindOptionsRelations, DeepPartial } from 'typeorm';
@@ -56,5 +56,13 @@ export class ProjectReportController {
 				};
 			},
 		) as Observable<Success>;
+	}
+
+	@Post()
+	create(
+		@Body()
+		payload: DeepPartial<ProjectReport>,
+	): Observable<ProjectReport> {
+		return promiseToObservable(this.projectReportService.create(payload));
 	}
 }

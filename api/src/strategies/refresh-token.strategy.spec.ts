@@ -16,6 +16,8 @@ import { TokenWhitelistService } from '@Routes/Authentication/services';
 import { provideTokenWhitelistRepository } from '@Mocks/Providers/token-whitelist-repository.provider';
 import { REFRESH_TOKEN_COOKIE } from '@Tokens/index';
 import { RefreshTokenStrategy } from './refresh-token.strategy';
+import { DateService } from '@Services/date.service';
+import { CryptoService } from '@Services/crypto.service';
 
 describe('Strategy: RefreshTokenStrategy', () => {
 	const PREVIOUS_PROCESS_ENVIRONMENT = process.env;
@@ -28,7 +30,13 @@ describe('Strategy: RefreshTokenStrategy', () => {
 		process.env.JWT_REFRESH_SECRET = 'jwt refresh token secret';
 
 		const module = await Test.createTestingModule({
-			providers: [RefreshTokenStrategy, TokenWhitelistService, provideTokenWhitelistRepository()],
+			providers: [
+				RefreshTokenStrategy,
+				TokenWhitelistService,
+				provideTokenWhitelistRepository(),
+				DateService,
+				CryptoService,
+			],
 		}).compile();
 
 		tokenWhitelist = module.get(TokenWhitelistService);
