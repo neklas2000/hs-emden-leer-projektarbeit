@@ -1,0 +1,1000 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ProfileComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/user/profile/profile.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>hsel-profile</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatCardModule</code>
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >ReactiveFormsModule</a></code>
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >FormsModule</a></code>
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >MatFormFieldModule</a></code>
+                            <code>MatInputModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatSelectModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatListModule</code>
+                                <code><a href="../components/EditPersonalInformationComponent.html" target="_self" >EditPersonalInformationComponent</a></code>
+                            <code>UndefinedStringPipe</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./profile.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./profile.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#editingPersonalInformation" >editingPersonalInformation</a>
+                            </li>
+                            <li>
+                                <a href="#profile" >profile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancelEditPersonalInformation" >cancelEditPersonalInformation</a>
+                            </li>
+                            <li>
+                                <a href="#editEmail" >editEmail</a>
+                            </li>
+                            <li>
+                                <a href="#editPassword" >editPassword</a>
+                            </li>
+                            <li>
+                                <a href="#editPersonalInformation" >editPersonalInformation</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveEditedPersonalInformation" >saveEditedPersonalInformation</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#isEditingPersonalInformationActivated" >isEditingPersonalInformationActivated</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(activatedRoute: ActivatedRoute, dialog: MatDialog)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/user/profile/profile.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>activatedRoute</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelEditPersonalInformation"></a>
+                    <span class="name">
+                        <span ><b>cancelEditPersonalInformation</b></span>
+                        <a href="#cancelEditPersonalInformation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancelEditPersonalInformation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/components/user/profile/profile.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editEmail"></a>
+                    <span class="name">
+                        <span ><b>editEmail</b></span>
+                        <a href="#editEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editEmail()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/components/user/profile/profile.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editPassword"></a>
+                    <span class="name">
+                        <span ><b>editPassword</b></span>
+                        <a href="#editPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editPassword()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/components/user/profile/profile.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editPersonalInformation"></a>
+                    <span class="name">
+                        <span ><b>editPersonalInformation</b></span>
+                        <a href="#editPersonalInformation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editPersonalInformation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/components/user/profile/profile.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/components/user/profile/profile.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveEditedPersonalInformation"></a>
+                    <span class="name">
+                        <span ><b>saveEditedPersonalInformation</b></span>
+                        <a href="#saveEditedPersonalInformation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveEditedPersonalInformation(updatedProfile: <a href="../classes/User.html" target="_self">DeepPartial&lt;User&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/components/user/profile/profile.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>updatedProfile</td>
+                                            <td>
+                                                            <code><a href="../classes/User.html" target="_self" >DeepPartial&lt;User&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editingPersonalInformation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>editingPersonalInformation</b></span>
+                        <a href="#editingPersonalInformation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/user/profile/profile.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profile"></a>
+                    <span class="name">
+                        <span ><b>profile</b></span>
+                        <a href="#profile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >DeepPartial&lt;User&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/user/profile/profile.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isEditingPersonalInformationActivated"></a>
+                        <span class="name"><b>isEditingPersonalInformationActivated</b><a href="#isEditingPersonalInformationActivated"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isEditingPersonalInformationActivated()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/components/user/profile/profile.component.ts:63</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatCardModule } from &#x27;@angular/material/card&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { ActivatedRoute, Data } from &#x27;@angular/router&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatListModule } from &#x27;@angular/material/list&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+
+import { take } from &#x27;rxjs&#x27;;
+
+import { Credentials, EditCredentialsComponent } from &#x27;./edit-credentials/edit-credentials.component&#x27;;
+import { EditPersonalInformationComponent } from &#x27;./edit-personal-information/edit-personal-information.component&#x27;;
+import { User } from &#x27;@Models/user&#x27;;
+import { DeepPartial, Nullable } from &#x27;@Types&#x27;;
+import { UndefinedStringPipe } from &#x27;app/pipes/undefined-string.pipe&#x27;;
+
+@Component({
+  selector: &#x27;hsel-profile&#x27;,
+  standalone: true,
+  imports: [
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatIconModule,
+    MatListModule,
+    EditPersonalInformationComponent,
+    UndefinedStringPipe,
+  ],
+  templateUrl: &#x27;./profile.component.html&#x27;,
+  styleUrl: &#x27;./profile.component.scss&#x27;
+})
+export class ProfileComponent implements OnInit {
+  profile!: DeepPartial&lt;User&gt;;
+  private editingPersonalInformation: boolean &#x3D; false;
+
+  constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly dialog: MatDialog,
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.data.pipe(take(1)).subscribe(({ profile }: Data) &#x3D;&gt; {
+      this.profile &#x3D; profile;
+    });
+  }
+
+  editPersonalInformation(): void {
+    this.editingPersonalInformation &#x3D; true;
+  }
+
+  cancelEditPersonalInformation(): void {
+    this.editingPersonalInformation &#x3D; false;
+  }
+
+  get isEditingPersonalInformationActivated(): boolean {
+    return this.editingPersonalInformation;
+  }
+
+  saveEditedPersonalInformation(updatedProfile: DeepPartial&lt;User&gt;): void {
+    this.profile &#x3D; {
+      ...this.profile,
+      ...updatedProfile,
+    };
+    this.cancelEditPersonalInformation();
+  }
+
+  editEmail(): void {
+    const dialogRef &#x3D; this.dialog.open(EditCredentialsComponent, {
+      data: {
+        type: Credentials.EMAIL,
+        userId: this.profile.id,
+      },
+      minWidth: &#x27;60dvw&#x27;,
+      maxWidth: &#x27;80dvw&#x27;,
+    });
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((result: Nullable&lt;string&gt;) &#x3D;&gt; {
+      if (result) {
+        this.profile.email &#x3D; result;
+      }
+    });
+  }
+
+  editPassword(): void {
+    this.dialog.open(EditCredentialsComponent, {
+      data: {
+        type: Credentials.PASSWORD,
+        userId: this.profile.id,
+      },
+      minWidth: &#x27;60dvw&#x27;,
+      maxWidth: &#x27;80dvw&#x27;,
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">@if (!profile) {
+  &lt;p&gt;Ihr Profil konnte nicht geladen werden.&lt;/p&gt;
+} @else {
+  &lt;mat-card class&#x3D;&quot;max-w-3/4 mx-auto my-0&quot;&gt;
+    &lt;mat-card-header&gt;
+      &lt;mat-card-title&gt;Persönliche Informationen&lt;/mat-card-title&gt;
+    &lt;/mat-card-header&gt;
+    &lt;mat-card-content class&#x3D;&quot;mt-2&quot;&gt;
+      @if (isEditingPersonalInformationActivated) {
+        &lt;hsel-edit-personal-information
+          [profile]&#x3D;&quot;profile&quot;
+          (onCancel)&#x3D;&quot;cancelEditPersonalInformation()&quot;
+          (onSubmit)&#x3D;&quot;saveEditedPersonalInformation($event)&quot;&gt;
+        &lt;/hsel-edit-personal-information&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;flex flex-col gap-y-2&quot;&gt;
+          &lt;mat-list&gt;
+            &lt;mat-list-item&gt;
+              &lt;span matListItemTitle&gt;
+                &lt;strong&gt;Akademischer Titel:&lt;/strong&gt; {{ profile.academicTitle | undefinedString }}
+              &lt;/span&gt;
+            &lt;/mat-list-item&gt;
+            &lt;mat-list-item&gt;
+              &lt;span matListItemTitle&gt;
+                &lt;strong&gt;Vorname:&lt;/strong&gt; {{ profile.firstName }}
+              &lt;/span&gt;
+            &lt;/mat-list-item&gt;
+            &lt;mat-list-item&gt;
+              &lt;span matListItemTitle&gt;
+                &lt;strong&gt;Nachname:&lt;/strong&gt; {{ profile.lastName }}
+              &lt;/span&gt;
+            &lt;/mat-list-item&gt;
+            &lt;mat-list-item&gt;
+              &lt;span matListItemTitle&gt;
+                &lt;strong&gt;Matrikelnummer:&lt;/strong&gt; {{ profile.matriculationNumber }}
+              &lt;/span&gt;
+            &lt;/mat-list-item&gt;
+            &lt;mat-list-item&gt;
+              &lt;span matListItemTitle&gt;
+                &lt;strong&gt;Telefonnummer:&lt;/strong&gt; {{ profile.phoneNumber | undefinedString }}
+              &lt;/span&gt;
+            &lt;/mat-list-item&gt;
+          &lt;/mat-list&gt;
+        &lt;/div&gt;
+      }
+    &lt;/mat-card-content&gt;
+    @if (!isEditingPersonalInformationActivated) {
+      &lt;mat-card-actions align&#x3D;&quot;end&quot;&gt;
+        &lt;button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;editPersonalInformation()&quot; mat-button&gt;Bearbeiten&lt;/button&gt;
+      &lt;/mat-card-actions&gt;
+    }
+  &lt;/mat-card&gt;
+  &lt;mat-card class&#x3D;&quot;max-w-3/4 mx-auto my-0 mt-4&quot;&gt;
+    &lt;mat-card-header&gt;
+      &lt;mat-card-title&gt;Anmeldedaten&lt;/mat-card-title&gt;
+    &lt;/mat-card-header&gt;
+    &lt;mat-card-content class&#x3D;&quot;mt-2&quot;&gt;
+      &lt;mat-list&gt;
+        &lt;mat-list-item&gt;
+          &lt;span class&#x3D;&quot;flex flex-row justify-between items-center&quot; matListItemTitle&gt;
+            &lt;span&gt;&lt;strong&gt;E-Mail-Adresse:&lt;/strong&gt; {{ profile.email }}&lt;/span&gt;
+            &lt;button (click)&#x3D;&quot;editEmail()&quot; mat-icon-button&gt;
+              &lt;mat-icon&gt;edit&lt;/mat-icon&gt;
+            &lt;/button&gt;
+          &lt;/span&gt;
+        &lt;/mat-list-item&gt;
+        &lt;mat-list-item&gt;
+          &lt;span class&#x3D;&quot;flex flex-row justify-between items-center&quot; matListItemTitle&gt;
+            &lt;span&gt;&lt;strong&gt;Passwort:&lt;/strong&gt; ******&lt;/span&gt;
+            &lt;button (click)&#x3D;&quot;editPassword()&quot; mat-icon-button&gt;
+              &lt;mat-icon&gt;edit&lt;/mat-icon&gt;
+            &lt;/button&gt;
+          &lt;/span&gt;
+        &lt;/mat-list-item&gt;
+      &lt;/mat-list&gt;
+    &lt;/mat-card-content&gt;
+  &lt;/mat-card&gt;
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>@if (!profile) {  <p>Ihr Profil konnte nicht geladen werden.</p>} @else {  <mat-card class="max-w-3/4 mx-auto my-0">    <mat-card-header>      <mat-card-title>Persönliche Informationen</mat-card-title>    </mat-card-header>    <mat-card-content class="mt-2">      @if (isEditingPersonalInformationActivated) {        <hsel-edit-personal-information          [profile]="profile"          (onCancel)="cancelEditPersonalInformation()"          (onSubmit)="saveEditedPersonalInformation($event)">        </hsel-edit-personal-information>      } @else {        <div class="flex flex-col gap-y-2">          <mat-list>            <mat-list-item>              <span matListItemTitle>                <strong>Akademischer Titel:</strong> {{ profile.academicTitle | undefinedString }}              </span>            </mat-list-item>            <mat-list-item>              <span matListItemTitle>                <strong>Vorname:</strong> {{ profile.firstName }}              </span>            </mat-list-item>            <mat-list-item>              <span matListItemTitle>                <strong>Nachname:</strong> {{ profile.lastName }}              </span>            </mat-list-item>            <mat-list-item>              <span matListItemTitle>                <strong>Matrikelnummer:</strong> {{ profile.matriculationNumber }}              </span>            </mat-list-item>            <mat-list-item>              <span matListItemTitle>                <strong>Telefonnummer:</strong> {{ profile.phoneNumber | undefinedString }}              </span>            </mat-list-item>          </mat-list>        </div>      }    </mat-card-content>    @if (!isEditingPersonalInformationActivated) {      <mat-card-actions align="end">        <button color="primary" (click)="editPersonalInformation()" mat-button>Bearbeiten</button>      </mat-card-actions>    }  </mat-card>  <mat-card class="max-w-3/4 mx-auto my-0 mt-4">    <mat-card-header>      <mat-card-title>Anmeldedaten</mat-card-title>    </mat-card-header>    <mat-card-content class="mt-2">      <mat-list>        <mat-list-item>          <span class="flex flex-row justify-between items-center" matListItemTitle>            <span><strong>E-Mail-Adresse:</strong> {{ profile.email }}</span>            <button (click)="editEmail()" mat-icon-button>              <mat-icon>edit</mat-icon>            </button>          </span>        </mat-list-item>        <mat-list-item>          <span class="flex flex-row justify-between items-center" matListItemTitle>            <span><strong>Passwort:</strong> ******</span>            <button (click)="editPassword()" mat-icon-button>              <mat-icon>edit</mat-icon>            </button>          </span>        </mat-list-item>      </mat-list>    </mat-card-content>  </mat-card>}</div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ProfileComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProfileComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

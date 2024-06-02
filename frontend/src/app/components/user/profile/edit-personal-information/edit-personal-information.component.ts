@@ -86,7 +86,7 @@ export class EditPersonalInformationComponent implements OnInit, OnChanges {
       phoneNumber: this.form.get('phoneNumber')!.value,
     };
 
-    this.profileService.update<User>(':id', this.profile.id, data)
+    this.profileService.update(':id', this.profile.id, data)
       .pipe(take(1))
         .subscribe({
           next: (isProfileUpdated) => {

@@ -70,7 +70,7 @@ export const routes: Routes = [
         resolve: {
           projects: userProjectsResolver,
         },
-        // canActivate: [authenticationGuard],
+        canActivate: [authenticationGuard],
       },
       {
         path: 'projects/new',

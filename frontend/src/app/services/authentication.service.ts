@@ -1,8 +1,7 @@
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import * as crypto from 'crypto-js';
-import { Observable, map, switchMap, take } from 'rxjs';
+import { Observable, catchError, map, of, switchMap, take } from 'rxjs';
 
 import { JsonApiConnectorService } from './json-api-connector.service';
 import { User } from '@Models/user';
@@ -25,7 +24,7 @@ type LogoutResponse = {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService extends JsonApiConnectorService {
+export class AuthenticationService extends JsonApiConnectorService<User> {
   private refreshing: boolean = false;
 
   constructor(private readonly sessionStorage: SessionStorageService) {
@@ -33,14 +32,10 @@ export class AuthenticationService extends JsonApiConnectorService {
   }
 
   register(userData: DeepPartial<User> & { password: string; email: string; }): Observable<true> {
-    const { password } = userData;
-    const hashedPassword = crypto.SHA256(password).toString(crypto.enc.Hex);
-
-    return this.create<DeepPartial<User>, TokensWithUserResponse>(
+    return this.create<TokensWithUserResponse>(
       'register',
       {
         ...userData,
-        password: hashedPassword,
       },
     ).pipe(
       take(1),
@@ -55,13 +50,11 @@ export class AuthenticationService extends JsonApiConnectorService {
   }
 
   login(email: string, password: string): Observable<true> {
-    const hashedPassword = crypto.SHA256(password).toString(crypto.enc.Hex);
-
-    return this.create<DeepPartial<User>, TokensWithUserResponse>(
+    return this.create<TokensWithUserResponse>(
       'login',
       {
         email,
-        password: hashedPassword,
+        password,
       },
     ).pipe(
       take(1),
@@ -76,7 +69,7 @@ export class AuthenticationService extends JsonApiConnectorService {
   }
 
   logout(): Observable<boolean> {
-    return this.create<any, LogoutResponse>('logout', {}).pipe(take(1), map((response) => {
+    return this.create<LogoutResponse>('logout', {}).pipe(take(1), map((response) => {
       if (response.success) {
         this.sessionStorage.clear();
 
@@ -104,7 +97,7 @@ export class AuthenticationService extends JsonApiConnectorService {
 
     this.refreshing = true;
 
-    return this.create<any, TokensResponse>('refresh', {})
+    return this.create<TokensResponse>('refresh', {})
       .pipe(
         take(1),
         switchMap((tokens, index) => {
@@ -117,6 +110,21 @@ export class AuthenticationService extends JsonApiConnectorService {
           }));
         }),
       );
+  }
+
+  checkStatus(): Observable<boolean> {
+    return this.create<TokensResponse>('status', {}).pipe(
+      take(1),
+      switchMap((tokens) => {
+        this.sessionStorage.setAccessToken(tokens.accessToken);
+        this.sessionStorage.setRefreshToken(tokens.refreshToken);
+
+        return of(true);
+      }),
+      catchError((err) => {
+        return of(false);
+      }),
+    )
   }
 
   isAuthenticated(): boolean {

@@ -2,6 +2,7 @@ import { ApplicationConfig, SecurityContext } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 import { MARKED_OPTIONS, MarkedRenderer, provideMarkdown } from 'ngx-markdown';
 
@@ -46,5 +47,16 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideHttpClient(withInterceptors([authenticationInterceptor, credentialsInterceptor])),
+    provideLuxonDateAdapter({
+      parse: {
+        dateInput: ['dd.MM.yyyy', 'yyyy-MM-dd'],
+      },
+      display: {
+        dateInput: 'dd.MM.yyyy',
+        monthYearLabel: 'dd.MM.yyyy',
+        dateA11yLabel: 'dd.MM.yyyy',
+        monthYearA11yLabel: 'dd.MM.yyyy',
+      },
+    }),
   ]
 };

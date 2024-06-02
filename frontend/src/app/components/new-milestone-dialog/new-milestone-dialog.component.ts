@@ -32,7 +32,7 @@ export class NewMilestoneDialogComponent {
   ) {}
 
   onCancelClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 
   closeWithData(): void {

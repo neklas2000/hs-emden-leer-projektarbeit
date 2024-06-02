@@ -12,7 +12,7 @@ import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-ed
 import { ProjectReport } from '@Models/project-report';
 import { SnackbarService } from '@Services/snackbar.service';
 import { ProjectReportService } from '@Services/project-report.service';
-import { Nullable, DeepPartial } from '@Types';
+import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 
 @Component({
@@ -60,7 +60,7 @@ export class EditReportComponent implements OnInit {
   save(): void {
     if (!this.projectReport?.id) return;
 
-    const updateResponse$ = this.projectReportService.update<DeepPartial<ProjectReport>>(
+    const updateResponse$ = this.projectReportService.update(
       ':id',
       this.projectReport.id,
       {

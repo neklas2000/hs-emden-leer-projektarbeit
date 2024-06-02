@@ -2,23 +2,31 @@ import { Injectable } from '@angular/core';
 
 import { DateTime, DurationUnits, Interval } from 'luxon';
 
+import { ZONE } from '@Constants';
 import { Nullable } from '@Types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DateService {
-  constructor() { }
+  /**
+   * This function returns the current date as a `DateTime` object.
+   *
+   * @returns The `DateTime` object.
+   */
+  getToday(): DateTime {
+    return DateTime.fromSQL(DateTime.local().setZone(ZONE).toFormat('yyyy-MM-dd'));
+  }
 
   /**
    * This function returns an array of `DateTime` objects describing the dates on which reports
    * and milestone estimations have to be done. The days between two dates is the same amount as
    * the defined report interval.
    *
-   * @param start the date of starting the project (first report date).
-   * @param end the date of ending the project (last report date) - default: `null`.
-   * @param interval the interval between report dates - default: `7`.
-   * @returns an array of report dates.
+   * @param start The date of starting the project (first report date).
+   * @param end The date of ending the project (last report date) - default: `null`.
+   * @param interval The interval between report dates - default: `7`.
+   * @returns An array of report dates.
    */
   getReportDates(start: string, end: Nullable<string> = null, interval: number = 7): DateTime[] {
     const startDate = DateTime.fromSQL(start);
@@ -59,10 +67,10 @@ export class DateService {
    * This function evaluates the difference of units between two dates.
    * The format for both dates needs to match 'yyyy-MM-dd'.
    *
-   * @param a source date to use for comparison.
-   * @param b target date to compare against.
-   * @param unit the unit of duration - default: `'days'`.
-   * @returns the amount of units between both dates.
+   * @param a Source date to use for comparison.
+   * @param b Target date to compare against.
+   * @param unit The unit of duration - default: `'days'`.
+   * @returns The amount of units between both dates.
    */
   compare(a: string, b: string, unit: DurationUnits = 'days'): number {
     return Object(

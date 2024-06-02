@@ -21,6 +21,7 @@ export const userProjectsResolver: ResolveFn<Observable<Project[]>> = (
     .loadAll<Project>(Project, {
       filters: {
         'owner.id': userId,
+        'members.user.id': userId,
       },
     });
 };

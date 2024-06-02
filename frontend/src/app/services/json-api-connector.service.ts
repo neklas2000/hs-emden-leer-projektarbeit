@@ -17,9 +17,9 @@ type ReadParameters = {
   query?: JsonApiQueries;
 };
 
-export class JsonApiConnectorService {
+export class JsonApiConnectorService<T> {
   private readonly baseUrl = '/api/v1' as const;
-  private readonly httpClient: HttpClient;
+  protected readonly httpClient: HttpClient;
   private readonly resourcePrefix: string;
 
   constructor(prefix: string = '') {
@@ -27,7 +27,7 @@ export class JsonApiConnectorService {
     this.resourcePrefix = prefix;
   }
 
-  create<T, T_RETURN = T>(route: string, resource: T): Observable<T_RETURN> {
+  create<T_RETURN = T>(route: string, resource: DeepPartial<T>): Observable<T_RETURN> {
     const uri = this.getUri(route);
 
     return this.httpClient.post<T_RETURN>(uri, resource)
@@ -36,7 +36,7 @@ export class JsonApiConnectorService {
       }));
   }
 
-  createAll<T, T_RETURN = T>(route: string, ...resources: T[]): Observable<T_RETURN[]> {
+  createAll<T_RETURN = T>(route: string, ...resources: DeepPartial<T>[]): Observable<T_RETURN[]> {
     const uri = this.getUri(route);
 
     return forkJoin([...resources].map((entry) => {
@@ -47,7 +47,7 @@ export class JsonApiConnectorService {
     }));
   }
 
-  readAll<T>(route: string, query?: JsonApiQueries): Observable<T[]> {
+  readAll(route: string, query?: JsonApiQueries): Observable<T[]> {
     const uri = this.getUri(route) + parseJsonApiQuery(query);
 
     return this.httpClient.get<T[]>(uri)
@@ -56,7 +56,7 @@ export class JsonApiConnectorService {
       }));
   }
 
-  read<T>(params?: ReadParameters): Observable<Nullable<T>> {
+  read(params?: ReadParameters): Observable<Nullable<T>> {
     let uri = this.getUri();
 
     if (params) {
@@ -70,7 +70,7 @@ export class JsonApiConnectorService {
       }));
   }
 
-  update<T>(route: string, ids: RequestIds | string, data: DeepPartial<T>): Observable<boolean> {
+  update(route: string, ids: RequestIds | string, data: DeepPartial<T>): Observable<boolean> {
     const uri = this.getUri(this.replaceIds(route, ids));
 
     return this.httpClient.patch<SuccessResponse>(uri, data)
@@ -82,7 +82,7 @@ export class JsonApiConnectorService {
       );
   }
 
-  private replaceIds(route?: string, ids?: RequestIds | string): Undefinable<string> {
+  protected replaceIds(route?: string, ids?: RequestIds | string): Undefinable<string> {
     if (!route) return undefined;
     if (!ids) return route;
 
@@ -97,7 +97,7 @@ export class JsonApiConnectorService {
     return route;
   }
 
-  private getUri(route?: string): string {
+  protected getUri(route?: string): string {
     let uri: string = this.baseUrl;
 
     if (this.resourcePrefix !== '') {

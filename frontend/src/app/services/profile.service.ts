@@ -15,13 +15,13 @@ type Credentials = {
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService extends JsonApiConnectorService {
+export class ProfileService extends JsonApiConnectorService<User> {
   constructor() {
     super('profile');
   }
 
   validateCredentials({ userId, email, password }: Credentials): Observable<Nullable<User>> {
-    return this.read<User>({
+    return this.read({
       ids: userId,
       route: ':id',
       query: {

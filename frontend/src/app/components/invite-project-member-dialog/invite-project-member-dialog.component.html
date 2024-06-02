@@ -30,7 +30,7 @@
 </div>
 <div mat-dialog-actions>
   <button (click)='onCancelClick()' mat-button>Abbrechen</button>
-  <button [mat-dialog-close]='{ role: data.role, user: selectedUser?.id }' mat-button cdkFocusInitial>
+  <button [mat-dialog-close]='getCloseData()' mat-button cdkFocusInitial>
     Einladen
   </button>
 </div>

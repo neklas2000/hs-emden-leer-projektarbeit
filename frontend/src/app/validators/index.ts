@@ -3,8 +3,69 @@ import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@ang
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
 import { Nullable } from '@Types';
+import { DateService } from '@Services/date.service';
 
 export class FormValidators extends Validators {
+  private static dateService: DateService = new DateService();
+
+  static matchesInterval(nameOfControlToCompareTo: string, interval: number | string): ValidatorFn {
+    return (control: AbstractControl): Nullable<ValidationErrors> => {
+      if (!control.value) return null;
+
+      const otherControl = control.parent?.get(nameOfControlToCompareTo);
+
+      if (!otherControl?.value) return null;
+
+      let daysInterval: number;
+
+      if (typeof interval === 'number') {
+        daysInterval = interval;
+      } else {
+        daysInterval = Number(control.parent?.get(interval)?.value ?? 1);
+      }
+
+      const diff = this.dateService.compare(
+        control.value.toFormat('yyyy-MM-dd'),
+        otherControl.value.toFormat('yyyy-MM-dd'),
+      );
+
+      if (diff % daysInterval === 0) return null;
+
+      return {
+        matchesInterval: {
+          value: control.value,
+        },
+      };
+    };
+  }
+
+  /**
+   *
+   * @param nameOfControlToCompareTo The name of the formcontrol which is used for the comparison
+   */
+  static behindDate(nameOfControlToCompareTo: string): ValidatorFn {
+    return (control: AbstractControl): Nullable<ValidationErrors> => {
+      if (!control.value) return null;
+
+      const valueOfOtherControl = control.parent?.get(nameOfControlToCompareTo)?.value;
+
+      if (!valueOfOtherControl) return null;
+
+      const diff = this.dateService.compare(
+        control.value.toFormat('yyyy-MM-dd'),
+        valueOfOtherControl.toFormat('yyyy-MM-dd'),
+      );
+
+      if (diff > 0) return null;
+
+      return {
+        behindDate: {
+          value: control.value,
+        },
+      };
+    };
+  }
+
   /**
    * If the phone number is not valid the error `phoneNumber` will be set.
    */

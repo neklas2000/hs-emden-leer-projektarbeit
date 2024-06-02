@@ -38,7 +38,8 @@
       "@Types": ["app/types/index.ts"],
       "@Utils/*": ["app/utils/*"],
       "@AuthComponents/*": ["app/components/auth/*"],
-      "@UserComponents/*": ["app/components/user/*"]
+      "@UserComponents/*": ["app/components/user/*"],
+      "@Constants": ["constants/index.ts"]
     }
   },
   "angularCompilerOptions": {

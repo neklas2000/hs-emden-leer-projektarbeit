@@ -10,7 +10,8 @@
     "test:firefox-headless": "ng test --code-coverage --browsers FirefoxHeadless",
     "test:chrome": "ng test --code-coverage --browsers Chrome",
     "test:chrome-headless": "ng test --code-coverage --browsers ChromeHeadless",
-    "test:ci": "ng test --karma-config=karma-ci.config.js --no-progress"
+    "test:ci": "ng test --karma-config=karma-ci.config.js --no-progress",
+    "build:docs": "compodoc -p tsconfig.doc.json -s -w"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,7 @@
     "@angular/core": "^17.3.3",
     "@angular/forms": "^17.3.3",
     "@angular/material": "^17.3.3",
+    "@angular/material-luxon-adapter": "^17.3.3",
     "@angular/platform-browser": "^17.3.3",
     "@angular/platform-browser-dynamic": "^17.3.3",
     "@angular/router": "^17.3.3",

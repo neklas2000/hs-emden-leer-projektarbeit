@@ -1,0 +1,849 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-typealiases">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Type aliases</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#ApexChartEventConfig" title="src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts" ><b>ApexChartEventConfig</b>&nbsp;&nbsp;&nbsp;(src/.../edit-milestone-estimates-tab.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ApiRoutes" title="src/app/models/base-model.ts" ><b>ApiRoutes</b>&nbsp;&nbsp;&nbsp;(src/.../base-model.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BaseInformation" title="src/app/utils/http-exception.ts" ><b>BaseInformation</b>&nbsp;&nbsp;&nbsp;(src/.../http-exception.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Breakpoint" title="src/app/services/media-matching.service.ts" ><b>Breakpoint</b>&nbsp;&nbsp;&nbsp;(src/.../media-matching.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ChartOptions" title="src/app/services/chart.service.ts" ><b>ChartOptions</b>&nbsp;&nbsp;&nbsp;(src/.../chart.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ConfirmationDialogData" title="src/app/components/confirmation-dialog/confirmation-dialog.component.ts" ><b>ConfirmationDialogData</b>&nbsp;&nbsp;&nbsp;(src/.../confirmation-dialog.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Credentials" title="src/app/services/profile.service.ts" ><b>Credentials</b>&nbsp;&nbsp;&nbsp;(src/.../profile.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Credentials" title="src/app/components/auth/register/register-credentials/register-credentials.component.ts" ><b>Credentials</b>&nbsp;&nbsp;&nbsp;(src/.../register-credentials.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DeepPartial" title="src/app/types/index.ts" ><b>DeepPartial</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DetailedInformation" title="src/app/utils/http-exception.ts" ><b>DetailedInformation</b>&nbsp;&nbsp;&nbsp;(src/.../http-exception.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DialogData" title="src/app/components/invite-project-member-dialog/invite-project-member-dialog.component.ts" ><b>DialogData</b>&nbsp;&nbsp;&nbsp;(src/.../invite-project-member-dialog.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DialogData" title="src/app/components/markdown-editor-dialog/markdown-editor-dialog.component.ts" ><b>DialogData</b>&nbsp;&nbsp;&nbsp;(src/.../markdown-editor-dialog.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DialogData" title="src/app/components/user/profile/edit-credentials/edit-credentials.component.ts" ><b>DialogData</b>&nbsp;&nbsp;&nbsp;(src/.../edit-credentials.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Form" title="src/app/components/user/profile/edit-personal-information/edit-personal-information.component.ts" ><b>Form</b>&nbsp;&nbsp;&nbsp;(src/.../edit-personal-information.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#JsonApiQueries" title="src/app/services/json-api-datastore.service.ts" ><b>JsonApiQueries</b>&nbsp;&nbsp;&nbsp;(src/.../json-api-datastore.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#JsonApiQueries" title="src/app/types/index.ts" ><b>JsonApiQueries</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LogoutResponse" title="src/app/services/authentication.service.ts" ><b>LogoutResponse</b>&nbsp;&nbsp;&nbsp;(src/.../authentication.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MobileQueries" title="src/app/services/media-matching.service.ts" ><b>MobileQueries</b>&nbsp;&nbsp;&nbsp;(src/.../media-matching.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MobileQueryListenerFn" title="src/app/services/media-matching.service.ts" ><b>MobileQueryListenerFn</b>&nbsp;&nbsp;&nbsp;(src/.../media-matching.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NavigationGroup" title="src/app/components/layout/layout.component.ts" ><b>NavigationGroup</b>&nbsp;&nbsp;&nbsp;(src/.../layout.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NavigationItem" title="src/app/components/layout/layout.component.ts" ><b>NavigationItem</b>&nbsp;&nbsp;&nbsp;(src/.../layout.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Nullable" title="src/app/types/index.ts" ><b>Nullable</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Options" title="src/app/services/ag-chart.service.ts" ><b>Options</b>&nbsp;&nbsp;&nbsp;(src/.../ag-chart.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Options" title="src/app/services/chart.service.ts" ><b>Options</b>&nbsp;&nbsp;&nbsp;(src/.../chart.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PersonalDetails" title="src/app/components/auth/register/register-personal-details/register-personal-details.component.ts" ><b>PersonalDetails</b>&nbsp;&nbsp;&nbsp;(src/.../register-personal-details.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ProjectReportContent" title="src/app/pdf-schemas/project-report.schema.ts" ><b>ProjectReportContent</b>&nbsp;&nbsp;&nbsp;(src/.../project-report.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ReadParameters" title="src/app/services/json-api-connector.service.ts" ><b>ReadParameters</b>&nbsp;&nbsp;&nbsp;(src/.../json-api-connector.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RequestIds" title="src/app/types/index.ts" ><b>RequestIds</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SuccessResponse" title="src/app/services/json-api-connector.service.ts" ><b>SuccessResponse</b>&nbsp;&nbsp;&nbsp;(src/.../json-api-connector.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TokensResponse" title="src/app/services/authentication.service.ts" ><b>TokensResponse</b>&nbsp;&nbsp;&nbsp;(src/.../authentication.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TokensWithUserResponse" title="src/app/services/authentication.service.ts" ><b>TokensWithUserResponse</b>&nbsp;&nbsp;&nbsp;(src/.../authentication.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Undefinable" title="src/app/types/index.ts" ><b>Undefinable</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApexChartEventConfig"></a>
+                    <span class="name "><b>ApexChartEventConfig</b><a href="#ApexChartEventConfig"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/models/base-model.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiRoutes"></a>
+                    <span class="name "><b>ApiRoutes</b><a href="#ApiRoutes"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/utils/http-exception.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BaseInformation"></a>
+                    <span class="name "><b>BaseInformation</b><a href="#BaseInformation"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DetailedInformation"></a>
+                    <span class="name "><b>DetailedInformation</b><a href="#DetailedInformation"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/services/media-matching.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Breakpoint"></a>
+                    <span class="name "><b>Breakpoint</b><a href="#Breakpoint"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;gt-lg&quot; | &quot;lt-lg&quot; | &quot;gt-md&quot; | &quot;lt-md&quot; | &quot;gt-sm&quot; | &quot;lt-sm&quot; | &quot;gt-xs&quot; | &quot;lt-xs&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MobileQueries"></a>
+                    <span class="name "><b>MobileQueries</b><a href="#MobileQueries"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MobileQueryListenerFn"></a>
+                    <span class="name "><b>MobileQueryListenerFn</b><a href="#MobileQueryListenerFn"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/services/chart.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ChartOptions"></a>
+                    <span class="name "><b>ChartOptions</b><a href="#ChartOptions"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Options"></a>
+                    <span class="name "><b>Options</b><a href="#Options"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/confirmation-dialog/confirmation-dialog.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ConfirmationDialogData"></a>
+                    <span class="name "><b>ConfirmationDialogData</b><a href="#ConfirmationDialogData"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/services/profile.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Credentials"></a>
+                    <span class="name "><b>Credentials</b><a href="#Credentials"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/auth/register/register-credentials/register-credentials.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Credentials"></a>
+                    <span class="name "><b>Credentials</b><a href="#Credentials"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/types/index.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DeepPartial"></a>
+                    <span class="name "><b>DeepPartial</b><a href="#DeepPartial"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>T | </code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="JsonApiQueries"></a>
+                    <span class="name "><b>JsonApiQueries</b><a href="#JsonApiQueries"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Nullable"></a>
+                    <span class="name "><b>Nullable</b><a href="#Nullable"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>T | null</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RequestIds"></a>
+                    <span class="name "><b>RequestIds</b><a href="#RequestIds"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The provided keys will be combined with a colon to replace the value within the provided route.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Undefinable"></a>
+                    <span class="name "><b>Undefinable</b><a href="#Undefinable"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>T | undefined</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/invite-project-member-dialog/invite-project-member-dialog.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DialogData"></a>
+                    <span class="name "><b>DialogData</b><a href="#DialogData"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/markdown-editor-dialog/markdown-editor-dialog.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DialogData"></a>
+                    <span class="name "><b>DialogData</b><a href="#DialogData"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/user/profile/edit-credentials/edit-credentials.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DialogData"></a>
+                    <span class="name "><b>DialogData</b><a href="#DialogData"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/user/profile/edit-personal-information/edit-personal-information.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Form"></a>
+                    <span class="name "><b>Form</b><a href="#Form"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>        <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >FormGroup&lt;literal type&gt;</a></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/services/json-api-datastore.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="JsonApiQueries"></a>
+                    <span class="name "><b>JsonApiQueries</b><a href="#JsonApiQueries"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/services/authentication.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LogoutResponse"></a>
+                    <span class="name "><b>LogoutResponse</b><a href="#LogoutResponse"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TokensResponse"></a>
+                    <span class="name "><b>TokensResponse</b><a href="#TokensResponse"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TokensWithUserResponse"></a>
+                    <span class="name "><b>TokensWithUserResponse</b><a href="#TokensWithUserResponse"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/layout/layout.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="NavigationGroup"></a>
+                    <span class="name "><b>NavigationGroup</b><a href="#NavigationGroup"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="NavigationItem"></a>
+                    <span class="name "><b>NavigationItem</b><a href="#NavigationItem"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/services/ag-chart.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Options"></a>
+                    <span class="name "><b>Options</b><a href="#Options"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/components/auth/register/register-personal-details/register-personal-details.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PersonalDetails"></a>
+                    <span class="name "><b>PersonalDetails</b><a href="#PersonalDetails"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/pdf-schemas/project-report.schema.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ProjectReportContent"></a>
+                    <span class="name "><b>ProjectReportContent</b><a href="#ProjectReportContent"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/services/json-api-connector.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ReadParameters"></a>
+                    <span class="name "><b>ReadParameters</b><a href="#ReadParameters"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SuccessResponse"></a>
+                    <span class="name "><b>SuccessResponse</b><a href="#SuccessResponse"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-typealiases';
+            var COMPODOC_CURRENT_PAGE_URL = 'typealiases.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

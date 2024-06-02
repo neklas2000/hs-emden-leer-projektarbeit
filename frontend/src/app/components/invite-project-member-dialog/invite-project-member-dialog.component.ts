@@ -10,13 +10,13 @@ import { AsyncPipe } from '@angular/common';
 
 import { Observable, take } from 'rxjs';
 
-import { ProjectRole } from '@Models/project-member';
+import { ProjectMember, ProjectRole } from '@Models/project-member';
 import { User } from '@Models/user';
 import { JsonApiDatastore } from '@Services/json-api-datastore.service';
-import { Nullable } from '@Types';
+import { DeepPartial, Nullable } from '@Types';
 
 type DialogData = {
-  role: Nullable<ProjectRole>;
+  role: ProjectRole;
 };
 
 @Component({
@@ -49,12 +49,21 @@ export class InviteProjectMemberDialogComponent implements OnInit {
   ngOnInit(): void {
     this.users = this.jsonApiDatastore.loadAll<User>(User, {
       sparseFieldsets: {
-        user: ['id', 'firstName', 'lastName']
+        user: ['id', 'academicTitle', 'firstName', 'lastName']
       }
     }).pipe(take(1));
   }
 
   onCancelClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
+  }
+
+  getCloseData(): DeepPartial<ProjectMember> {
+    return {
+      role: this.data.role,
+      user: {
+        ...(this.selectedUser ?? {})
+      },
+    };
   }
 }

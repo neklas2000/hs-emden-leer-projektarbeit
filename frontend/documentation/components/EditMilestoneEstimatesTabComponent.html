@@ -1,0 +1,1722 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EditMilestoneEstimatesTabComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>hsel-edit-milestone-estimates-tab</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatInputModule</code>
+                            <code>MatCommonModule</code>
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >MatFormFieldModule</a></code>
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >FormsModule</a></code>
+                            <code>MatTableModule</code>
+                            <code>DatePipe</code>
+                            <code>MatDatepickerModule</code>
+                            <code>CommonModule</code>
+                            <code>NgApexchartsModule</code>
+                            <code>MatCheckboxModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatCardModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./edit-milestone-estimates-tab.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./edit-milestone-estimates-tab.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#annotations" >annotations</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Private</span>
+                                <a href="#apexChartContainer" >apexChartContainer</a>
+                            </li>
+                            <li>
+                                <a href="#chartOptions" >chartOptions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#markerPoints" >markerPoints</a>
+                            </li>
+                            <li>
+                                <a href="#milestoneReached" >milestoneReached</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectedMarker" >selectedMarker</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectedPoint" >selectedPoint</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#defineAnnotations" >defineAnnotations</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleDataPointSelection" >handleDataPointSelection</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handlePointClick" >handlePointClick</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isIntersectingTargetLine" >isIntersectingTargetLine</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onDiscardChanges" >onDiscardChanges</a>
+                            </li>
+                            <li>
+                                <a href="#onMilestoneDelete" >onMilestoneDelete</a>
+                            </li>
+                            <li>
+                                <a href="#onSaveChanges" >onSaveChanges</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateChart" >updateChart</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#interval" >interval</a>
+                            </li>
+                            <li>
+                                <a href="#milestone" >milestone</a>
+                            </li>
+                            <li>
+                                <a href="#renderChart" >renderChart</a>
+                            </li>
+                            <li>
+                                <a href="#reportDates" >reportDates</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(chart: <a href="../injectables/ChartService.html" target="_self">ChartService</a>, dialog: MatDialog, jsonApiDatastore: <a href="../injectables/JsonApiDatastore.html" target="_self">JsonApiDatastore</a>, snackbar: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>, date: <a href="../injectables/DateService.html" target="_self">DateService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:72</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>chart</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ChartService.html" target="_self" >ChartService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>jsonApiDatastore</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/JsonApiDatastore.html" target="_self" >JsonApiDatastore</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbar</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>date</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="interval"></a>
+                        <b>interval</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>7</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:63</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="milestone"></a>
+                        <b>milestone</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/ProjectMilestone.html" target="_self" >ProjectMilestone</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:62</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="renderChart"></a>
+                        <b>renderChart</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:64</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="reportDates"></a>
+                        <b>reportDates</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:61</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defineAnnotations"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>defineAnnotations</b></span>
+                        <a href="#defineAnnotations"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>defineAnnotations(...keepColumns: number[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>keepColumns</td>
+                                            <td>
+                                                        <code>number[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDataPointSelection"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleDataPointSelection</b></span>
+                        <a href="#handleDataPointSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleDataPointSelection(undefined: <a href="../undefineds/ApexChartEventConfig.html" target="_self">ApexChartEventConfig</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ApexChartEventConfig" target="_self" >ApexChartEventConfig</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handlePointClick"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handlePointClick</b></span>
+                        <a href="#handlePointClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handlePointClick(x: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, y: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="192"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:192</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>x</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>y</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isIntersectingTargetLine"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isIntersectingTargetLine</b></span>
+                        <a href="#isIntersectingTargetLine"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isIntersectingTargetLine()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="223"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:223</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDiscardChanges"></a>
+                    <span class="name">
+                        <span ><b>onDiscardChanges</b></span>
+                        <a href="#onDiscardChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDiscardChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="245"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:245</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMilestoneDelete"></a>
+                    <span class="name">
+                        <span ><b>onMilestoneDelete</b></span>
+                        <a href="#onMilestoneDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMilestoneDelete()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="247"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:247</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSaveChanges"></a>
+                    <span class="name">
+                        <span ><b>onSaveChanges</b></span>
+                        <a href="#onSaveChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSaveChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="243"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:243</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateChart"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>updateChart</b></span>
+                        <a href="#updateChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateChart(x: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, y: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="231"
+                                    class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:231</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>x</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>y</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="annotations"></a>
+                    <span class="name">
+                        <span ><b>annotations</b></span>
+                        <a href="#annotations"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ApexAnnotations</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="apexChartContainer"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Private</span>
+                        <span ><b>apexChartContainer</b></span>
+                        <a href="#apexChartContainer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLDivElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;apexChartContainer&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chartOptions"></a>
+                    <span class="name">
+                        <span ><b>chartOptions</b></span>
+                        <a href="#chartOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Nullable&lt;ChartOptions&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markerPoints"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>markerPoints</b></span>
+                        <a href="#markerPoints"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/FreeMarkers.html" target="_self" >FreeMarkers</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="milestoneReached"></a>
+                    <span class="name">
+                        <span ><b>milestoneReached</b></span>
+                        <a href="#milestoneReached"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedMarker"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>selectedMarker</b></span>
+                        <a href="#selectedMarker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Tupel.html" target="_self" >Tupel&lt;number&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Tupel()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPoint"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>selectedPoint</b></span>
+                        <a href="#selectedPoint"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Tupel.html" target="_self" >Tupel&lt;string | number&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Tupel()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule, DatePipe } from &#x27;@angular/common&#x27;;
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatCardModule } from &#x27;@angular/material/card&#x27;;
+import { MatCommonModule } from &#x27;@angular/material/core&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatTableModule } from &#x27;@angular/material/table&#x27;;
+import { MatCheckboxModule } from &#x27;@angular/material/checkbox&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+
+import { NgApexchartsModule } from &#x27;ng-apexcharts&#x27;;
+import { take } from &#x27;rxjs&#x27;;
+
+import { ConfirmationDialogComponent } from &#x27;../confirmation-dialog/confirmation-dialog.component&#x27;;
+import { ProjectMilestone } from &#x27;@Models/project-milestone&#x27;;
+import { MilestoneEstimate } from &#x27;@Models/milestone-estimate&#x27;;
+import { ChartOptions, ChartService, FreeMarkers } from &#x27;@Services/chart.service&#x27;;
+import { JsonApiDatastore } from &#x27;@Services/json-api-datastore.service&#x27;;
+import { SnackbarService } from &#x27;@Services/snackbar.service&#x27;;
+import { DateService } from &#x27;@Services/date.service&#x27;;
+import { Nullable } from &#x27;@Types&#x27;;
+import { Tupel } from &#x27;@Utils/tupel&#x27;;
+
+type ApexChartEventConfig &#x3D; {
+  /**
+   * Index of the data series.
+   */
+  seriesIndex: number;
+  /**
+   * Index on the x-axis.
+   */
+  dataPointIndex: number;
+  [key: string]: any;
+};
+
+@Component({
+  selector: &#x27;hsel-edit-milestone-estimates-tab&#x27;,
+  standalone: true,
+  imports: [
+    MatInputModule,
+    MatCommonModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatTableModule,
+    DatePipe,
+    MatDatepickerModule,
+    CommonModule,
+    NgApexchartsModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
+  templateUrl: &#x27;./edit-milestone-estimates-tab.component.html&#x27;,
+  styleUrl: &#x27;./edit-milestone-estimates-tab.component.scss&#x27;
+})
+export class EditMilestoneEstimatesTabComponent implements OnInit, AfterViewInit {
+  @ViewChild(&#x27;apexChartContainer&#x27;) private apexChartContainer!: ElementRef&lt;HTMLDivElement&gt;;
+  @Input() reportDates: string[] &#x3D; [];
+  @Input() milestone!: ProjectMilestone;
+  @Input() interval: number &#x3D; 7;
+  @Input() renderChart: boolean &#x3D; false;
+
+  chartOptions: Nullable&lt;ChartOptions&gt; &#x3D; null;
+  annotations!: ApexAnnotations;
+  milestoneReached: boolean &#x3D; false;
+
+  private selectedPoint: Tupel&lt;string, number&gt; &#x3D; new Tupel();
+  private selectedMarker: Tupel&lt;number&gt; &#x3D; new Tupel();
+  private markerPoints!: FreeMarkers;
+
+  constructor(
+    private readonly chart: ChartService,
+    private readonly dialog: MatDialog,
+    private readonly jsonApiDatastore: JsonApiDatastore,
+    private readonly snackbar: SnackbarService,
+    private readonly date: DateService,
+  ) { }
+
+  ngOnInit(): void {
+    this.chart.defineOptions({
+      reportDates: this.reportDates,
+      milestones: [this.milestone],
+      start: this.reportDates[0],
+      end: this.reportDates[this.reportDates.length - 1],
+      interval: this.interval,
+    });
+    this.chartOptions &#x3D; this.chart.options;
+    this.chartOptions.chart.events &#x3D; {
+      dataPointSelection: (ev, ctx, cfg) &#x3D;&gt; {
+        this.handleDataPointSelection(cfg);
+      },
+    };
+    this.annotations &#x3D; {
+      points: [],
+    };
+    this.markerPoints &#x3D; this.chart.markerPoints;
+    this.defineAnnotations();
+    this.milestoneReached &#x3D; this.milestone.estimates
+      .filter((estimate) &#x3D;&gt; estimate.milestoneReached).length &gt; 0;
+  }
+
+  ngAfterViewInit(): void {
+    this.apexChartContainer.nativeElement.addEventListener(&#x27;mouseover&#x27;, (ev) &#x3D;&gt; {
+      if (!ev.target) return;
+
+      const marker &#x3D; ev.target as SVGCircleElement;
+
+      if (marker.classList.contains(&#x27;apexcharts-point-annotation-marker&#x27;)) {
+        marker.setAttribute(&#x27;r&#x27;, String(Number(marker.getAttribute(&#x27;r&#x27;)) * 2));
+      }
+    });
+
+    this.apexChartContainer.nativeElement.addEventListener(&#x27;mouseout&#x27;, (ev) &#x3D;&gt; {
+      if (!ev.target) return;
+
+      const marker &#x3D; ev.target as SVGCircleElement;
+
+      if (marker.classList.contains(&#x27;apexcharts-point-annotation-marker&#x27;)) {
+        marker.setAttribute(&#x27;r&#x27;, String(Number(marker.getAttribute(&#x27;r&#x27;)) / 2));
+      }
+    });
+  }
+
+  private defineAnnotations(...keepColumns: number[]): void {
+    const points &#x3D; this.markerPoints.clone();
+    this.annotations.points &#x3D; [];
+
+    const numberOfPoints &#x3D; this.chartOptions?.series[1].data.length || -1;
+
+    if (numberOfPoints !&#x3D;&#x3D; -1 &amp;&amp; keepColumns.length &#x3D;&#x3D;&#x3D; 0) {
+      keepColumns.push(numberOfPoints);
+    }
+
+    this.chartOptions?.series[1].data.forEach((yAxisIndex, xAxisIndex) &#x3D;&gt; {
+      points.remove(xAxisIndex, yAxisIndex as number);
+    });
+
+    if (keepColumns.length !&#x3D;&#x3D; 0) {
+      for (let i &#x3D; 0; i &lt; points.categories.size; i++) {
+        if (!keepColumns.includes(i)) {
+          points.dropColumn(i);
+        }
+      }
+    }
+
+    for (const [xAxis, yAxes] of points.markers.entries()) {
+      if (!xAxis) continue;
+
+      for (const y of yAxes) {
+        this.annotations.points.push({
+          x: xAxis,
+          y,
+          marker: {
+            cssClass: &#x27;apexcharts-marker&#x27;,
+          },
+          click: (options: any, event: MouseEvent) &#x3D;&gt; {
+            this.handlePointClick(options.x, options.y);
+          },
+        });
+      }
+    }
+  }
+
+  private handleDataPointSelection({
+    seriesIndex,
+    dataPointIndex,
+  }: ApexChartEventConfig): void {
+    if (seriesIndex !&#x3D;&#x3D; 0) {
+      if (this.selectedMarker.x &#x3D;&#x3D;&#x3D; dataPointIndex &amp;&amp; this.selectedMarker.y &#x3D;&#x3D;&#x3D; seriesIndex) {
+        this.selectedMarker.reset();
+        this.defineAnnotations();
+      } else {
+        this.selectedMarker.x &#x3D; dataPointIndex;
+        this.selectedMarker.y &#x3D; seriesIndex;
+        this.defineAnnotations(dataPointIndex);
+      }
+
+      this.annotations &#x3D; { ...this.annotations };
+    } else {
+      if (this.chartOptions &amp;&amp; !this.selectedMarker.isEmpty &amp;&amp; dataPointIndex &#x3D;&#x3D;&#x3D; this.selectedMarker.x) {
+        const markerX &#x3D; this.selectedMarker.x as number;
+        const newMarkerY &#x3D; this.chartOptions.series[0].data[dataPointIndex] as number;
+
+        this.updateChart(markerX, newMarkerY);
+      }
+    }
+  }
+
+  private handlePointClick(x: string, y: number): void {
+    this.selectedPoint.x &#x3D; x;
+    this.selectedPoint.y &#x3D; y;
+
+    if (!this.selectedMarker.isEmpty &amp;&amp; this.selectedMarker.y !&#x3D;&#x3D; 0) {
+      const markerX &#x3D; this.selectedMarker.x as number;
+      const newMarkery &#x3D; this.selectedPoint.y as number;
+
+      this.updateChart(markerX, newMarkery);
+    } else {
+      if (!this.milestoneReached &amp;&amp; !this.isIntersectingTargetLine()) {
+        const xIndex &#x3D; this.markerPoints.categories.indexOfAxisLabel(x, &#x27;x&#x27;);
+        const estimate &#x3D; new MilestoneEstimate();
+        estimate.reportDate &#x3D; this.markerPoints.categories.yAxis[xIndex];
+        estimate.estimationDate &#x3D; this.markerPoints.categories.yAxis[y];
+        estimate.milestone &#x3D; this.milestone;
+        estimate.milestoneReached &#x3D; this.date.compare(
+          estimate.reportDate,
+          estimate.estimationDate,
+        ) &#x3D;&#x3D;&#x3D; 0;
+        this.milestone.estimates.push(estimate);
+
+        this.updateChart(xIndex, y);
+      } else if (this.milestoneReached) {
+        this.snackbar.open(&#x27;Der Meilenstein ist abgeschlossen&#x27;);
+      } else {
+        this.snackbar.open(&#x27;Der Meilenstein kreuzt noch die Ziellinie&#x27;);
+      }
+    }
+  }
+
+  private isIntersectingTargetLine(): boolean {
+    for (const estimate of this.milestone.estimates) {
+      if (this.date.compare(estimate.estimationDate as string, estimate.reportDate) &#x3D;&#x3D;&#x3D; 0) return true;
+    }
+
+    return false;
+  }
+
+  private updateChart(x: number, y: number): boolean {
+    if (!this.chartOptions) return false;
+
+    (this.chartOptions.series[1].data as number[])[x] &#x3D; y;
+    this.defineAnnotations();
+    this.chartOptions.series &#x3D; [...this.chartOptions.series];
+    this.annotations &#x3D; { ...this.annotations };
+    this.selectedMarker.reset();
+
+    return true;
+  }
+
+  onSaveChanges(): void { }
+
+  onDiscardChanges(): void { }
+
+  onMilestoneDelete(): void {
+    const dialogRef &#x3D; this.dialog.open(
+      ConfirmationDialogComponent,
+      {
+        minWidth: &#x27;200px&#x27;,
+        width: &#x27;40vw&#x27;,
+        data: {
+          type: &#x27;delete-milestone&#x27;,
+        },
+      },
+    );
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((shouldDelete: boolean) &#x3D;&gt; {
+      if (shouldDelete) {
+        console.log(&#x27;Should delete the milestone&#x27;); // TODO
+        this.snackbar.open(&#x27;Meilenstein wurde gelöscht&#x27;);
+      } else {
+        this.snackbar.open(&#x27;Meilenstein wurde nicht gelöscht&#x27;);
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex gap-x-4&quot;&gt;
+  @if (chartOptions) {
+    &lt;div style&#x3D;&quot;flex: 70%;&quot; #apexChartContainer&gt;
+      @if (renderChart) {
+        &lt;apx-chart
+          [series]&#x3D;&quot;chartOptions.series&quot;
+          [chart]&#x3D;&quot;chartOptions.chart&quot;
+          [xaxis]&#x3D;&quot;chartOptions.xaxis&quot;
+          [yaxis]&#x3D;&quot;chartOptions.yaxis&quot;
+          [dataLabels]&#x3D;&quot;chartOptions.dataLabels&quot;
+          [grid]&#x3D;&quot;chartOptions.grid&quot;
+          [markers]&#x3D;&quot;chartOptions.markers&quot;
+          [stroke]&#x3D;&quot;chartOptions.stroke&quot;
+          [title]&#x3D;&quot;chartOptions.title&quot;
+          [tooltip]&#x3D;&quot;chartOptions.tooltip&quot;
+          [annotations]&#x3D;&quot;annotations&quot;&gt;
+        &lt;/apx-chart&gt;
+      } @else {
+        &lt;p&gt;Das Rendering des Charts ist aktuell deaktiviert.&lt;/p&gt;
+      }
+    &lt;/div&gt;
+  }
+  &lt;div class&#x3D;&quot;flex flex-col gap-y-4&quot; style&#x3D;&quot;flex: 30%;&quot;&gt;
+    &lt;mat-card&gt;
+      &lt;mat-card-header&gt;
+        &lt;mat-card-title&gt;Hilfe&lt;/mat-card-title&gt;
+      &lt;/mat-card-header&gt;
+      &lt;mat-card-content&gt;
+        In dem Diagramm auf der linken Seite gibt es zwei Aktivitäten, die Sie durchführen können.
+        &lt;ol&gt;
+          &lt;li&gt;
+            Sie wählen einen von dem Grpahen rechts liegenden Punkte aus, um den Graph bis dahin zu
+            verlängern. (Standardansicht)
+          &lt;/li&gt;
+          &lt;li&gt;
+            Sie klicken eine der Markierungen (Punkte) des Graphen an, um diesen zu verschieben.
+            Danach müssen Sie einen weiteren Punkt in derselben Spalte anklicken, zu dem der zuvor
+            markierte Punkt des Graphen verschoben werden soll.
+          &lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/mat-card-content&gt;
+    &lt;/mat-card&gt;
+    &lt;mat-checkbox [(ngModel)]&#x3D;&quot;milestoneReached&quot;&gt;Meilenstein abgeschlossen?&lt;/mat-checkbox&gt;
+    &lt;button mat-raised-button (click)&#x3D;&quot;onSaveChanges()&quot; color&#x3D;&quot;primary&quot;&gt;Änderungen speichern&lt;/button&gt;
+    &lt;button mat-raised-button (click)&#x3D;&quot;onDiscardChanges()&quot; color&#x3D;&quot;accent&quot;&gt;Änderungen verwerfen&lt;/button&gt;
+    &lt;button mat-raised-button (click)&#x3D;&quot;onMilestoneDelete()&quot; color&#x3D;&quot;warn&quot;&gt;Meilenstein löschen&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex gap-x-4">  @if (chartOptions) {    <div style="flex: 70%;" #apexChartContainer>      @if (renderChart) {        <apx-chart          [series]="chartOptions.series"          [chart]="chartOptions.chart"          [xaxis]="chartOptions.xaxis"          [yaxis]="chartOptions.yaxis"          [dataLabels]="chartOptions.dataLabels"          [grid]="chartOptions.grid"          [markers]="chartOptions.markers"          [stroke]="chartOptions.stroke"          [title]="chartOptions.title"          [tooltip]="chartOptions.tooltip"          [annotations]="annotations">        </apx-chart>      } @else {        <p>Das Rendering des Charts ist aktuell deaktiviert.</p>      }    </div>  }  <div class="flex flex-col gap-y-4" style="flex: 30%;">    <mat-card>      <mat-card-header>        <mat-card-title>Hilfe</mat-card-title>      </mat-card-header>      <mat-card-content>        In dem Diagramm auf der linken Seite gibt es zwei Aktivitäten, die Sie durchführen können.        <ol>          <li>            Sie wählen einen von dem Grpahen rechts liegenden Punkte aus, um den Graph bis dahin zu            verlängern. (Standardansicht)          </li>          <li>            Sie klicken eine der Markierungen (Punkte) des Graphen an, um diesen zu verschieben.            Danach müssen Sie einen weiteren Punkt in derselben Spalte anklicken, zu dem der zuvor            markierte Punkt des Graphen verschoben werden soll.          </li>        </ol>      </mat-card-content>    </mat-card>    <mat-checkbox [(ngModel)]="milestoneReached">Meilenstein abgeschlossen?</mat-checkbox>    <button mat-raised-button (click)="onSaveChanges()" color="primary">Änderungen speichern</button>    <button mat-raised-button (click)="onDiscardChanges()" color="accent">Änderungen verwerfen</button>    <button mat-raised-button (click)="onMilestoneDelete()" color="warn">Meilenstein löschen</button>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EditMilestoneEstimatesTabComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EditMilestoneEstimatesTabComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

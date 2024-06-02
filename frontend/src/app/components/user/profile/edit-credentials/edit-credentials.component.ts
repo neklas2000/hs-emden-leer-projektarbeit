@@ -10,7 +10,6 @@ import { Subscription, take } from 'rxjs';
 
 import { FormValidators } from '../../../../validators';
 import { ProfileService } from '@Services/profile.service';
-import { User } from '@Models/user';
 import { HttpException } from '@Utils/http-exception';
 import { SnackbarService } from '@Services/snackbar.service';
 
@@ -128,7 +127,7 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
   }
 
   private updateEmail(): void {
-    this.profile.update<User>(':id', this.data.userId, {
+    this.profile.update(':id', this.data.userId, {
       email: this.form.get('newEmail')?.value,
     }).pipe(take(1)).subscribe({
       next: (updatedSuccessfully) => {
@@ -152,7 +151,7 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
   }
 
   private updatePassword(): void {
-    this.profile.update<User>(':id', this.data.userId, {
+    this.profile.update(':id', this.data.userId, {
       password: this.form.get('newPassword')?.value,
     }).pipe(take(1)).subscribe({
       next: (updatedSuccessfully) => {

@@ -1,0 +1,968 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#ACCESS_TOKEN_KEY" title="src/app/services/session-storage.service.ts" ><b>ACCESS_TOKEN_KEY</b>&nbsp;&nbsp;&nbsp;(src/.../session-storage.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#appConfig" title="src/app/app.config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#authenticationGuard" title="src/app/guards/authentication.guard.ts" ><b>authenticationGuard</b>&nbsp;&nbsp;&nbsp;(src/.../authentication.guard.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#authenticationInterceptor" title="src/app/interceptors/authentication.interceptor.ts" ><b>authenticationInterceptor</b>&nbsp;&nbsp;&nbsp;(src/.../authentication.interceptor.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CHECKED_CHECKBOX" title="src/constants/checked-checkbox.ts" ><b>CHECKED_CHECKBOX</b>&nbsp;&nbsp;&nbsp;(src/.../checked-checkbox.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#credentialsInterceptor" title="src/app/interceptors/credentials.interceptor.ts" ><b>credentialsInterceptor</b>&nbsp;&nbsp;&nbsp;(src/.../credentials.interceptor.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#milestoneEstimatesEditResolver" title="src/app/resolvers/milestone-estimates-edit.resolver.ts" ><b>milestoneEstimatesEditResolver</b>&nbsp;&nbsp;&nbsp;(src/.../milestone-estimates-edit.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#milestoneEstimatesProjectResolver" title="src/app/resolvers/milestone-estimates-project.resolver.ts" ><b>milestoneEstimatesProjectResolver</b>&nbsp;&nbsp;&nbsp;(src/.../milestone-estimates-project.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#profileResolver" title="src/app/resolvers/profile.resolver.ts" ><b>profileResolver</b>&nbsp;&nbsp;&nbsp;(src/.../profile.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#projectDetailsResolver" title="src/app/resolvers/project-details.resolver.ts" ><b>projectDetailsResolver</b>&nbsp;&nbsp;&nbsp;(src/.../project-details.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#projectEditResolver" title="src/app/resolvers/project-edit.resolver.ts" ><b>projectEditResolver</b>&nbsp;&nbsp;&nbsp;(src/.../project-edit.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REFRESH_TOKEN_KEY" title="src/app/services/session-storage.service.ts" ><b>REFRESH_TOKEN_KEY</b>&nbsp;&nbsp;&nbsp;(src/.../session-storage.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#reportDetailsResolver" title="src/app/resolvers/report-details.resolver.ts" ><b>reportDetailsResolver</b>&nbsp;&nbsp;&nbsp;(src/.../report-details.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#reportEditResolver" title="src/app/resolvers/report-edit.resolver.ts" ><b>reportEditResolver</b>&nbsp;&nbsp;&nbsp;(src/.../report-edit.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UNCHECKED_CHECKBOX" title="src/constants/unchecked-checkbox.ts" ><b>UNCHECKED_CHECKBOX</b>&nbsp;&nbsp;&nbsp;(src/.../unchecked-checkbox.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#USER_KEY" title="src/app/services/session-storage.service.ts" ><b>USER_KEY</b>&nbsp;&nbsp;&nbsp;(src/.../session-storage.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userProjectsResolver" title="src/app/resolvers/user-projects.resolver.ts" ><b>userProjectsResolver</b>&nbsp;&nbsp;&nbsp;(src/.../user-projects.resolver.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ZONE" title="src/constants/index.ts" ><b>ZONE</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app/services/session-storage.service.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ACCESS_TOKEN_KEY"></a>
+                    <span class="name">
+                        <span ><b>ACCESS_TOKEN_KEY</b></span>
+                        <a href="#ACCESS_TOKEN_KEY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;auth-access-token&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REFRESH_TOKEN_KEY"></a>
+                    <span class="name">
+                        <span ><b>REFRESH_TOKEN_KEY</b></span>
+                        <a href="#REFRESH_TOKEN_KEY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;auth-refresh-token&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="USER_KEY"></a>
+                    <span class="name">
+                        <span ><b>USER_KEY</b></span>
+                        <a href="#USER_KEY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;auth-user&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/app.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="appConfig"></a>
+                    <span class="name">
+                        <span ><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ApplicationConfig</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideAnimations(),
+    provideMarkdown({
+      sanitize: SecurityContext.NONE,
+      markedOptions: {
+        provide: MARKED_OPTIONS,
+        useFactory: () &#x3D;&gt; {
+          const renderer &#x3D; new MarkedRenderer();
+
+          renderer.checkbox &#x3D; (checked: boolean): string &#x3D;&gt; {
+            if (checked) {
+              return &#x60;&lt;img width&#x3D;&quot;16px&quot; src&#x3D;&quot;${CHECKED_CHECKBOX}&quot; alt&#x3D;&quot;checked checkbox&quot;&gt;&#x60;;
+            }
+
+            return &#x60;&lt;img width&#x3D;&quot;16px&quot; src&#x3D;&quot;${UNCHECKED_CHECKBOX}&quot; alt&#x3D;&quot;unchecked checkbox&quot;&gt;&#x60;;
+          };
+
+          const _listitem &#x3D; renderer.listitem.bind(renderer);
+          renderer.listitem &#x3D; (text: string, task: boolean, checked: boolean): string &#x3D;&gt; {
+            if (!task) return _listitem(text, task, checked);
+
+            return &#x60;&lt;div style&#x3D;&quot;display: flex; flex-direction: row; align-items: center; column-gap: 8px;&quot;&gt;&lt;li&gt;${text}&lt;/li&gt;&lt;/div&gt;&#x60;;
+          };
+
+          return {
+            renderer,
+            gfm: true,
+            breaks: false,
+            pedantic: false,
+          };
+        }
+      },
+    }),
+    provideHttpClient(withInterceptors([authenticationInterceptor, credentialsInterceptor])),
+    provideLuxonDateAdapter({
+      parse: {
+        dateInput: [&#x27;dd.MM.yyyy&#x27;, &#x27;yyyy-MM-dd&#x27;],
+      },
+      display: {
+        dateInput: &#x27;dd.MM.yyyy&#x27;,
+        monthYearLabel: &#x27;dd.MM.yyyy&#x27;,
+        dateA11yLabel: &#x27;dd.MM.yyyy&#x27;,
+        monthYearA11yLabel: &#x27;dd.MM.yyyy&#x27;,
+      },
+    }),
+  ]
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/guards/authentication.guard.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authenticationGuard"></a>
+                    <span class="name">
+                        <span ><b>authenticationGuard</b></span>
+                        <a href="#authenticationGuard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanActivateFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(route, state) &#x3D;&gt; {
+  const authenticationService &#x3D; inject(AuthenticationService);
+  const router &#x3D; inject(Router);
+
+  if (authenticationService.isAuthenticated()) return true;
+
+  return authenticationService.checkStatus().pipe(take(1), switchMap((authStatus) &#x3D;&gt; {
+    if (!authStatus) {
+      router.navigateByUrl(&#x27;/auth/login&#x27;);
+    }
+
+    return of(authStatus);
+  }));
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/interceptors/authentication.interceptor.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authenticationInterceptor"></a>
+                    <span class="name">
+                        <span ><b>authenticationInterceptor</b></span>
+                        <a href="#authenticationInterceptor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HttpInterceptorFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  request: HttpRequest&lt;any&gt;,
+  next: HttpHandlerFn,
+) &#x3D;&gt; {
+  const authenticationService &#x3D; inject(AuthenticationService);
+  const accessToken &#x3D; authenticationService.getAccessToken();
+
+  if (accessToken &#x3D;&#x3D;&#x3D; null) return next(request);
+  if (request.url.includes(&#x27;auth/refresh&#x27;)) {
+    const refreshToken &#x3D; authenticationService.getRefreshToken();
+
+    if (refreshToken &#x3D;&#x3D;&#x3D; null) return next(request);
+
+    return next(request.clone({
+      headers: request.headers.set(&#x27;Authorization&#x27;, &#x60;Bearer ${refreshToken}&#x60;),
+    }));
+  }
+
+  const authorizedRequest &#x3D; request.clone({
+    headers: request.headers.set(&#x27;Authorization&#x27;, &#x60;Bearer ${accessToken}&#x60;),
+  });
+
+  return next(authorizedRequest).pipe(catchError((err, caught) &#x3D;&gt; {
+    if (isUnauthorizedRequest(authorizedRequest, err)) {
+      return authenticationService.refreshTokens(request, next);
+    }
+
+    return throwError(() &#x3D;&gt; err);
+  }));
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/constants/checked-checkbox.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CHECKED_CHECKBOX"></a>
+                    <span class="name">
+                        <span ><b>CHECKED_CHECKBOX</b></span>
+                        <a href="#CHECKED_CHECKBOX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAQAAACROWYpAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAF+2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTktMTItMzBUMDE6Mzc6MjArMDE6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE5LTEyLTMwVDAxOjM4OjI4KzAxOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE5LTEyLTMwVDAxOjM4OjI4KzAxOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMSIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9IkRvdCBHYWluIDIwJSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowNzVjYjZmMy1jNGIxLTRiZjctYWMyOS03YzUxMWY5MWJjYzQiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDo5ZTM1YTc3ZC0zNDM0LTI5NGQtYmEwOC1iY2I5MjYyMjBiOGIiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowYzc2MDY3Ny0xNDcwLTRlZDUtOGU4ZS1kNTdjODJlZDk1Y2UiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjBjNzYwNjc3LTE0NzAtNGVkNS04ZThlLWQ1N2M4MmVkOTVjZSIgc3RFdnQ6d2hlbj0iMjAxOS0xMi0zMFQwMTozNzoyMCswMTowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjA3NWNiNmYzLWM0YjEtNGJmNy1hYzI5LTdjNTExZjkxYmNjNCIgc3RFdnQ6d2hlbj0iMjAxOS0xMi0zMFQwMTozODoyOCswMTowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+jHsR7AAAAUNJREFUOMvN1T9Lw0AYx/EviLVFxFH8M3USgyAFoUsQ0UV8F6Ui4qCTbuJg34HgptBdUATrUoxiqYMgiOBoIcW9BVED+jgkntGm9i6CmN+Sg/vAcc89dwBd5Clzj6uZGg7LJAC62UFipEgKcmroaeZj/gpcIAhl5rE1M0cJQbiCOsIrs5h8WZ4R6j72yBrhcRo+dhE8bCOcoYng/hFOMxAXb/DAHTNxcCGo7JE5LqhjsW2KP6nDcGecCv1vRdC2eJQDLllooach2hbvIghvLJJgM0QHdeq8F0x/5ETRM4b0DonF7be+Pf+y4A4bZnETok4E/XG3xxR3WhasUWeLCg2OGYnXGP1MkPwnLRmJf3UN+RfgtBGe5MnHVQShxBQZzdgcIgjXsKSu/KZmXgKxBkmKsZ6bffoAelilQs3goauyTi+8A8mhgeQlxdNWAAAAAElFTkSuQmCC&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/interceptors/credentials.interceptor.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="credentialsInterceptor"></a>
+                    <span class="name">
+                        <span ><b>credentialsInterceptor</b></span>
+                        <a href="#credentialsInterceptor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HttpInterceptorFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(req, next) &#x3D;&gt; {
+  const withCredentialsReq &#x3D; req.clone({
+    withCredentials: true,
+  });
+
+  return next(withCredentialsReq);
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/milestone-estimates-edit.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="milestoneEstimatesEditResolver"></a>
+                    <span class="name">
+                        <span ><b>milestoneEstimatesEditResolver</b></span>
+                        <a href="#milestoneEstimatesEditResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ResolveFn&lt;Observable&lt;ProjectMilestone[]&gt;&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  jsonApiDatastore: JsonApiDatastore &#x3D; inject(JsonApiDatastore),
+) &#x3D;&gt; {
+  const id &#x3D; route.paramMap.get(&#x27;id&#x27;);
+
+  return jsonApiDatastore.loadAll&lt;ProjectMilestone&gt;(ProjectMilestone, {
+    filters: id ? { &#x27;project.id&#x27;: id } : {},
+    includes: [&#x27;estimates&#x27;],
+  });
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/milestone-estimates-project.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="milestoneEstimatesProjectResolver"></a>
+                    <span class="name">
+                        <span ><b>milestoneEstimatesProjectResolver</b></span>
+                        <a href="#milestoneEstimatesProjectResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Project.html" target="_self" >ResolveFn&lt;Nullable&lt;Observable&lt;Project&gt;&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  jsonApiDatastore: JsonApiDatastore &#x3D; inject(JsonApiDatastore),
+) &#x3D;&gt; {
+  return jsonApiDatastore.load&lt;Project&gt;(Project, route.paramMap.get(&#x27;id&#x27;), {
+    sparseFieldsets: {
+      project: [&#x27;id&#x27;, &#x27;officialStart&#x27;, &#x27;officialEnd&#x27;, &#x27;reportInterval&#x27;],
+    },
+  });
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/profile.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileResolver"></a>
+                    <span class="name">
+                        <span ><b>profileResolver</b></span>
+                        <a href="#profileResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >ResolveFn&lt;Observable&lt;Nullable&lt;User&gt;&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  profileService: ProfileService &#x3D; inject(ProfileService),
+) &#x3D;&gt; {
+  return profileService.read();
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/project-details.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="projectDetailsResolver"></a>
+                    <span class="name">
+                        <span ><b>projectDetailsResolver</b></span>
+                        <a href="#projectDetailsResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Project.html" target="_self" >ResolveFn&lt;Nullable&lt;Observable&lt;Project&gt;&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  jsonApiDatastore: JsonApiDatastore &#x3D; inject(JsonApiDatastore),
+) &#x3D;&gt; {
+  return jsonApiDatastore.load&lt;Project&gt;(Project, route.paramMap.get(&#x27;id&#x27;), {
+    includes: [&#x27;owner&#x27;, &#x27;members&#x27;, &#x27;members.user&#x27;, &#x27;reports&#x27;, &#x27;milestones&#x27;, &#x27;milestones.estimates&#x27;],
+    sparseFieldsets: {
+      members: [&#x27;id&#x27;, &#x27;role&#x27;],
+      &#x27;members.user&#x27;: [&#x27;id&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;, &#x27;matriculationNumber&#x27;, &#x27;email&#x27;, &#x27;phoneNumber&#x27;],
+      reports: [&#x27;id&#x27;, &#x27;sequenceNumber&#x27;, &#x27;reportDate&#x27;],
+      milestones: [&#x27;id&#x27;, &#x27;name&#x27;],
+    },
+  });
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/project-edit.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="projectEditResolver"></a>
+                    <span class="name">
+                        <span ><b>projectEditResolver</b></span>
+                        <a href="#projectEditResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Project.html" target="_self" >ResolveFn&lt;Nullable&lt;Observable&lt;Project&gt;&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  jsonApiDatastore: JsonApiDatastore &#x3D; inject(JsonApiDatastore),
+) &#x3D;&gt; {
+  return jsonApiDatastore.load&lt;Project&gt;(Project, route.paramMap.get(&#x27;id&#x27;), {
+    includes: [&#x27;owner&#x27;, &#x27;members&#x27;, &#x27;members.user&#x27;, &#x27;reports&#x27;, &#x27;milestones&#x27;, &#x27;milestones.estimates&#x27;],
+    sparseFieldsets: {
+      members: [&#x27;id&#x27;, &#x27;role&#x27;],
+      &#x27;members.user&#x27;: [&#x27;id&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;, &#x27;matriculationNumber&#x27;, &#x27;email&#x27;, &#x27;phoneNumber&#x27;],
+      reports: [&#x27;id&#x27;, &#x27;sequenceNumber&#x27;, &#x27;reportDate&#x27;],
+      milestones: [&#x27;id&#x27;, &#x27;name&#x27;],
+    },
+  });
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/report-details.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reportDetailsResolver"></a>
+                    <span class="name">
+                        <span ><b>reportDetailsResolver</b></span>
+                        <a href="#reportDetailsResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >ResolveFn&lt;Nullable&lt;Observable&lt;ProjectReport&gt;&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  jsonApiDatastore: JsonApiDatastore &#x3D; inject(JsonApiDatastore),
+) &#x3D;&gt; {
+  const projectId &#x3D; route.paramMap.get(&#x27;projectId&#x27;);
+  const filters: { [field: string]: string | number; } &#x3D; {};
+
+  if (projectId) {
+    filters[&#x27;project.id&#x27;] &#x3D; projectId;
+  }
+
+  return jsonApiDatastore.load&lt;ProjectReport&gt;(
+    ProjectReport,
+    route.paramMap.get(&#x27;reportId&#x27;),
+    {
+      filters,
+      includes: [&#x27;project&#x27;],
+    },
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/report-edit.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reportEditResolver"></a>
+                    <span class="name">
+                        <span ><b>reportEditResolver</b></span>
+                        <a href="#reportEditResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >ResolveFn&lt;Nullable&lt;Observable&lt;ProjectReport&gt;&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  jsonApiDatastore: JsonApiDatastore &#x3D; inject(JsonApiDatastore),
+) &#x3D;&gt; {
+  const projectId &#x3D; route.paramMap.get(&#x27;projectId&#x27;);
+  const filters: { [field: string]: string | number; } &#x3D; {};
+
+  if (projectId) {
+    filters[&#x27;project.id&#x27;] &#x3D; projectId;
+  }
+
+  return jsonApiDatastore.load&lt;ProjectReport&gt;(ProjectReport, route.paramMap.get(&#x27;reportId&#x27;), {
+    filters,
+  });
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/constants/unchecked-checkbox.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UNCHECKED_CHECKBOX"></a>
+                    <span class="name">
+                        <span ><b>UNCHECKED_CHECKBOX</b></span>
+                        <a href="#UNCHECKED_CHECKBOX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAQAAACROWYpAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAF+2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTktMTItMzBUMDE6Mzc6MjArMDE6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE5LTEyLTMwVDAxOjM4OjU3KzAxOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE5LTEyLTMwVDAxOjM4OjU3KzAxOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMSIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9IkRvdCBHYWluIDIwJSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpjMGUyMmJhZC1lY2VkLTQzZWUtYjIzZC1jNDZjOTNiM2UzNWMiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDo5M2FhOTEzYy1hZDVmLWZmNGEtOWE5Ny1kMmUwZjdmYzFlYmUiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDozYmY2ODFlMy1hMTRhLTQyODMtOGIxNi0zNjQ4M2E2YmZlNjYiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjNiZjY4MWUzLWExNGEtNDI4My04YjE2LTM2NDgzYTZiZmU2NiIgc3RFdnQ6d2hlbj0iMjAxOS0xMi0zMFQwMTozNzoyMCswMTowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmMwZTIyYmFkLWVjZWQtNDNlZS1iMjNkLWM0NmM5M2IzZTM1YyIgc3RFdnQ6d2hlbj0iMjAxOS0xMi0zMFQwMTozODo1NyswMTowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+6AB6cQAAAPxJREFUOMvF1b1Kw1AYBuAnFf8QL8WlIHQJIriIdyEu4qCTXop7dwenTgUHpYvgJVhob8AuakE+h9hapJqcFDXvFDgPIXlzvgNLjnQ9GlRM340TK7DsUtRI2zqH09txxUzWn3IrhK4DecXs6wjhnqHwZk/K1fIiDAs81krCW54KPBDG8iTcNBIGf4ND1MWTdmrgqIOL5TM0S8SRhmMu1dAo+2DZ57t9eWajtKrvN1GVnrMK9HewhbBy+nPPJbTsJwmymOn8P7fkfLzQGCoG4G4S3vZc4J4QOnY0KyZ3LYQHjqcjf1Qxrx/inDXtWsfNlU1YdeZOP+Gg67mwwTvIDqR1iAowgQAAAABJRU5ErkJggg&#x3D;&#x3D;&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/resolvers/user-projects.resolver.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userProjectsResolver"></a>
+                    <span class="name">
+                        <span ><b>userProjectsResolver</b></span>
+                        <a href="#userProjectsResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Project.html" target="_self" >ResolveFn&lt;Observable&lt;Project[]&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  route,
+  state,
+  jsonApiDatastore: JsonApiDatastore &#x3D; inject(JsonApiDatastore),
+  authentication: AuthenticationService &#x3D; inject(AuthenticationService),
+) &#x3D;&gt; {
+  const userId &#x3D; authentication.getUser();
+
+  if (!userId) return of([]);
+
+  return jsonApiDatastore
+    .loadAll&lt;Project&gt;(Project, {
+      filters: {
+        &#x27;owner.id&#x27;: userId,
+        &#x27;members.user.id&#x27;: userId,
+      },
+    });
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/constants/index.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ZONE"></a>
+                    <span class="name">
+                        <span ><b>ZONE</b></span>
+                        <a href="#ZONE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Europe/Berlin&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
