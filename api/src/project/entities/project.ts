@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
 import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
@@ -66,4 +66,11 @@ export class Project extends BaseEntityWithExtras {
 		onDelete: 'CASCADE',
 	})
 	milestones: ProjectMilestone[];
+
+	@BeforeInsert()
+	async beforeInsert(): Promise<void> {
+		if (this.id === null) {
+			this.id = undefined;
+		}
+	}
 }

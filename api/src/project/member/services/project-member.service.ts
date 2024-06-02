@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { FindOptionsRelations, FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
+import {
+	DeepPartial,
+	FindOptionsRelations,
+	FindOptionsSelect,
+	FindOptionsWhere,
+	Repository,
+} from 'typeorm';
 
 import { ProjectMember } from '@Routes/ProjectMember/entities';
 
@@ -34,5 +40,15 @@ export class ProjectMemberService {
 			select,
 			relations,
 		});
+	}
+
+	createAll(memberPartials: DeepPartial<ProjectMember>[]): Promise<ProjectMember[]> {
+		return Promise.all(
+			memberPartials.map((memberPartial) => {
+				const projectMember = this.projectMemberRepository.create(memberPartial);
+
+				return projectMember.save();
+			}),
+		);
 	}
 }

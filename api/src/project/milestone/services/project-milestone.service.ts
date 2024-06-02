@@ -51,6 +51,16 @@ export class ProjectMilestoneService {
 		return this.projectMilestoneRepository.save(entity, { reload: true });
 	}
 
+	createAll(milestonePartials: DeepPartial<ProjectMilestone>[]): Promise<ProjectMilestone[]> {
+		return Promise.all(
+			milestonePartials.map((milestonePartial) => {
+				const projectMilestone = this.projectMilestoneRepository.create(milestonePartial);
+
+				return projectMilestone.save();
+			}),
+		);
+	}
+
 	async update(id: string, updatedFields: DeepPartial<ProjectMilestone>): Promise<boolean> {
 		try {
 			const updated = await this.projectMilestoneRepository.update({ id }, updatedFields);

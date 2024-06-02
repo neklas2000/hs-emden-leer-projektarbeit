@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import { BeforeInsert, Column, Entity, OneToMany, OneToOne } from 'typeorm';
 
 import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
 import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
@@ -60,4 +60,11 @@ export class User extends BaseEntityWithExtras {
 
 	@OneToOne(() => TokenWhitelist, (tokenWhitelist) => tokenWhitelist.user)
 	tokenPair: TokenWhitelist;
+
+	@BeforeInsert()
+	async beforeInsert(): Promise<void> {
+		if (this.id === null) {
+			this.id = undefined;
+		}
+	}
 }

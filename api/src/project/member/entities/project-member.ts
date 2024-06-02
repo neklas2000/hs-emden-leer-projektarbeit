@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
 
 import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
 import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
@@ -33,7 +33,7 @@ export class ProjectMember extends BaseEntityWithExtras {
 	@Column({ type: 'enum', enum: ProjectRole })
 	role: ProjectRole;
 
-	@Column({ name: 'invite_pending', type: 'boolean' })
+	@Column({ name: 'invite_pending', type: 'boolean', default: true })
 	invitePending: boolean;
 
 	@ManyToOne(() => User, (user) => user.matriculationNumber)
@@ -41,4 +41,11 @@ export class ProjectMember extends BaseEntityWithExtras {
 
 	@ManyToOne(() => Project, (project) => project.members)
 	project: Project;
+
+	@BeforeInsert()
+	async beforeInsert(): Promise<void> {
+		if (this.id === null) {
+			this.id = undefined;
+		}
+	}
 }

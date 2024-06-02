@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
 
 import { BaseEntityWithExtras, RelationTypes } from '@Common/index';
 import { PrimaryGeneratedUUID } from '@Decorators/index';
@@ -44,4 +44,11 @@ export class ProjectReport extends BaseEntityWithExtras {
 
 	@ManyToOne(() => Project, (project) => project.reports)
 	project: Project;
+
+	@BeforeInsert()
+	async beforeInsert(): Promise<void> {
+		if (this.id === null) {
+			this.id = undefined;
+		}
+	}
 }

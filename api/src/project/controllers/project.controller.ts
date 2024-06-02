@@ -3,7 +3,7 @@ import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/co
 import { Observable } from 'rxjs';
 import { DeepPartial, FindOptionsRelations, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
 
-import { Filters, Includes, SparseFieldsets } from '@Decorators/index';
+import { Filters, Includes, SparseFieldsets, User } from '@Decorators/index';
 import { AccessTokenGuard } from '@Guards/access-token.guard';
 import { Project } from '@Routes/Project/entities';
 import { ProjectService } from '@Routes/Project/services';
@@ -45,8 +45,10 @@ export class ProjectController {
 	create(
 		@Body()
 		payload: DeepPartial<Project>,
+		@User()
+		user: Express.User,
 	): Observable<Project> {
-		return promiseToObservable(this.projectService.create(payload));
+		return promiseToObservable(this.projectService.create(payload, user['sub']));
 	}
 
 	@Patch(':id')

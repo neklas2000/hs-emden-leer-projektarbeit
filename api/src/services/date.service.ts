@@ -32,6 +32,7 @@ export class DateService {
 		const unit = offsetWithUnit.replace(offset.toString(), '');
 
 		return DateTime.local()
+			.setZone('Europe/Berlin')
 			.plus(offset * (this.UNITS[unit] ?? 1))
 			.toJSDate();
 	}
@@ -55,6 +56,8 @@ export class DateService {
 	getCurrentTimestampWithOffset(offsetWithUnit: string): string {
 		const jsDate = this.getExpirationDateWithOffset(offsetWithUnit);
 
-		return DateTime.fromJSDate(jsDate).toFormat('yyyy-MM-dd HH:mm:ss', { locale: 'de-DE' });
+		return DateTime.fromJSDate(jsDate)
+			.setZone('Europe/Berlin')
+			.toFormat('yyyy-MM-dd HH:mm:ss', { locale: 'de-DE' });
 	}
 }
