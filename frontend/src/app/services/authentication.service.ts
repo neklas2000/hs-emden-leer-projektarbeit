@@ -5,8 +5,8 @@ import { Observable, catchError, map, of, switchMap, take } from 'rxjs';
 
 import { JsonApiConnectorService } from './json-api-connector.service';
 import { User } from '@Models/user';
-import { DeepPartial, Nullable } from '@Types';
 import { SessionStorageService } from './session-storage.service';
+import { DeepPartial, Nullable } from '@Types';
 
 type TokensResponse = {
   accessToken: string;

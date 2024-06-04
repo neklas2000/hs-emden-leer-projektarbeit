@@ -34,7 +34,7 @@ export class PdfService {
         };
 
         reader.onerror = (err) => {
-          reject(err);
+          reject(new Error('An error occurred while loading the pdf background.', { cause: err }));
         };
 
         reader.readAsDataURL(blobData);

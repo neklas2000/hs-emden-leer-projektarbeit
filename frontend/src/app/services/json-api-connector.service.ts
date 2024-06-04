@@ -82,6 +82,18 @@ export class JsonApiConnectorService<T> {
       );
   }
 
+  delete(route: string, ids: RequestIds | string): Observable<boolean> {
+    const uri = this.getUri(this.replaceIds(route, ids));
+
+    return this.httpClient.delete<SuccessResponse>(uri)
+      .pipe(
+        catchError((err) => {
+          throw new HttpException(err);
+        }),
+        switchMap((response) => of(response.success)),
+      );
+  }
+
   protected replaceIds(route?: string, ids?: RequestIds | string): Undefinable<string> {
     if (!route) return undefined;
     if (!ids) return route;

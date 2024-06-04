@@ -4,13 +4,13 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ProjectReport } from '@Models/project-report';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
 
-export const reportDetailsResolver: ResolveFn<Nullable<Observable<ProjectReport>>> = (
+export const reportDetailsResolver: ResolveFn<Observable<Nullable<ProjectReport>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-  jsonApiDatastore: JsonApiDatastore = inject(JsonApiDatastore),
+  projectReports: ProjectReportService = inject(ProjectReportService),
 ) => {
   const projectId = route.paramMap.get('projectId');
   const filters: { [field: string]: string | number; } = {};
@@ -19,12 +19,12 @@ export const reportDetailsResolver: ResolveFn<Nullable<Observable<ProjectReport>
     filters['project.id'] = projectId;
   }
 
-  return jsonApiDatastore.load<ProjectReport>(
-    ProjectReport,
-    route.paramMap.get('reportId'),
-    {
+  return projectReports.read({
+    route: ':id',
+    ids: route.paramMap.get('reportId') ?? undefined,
+    query: {
       filters,
       includes: ['project'],
     },
-  );
+  });
 };

@@ -4,17 +4,21 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 import { Observable } from 'rxjs';
 
 import { Project } from '@Models/project';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { ProjectService } from '@Services/project.service';
 import { Nullable } from '@Types';
 
-export const milestoneEstimatesProjectResolver: ResolveFn<Nullable<Observable<Project>>> = (
+export const milestoneEstimatesProjectResolver: ResolveFn<Observable<Nullable<Project>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-  jsonApiDatastore: JsonApiDatastore = inject(JsonApiDatastore),
+  projects: ProjectService = inject(ProjectService),
 ) => {
-  return jsonApiDatastore.load<Project>(Project, route.paramMap.get('id'), {
-    sparseFieldsets: {
-      project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
+  return projects.read({
+    route: ':id',
+    ids: route.paramMap.get('id') ?? undefined,
+    query: {
+      sparseFieldsets: {
+        project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
+      },
     },
   });
 };

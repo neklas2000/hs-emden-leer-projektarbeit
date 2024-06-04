@@ -1,0 +1,18 @@
+<mat-form-field class="w-full" [formGroup]="form">
+  <mat-label aria-required="true">Schätzung vom {{ estimate.reportDate | date:'dd.MM.yyyy' }}</mat-label>
+  <input
+    [matDatepicker]="dpEstimationDate"
+    [min]="minDate"
+    [max]="maxDate"
+    [matDatepickerFilter]="boundFilterDates"
+    formControlName="estimationDate"
+    matInput
+    required
+  />
+  <mat-datepicker-toggle [for]="dpEstimationDate" matIconSuffix></mat-datepicker-toggle>
+  <mat-datepicker #dpEstimationDate></mat-datepicker>
+  @if (form.get('estimationDate')?.hasError('required')) {
+    <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+  }
+  <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
+</mat-form-field>

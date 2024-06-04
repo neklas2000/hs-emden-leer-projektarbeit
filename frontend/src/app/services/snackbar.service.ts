@@ -1,6 +1,7 @@
-import { HttpException } from '@Utils/http-exception';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { HttpException } from '@Utils/http-exception';
 
 @Injectable({
   providedIn: 'root'

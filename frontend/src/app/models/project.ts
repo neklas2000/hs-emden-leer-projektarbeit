@@ -1,21 +1,13 @@
-import { ApiRoutes, BaseModel } from './base-model';
 import { ProjectReport } from './project-report';
 import { ProjectMember } from './project-member';
 import { ProjectMilestone } from './project-milestone';
 import { Nullable } from '@Types';
 import { User } from './user';
-import { currentDate } from '@Utils/current-date';
 
-export class Project extends BaseModel {
-  public static override ROUTES: ApiRoutes = {
-    LOAD_ALL: 'projects',
-    LOAD: 'projects/:id',
-    ADD: 'projects',
-  };
-
+export class Project {
   id!: string;
   name!: string;
-  officialStart: string = currentDate();
+  officialStart: Nullable<string> = null;
   officialEnd: Nullable<string> = null;
   reportInterval: number = 7;
   type!: string;

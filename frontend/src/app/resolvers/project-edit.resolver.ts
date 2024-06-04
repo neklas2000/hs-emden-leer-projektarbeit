@@ -4,21 +4,25 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 import { Observable } from 'rxjs';
 
 import { Project } from '@Models/project';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { ProjectService } from '@Services/project.service';
 import { Nullable } from '@Types';
 
-export const projectEditResolver: ResolveFn<Nullable<Observable<Project>>> = (
+export const projectEditResolver: ResolveFn<Observable<Nullable<Project>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-  jsonApiDatastore: JsonApiDatastore = inject(JsonApiDatastore),
+  projects: ProjectService = inject(ProjectService),
 ) => {
-  return jsonApiDatastore.load<Project>(Project, route.paramMap.get('id'), {
-    includes: ['owner', 'members', 'members.user', 'reports', 'milestones', 'milestones.estimates'],
-    sparseFieldsets: {
-      members: ['id', 'role'],
-      'members.user': ['id', 'firstName', 'lastName', 'matriculationNumber', 'email', 'phoneNumber'],
-      reports: ['id', 'sequenceNumber', 'reportDate'],
-      milestones: ['id', 'name'],
+  return projects.read({
+    route: ':id',
+    ids: route.paramMap.get('id') ?? undefined,
+    query: {
+      includes: ['owner', 'members', 'members.user', 'reports', 'milestones', 'milestones.estimates'],
+      sparseFieldsets: {
+        members: ['id', 'role'],
+        'members.user': ['id', 'firstName', 'lastName', 'matriculationNumber', 'email', 'phoneNumber'],
+        reports: ['id', 'sequenceNumber', 'reportDate'],
+        milestones: ['id', 'name'],
+      },
     },
   });
 };

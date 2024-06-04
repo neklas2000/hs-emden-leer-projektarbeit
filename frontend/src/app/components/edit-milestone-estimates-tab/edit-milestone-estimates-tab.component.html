@@ -1,48 +1,28 @@
-<div class="flex gap-x-4">
-  @if (chartOptions) {
-    <div style="flex: 70%;" #apexChartContainer>
-      @if (renderChart) {
-        <apx-chart
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis"
-          [yaxis]="chartOptions.yaxis"
-          [dataLabels]="chartOptions.dataLabels"
-          [grid]="chartOptions.grid"
-          [markers]="chartOptions.markers"
-          [stroke]="chartOptions.stroke"
-          [title]="chartOptions.title"
-          [tooltip]="chartOptions.tooltip"
-          [annotations]="annotations">
-        </apx-chart>
-      } @else {
-        <p>Das Rendering des Charts ist aktuell deaktiviert.</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Schätzungen vom Meilenstein "{{ milestone.name }}" anpassen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="mt-4">
+    <form [formGroup]="form" class="flex flex-col gap-y-2">
+      <mat-form-field class="w-full">
+        <mat-label aria-required="true">Name des Meilensteins</mat-label>
+        <input formControlName="name" matInput required />
+        @if (form.get('name')?.hasError('required')) {
+          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+        }
+      </mat-form-field>
+      @for (estimate of estimates; track estimate.id) {
+        <hsel-milestone-estimate-form-field
+          [estimate]="estimate.estimation"
+          [allowedDates]="reportDates"
+        ></hsel-milestone-estimate-form-field>
       }
-    </div>
-  }
-  <div class="flex flex-col gap-y-4" style="flex: 30%;">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Hilfe</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        In dem Diagramm auf der linken Seite gibt es zwei Aktivitäten, die Sie durchführen können.
-        <ol>
-          <li>
-            Sie wählen einen von dem Grpahen rechts liegenden Punkte aus, um den Graph bis dahin zu
-            verlängern. (Standardansicht)
-          </li>
-          <li>
-            Sie klicken eine der Markierungen (Punkte) des Graphen an, um diesen zu verschieben.
-            Danach müssen Sie einen weiteren Punkt in derselben Spalte anklicken, zu dem der zuvor
-            markierte Punkt des Graphen verschoben werden soll.
-          </li>
-        </ol>
-      </mat-card-content>
-    </mat-card>
-    <mat-checkbox [(ngModel)]="milestoneReached">Meilenstein abgeschlossen?</mat-checkbox>
-    <button mat-raised-button (click)="onSaveChanges()" color="primary">Änderungen speichern</button>
+      <mat-checkbox formControlName="milestoneReached">Meilenstein erreicht?</mat-checkbox>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end" class="gap-x-4">
     <button mat-raised-button (click)="onDiscardChanges()" color="accent">Änderungen verwerfen</button>
+    <button mat-raised-button (click)="onSaveChanges()" color="primary">Änderungen speichern</button>
     <button mat-raised-button (click)="onMilestoneDelete()" color="warn">Meilenstein löschen</button>
-  </div>
-</div>
+  </mat-card-actions>
+</mat-card>

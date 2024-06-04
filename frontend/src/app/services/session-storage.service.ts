@@ -1,5 +1,6 @@
-import { Nullable } from '@Types';
 import { Injectable } from '@angular/core';
+
+import { Nullable } from '@Types';
 
 const USER_KEY = 'auth-user';
 const ACCESS_TOKEN_KEY = 'auth-access-token';

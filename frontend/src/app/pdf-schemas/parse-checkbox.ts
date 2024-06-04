@@ -1,5 +1,43 @@
 import { Content } from 'pdfmake/interfaces';
 
+function parseUnorderedList(node: any) {
+  let parsed = false;
+
+  for (const li of node.ul) {
+    if (li.nodeName === 'DIV' && Object.hasOwn(li, 'stack')) {
+      const imageDef = li.stack[0].stack[0];
+      const textDef = li.stack[0].stack[1];
+
+      parsed = true;
+
+      const table = node['table'] || {
+        body: []
+      };
+
+      table.body.push([
+        {
+          border: [false, false, false, false],
+          nodeName: 'IMG',
+          image: imageDef.image,
+          width: 12
+        },
+        {
+          border: [false, false, false, false],
+          text: textDef.text
+        }
+      ]);
+
+      node['table'] = table;
+    }
+  }
+
+  if (parsed) {
+    for (const key of Object.keys(node)) {
+      if (!['nodeName', 'table'].includes(key)) delete node[key];
+    }
+  }
+}
+
 export function parseCheckbox(content: Content): Content {
   if (!Array.isArray(content)) return content;
 
@@ -14,43 +52,7 @@ export function parseCheckbox(content: Content): Content {
     }
 
     if (entry.nodeName === 'UL' && Object.hasOwn(entry, 'ul')) {
-      let parsed = false;
-
-      for (const li of entry.ul) {
-        if (li.nodeName === 'DIV' && Object.hasOwn(li, 'stack')) {
-          const imageDef = li.stack[0].stack[0];
-          const textDef = li.stack[0].stack[1];
-
-          parsed = true;
-
-          const table = entry['table'] || {
-            body: []
-          };
-
-          table.body.push([
-            {
-              border: [false, false, false, false],
-              nodeName: 'IMG',
-              image: imageDef.image,
-              width: 12
-            },
-            {
-              border: [false, false, false, false],
-              text: textDef.text
-            }
-          ]);
-
-          entry['table'] = table;
-        }
-      }
-
-      if (parsed) {
-        parsed = false;
-
-        for (const key of Object.keys(entry)) {
-          if (!['nodeName', 'table'].includes(key)) delete entry[key];
-        }
-      }
+      parseUnorderedList(entry);
     }
   }
 

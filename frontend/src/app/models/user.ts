@@ -1,14 +1,7 @@
-import { ApiRoutes, BaseModel } from './base-model';
 import { Project } from './project';
 import { Nullable } from '@Types';
 
-export class User extends BaseModel {
-  public static override ROUTES: ApiRoutes = {
-    LOAD_ALL: 'users',
-    LOAD: 'users/:id',
-    ADD: 'users',
-  };
-
+export class User {
   id: Nullable<string> = null;
   academicTitle: Nullable<string> = null;
   matriculationNumber: number = 0;

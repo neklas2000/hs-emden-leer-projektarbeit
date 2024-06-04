@@ -67,14 +67,20 @@ export class DateService {
    * This function evaluates the difference of units between two dates.
    * The format for both dates needs to match 'yyyy-MM-dd'.
    *
-   * @param a Source date to use for comparison.
-   * @param b Target date to compare against.
+   * @param source Source date to use for comparison.
+   * @param target Target date to compare against.
    * @param unit The unit of duration - default: `'days'`.
    * @returns The amount of units between both dates.
    */
-  compare(a: string, b: string, unit: DurationUnits = 'days'): number {
+  compare(
+    source: Nullable<string>,
+    target: Nullable<string>,
+    unit: DurationUnits = 'days',
+  ): number {
+    if (!source || !target) return 0;
+
     return Object(
-      DateTime.fromSQL(a).diff(DateTime.fromSQL(b), unit).toObject()
+      DateTime.fromSQL(source).diff(DateTime.fromSQL(target), unit).toObject()
     )[unit as string];
   }
 }

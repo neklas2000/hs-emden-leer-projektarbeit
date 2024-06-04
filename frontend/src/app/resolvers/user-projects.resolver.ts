@@ -4,24 +4,23 @@ import { inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { Project } from '@Models/project';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
 import { AuthenticationService } from '@Services/authentication.service';
+import { ProjectService } from '@Services/project.service';
 
 export const userProjectsResolver: ResolveFn<Observable<Project[]>> = (
   route,
   state,
-  jsonApiDatastore: JsonApiDatastore = inject(JsonApiDatastore),
+  projects: ProjectService = inject(ProjectService),
   authentication: AuthenticationService = inject(AuthenticationService),
 ) => {
   const userId = authentication.getUser();
 
   if (!userId) return of([]);
 
-  return jsonApiDatastore
-    .loadAll<Project>(Project, {
-      filters: {
-        'owner.id': userId,
-        'members.user.id': userId,
-      },
-    });
+  return projects.readAll('', {
+    filters: {
+      'owner.id': userId,
+      'members.user.id': userId,
+    },
+  });
 };

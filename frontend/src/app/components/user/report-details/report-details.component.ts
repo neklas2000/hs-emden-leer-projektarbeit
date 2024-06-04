@@ -11,14 +11,13 @@ import { MarkdownPipe } from 'ngx-markdown';
 import { take } from 'rxjs';
 
 import { ProjectReport } from '@Models/project-report';
-import { Project } from '@Models/project';
 import { ProjectRole } from '@Models/project-member';
 import { PdfService } from '@Services/pdf.service';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
 import { SnackbarService } from '@Services/snackbar.service';
 import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { AgChartService } from '@Services/ag-chart.service';
+import { ProjectService } from '@Services/project.service';
 
 @Component({
   selector: 'hsel-report-details',
@@ -43,12 +42,13 @@ export class ReportDetailsComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly agChart: AgChartService,
     private readonly pdf: PdfService,
-    private readonly jsonApiDatastore: JsonApiDatastore,
+    private readonly projects: ProjectService,
     private readonly snackbar: SnackbarService,
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.pipe(take(1))
+    this.activatedRoute.data
+      .pipe(take(1))
       .subscribe({
         next: (data: Data) => {
           this.projectReport = data['report'] || null;
@@ -57,10 +57,16 @@ export class ReportDetailsComponent implements OnInit {
   }
 
   downloadPdf(): void {
-    const project$ = this.jsonApiDatastore.load<Project>(
-      Project,
-      this.projectReport?.project?.id ?? null,
-      {
+    if (!this.projectReport) {
+      this.snackbar.open('PDF kann nicht erstellt werden');
+
+      return;
+    }
+
+    const project$ = this.projects.read({
+      route: ':id',
+      ids: this.projectReport.project?.id,
+      query:       {
         includes: ['owner', 'members', 'members.user', 'milestones', 'milestones.estimates'],
         sparseFieldsets: {
           members: ['id', 'role'],
@@ -68,18 +74,18 @@ export class ReportDetailsComponent implements OnInit {
           milestones: ['id', 'name'],
         },
       },
-    );
-
-    if (!project$ || !this.projectReport) {
-      this.snackbar.open('PDF kann nicht erstellt werden');
-
-      return;
-    }
+    });
 
     project$.pipe(take(1)).subscribe({
       next: (project) => {
+        if (!project) {
+          this.snackbar.open('PDF kann nicht erstellt werden');
+
+          return;
+        }
+
         this.agChart.defineOptions({
-          start: project.officialStart,
+          start: project.officialStart!,
           end: project.officialEnd,
           milestones: project.milestones,
           interval: project.reportInterval,
@@ -101,7 +107,7 @@ export class ReportDetailsComponent implements OnInit {
               reportDate: this.projectReport?.reportDate ?? '',
               reportEnd: project.officialEnd ?? '',
               reportInterval: project.reportInterval,
-              reportStart: project.officialStart,
+              reportStart: project.officialStart!,
               sequenceNumber: this.projectReport?.sequenceNumber ?? NaN,
               students: project.members
                 .filter((member) => member.role === ProjectRole.Contributor)
@@ -114,7 +120,7 @@ export class ReportDetailsComponent implements OnInit {
           });
       },
       error: (exception: HttpException) => {
-        console.log(exception);
+        this.snackbar.showException('Daten konnten nicht geladen werden', exception);
       }
     })
   }

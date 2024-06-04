@@ -12,8 +12,8 @@ import { Observable, take } from 'rxjs';
 
 import { ProjectMember, ProjectRole } from '@Models/project-member';
 import { User } from '@Models/user';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
 import { DeepPartial, Nullable } from '@Types';
+import { UserService } from '@Services/user.service';
 
 type DialogData = {
   role: ProjectRole;
@@ -43,14 +43,14 @@ export class InviteProjectMemberDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InviteProjectMemberDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private readonly jsonApiDatastore: JsonApiDatastore,
+    private readonly userService: UserService,
   ) {}
 
   ngOnInit(): void {
-    this.users = this.jsonApiDatastore.loadAll<User>(User, {
+    this.users = this.userService.readAll('', {
       sparseFieldsets: {
-        user: ['id', 'academicTitle', 'firstName', 'lastName']
-      }
+        user: ['id', 'academicTitle', 'firstName', 'lastName'],
+      },
     }).pipe(take(1));
   }
 

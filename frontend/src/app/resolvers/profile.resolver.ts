@@ -10,7 +10,7 @@ import { Nullable } from '@Types';
 export const profileResolver: ResolveFn<Observable<Nullable<User>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-  profileService: ProfileService = inject(ProfileService),
+  profile: ProfileService = inject(ProfileService),
 ) => {
-  return profileService.read();
+  return profile.read();
 };
