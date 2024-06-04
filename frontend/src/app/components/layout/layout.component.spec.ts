@@ -1,13 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { provideHttpClient } from '@angular/common/http';
+import { ChangeDetectorRef } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-
-import { of } from 'rxjs';
 
 import { LayoutComponent } from './layout.component';
 import { AuthenticationService } from '@Services/authentication.service';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { ThemeService } from '@Services/theme.service';
 
 describe('Component: LayoutComponent', () => {
   let component: LayoutComponent;
@@ -17,15 +18,13 @@ describe('Component: LayoutComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LayoutComponent],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            data: of({ logo: 'I am the logo' }),
-          },
-        },
+        ChangeDetectorRef,
+        MediaMatcher,
+        ThemeService,
+        provideRouter([]),
         AuthenticationService,
-        JsonApiDatastore,
         provideHttpClient(),
+        SnackbarService,
         provideAnimations(),
       ],
     })

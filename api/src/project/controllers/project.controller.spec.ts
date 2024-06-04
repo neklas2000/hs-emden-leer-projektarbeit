@@ -5,6 +5,10 @@ import { take } from 'rxjs';
 import { ProjectController } from './project.controller';
 import { ProjectService } from '../services';
 import { provideProjectRepository } from '@Mocks/Providers/project-repository.provider';
+import { provideProjectMilestoneRepository } from '@Mocks/Providers/project-milestone-repository.provider';
+import { provideProjectMemberRepository } from '@Mocks/Providers/project-member-repository.provider';
+import { ProjectMilestoneService } from '../milestone/services';
+import { ProjectMemberService } from '../member/services';
 
 describe('Controller: ProjectController', () => {
 	let controller: ProjectController;
@@ -12,7 +16,14 @@ describe('Controller: ProjectController', () => {
 
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
-			providers: [ProjectService, provideProjectRepository()],
+			providers: [
+				ProjectService,
+				ProjectMilestoneService,
+				ProjectMemberService,
+				provideProjectRepository(),
+				provideProjectMilestoneRepository(),
+				provideProjectMemberRepository(),
+			],
 			controllers: [ProjectController],
 		}).compile();
 

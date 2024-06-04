@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
+import { Observable, of, take } from 'rxjs';
+
 import { authenticationGuard } from './authentication.guard';
 import { AuthenticationService } from '@Services/authentication.service';
 
@@ -30,7 +32,7 @@ describe('Guard: authenticationGuard', () => {
 
   it('should return true, since the user is authenticated', () => {
     const isAuthenticatedSpy = spyOn(authentication, 'isAuthenticated').and.returnValue(true);
-    const navigateByUrlSpy = spyOn(router, 'navigateByUrl');
+    const checkStatusSpy = spyOn(authentication, 'checkStatus');
 
     const result = executeGuard(
       null as any as ActivatedRouteSnapshot,
@@ -38,21 +40,25 @@ describe('Guard: authenticationGuard', () => {
     );
 
     expect(isAuthenticatedSpy).toHaveBeenCalled();
-    expect(navigateByUrlSpy).not.toHaveBeenCalled();
+    expect(checkStatusSpy).not.toHaveBeenCalled();
     expect(result).toBeTruthy();
   });
 
-  it('should return false, since the user is not authenticated', () => {
+  it('should return false, since the user is not authenticated', (done) => {
     const isAuthenticatedSpy = spyOn(authentication, 'isAuthenticated').and.returnValue(false);
+    const checkStatusSpy = spyOn(authentication, 'checkStatus').and.returnValue(of(false));
     const navigateByUrlSpy = spyOn(router, 'navigateByUrl');
 
-    const result = executeGuard(
+    (executeGuard(
       null as any as ActivatedRouteSnapshot,
       null as any as RouterStateSnapshot,
-    );
+    ) as Observable<boolean>).pipe(take(1)).subscribe((result) => {
+      expect(isAuthenticatedSpy).toHaveBeenCalled();
+      expect(checkStatusSpy).toHaveBeenCalled();
+      expect(navigateByUrlSpy).toHaveBeenCalledWith('/auth/login');
+      expect(result).toBeFalsy();
 
-    expect(isAuthenticatedSpy).toHaveBeenCalled();
-    expect(navigateByUrlSpy).toHaveBeenCalledWith('/auth/login');
-    expect(result).toBeFalsy();
+      done();
+    });
   });
 });

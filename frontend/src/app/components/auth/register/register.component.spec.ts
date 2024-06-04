@@ -1,11 +1,10 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { provideRouter } from '@angular/router';
 
 import { RegisterComponent } from './register.component';
 import { AuthenticationService } from '@Services/authentication.service';
-import { ThemeService } from '@Services/theme.service';
 
 describe('Component: RegisterComponent', () => {
   let component: RegisterComponent;
@@ -15,14 +14,12 @@ describe('Component: RegisterComponent', () => {
     await TestBed.configureTestingModule({
       providers: [
         AuthenticationService,
-        provideAnimations(),
         provideHttpClient(),
-        RouterModule,
-        ThemeService,
+        provideAnimations(),
+        provideRouter([]),
       ],
       imports: [RegisterComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;

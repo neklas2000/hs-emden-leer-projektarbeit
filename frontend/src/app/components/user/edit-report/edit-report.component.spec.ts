@@ -1,27 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { MarkdownService, provideMarkdown } from 'ngx-markdown';
 import { of } from 'rxjs';
 
 import { EditReportComponent } from './edit-report.component';
-import { SnackbarService } from '@Services/snackbar.service';
 import { ProjectReportService } from '@Services/project-report.service';
-import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
+import { SnackbarService } from '@Services/snackbar.service';
 
 describe('Component: EditReportComponent', () => {
   let component: EditReportComponent;
   let fixture: ComponentFixture<EditReportComponent>;
+  let spyNavigateByUrl: jasmine.Spy<jasmine.Func>;
 
   beforeEach(async () => {
+    spyNavigateByUrl = jasmine.createSpy();
+
     await TestBed.configureTestingModule({
-      imports: [
-        EditReportComponent,
-        MarkdownEditorComponent,
-      ],
+      imports: [EditReportComponent],
       providers: [
-        provideRouter([]),
         {
           provide: ActivatedRoute,
           useValue: {
@@ -30,14 +27,17 @@ describe('Component: EditReportComponent', () => {
             }),
           },
         },
-        SnackbarService,
+        {
+          provide: Router,
+          useValue: {
+            navigateByUrl: spyNavigateByUrl,
+          },
+        },
         ProjectReportService,
         provideHttpClient(),
-        MarkdownService,
-        provideMarkdown(),
+        SnackbarService,
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditReportComponent);
     component = fixture.componentInstance;

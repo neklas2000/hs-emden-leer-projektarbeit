@@ -57,7 +57,6 @@ export class EditPersonalInformationComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    console.log('ngOnInit');
     this.form.setValue({
       academicTitle: this.profile.academicTitle ?? null,
       firstName: this.profile.firstName ?? '',

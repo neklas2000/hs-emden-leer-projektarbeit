@@ -7,7 +7,11 @@ import {
 	PROJECT_REPOSITORY_TOKEN,
 	provideProjectRepository,
 } from '@Mocks/Providers/project-repository.provider';
+import { provideProjectMilestoneRepository } from '@Mocks/Providers/project-milestone-repository.provider';
+import { provideProjectMemberRepository } from '@Mocks/Providers/project-member-repository.provider';
 import { ProjectService } from './project.service';
+import { ProjectMilestoneService } from '../milestone/services';
+import { ProjectMemberService } from '../member/services';
 
 describe('Service: ProjectService', () => {
 	let service: ProjectService;
@@ -15,7 +19,14 @@ describe('Service: ProjectService', () => {
 
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
-			providers: [ProjectService, provideProjectRepository()],
+			providers: [
+				ProjectService,
+				ProjectMilestoneService,
+				ProjectMemberService,
+				provideProjectRepository(),
+				provideProjectMilestoneRepository(),
+				provideProjectMemberRepository(),
+			],
 		}).compile();
 
 		service = module.get(ProjectService);
@@ -31,7 +42,7 @@ describe('Service: ProjectService', () => {
 
 		service.findAll({}, {}, {}).then((result) => {
 			expect(repository.find).toHaveBeenCalledWith({
-				where: {},
+				where: [{}],
 				select: {},
 				relations: {},
 			});

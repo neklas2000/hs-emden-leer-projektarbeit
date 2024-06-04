@@ -5,14 +5,14 @@ import { Injectable } from '@angular/core';
 import { JsonApiConnectorService } from './json-api-connector.service';
 
 @Injectable()
-class TestResource extends JsonApiConnectorService {
+class TestResource extends JsonApiConnectorService<any> {
   constructor() {
     super();
   }
 }
 
 describe('Service: JsonApiConnectorService', () => {
-  let service: JsonApiConnectorService;
+  let service: JsonApiConnectorService<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,6 +21,7 @@ describe('Service: JsonApiConnectorService', () => {
         TestResource,
       ],
     });
+
     service = TestBed.inject(TestResource);
   });
 

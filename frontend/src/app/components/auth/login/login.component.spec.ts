@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, provideRouter } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-
-import { of } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 import { AuthenticationService } from '@Services/authentication.service';
@@ -18,12 +16,6 @@ describe('Component: LoginComponent', () => {
       imports: [LoginComponent],
       providers: [
         FormBuilder,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            data: of({ logo: 'I am the logo' }),
-          },
-        },
         AuthenticationService,
         provideHttpClient(),
         provideRouter([]),

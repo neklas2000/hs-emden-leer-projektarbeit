@@ -1,11 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
 import { provideMarkdown } from 'ngx-markdown';
 import { of } from 'rxjs';
 
 import { ReportDetailsComponent } from './report-details.component';
+import { AgChartService } from '@Services/ag-chart.service';
+import { PdfService } from '@Services/pdf.service';
+import { ProjectService } from '@Services/project.service';
+import { SnackbarService } from '@Services/snackbar.service';
 
 describe('Component: ReportDetailsComponent', () => {
   let component: ReportDetailsComponent;
@@ -23,8 +27,12 @@ describe('Component: ReportDetailsComponent', () => {
             }),
           },
         },
-        provideMarkdown(),
+        AgChartService,
+        PdfService,
+        ProjectService,
         provideHttpClient(),
+        SnackbarService,
+        provideMarkdown(),
       ],
     })
     .compileComponents();

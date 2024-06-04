@@ -1,12 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
 
 import { EditMilestoneEstimatesComponent } from './edit-milestone-estimates.component';
-import { JsonApiDatastore } from '@Services/json-api-datastore.service';
+import { DateService } from '@Services/date.service';
+import { ProjectMilestoneService } from '@Services/project-milestone.service';
+import { SnackbarService } from '@Services/snackbar.service';
 
 describe('Component: EditMilestoneEstimatesComponent', () => {
   let component: EditMilestoneEstimatesComponent;
@@ -25,8 +28,11 @@ describe('Component: EditMilestoneEstimatesComponent', () => {
             })
           },
         },
-        JsonApiDatastore,
+        DateService,
+        ProjectMilestoneService,
         provideHttpClient(),
+        SnackbarService,
+        MatDialog,
         provideAnimations(),
       ],
     })

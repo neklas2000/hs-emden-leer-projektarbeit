@@ -4,6 +4,8 @@ import { ResolveFn } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Project } from '@Models/project';
+import { AuthenticationService } from '@Services/authentication.service';
+import { ProjectService } from '@Services/project.service';
 import { userProjectsResolver } from './user-projects.resolver';
 
 describe('Resolver: userProjectsResolver', () => {
@@ -11,7 +13,9 @@ describe('Resolver: userProjectsResolver', () => {
       TestBed.runInInjectionContext(() => userProjectsResolver(...resolverParameters));
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [AuthenticationService, ProjectService],
+    });
   });
 
   it('should be created', () => {

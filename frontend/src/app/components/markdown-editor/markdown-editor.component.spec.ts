@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { MarkdownService, provideMarkdown } from 'ngx-markdown';
@@ -16,9 +17,9 @@ describe('Component: MarkdownEditorComponent', () => {
         MarkdownService,
         provideMarkdown(),
         provideAnimations(),
+        MatDialog,
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MarkdownEditorComponent);
     component = fixture.componentInstance;

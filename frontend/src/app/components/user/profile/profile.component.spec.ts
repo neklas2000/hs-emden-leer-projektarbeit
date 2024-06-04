@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
@@ -16,12 +17,14 @@ describe('Component: ProfileComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            data: of({}),
+            data: of({
+              profile: {},
+            }),
           },
         },
+        MatDialog,
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;

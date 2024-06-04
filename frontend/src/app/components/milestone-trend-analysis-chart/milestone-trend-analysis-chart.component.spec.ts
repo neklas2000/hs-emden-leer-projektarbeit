@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MilestoneTrendAnalysisChartComponent } from './milestone-trend-analysis-chart.component';
 import { AgChartService } from '@Services/ag-chart.service';
+import { ThemeService } from '@Services/theme.service';
 
 describe('Component: MilestoneTrendAnalysisChartComponent', () => {
   let component: MilestoneTrendAnalysisChartComponent;
@@ -10,7 +11,7 @@ describe('Component: MilestoneTrendAnalysisChartComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MilestoneTrendAnalysisChartComponent],
-      providers: [AgChartService],
+      providers: [AgChartService, ThemeService],
     })
     .compileComponents();
 

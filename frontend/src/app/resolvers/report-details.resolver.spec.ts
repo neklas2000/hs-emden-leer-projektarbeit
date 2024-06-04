@@ -5,14 +5,17 @@ import { Observable } from 'rxjs';
 
 import { ProjectReport } from '@Models/project-report';
 import { reportDetailsResolver } from './report-details.resolver';
+import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
 
 describe('Resolver: reportDetailsResolver', () => {
-  const executeResolver: ResolveFn<Nullable<Observable<ProjectReport>>> = (...resolverParameters) =>
+  const executeResolver: ResolveFn<Observable<Nullable<ProjectReport>>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => reportDetailsResolver(...resolverParameters));
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [ProjectReportService],
+    });
   });
 
   it('should be created', () => {

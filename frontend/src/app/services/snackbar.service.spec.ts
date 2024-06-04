@@ -9,9 +9,7 @@ describe('Service: SnackbarService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        MatSnackBar,
-      ]
+      providers: [MatSnackBar]
     });
 
     service = TestBed.inject(SnackbarService);
@@ -35,6 +33,7 @@ describe('Service: SnackbarService', () => {
         direction: 'ltr',
         horizontalPosition: 'left',
         verticalPosition: 'bottom',
+        announcementMessage: 'Hello World',
       },
     );
   });
@@ -52,6 +51,7 @@ describe('Service: SnackbarService', () => {
         direction: 'ltr',
         horizontalPosition: 'left',
         verticalPosition: 'bottom',
+        announcementMessage: 'Hello World',
       },
     );
   });

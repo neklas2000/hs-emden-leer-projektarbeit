@@ -23,8 +23,7 @@ describe('Component: NewMilestoneDialogComponent', () => {
         },
         provideAnimations(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NewMilestoneDialogComponent);
     component = fixture.componentInstance;

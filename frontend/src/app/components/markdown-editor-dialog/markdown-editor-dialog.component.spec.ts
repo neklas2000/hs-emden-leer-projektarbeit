@@ -29,8 +29,7 @@ describe('Component: MarkdownEditorDialogComponent', () => {
         },
         provideAnimations(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MarkdownEditorDialogComponent);
     component = fixture.componentInstance;

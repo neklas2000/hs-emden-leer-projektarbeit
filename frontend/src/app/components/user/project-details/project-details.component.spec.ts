@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
@@ -17,13 +18,13 @@ describe('Component: ProjectDetailsComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             data: of({
-              report: null,
+              project: null,
             }),
           },
         },
+        MatDialog,
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectDetailsComponent);
     component = fixture.componentInstance;

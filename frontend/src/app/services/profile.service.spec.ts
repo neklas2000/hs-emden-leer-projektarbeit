@@ -1,5 +1,5 @@
-import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 
 import { ProfileService } from './profile.service';
 
@@ -8,10 +8,9 @@ describe('Service: ProfileService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-      ],
+      providers: [provideHttpClient()],
     });
+
     service = TestBed.inject(ProfileService);
   });
 

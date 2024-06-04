@@ -5,14 +5,17 @@ import { Observable } from 'rxjs';
 
 import { milestoneEstimatesProjectResolver } from './milestone-estimates-project.resolver';
 import { Project } from '@Models/project';
+import { ProjectService } from '@Services/project.service';
 import { Nullable } from '@Types';
 
 describe('Resolver: milestoneEstimatesProjectResolver', () => {
-  const executeResolver: ResolveFn<Nullable<Observable<Project>>> = (...resolverParameters) =>
+  const executeResolver: ResolveFn<Observable<Nullable<Project>>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => milestoneEstimatesProjectResolver(...resolverParameters));
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [ProjectService],
+    });
   });
 
   it('should be created', () => {
