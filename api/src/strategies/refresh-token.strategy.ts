@@ -7,6 +7,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import env from '@Environment';
 import { TokenWhitelistService } from '@Routes/Authentication/services';
 import { REFRESH_TOKEN_COOKIE } from '@Tokens/index';
+import { Nullable } from '@Types/index';
 
 type JwtPayload = {
 	sub: string;
@@ -36,8 +37,12 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refres
 		});
 	}
 
-	async validate(@Req() request: Express.Request, payload: JwtPayload) {
-		const refreshToken = ExtractJwt.fromAuthHeaderAsBearerToken()(request);
+	async validate(@Req() request: Request, payload: JwtPayload) {
+		let refreshToken: Nullable<string> = RefreshTokenStrategy.fromCookie()(request);
+
+		if (!refreshToken) {
+			refreshToken = ExtractJwt.fromAuthHeaderAsBearerToken()(request);
+		}
 
 		const verified = await this.tokenWhitelistService.verifyRefreshToken(payload.sub, refreshToken);
 

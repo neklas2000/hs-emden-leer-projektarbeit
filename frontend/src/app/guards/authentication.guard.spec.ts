@@ -32,7 +32,7 @@ describe('Guard: authenticationGuard', () => {
 
   it('should return true, since the user is authenticated', () => {
     const isAuthenticatedSpy = spyOn(authentication, 'isAuthenticated').and.returnValue(true);
-    const checkStatusSpy = spyOn(authentication, 'checkStatus');
+    const checkStatusSpy = spyOn(authentication, 'canRefreshTokensWithCookie');
 
     const result = executeGuard(
       null as any as ActivatedRouteSnapshot,
@@ -46,7 +46,8 @@ describe('Guard: authenticationGuard', () => {
 
   it('should return false, since the user is not authenticated', (done) => {
     const isAuthenticatedSpy = spyOn(authentication, 'isAuthenticated').and.returnValue(false);
-    const checkStatusSpy = spyOn(authentication, 'checkStatus').and.returnValue(of(false));
+    const checkStatusSpy = spyOn(authentication, 'canRefreshTokensWithCookie')
+      .and.returnValue(of(false));
     const navigateByUrlSpy = spyOn(router, 'navigateByUrl');
 
     (executeGuard(

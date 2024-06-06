@@ -205,6 +205,9 @@ describe('Controller: AuthenticationController', () => {
 		jest.spyOn(authenticationService, 'refreshTokens').mockResolvedValue({
 			accessToken: 'accessToken',
 			refreshToken: 'refreshToken',
+			user: {
+				id: '1',
+			},
 		});
 		const accessTokenExpiration = new Date('2024-01-01T06:30:00');
 		const refreshTokenExpiration = new Date('2024-01-08T06:00:00');
@@ -243,6 +246,9 @@ describe('Controller: AuthenticationController', () => {
 				expect(result).toEqual({
 					accessToken: 'accessToken',
 					refreshToken: 'refreshToken',
+					user: {
+						id: '1',
+					},
 				});
 
 				done();

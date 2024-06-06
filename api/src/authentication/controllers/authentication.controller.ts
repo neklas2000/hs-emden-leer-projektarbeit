@@ -9,7 +9,6 @@ import { AccessTokenGuard, RefreshTokenGuard } from '@Guards/index';
 import {
 	AuthenticationService,
 	RegisterPayload,
-	TokensResponse,
 	TokensWithUserResponse,
 } from '@Routes/Authentication/services';
 import { DateService } from '@Services/date.service';
@@ -98,7 +97,7 @@ export class AuthenticationController {
 		user: Express.User,
 		@Res({ passthrough: true })
 		res: Response,
-	): Observable<TokensResponse> {
+	): Observable<TokensWithUserResponse> {
 		const userEmail = user['email'];
 		const refreshToken = user['refreshToken'];
 

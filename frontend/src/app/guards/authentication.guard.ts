@@ -11,11 +11,12 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
 
   if (authenticationService.isAuthenticated()) return true;
 
-  return authenticationService.checkStatus().pipe(take(1), switchMap((authStatus) => {
-    if (!authStatus) {
-      router.navigateByUrl('/auth/login');
-    }
+  return authenticationService.canRefreshTokensWithCookie()
+    .pipe(take(1), switchMap((tokensRefreshed) => {
+      if (!tokensRefreshed) {
+        router.navigateByUrl('/auth/login');
+      }
 
-    return of(authStatus);
-  }));
+      return of(tokensRefreshed);
+    }));
 };

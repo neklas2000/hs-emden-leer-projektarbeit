@@ -112,12 +112,13 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
       );
   }
 
-  checkStatus(): Observable<boolean> {
-    return this.create<TokensResponse>('status', {}).pipe(
+  canRefreshTokensWithCookie(): Observable<boolean> {
+    return this.create<TokensWithUserResponse>('refresh', {}).pipe(
       take(1),
       switchMap((tokens) => {
         this.sessionStorage.setAccessToken(tokens.accessToken);
         this.sessionStorage.setRefreshToken(tokens.refreshToken);
+        this.sessionStorage.setUser(tokens.user?.id ?? '');
 
         return of(true);
       }),

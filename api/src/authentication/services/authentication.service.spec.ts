@@ -250,6 +250,7 @@ describe('Service: AuthenticationService', () => {
 			jest.spyOn(userService, 'findByEmail').mockResolvedValue({
 				id: '1',
 				email: 'max.mustermann@gmx.de',
+				password: 'secret password',
 			} as any);
 			jest.spyOn(tokenWhitelist, 'findByUser').mockResolvedValue({
 				refreshToken: 'hashed refreshToken',
@@ -270,7 +271,13 @@ describe('Service: AuthenticationService', () => {
 					...tokens,
 					userId: '1',
 				});
-				expect(result).toEqual(tokens);
+				expect(result).toEqual({
+					...tokens,
+					user: {
+						id: '1',
+						email: 'max.mustermann@gmx.de',
+					},
+				});
 
 				done();
 			});

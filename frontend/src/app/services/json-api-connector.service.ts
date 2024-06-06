@@ -19,8 +19,8 @@ type ReadParameters = {
 
 export class JsonApiConnectorService<T> {
   private readonly baseUrl = '/api/v1' as const;
-  protected readonly httpClient: HttpClient;
   private readonly resourcePrefix: string;
+  protected readonly httpClient: HttpClient;
 
   constructor(prefix: string = '') {
     this.httpClient = inject(HttpClient);

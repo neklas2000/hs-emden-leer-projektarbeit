@@ -93,13 +93,14 @@ export class AuthenticationService {
 		return this.tokenWhitelistService.delete(userId);
 	}
 
-	async refreshTokens(email: string, refreshToken: string): Promise<TokensResponse> {
+	async refreshTokens(email: string, refreshToken: string): Promise<TokensWithUserResponse> {
 		const user = await this.userService.findByEmail(email);
 
 		if (!user) {
 			throw new ForbiddenException('Access Denied');
 		}
 
+		delete user.password;
 		const tokenWhitelistEntry = await this.tokenWhitelistService.findByUser(user.id);
 
 		if (!tokenWhitelistEntry) {
@@ -118,7 +119,10 @@ export class AuthenticationService {
 			userId: user.id,
 		});
 
-		return tokens;
+		return {
+			...tokens,
+			user,
+		};
 	}
 
 	async updateWhitelistedTokens({

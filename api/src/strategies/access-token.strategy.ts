@@ -7,6 +7,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import env from '@Environment';
 import { TokenWhitelistService } from '@Routes/Authentication/services';
 import { ACCESS_TOKEN_COOKIE } from '@Tokens/index';
+import { Nullable } from '@Types/index';
 
 type JwtPayload = {
 	sub: string;
@@ -36,8 +37,12 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
 		});
 	}
 
-	async validate(@Req() request: Express.Request, payload: JwtPayload) {
-		const accessToken = ExtractJwt.fromAuthHeaderAsBearerToken()(request);
+	async validate(@Req() request: Request, payload: JwtPayload) {
+		let accessToken: Nullable<string> = AccessTokenStrategy.fromCookie()(request);
+
+		if (!accessToken) {
+			accessToken = ExtractJwt.fromAuthHeaderAsBearerToken()(request);
+		}
 
 		const verified = await this.tokenWhitelistService.verifyAccessToken(payload.sub, accessToken);
 
