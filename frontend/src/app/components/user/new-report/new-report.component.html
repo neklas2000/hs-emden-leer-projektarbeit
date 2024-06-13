@@ -1,1 +1,69 @@
-<p>new-report works!</p>
+<div class="flex flex-col gap-y-4">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form">
+        <mat-form-field class="w-full">
+          <mat-label aria-required="true">Berichtszeitpunkt</mat-label>
+          <input [matDatepicker]="dpReportDate" formControlName="reportDate" matInput required />
+          <mat-datepicker-toggle [for]="dpReportDate" matIconSuffix></mat-datepicker-toggle>
+          <mat-datepicker #dpReportDate></mat-datepicker>
+          @if (form.get('reportDate')?.hasError('required')) {
+            <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+          }
+          <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label aria-required="true">Folgenummer</mat-label>
+          <input type="number" formControlName="sequenceNumber" step="1" min="1" matInput required />
+          @if (form.get('sequenceNumber')?.hasError('required')) {
+            <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+          } @else if (form.get('sequenceNumber')?.hasError('min')) {
+            <mat-error>Die kleinstmögliche Folgenummer beträgt 1</mat-error>
+          }
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title aria-required="true">Ergebnisse</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <hsel-markdown-editor label="Ergebnisse" [(ngModel)]="deliverables" [required]="true"></hsel-markdown-editor>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title aria-required="true">Ziele</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <hsel-markdown-editor label="Ziele" [(ngModel)]="objectives" [required]="true"></hsel-markdown-editor>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title aria-required="true">Risiken</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <hsel-markdown-editor label="Risiken" [(ngModel)]="hazards" [required]="true"></hsel-markdown-editor>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title aria-required="false">Sonstiges</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <hsel-markdown-editor label="Sonstiges" [(ngModel)]="other"></hsel-markdown-editor>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-actions align="end">
+      <button (click)="onCancelClick()" color="accent" class="mr-4" mat-raised-button>
+        Abbrechen
+      </button>
+      <button (click)="onSaveClick()" [disabled]="invalid" color="primary" mat-raised-button>
+        Speichern
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

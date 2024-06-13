@@ -120,7 +120,11 @@
           }
         </mat-card-content>
         <mat-card-actions align='end'>
-          <button [routerLink]="['report/new']" mat-button>
+          <button
+            [routerLink]="['report/new']"
+            [state]="{ sequenceNumber: getNextSequenceNumber() }"
+            mat-button
+          >
             Projektbericht hinzufügen
           </button>
         </mat-card-actions>

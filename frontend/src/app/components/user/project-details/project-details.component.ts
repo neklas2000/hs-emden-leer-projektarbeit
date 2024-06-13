@@ -112,4 +112,10 @@ export class ProjectDetailsComponent implements OnInit {
   isMilestoneReached(estimates: MilestoneEstimate[]): boolean {
     return estimates.filter((estimate) => estimate.milestoneReached).length > 0;
   }
+
+  getNextSequenceNumber(): number {
+    if (!this.project || this.project.reports.length === 0) return 1;
+
+    return this.project.reports[this.project.reports.length - 1].sequenceNumber + 1;
+  }
 }

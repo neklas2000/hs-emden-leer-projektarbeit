@@ -52,8 +52,11 @@
     (keydown)='changeIndentation($event)'
     (input)='onInputChange()'
   >
-    <mat-label>{{ label }}</mat-label>
-    <textarea [(ngModel)]='markdown' rows='10' #textArea maxlength='16777215' matInput></textarea>
+    <mat-label [ariaRequired]="required">{{ label }}</mat-label>
+    <textarea [(ngModel)]='markdown' rows='10' #textArea maxlength='16777215' [required]="required" matInput></textarea>
+    @if (required && touched && (!markdown || markdown.length === 0)) {
+      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+    }
     @if (textArea.value.length / 16777215 >= 0.9) {
       <mat-hint align="end">{{ textArea.value.length }}/16777215</mat-hint>
     }

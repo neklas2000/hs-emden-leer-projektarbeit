@@ -125,7 +125,6 @@ export class AgChartService {
       title: {
         text: 'Meilensteintrendanalyse',
         textAlign: 'center',
-        color: 'currentColor',
       },
       series: [
         ...(milestones.map((milestone, index) => {

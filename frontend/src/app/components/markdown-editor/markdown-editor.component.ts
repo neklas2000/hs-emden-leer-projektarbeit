@@ -36,6 +36,7 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
   @ViewChild('editorButtons') editorButtons!: ElementRef<HTMLElement>;
   @Input() label: string = 'Textarea';
+  @Input() required: boolean = false;
 
   markdown: string = '';
   previewOpen: boolean = false;
@@ -57,6 +58,10 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
       if (!area.contains(ev.target as Node) && !buttons.contains(ev.target as Node) && !this.cursorPositionUpdateBlocked) {
         this.currentCursorPosition = [-1, -1];
       }
+    });
+
+    area.addEventListener('click', () => {
+      this.markAsTouched();
     });
   }
 
