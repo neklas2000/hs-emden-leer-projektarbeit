@@ -47,16 +47,16 @@ export class JsonApiConnectorService<T> {
     }));
   }
 
-  readAll(route: string, query?: JsonApiQueries): Observable<T[]> {
+  readAll<T_RETURN = T>(route: string, query?: JsonApiQueries): Observable<T_RETURN[]> {
     const uri = this.getUri(route) + parseJsonApiQuery(query);
 
-    return this.httpClient.get<T[]>(uri)
+    return this.httpClient.get<T_RETURN[]>(uri)
       .pipe(catchError((err) => {
         throw new HttpException(err);
       }));
   }
 
-  read(params?: ReadParameters): Observable<Nullable<T>> {
+  read<T_RETURN = T>(params?: ReadParameters): Observable<Nullable<T_RETURN>> {
     let uri = this.getUri();
 
     if (params) {
@@ -64,7 +64,7 @@ export class JsonApiConnectorService<T> {
       uri = this.getUri(this.replaceIds(route, ids)) + parseJsonApiQuery(query);
     }
 
-    return this.httpClient.get<T>(uri)
+    return this.httpClient.get<T_RETURN>(uri)
       .pipe(catchError((err) => {
         throw new HttpException(err);
       }));

@@ -32,4 +32,10 @@ export class ProfileService extends JsonApiConnectorService<User> {
       },
     });
   }
+
+  getPendingInvites(): Observable<Nullable<number>> {
+    return this.read({
+      route: 'invites',
+    });
+  }
 }

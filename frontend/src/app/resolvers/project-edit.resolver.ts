@@ -12,7 +12,7 @@ export const projectEditResolver: ResolveFn<Observable<Nullable<Project>>> = (
   state: RouterStateSnapshot,
   projects: ProjectService = inject(ProjectService),
 ) => {
-  return projects.read({
+  return projects.read<Project>({
     route: ':id',
     ids: route.paramMap.get('id') ?? undefined,
     query: {

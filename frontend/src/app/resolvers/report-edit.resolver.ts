@@ -23,7 +23,7 @@ export const reportEditResolver: ResolveFn<Observable<Nullable<ProjectReport>>> 
     filters['project.id'] = projectId;
   }
 
-  return projectReports.read({
+  return projectReports.read<ProjectReport>({
     route: ':id',
     ids: route.paramMap.get('reportId') ?? undefined,
     query: {

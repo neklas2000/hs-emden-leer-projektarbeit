@@ -9,13 +9,17 @@ import {
 	Repository,
 } from 'typeorm';
 
+import { ProjectMemberAlreadyExistsException } from '@Exceptions/project-member-already-exists.exception';
 import { ProjectMember } from '@Routes/ProjectMember/entities';
+import { Project } from '@Routes/Project/entities';
 
 @Injectable()
 export class ProjectMemberService {
 	constructor(
 		@InjectRepository(ProjectMember)
-		private projectMemberRepository: Repository<ProjectMember>,
+		private readonly projectMemberRepository: Repository<ProjectMember>,
+		@InjectRepository(Project)
+		private readonly projectRepository: Repository<Project>,
 	) {}
 
 	findAll(
@@ -50,5 +54,46 @@ export class ProjectMemberService {
 				return projectMember.save();
 			}),
 		);
+	}
+
+	async create(memberPartial: DeepPartial<ProjectMember>): Promise<ProjectMember> {
+		const existingMember: ProjectMember = await this.projectMemberRepository.findOneBy({
+			project: {
+				id: memberPartial.project.id,
+			},
+			user: {
+				id: memberPartial.user.id,
+			},
+		});
+
+		if (existingMember) {
+			throw new ProjectMemberAlreadyExistsException();
+		}
+
+		const project = await this.projectRepository.findOneBy({
+			id: memberPartial.project.id,
+			owner: {
+				id: memberPartial.user.id,
+			},
+		});
+
+		if (project) {
+			throw new ProjectMemberAlreadyExistsException();
+		}
+
+		const projectMember = this.projectMemberRepository.create(memberPartial);
+
+		return projectMember.save();
+	}
+
+	async countInvites(userId: string): Promise<number> {
+		const projectInvitations = await this.projectMemberRepository.findBy({
+			user: {
+				id: userId,
+			},
+			invitePending: true,
+		});
+
+		return projectInvitations.length;
 	}
 }

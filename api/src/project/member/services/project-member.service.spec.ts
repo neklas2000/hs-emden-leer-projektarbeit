@@ -7,6 +7,7 @@ import {
 	PROJECT_MEMBER_REPOSITORY_TOKEN,
 	provideProjectMemberRepository,
 } from '@Mocks/Providers/project-member-repository.provider';
+import { provideProjectRepository } from '@Mocks/Providers/project-repository.provider';
 import { ProjectMemberService } from './project-member.service';
 
 describe('Service: ProjectMemberService', () => {
@@ -15,7 +16,11 @@ describe('Service: ProjectMemberService', () => {
 
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
-			providers: [ProjectMemberService, provideProjectMemberRepository()],
+			providers: [
+				ProjectMemberService,
+				provideProjectMemberRepository(),
+				provideProjectRepository(),
+			],
 		}).compile();
 
 		service = module.get(ProjectMemberService);

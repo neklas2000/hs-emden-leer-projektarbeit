@@ -161,6 +161,9 @@ export class AgChartService {
       data: [],
       legend: {
         enabled: true,
+        item: {
+          showSeriesStroke: true,
+        },
       },
       axes: [
         {

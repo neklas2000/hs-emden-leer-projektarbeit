@@ -27,6 +27,7 @@ export class MilestoneTrendAnalysisChartComponent implements OnInit, AfterViewIn
   private options!: AgChartOptions;
   private themeSubscription!: Subscription;
   private chartInstance!: AgChartInstance;
+  private currentMode!: ThemeMode;
 
   constructor(
     private readonly agChart: AgChartService,
@@ -34,6 +35,15 @@ export class MilestoneTrendAnalysisChartComponent implements OnInit, AfterViewIn
   ) {}
 
   ngOnInit(): void {
+    this.defineOptions();
+  }
+
+  refresh(): void {
+    this.defineOptions();
+    this.createChartInstance();
+  }
+
+  private defineOptions(): void {
     this.agChart.defineOptions({
       start: this.startDate,
       end: this.endDate,
@@ -45,8 +55,7 @@ export class MilestoneTrendAnalysisChartComponent implements OnInit, AfterViewIn
   }
 
   ngAfterViewInit(): void {
-    this.options.container = this.chartContainer.nativeElement;
-    this.chartInstance = AgCharts.create(this.options);
+    this.createChartInstance();
 
     this.themeSubscription = this.theme.modeStateChanged$.subscribe((theme) => {
       this.chartInstance.resetAnimations();
@@ -54,7 +63,25 @@ export class MilestoneTrendAnalysisChartComponent implements OnInit, AfterViewIn
       AgCharts.updateDelta(this.chartInstance, {
         theme: theme === ThemeMode.DARK ? 'ag-default-dark' : 'ag-default',
       });
+
+      this.currentMode = theme;
     });
+  }
+
+  private createChartInstance(): void {
+    this.options.container = this.chartContainer.nativeElement;
+
+    if (this.chartInstance) {
+      this.chartInstance.destroy()
+    }
+
+    this.chartInstance = AgCharts.create(this.options);
+
+    if (this.currentMode) {
+      AgCharts.updateDelta(this.chartInstance, {
+        theme: this.currentMode === ThemeMode.DARK ? 'ag-default-dark' : 'ag-default',
+      });
+    }
   }
 
   ngOnDestroy(): void {

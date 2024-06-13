@@ -2,9 +2,12 @@ import { Test } from '@nestjs/testing';
 
 import { take } from 'rxjs';
 
+import { provideProjectMemberRepository } from '@Mocks/Providers/project-member-repository.provider';
+import { provideProjectRepository } from '@Mocks/Providers/project-repository.provider';
 import { provideUserRepository } from '@Mocks/Providers/user-repository.provider';
 import { ProfileController } from './profile.controller';
 import { UserService } from '@Routes/User/services';
+import { ProjectMemberService } from '@Routes/Project/member/services';
 
 describe('Controller: ProfileController', () => {
 	let userService: UserService;
@@ -12,7 +15,13 @@ describe('Controller: ProfileController', () => {
 
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
-			providers: [UserService, provideUserRepository()],
+			providers: [
+				UserService,
+				provideUserRepository(),
+				ProjectMemberService,
+				provideProjectMemberRepository(),
+				provideProjectRepository(),
+			],
 			controllers: [ProfileController],
 		}).compile();
 

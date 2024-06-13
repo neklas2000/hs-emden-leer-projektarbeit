@@ -11,13 +11,17 @@ import { Nullable, Success } from '@Types/index';
 import { User as UserEntity } from '@Routes/User/entities';
 import { Filters } from '@Decorators/filters.decorator';
 import { IncorrectCredentialsException } from '@Exceptions/incorrect-credentials.exception';
+import { ProjectMemberService } from '@Routes/Project/member/services';
 
 @UseGuards(AccessTokenGuard)
-@Controller('profile')
+@Controller()
 export class ProfileController {
-	constructor(private readonly userService: UserService) {}
+	constructor(
+		private readonly userService: UserService,
+		private readonly projectMemberService: ProjectMemberService,
+	) {}
 
-	@Get()
+	@Get('profile')
 	getProfile(
 		@User()
 		user: Express.User,
@@ -31,7 +35,15 @@ export class ProfileController {
 		});
 	}
 
-	@Get(':id')
+	@Get('profile/invites')
+	getPendingInvites(
+		@User()
+		user: Express.User,
+	): Observable<number> {
+		return promiseToObservable(this.projectMemberService.countInvites(user['sub']));
+	}
+
+	@Get('profile/:id')
 	getProfileById(
 		@Param('id')
 		id: string,
@@ -49,7 +61,7 @@ export class ProfileController {
 		});
 	}
 
-	@Patch(':id')
+	@Patch('profile/:id')
 	updateProfile(
 		@Param('id')
 		id: string,

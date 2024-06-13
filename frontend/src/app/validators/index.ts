@@ -81,8 +81,22 @@ export class FormValidators extends Validators {
   }
 
   /**
-   * If the value of this control and the other control (identified by the `controlName`) aren't
-   * equal the error `matchingInputs` will be set.
+   * @description Validator that requires the control to have the same value as the other control
+   * (identified by the `controlName`).
+   *
+   * @usageNotes
+   * ### Validate that the controls have the same value
+   * ```js
+   * const formBuilder = inject(FormBuilder); // Inside of an injection context
+   * const form = formBuilder.group({
+   *    controlA: ['', [FormValidators.required]],
+   *    controlB: ['', [FormValidators.required, FormValidators.matchWith('controlA')]],
+   * });
+   *
+   * console.log(form.get('controlB').errors); // { matchingInputs: true }
+   * ```
+   * @returns
+   * An error map with the property `matchingInputs` if the validation check fails, otherwise null.
    */
   static matchWith(controlName: string): ValidatorFn {
     return (control: AbstractControl): Nullable<ValidationErrors> => {
@@ -90,9 +104,7 @@ export class FormValidators extends Validators {
       if (String(control.value) === String(control.parent?.get(controlName)?.value ?? '')) return null;
 
       return {
-        matchingInputs: {
-          value: control.value,
-        },
+        matchingInputs: true,
       };
     };
   }

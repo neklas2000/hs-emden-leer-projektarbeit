@@ -12,5 +12,5 @@ export const profileResolver: ResolveFn<Observable<Nullable<User>>> = (
   state: RouterStateSnapshot,
   profile: ProfileService = inject(ProfileService),
 ) => {
-  return profile.read();
+  return profile.read<User>();
 };

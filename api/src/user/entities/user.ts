@@ -46,7 +46,7 @@ export class User extends BaseEntityWithExtras {
 	@Column({ name: 'last_name', nullable: true, type: 'varchar' })
 	lastName: Nullable<string>;
 
-	@Column()
+	@Column({ type: 'varchar' })
 	email: string;
 
 	@Column({ type: 'varchar' })

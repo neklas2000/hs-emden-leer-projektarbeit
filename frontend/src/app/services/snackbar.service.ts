@@ -3,6 +3,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { HttpException } from '@Utils/http-exception';
 
+export enum SnackbarMessage {
+  CANCELED = 'Vorgang abgebrochen',
+  SAVE_OPERATION_FAILED = 'Speichervorgang fehlgeschlagen',
+}
+
 @Injectable({
   providedIn: 'root'
 })

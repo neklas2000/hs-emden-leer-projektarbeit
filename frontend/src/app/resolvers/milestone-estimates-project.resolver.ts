@@ -12,7 +12,7 @@ export const milestoneEstimatesProjectResolver: ResolveFn<Observable<Nullable<Pr
   state: RouterStateSnapshot,
   projects: ProjectService = inject(ProjectService),
 ) => {
-  return projects.read({
+  return projects.read<Project>({
     route: ':id',
     ids: route.paramMap.get('id') ?? undefined,
     query: {

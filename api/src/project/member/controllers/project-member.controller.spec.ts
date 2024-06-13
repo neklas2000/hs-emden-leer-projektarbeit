@@ -4,7 +4,10 @@ import { take } from 'rxjs';
 
 import { ProjectMemberController } from './project-member.controller';
 import { ProjectMemberService } from '../services';
+import { provideProjectRepository } from '@Mocks/Providers/project-repository.provider';
 import { provideProjectMemberRepository } from '@Mocks/Providers/project-member-repository.provider';
+import { provideUserRepository } from '@Mocks/Providers/user-repository.provider';
+import { UserService } from '@Routes/User/services';
 
 describe('Controller: ProjectMemberController', () => {
 	let controller: ProjectMemberController;
@@ -12,7 +15,13 @@ describe('Controller: ProjectMemberController', () => {
 
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
-			providers: [ProjectMemberService, provideProjectMemberRepository()],
+			providers: [
+				ProjectMemberService,
+				provideProjectMemberRepository(),
+				UserService,
+				provideUserRepository(),
+				provideProjectRepository(),
+			],
 			controllers: [ProjectMemberController],
 		}).compile();
 

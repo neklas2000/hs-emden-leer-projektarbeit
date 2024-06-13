@@ -157,7 +157,7 @@
           <button class="mr-4" [routerLink]="['estimates/edit']" mat-button>
             Schätzungen bearbeiten/hinzufügen
           </button>
-          <button mat-button>
+          <button (click)="onNewMilestoneClick()" mat-button>
             Meilenstein hinzufügen
           </button>
         </mat-card-actions>
@@ -169,7 +169,8 @@
     [interval]="project.reportInterval"
     [startDate]="project.officialStart!"
     [endDate]="project.officialEnd"
-    [milestones]="project.milestones">
+    [milestones]="project.milestones"
+    #chart>
   </hsel-milestone-trend-analysis-chart>
   <div class="fab-button-toolbar">
     <button color="accent" [routerLink]="['edit']" mat-fab>
