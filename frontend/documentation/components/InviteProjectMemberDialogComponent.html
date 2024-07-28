@@ -260,7 +260,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(dialogRef: <a href="../components/InviteProjectMemberDialogComponent.html" target="_self">MatDialogRef&lt;InviteProjectMemberDialogComponent&gt;</a>, data: <a href="../undefineds/DialogData.html" target="_self">DialogData</a>, jsonApiDatastore: <a href="../injectables/JsonApiDatastore.html" target="_self">JsonApiDatastore</a>)</code>
+<code>constructor(dialogRef: <a href="../components/InviteProjectMemberDialogComponent.html" target="_self">MatDialogRef&lt;InviteProjectMemberDialogComponent&gt;</a>, data: <a href="../undefineds/DialogData.html" target="_self">DialogData</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -307,10 +307,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>jsonApiDatastore</td>
+                                                        <td>userService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/JsonApiDatastore.html" target="_self" >JsonApiDatastore</a></code>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -589,8 +589,8 @@ import { Observable, take } from &#x27;rxjs&#x27;;
 
 import { ProjectMember, ProjectRole } from &#x27;@Models/project-member&#x27;;
 import { User } from &#x27;@Models/user&#x27;;
-import { JsonApiDatastore } from &#x27;@Services/json-api-datastore.service&#x27;;
 import { DeepPartial, Nullable } from &#x27;@Types&#x27;;
+import { UserService } from &#x27;@Services/user.service&#x27;;
 
 type DialogData &#x3D; {
   role: ProjectRole;
@@ -620,14 +620,14 @@ export class InviteProjectMemberDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef&lt;InviteProjectMemberDialogComponent&gt;,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private readonly jsonApiDatastore: JsonApiDatastore,
+    private readonly userService: UserService,
   ) {}
 
   ngOnInit(): void {
-    this.users &#x3D; this.jsonApiDatastore.loadAll&lt;User&gt;(User, {
+    this.users &#x3D; this.userService.readAll(&#x27;&#x27;, {
       sparseFieldsets: {
-        user: [&#x27;id&#x27;, &#x27;academicTitle&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;]
-      }
+        user: [&#x27;id&#x27;, &#x27;academicTitle&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;],
+      },
     }).pipe(take(1));
   }
 
@@ -714,7 +714,7 @@ export class InviteProjectMemberDialogComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><h1 mat-dialog-title>  @switch (data.role) {    @case (\'contributor\') {      Studenten einladen    }    @case (\'viewer\') {      Betreuer einladen    }    @default {      Benutzer einladen    }  }</h1><div class="flex flex-col gap-y-4" mat-dialog-content>  <mat-form-field class="w-full">    <mat-label>Benutzer</mat-label>    <mat-select [(value)]=\'selectedUser\'>      @for (user of users | async; track user.id) {        <mat-option [value]=\'user\'>{{ user.firstName }} {{ user.lastName }}</mat-option>      }    </mat-select>  </mat-form-field>  <mat-form-field class="w-full">    <mat-label>Rolle</mat-label>    <mat-select [(value)]=\'data.role\'>      <mat-option value=\'contributor\'>Studierender</mat-option>      <mat-option value=\'viewer\'>Betreuer</mat-option>    </mat-select>  </mat-form-field></div><div mat-dialog-actions>  <button (click)=\'onCancelClick()\' mat-button>Abbrechen</button>  <button [mat-dialog-close]=\'getCloseData()\' mat-button cdkFocusInitial>    Einladen  </button></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneEstimateFormFieldComponent', 'selector': 'hsel-milestone-estimate-form-field'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'InviteProjectMemberDialogComponent'};
 </script>

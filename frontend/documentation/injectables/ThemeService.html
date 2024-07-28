@@ -119,6 +119,32 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service can be used to observe the state of the theme mode. By default this service will
+check if the user has a preference for the dark mode. If the user prefers the dark mode, the
+active theme mode will be toggled. In order to observe theme mode changes this service offers
+the property <code>modeStateChanged$</code> which is an observable.</p>
+<h3>Listen to theme mode changes</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">\&#64;Component({
+   selector: &#39;hsel-hello-world&#39;,
+   standalone: true,
+   imports: [],
+   templateUrl: &#39;./hello-world.component.html&#39;,
+   styleUrl: &#39;./hello-world.component.scss&#39;
+})
+class HelloWorldComponent implements OnInit {
+   constructor(private readonly theme: ThemeService) {}
+
+   ngOnInit(): void {
+     this.theme.modeStateChanged$.subscribe((themeMode) =&gt; {
+       ... // act on the received theme mode
+     });
+   }
+}</code></pre></div>
+            </p>
 
 
 
@@ -191,7 +217,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/theme.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/services/theme.service.ts:48</a></div>
                             </td>
                         </tr>
 
@@ -256,8 +282,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/app/services/theme.service.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/services/theme.service.ts:63</a></div>
                         </td>
                     </tr>
 
@@ -295,8 +321,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/app/services/theme.service.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/services/theme.service.ts:81</a></div>
                         </td>
                     </tr>
 
@@ -334,8 +360,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">src/app/services/theme.service.ts:23</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/services/theme.service.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -371,14 +397,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">src/app/services/theme.service.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/services/theme.service.ts:73</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function toggles between both theme modes and changes the css class corresponding to the
+mode.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -413,7 +442,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/theme.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/services/theme.service.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -439,7 +468,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/services/theme.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/services/theme.service.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -457,11 +486,43 @@ import { Inject, Injectable } from &#x27;@angular/core&#x27;;
 
 import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
 
+/**
+ * @description
+ * This enumeration represents the two theme modes &#x60;LIGHT&#x60; and &#x60;DARK&#x60;.
+ */
 export enum ThemeMode {
   LIGHT &#x3D; &#x27;LIGHT&#x27;,
   DARK &#x3D; &#x27;DARK&#x27;,
 }
 
+/**
+ * @description
+ * This service can be used to observe the state of the theme mode. By default this service will
+ * check if the user has a preference for the dark mode. If the user prefers the dark mode, the
+ * active theme mode will be toggled. In order to observe theme mode changes this service offers
+ * the property &#x60;modeStateChanged$&#x60; which is an observable.
+ *
+ * @usageNotes
+ * ### Listen to theme mode changes
+ * &#x60;&#x60;&#x60;ts
+ * \@Component({
+ *    selector: &#x27;hsel-hello-world&#x27;,
+ *    standalone: true,
+ *    imports: [],
+ *    templateUrl: &#x27;./hello-world.component.html&#x27;,
+ *    styleUrl: &#x27;./hello-world.component.scss&#x27;
+ * })
+ * class HelloWorldComponent implements OnInit {
+ *    constructor(private readonly theme: ThemeService) {}
+ *
+ *    ngOnInit(): void {
+ *      this.theme.modeStateChanged$.subscribe((themeMode) &#x3D;&gt; {
+ *        ... // act on the received theme mode
+ *      });
+ *    }
+ * }
+ * &#x60;&#x60;&#x60;
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
@@ -487,6 +548,11 @@ export class ThemeService {
     this.modeStateSubject.next(ThemeMode.DARK);
   }
 
+  /**
+   * @description
+   * This function toggles between both theme modes and changes the css class corresponding to the
+   * mode.
+   */
   toggle(): void {
     if (this.modeStateSubject.value &#x3D;&#x3D;&#x3D; ThemeMode.LIGHT) {
       this.activateDarkMode();

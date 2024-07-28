@@ -1,9 +1,13 @@
-import { ProjectReport } from './project-report';
 import { ProjectMember } from './project-member';
 import { ProjectMilestone } from './project-milestone';
+import { ProjectReport } from './project-report';
 import { Nullable } from '@Types';
 import { User } from './user';
 
+/**
+ * @description
+ * This model represents the entity `Project`.
+ */
 export class Project {
   id!: string;
   name!: string;

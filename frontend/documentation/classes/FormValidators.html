@@ -123,6 +123,15 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>&quot;@angular/forms&quot;. The additional validators are <code>matchesInterval</code>, <code>behindDate</code>, <code>phoneNumber</code>
+and <code>matchWith</code>.</p>
+<h3>Using the validators with form controls</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const control = new FormControl(&#39;&#39;, [FormValidators.required, FormValidators.phoneNumber])</code></pre></div>
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -222,7 +231,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/validators/index.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/validators/index.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -258,14 +267,28 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="46"
-                                    class="link-to-prism">src/app/validators/index.ts:46</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/validators/index.ts:111</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>difference greater than zero. The dates have to be provided as a DateTime object from the
+library &quot;luxon&quot;. If that&#39;s not possible the date object needs to provide a function <code>toFormat</code>,
+which creates a string representation of the date (e.g. in the format &quot;yyyy-MM-dd&quot;).</p>
+<h3>Validate that both controls have a difference greater than zero</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const formBuilder = inject(FormBuilder); // Inside of an injection context
+const form = formBuilder.group({
+   controlA: [DateTime.now(), [FormValidators.required]],
+   controlB: [DateTime.now().plus({ day: 1 });, [FormValidators.required, FormValidators.behindDate(&#39;controlA&#39;)]],
+});
+
+console.log(form.get(&#39;controlB&#39;).errors); // { behindDate: true }</code></pre></div><p>A validator function populated by the <code>nameOfControlToCompareTo</code>. The validator function will
+return an error map with the property <code>behindDate</code> if the validation check fails,
+otherwise null.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -292,7 +315,7 @@
 
 
                                             <td>
-                                                    <p>The name of the formcontrol which is used for the comparison</p>
+                                                    <p>The name of the form control which is used for the comparison</p>
 
                                             </td>
                                         </tr>
@@ -304,7 +327,10 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A validator function populated by the <code>nameOfControlToCompareTo</code>. The validator function will
+return an error map with the property <code>behindDate</code> if the validation check fails,
+otherwise null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -332,14 +358,35 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="11"
-                                    class="link-to-prism">src/app/validators/index.ts:11</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/validators/index.ts:58</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>difference which matches a given interval. The dates have to be provided as a DateTime object
+from the library &quot;luxon&quot;. If that&#39;s not possible the date object needs to provide a function
+<code>toFormat</code>, which creates a string representation of the date (e.g. in the format &quot;yyyy-MM-dd&quot;).</p>
+<h3>Validate that both controls have a difference matching the interval (as number)</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const formBuilder = inject(FormBuilder); // Inside of an injection context
+const form = formBuilder.group({
+   controlA: [DateTime.now(), [FormValidators.required]],
+   controlB: [DateTime.now().plus({ day: 1 });, [FormValidators.required, FormValidators.matchesInterval(&#39;controlA&#39;, 7)]],
+});</code></pre></div><h3>Validate that both controls have a difference matching the interval (as string)</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const formBuilder = inject(FormBuilder); // Inside of an injection context
+const form = formBuilder.group({
+   controlA: [DateTime.now(), [FormValidators.required]],
+   interval: [7, [FormValidators.required, FormValidators.min(1)]],
+   controlB: [DateTime.now().plus({ day: 1 });, [FormValidators.required, FormValidators.matchesInterval(&#39;controlA&#39;, &#39;interval&#39;)]],
+});
+
+console.log(form.get(&#39;controlB&#39;).errors); // { matchesInterval: true }</code></pre></div><p>a dynamic interval value.
+A validator function populated by the <code>nameOfControlToCompareTo</code> and the <code>interval</code>. The
+validator function will return an error map with the property <code>matchesInterval</code> if the
+validation check fails, otherwise null.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -350,6 +397,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -364,6 +412,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the form control which is used for the comparison</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>interval</td>
@@ -376,6 +428,11 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Either the actual interval as a number or a name of a form control containing
+a dynamic interval value.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -385,7 +442,10 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A validator function populated by the <code>nameOfControlToCompareTo</code> and the <code>interval</code>. The
+validator function will return an error map with the property <code>matchesInterval</code> if the
+validation check fails, otherwise null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -413,16 +473,24 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">src/app/validators/index.ts:87</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/validators/index.ts:175</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>If the value of this control and the other control (identified by the <code>controlName</code>) aren&#39;t
-equal the error <code>matchingInputs</code> will be set.</p>
+                        <div class="io-description"><p>(identified by the <code>controlName</code>).</p>
+<h3>Validate that the controls have the same value</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const formBuilder = inject(FormBuilder); // Inside of an injection context
+const form = formBuilder.group({
+   controlA: [&#39;&#39;, [FormValidators.required]],
+   controlB: [&#39;&#39;, [FormValidators.required, FormValidators.matchWith(&#39;controlA&#39;)]],
+});
+
+console.log(form.get(&#39;controlB&#39;).errors); // { matchingInputs: true }</code></pre></div><p>A validator function populated by the <code>controlName</code>. The validator function will return an
+error map with the property <code>matchingInputs</code> if the validation check fails, otherwise null.</p>
 </div>
 
                             <div class="io-description">
@@ -457,7 +525,9 @@ equal the error <code>matchingInputs</code> will be set.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A validator function populated by the <code>controlName</code>. The validator function will return an
+error map with the property <code>matchingInputs</code> if the validation check fails, otherwise null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -485,15 +555,18 @@ equal the error <code>matchingInputs</code> will be set.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="72"
-                                    class="link-to-prism">src/app/validators/index.ts:72</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/validators/index.ts:146</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>If the phone number is not valid the error <code>phoneNumber</code> will be set.</p>
+                        <div class="io-description"><h3>Validate that the control is a valid phone number</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const control = new FormControl(&#39;-49 1234 1234567&#39;, [FormValidators.phoneNumber]);
+
+console.log(control).errors); // { phoneNumber: true }</code></pre></div><p>An error map with the property <code>phoneNumber</code> if the validation check fails, otherwise null.</p>
 </div>
 
                             <div class="io-description">
@@ -528,7 +601,8 @@ equal the error <code>matchingInputs</code> will be set.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An error map with the property <code>phoneNumber</code> if the validation check fails, otherwise null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -548,12 +622,59 @@ equal the error <code>matchingInputs</code> will be set.</p>
 
 import { isValidPhoneNumber } from &#x27;libphonenumber-js&#x27;;
 
-import { Nullable } from &#x27;@Types&#x27;;
 import { DateService } from &#x27;@Services/date.service&#x27;;
+import { Nullable } from &#x27;@Types&#x27;;
 
+/**
+ * @description These FormValidators extend the existing Validators from the library
+ * &quot;@angular/forms&quot;. The additional validators are &#x60;matchesInterval&#x60;, &#x60;behindDate&#x60;, &#x60;phoneNumber&#x60;
+ * and &#x60;matchWith&#x60;.
+ *
+ * @usageNotes
+ * ### Using the validators with form controls
+ * &#x60;&#x60;&#x60;ts
+ * const control &#x3D; new FormControl(&#x27;&#x27;, [FormValidators.required, FormValidators.phoneNumber])
+ * &#x60;&#x60;&#x60;
+ */
 export class FormValidators extends Validators {
   private static dateService: DateService &#x3D; new DateService();
 
+  /**
+   * @description Validator that requires that two controls (getting a date as input) have a
+   * difference which matches a given interval. The dates have to be provided as a DateTime object
+   * from the library &quot;luxon&quot;. If that&#x27;s not possible the date object needs to provide a function
+   * &#x60;toFormat&#x60;, which creates a string representation of the date (e.g. in the format &quot;yyyy-MM-dd&quot;).
+   *
+   * @usageNotes
+   * ### Validate that both controls have a difference matching the interval (as number)
+   * &#x60;&#x60;&#x60;ts
+   * const formBuilder &#x3D; inject(FormBuilder); // Inside of an injection context
+   * const form &#x3D; formBuilder.group({
+   *    controlA: [DateTime.now(), [FormValidators.required]],
+   *    controlB: [DateTime.now().plus({ day: 1 });, [FormValidators.required, FormValidators.matchesInterval(&#x27;controlA&#x27;, 7)]],
+   * });
+   * &#x60;&#x60;&#x60;
+   *
+   * ### Validate that both controls have a difference matching the interval (as string)
+   * &#x60;&#x60;&#x60;ts
+   * const formBuilder &#x3D; inject(FormBuilder); // Inside of an injection context
+   * const form &#x3D; formBuilder.group({
+   *    controlA: [DateTime.now(), [FormValidators.required]],
+   *    interval: [7, [FormValidators.required, FormValidators.min(1)]],
+   *    controlB: [DateTime.now().plus({ day: 1 });, [FormValidators.required, FormValidators.matchesInterval(&#x27;controlA&#x27;, &#x27;interval&#x27;)]],
+   * });
+   *
+   * console.log(form.get(&#x27;controlB&#x27;).errors); // { matchesInterval: true }
+   * &#x60;&#x60;&#x60;
+   *
+   * @param nameOfControlToCompareTo The name of the form control which is used for the comparison
+   * @param interval Either the actual interval as a number or a name of a form control containing
+   * a dynamic interval value.
+   * @returns
+   * A validator function populated by the &#x60;nameOfControlToCompareTo&#x60; and the &#x60;interval&#x60;. The
+   * validator function will return an error map with the property &#x60;matchesInterval&#x60; if the
+   * validation check fails, otherwise null.
+   */
   static matchesInterval(nameOfControlToCompareTo: string, interval: number | string): ValidatorFn {
     return (control: AbstractControl): Nullable&lt;ValidationErrors&gt; &#x3D;&gt; {
       if (!control.value) return null;
@@ -578,16 +699,34 @@ export class FormValidators extends Validators {
       if (diff % daysInterval &#x3D;&#x3D;&#x3D; 0) return null;
 
       return {
-        matchesInterval: {
-          value: control.value,
-        },
+        matchesInterval: true,
       };
     };
   }
 
   /**
+   * @description Validator that requires that two controls (getting a date as input) have a
+   * difference greater than zero. The dates have to be provided as a DateTime object from the
+   * library &quot;luxon&quot;. If that&#x27;s not possible the date object needs to provide a function &#x60;toFormat&#x60;,
+   * which creates a string representation of the date (e.g. in the format &quot;yyyy-MM-dd&quot;).
    *
-   * @param nameOfControlToCompareTo The name of the formcontrol which is used for the comparison
+   * @usageNotes
+   * ### Validate that both controls have a difference greater than zero
+   * &#x60;&#x60;&#x60;ts
+   * const formBuilder &#x3D; inject(FormBuilder); // Inside of an injection context
+   * const form &#x3D; formBuilder.group({
+   *    controlA: [DateTime.now(), [FormValidators.required]],
+   *    controlB: [DateTime.now().plus({ day: 1 });, [FormValidators.required, FormValidators.behindDate(&#x27;controlA&#x27;)]],
+   * });
+   *
+   * console.log(form.get(&#x27;controlB&#x27;).errors); // { behindDate: true }
+   * &#x60;&#x60;&#x60;
+   *
+   * @param nameOfControlToCompareTo The name of the form control which is used for the comparison
+   * @returns
+   * A validator function populated by the &#x60;nameOfControlToCompareTo&#x60;. The validator function will
+   * return an error map with the property &#x60;behindDate&#x60; if the validation check fails,
+   * otherwise null.
    */
   static behindDate(nameOfControlToCompareTo: string): ValidatorFn {
     return (control: AbstractControl): Nullable&lt;ValidationErrors&gt; &#x3D;&gt; {
@@ -605,30 +744,53 @@ export class FormValidators extends Validators {
       if (diff &gt; 0) return null;
 
       return {
-        behindDate: {
-          value: control.value,
-        },
+        behindDate: true,
       };
     };
   }
 
   /**
-   * If the phone number is not valid the error &#x60;phoneNumber&#x60; will be set.
+   * @description Validator that requires the control to be a valid phone number.
+   *
+   * @usageNotes
+   * ### Validate that the control is a valid phone number
+   * &#x60;&#x60;&#x60;ts
+   * const control &#x3D; new FormControl(&#x27;-49 1234 1234567&#x27;, [FormValidators.phoneNumber]);
+   *
+   * console.log(control).errors); // { phoneNumber: true }
+   * &#x60;&#x60;&#x60;
+   *
+   * @returns
+   * An error map with the property &#x60;phoneNumber&#x60; if the validation check fails, otherwise null.
    */
   static phoneNumber(control: AbstractControl): Nullable&lt;ValidationErrors&gt; {
     if (!control.value || String(control.value).length &#x3D;&#x3D;&#x3D; 0) return null;
     if (isValidPhoneNumber(control.value)) return null;
 
     return {
-      phoneNumber: {
-        value: control.value,
-      },
+      phoneNumber: true,
     };
   }
 
   /**
-   * If the value of this control and the other control (identified by the &#x60;controlName&#x60;) aren&#x27;t
-   * equal the error &#x60;matchingInputs&#x60; will be set.
+   * @description Validator that requires the control to have the same value as the other control
+   * (identified by the &#x60;controlName&#x60;).
+   *
+   * @usageNotes
+   * ### Validate that the controls have the same value
+   * &#x60;&#x60;&#x60;ts
+   * const formBuilder &#x3D; inject(FormBuilder); // Inside of an injection context
+   * const form &#x3D; formBuilder.group({
+   *    controlA: [&#x27;&#x27;, [FormValidators.required]],
+   *    controlB: [&#x27;&#x27;, [FormValidators.required, FormValidators.matchWith(&#x27;controlA&#x27;)]],
+   * });
+   *
+   * console.log(form.get(&#x27;controlB&#x27;).errors); // { matchingInputs: true }
+   * &#x60;&#x60;&#x60;
+   *
+   * @returns
+   * A validator function populated by the &#x60;controlName&#x60;. The validator function will return an
+   * error map with the property &#x60;matchingInputs&#x60; if the validation check fails, otherwise null.
    */
   static matchWith(controlName: string): ValidatorFn {
     return (control: AbstractControl): Nullable&lt;ValidationErrors&gt; &#x3D;&gt; {
@@ -636,9 +798,7 @@ export class FormValidators extends Validators {
       if (String(control.value) &#x3D;&#x3D;&#x3D; String(control.parent?.get(controlName)?.value ?? &#x27;&#x27;)) return null;
 
       return {
-        matchingInputs: {
-          value: control.value,
-        },
+        matchingInputs: true,
       };
     };
   }

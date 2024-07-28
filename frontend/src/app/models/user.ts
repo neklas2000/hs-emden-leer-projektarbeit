@@ -1,6 +1,10 @@
 import { Project } from './project';
 import { Nullable } from '@Types';
 
+/**
+ * @description
+ * This model represents the entity `User`.
+ */
 export class User {
   id: Nullable<string> = null;
   academicTitle: Nullable<string> = null;

@@ -1,6 +1,10 @@
 import { Project } from './project';
 import { Nullable } from '@Types';
 
+/**
+ * @description
+ * This model represents the entity `ProjectReport`.
+ */
 export class ProjectReport {
   id: Nullable<string> = null;
   sequenceNumber: number = 0;

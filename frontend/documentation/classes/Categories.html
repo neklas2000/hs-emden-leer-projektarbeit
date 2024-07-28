@@ -777,7 +777,6 @@ export class AgChartService {
       title: {
         text: &#x27;Meilensteintrendanalyse&#x27;,
         textAlign: &#x27;center&#x27;,
-        color: &#x27;currentColor&#x27;,
       },
       series: [
         ...(milestones.map((milestone, index) &#x3D;&gt; {
@@ -814,6 +813,9 @@ export class AgChartService {
       data: [],
       legend: {
         enabled: true,
+        item: {
+          showSeriesStroke: true,
+        },
       },
       axes: [
         {

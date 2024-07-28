@@ -7,25 +7,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 
 import { DateTime } from 'luxon';
 import { Subscription, take } from 'rxjs';
 
-import { FormValidators } from 'app/validators';
-import { DateService } from '@Services/date.service';
-import { Nullable, Undefinable } from '@Types';
+import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
+import { InviteProjectMemberComponent } from '@Dialogs/invite-project-member/invite-project-member.component';
 import { ProjectMilestone } from '@Models/project-milestone';
-import { NewMilestoneDialogComponent } from '@Components/new-milestone-dialog/new-milestone-dialog.component';
-import { SnackbarService } from '@Services/snackbar.service';
 import { ProjectMember, ProjectRole } from '@Models/project-member';
-import { UndefinedStringPipe } from 'app/pipes/undefined-string.pipe';
-import { InviteProjectMemberDialogComponent } from '@Components/invite-project-member-dialog/invite-project-member-dialog.component';
+import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
+import { DateService } from '@Services/date.service';
+import { SnackbarService } from '@Services/snackbar.service';
 import { ProjectService } from '@Services/project.service';
-import { HttpException } from '@Utils/http-exception';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '@Services/authentication.service';
+import { DialogService } from '@Services/dialog.service';
+import { Nullable, Undefinable } from '@Types';
+import { HttpException } from '@Utils/http-exception';
+import { FormValidators } from '@Validators';
 
 @Component({
   selector: 'hsel-new-project',
@@ -64,7 +64,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly date: DateService,
-    private readonly dialog: MatDialog,
+    private readonly dialog: DialogService,
     private readonly snackbar: SnackbarService,
     private readonly project: ProjectService,
     private readonly router: Router,
@@ -73,7 +73,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.intervalChangesSubscription = this.form.get('interval')?.valueChanges
-      .subscribe((changes) => {
+      .subscribe((_) => {
         const control = this.form.get('endDate');
 
         if (control?.dirty) {
@@ -82,7 +82,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       });
 
     this.startDateChangesSubscription = this.form.get('startDate')?.valueChanges
-      .subscribe((changes) => {
+      .subscribe((_) => {
         const control = this.form.get('endDate');
 
         if (control?.dirty) {
@@ -118,14 +118,12 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   boundFilterEndDate = this.filterEndDate.bind(this);
 
   addMilestone(): void {
-    const dialogRef = this.dialog.open(NewMilestoneDialogComponent, {
-      minWidth: '60dvw',
-      maxWidth: '80dvw',
-    });
+    const dialogRef = this.dialog.open(CreateNewMilestoneComponent);
+
     dialogRef.afterClosed().pipe(take(1)).subscribe((milestone: Nullable<ProjectMilestone>) => {
       if (milestone) {
         this.milestones.push(milestone);
-        this.snackbar.open('Meilenstein hinzugefügt');
+        this.snackbar.open('Meilenstein temporär hinzugefügt');
       }
     });
   }
@@ -135,12 +133,10 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   inviteStudent(): void {
-    const dialogRef = this.dialog.open(InviteProjectMemberDialogComponent, {
+    const dialogRef = this.dialog.open(InviteProjectMemberComponent, {
       data: {
         role: ProjectRole.Contributor,
       },
-      minWidth: '60dvw',
-      maxWidth: '80dvw',
     });
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable<ProjectMember>) => {
@@ -160,12 +156,10 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   inviteCompanion(): void {
-    const dialogRef = this.dialog.open(InviteProjectMemberDialogComponent, {
+    const dialogRef = this.dialog.open(InviteProjectMemberComponent, {
       data: {
         role: ProjectRole.Viewer,
       },
-      minWidth: '60dvw',
-      maxWidth: '80dvw',
     });
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable<ProjectMember>) => {

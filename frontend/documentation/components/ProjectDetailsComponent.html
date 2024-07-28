@@ -207,6 +207,12 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#chart" >chart</a>
+                            </li>
+                            <li>
                                 <a href="#contributors" >contributors</a>
                             </li>
                             <li>
@@ -228,16 +234,30 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addProjectMember" >addProjectMember</a>
+                            </li>
+                            <li>
+                                <a href="#getNextSequenceNumber" >getNextSequenceNumber</a>
+                            </li>
+                            <li>
                                 <a href="#isMilestoneReached" >isMilestoneReached</a>
                             </li>
                             <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                             <li>
+                                <a href="#onNewMilestoneClick" >onNewMilestoneClick</a>
+                            </li>
+                            <li>
                                 <a href="#openContributorDialog" >openContributorDialog</a>
                             </li>
                             <li>
                                 <a href="#openViewerDialog" >openViewerDialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#saveNewMilestone" >saveNewMilestone</a>
                             </li>
                         </ul>
                     </td>
@@ -257,12 +277,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(activatedRoute: ActivatedRoute, dialog: MatDialog)</code>
+<code>constructor(activatedRoute: ActivatedRoute, dialog: <a href="../injectables/DialogService.html" target="_self">DialogService</a>, projectMilestones: <a href="../injectables/ProjectMilestoneService.html" target="_self">ProjectMilestoneService</a>, projectMembers: <a href="../injectables/ProjectMemberService.html" target="_self">ProjectMemberService</a>, snackbar: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:52</a></div>
                             </td>
                         </tr>
 
@@ -295,7 +315,43 @@
                                                         <td>dialog</td>
                                                   
                                                         <td>
-                                                                    <code>MatDialog</code>
+                                                                        <code><a href="../injectables/DialogService.html" target="_self" >DialogService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>projectMilestones</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ProjectMilestoneService.html" target="_self" >ProjectMilestoneService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>projectMembers</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ProjectMemberService.html" target="_self" >ProjectMemberService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbar</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -325,6 +381,112 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="addProjectMember"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>addProjectMember</b></span>
+                        <a href="#addProjectMember"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addProjectMember(member: <a href="../undefineds/DeepPartial.html" target="_self">DeepPartial&lt;ProjectMember&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="124"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:124</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>member</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#DeepPartial" target="_self" >DeepPartial&lt;ProjectMember&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNextSequenceNumber"></a>
+                    <span class="name">
+                        <span ><b>getNextSequenceNumber</b></span>
+                        <a href="#getNextSequenceNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNextSequenceNumber()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:177</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="isMilestoneReached"></a>
                     <span class="name">
                         <span ><b>isMilestoneReached</b></span>
@@ -341,8 +503,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="112"
-                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:112</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:173</a></div>
                         </td>
                     </tr>
 
@@ -408,8 +570,45 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onNewMilestoneClick"></a>
+                    <span class="name">
+                        <span ><b>onNewMilestoneClick</b></span>
+                        <a href="#onNewMilestoneClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onNewMilestoneClick()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:145</a></div>
                         </td>
                     </tr>
 
@@ -445,8 +644,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="96"
-                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:96</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:107</a></div>
                         </td>
                     </tr>
 
@@ -482,8 +681,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="80"
-                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:80</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:90</a></div>
                         </td>
                     </tr>
 
@@ -499,12 +698,119 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveNewMilestone"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>saveNewMilestone</b></span>
+                        <a href="#saveNewMilestone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveNewMilestone(milestone: <a href="../classes/ProjectMilestone.html" target="_self">ProjectMilestone</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>milestone</td>
+                                            <td>
+                                                            <code><a href="../classes/ProjectMilestone.html" target="_self" >ProjectMilestone</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
     <section data-compodoc="block-properties">
     
     <h3 id="inputs">
         Properties
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chart"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>chart</b></span>
+                        <a href="#chart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/MilestoneTrendAnalysisChartComponent.html" target="_self" >MilestoneTrendAnalysisChartComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;chart&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -529,7 +835,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:44</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -560,7 +866,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -591,7 +897,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/user/project-details/project-details.component.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -604,14 +910,13 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
 import { ActivatedRoute, Data, RouterModule } from &#x27;@angular/router&#x27;;
 import { MatCardModule } from &#x27;@angular/material/card&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { CommonModule, DatePipe } from &#x27;@angular/common&#x27;;
-import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
 import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
 
 import { take } from &#x27;rxjs&#x27;;
@@ -623,10 +928,17 @@ import {
   MilestoneTrendAnalysisChartComponent
 } from &#x27;../../milestone-trend-analysis-chart/milestone-trend-analysis-chart.component&#x27;;
 import { Project } from &#x27;@Models/project&#x27;;
-import { ProjectRole } from &#x27;@Models/project-member&#x27;;
+import { ProjectMember, ProjectRole } from &#x27;@Models/project-member&#x27;;
 import { User } from &#x27;@Models/user&#x27;;
 import { MilestoneEstimate } from &#x27;@Models/milestone-estimate&#x27;;
-import { Nullable } from &#x27;@Types&#x27;;
+import { DeepPartial, Nullable } from &#x27;@Types&#x27;;
+import { NewMilestoneDialogComponent } from &#x27;@Components/new-milestone-dialog/new-milestone-dialog.component&#x27;;
+import { DialogService } from &#x27;@Services/dialog.service&#x27;;
+import { ProjectMilestone } from &#x27;@Models/project-milestone&#x27;;
+import { ProjectMilestoneService } from &#x27;@Services/project-milestone.service&#x27;;
+import { SnackbarMessage, SnackbarService } from &#x27;@Services/snackbar.service&#x27;;
+import { HttpException } from &#x27;@Utils/http-exception&#x27;;
+import { ProjectMemberService } from &#x27;@Services/project-member.service&#x27;;
 
 @Component({
   selector: &#x27;hsel-project-details&#x27;,
@@ -646,13 +958,17 @@ import { Nullable } from &#x27;@Types&#x27;;
   styleUrl: &#x27;./project-details.component.scss&#x27;
 })
 export class ProjectDetailsComponent implements OnInit {
+  @ViewChild(&#x27;chart&#x27;) private readonly chart!: MilestoneTrendAnalysisChartComponent;
   project: Nullable&lt;Project&gt; &#x3D; null;
   contributors: Nullable&lt;User[]&gt; &#x3D; null;
   viewers: Nullable&lt;User[]&gt; &#x3D; null;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly dialog: MatDialog,
+    private readonly dialog: DialogService,
+    private readonly projectMilestones: ProjectMilestoneService,
+    private readonly projectMembers: ProjectMemberService,
+    private readonly snackbar: SnackbarService,
   ) {}
 
   ngOnInit(): void {
@@ -684,39 +1000,96 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   openViewerDialog(): void {
-    const dialogRef &#x3D; this.dialog.open(
-      InviteProjectMemberDialogComponent,
-      {
-        data: {
-          role: ProjectRole.Viewer,
-        },
-        width: &#x27;400px&#x27;,
+    const dialogRef &#x3D; this.dialog.open(InviteProjectMemberDialogComponent, {
+      data: {
+        role: ProjectRole.Viewer,
       },
-    );
-
-    dialogRef.afterClosed().pipe(take(1)).subscribe((result) &#x3D;&gt; {
-      console.log(result);
     });
+
+    dialogRef.afterClosed().pipe(take(1))
+      .subscribe((result: Nullable&lt;DeepPartial&lt;ProjectMember&gt;&gt;) &#x3D;&gt; {
+        if (!result) {
+          this.snackbar.open(SnackbarMessage.CANCELED);
+        } else {
+          this.addProjectMember(result);
+        }
+      });
   }
 
   openContributorDialog(): void {
-    const dialogRef &#x3D; this.dialog.open(
-      InviteProjectMemberDialogComponent,
-      {
-        data: {
-          role: ProjectRole.Contributor,
-        },
-        width: &#x27;400px&#x27;,
+    const dialogRef &#x3D; this.dialog.open(InviteProjectMemberDialogComponent, {
+      data: {
+        role: ProjectRole.Contributor,
       },
-    );
+    });
 
-    dialogRef.afterClosed().pipe(take(1)).subscribe((result) &#x3D;&gt; {
-      console.log(result);
+    dialogRef.afterClosed().pipe(take(1))
+      .subscribe((result: Nullable&lt;DeepPartial&lt;ProjectMember&gt;&gt;) &#x3D;&gt; {
+        if (!result) {
+          this.snackbar.open(SnackbarMessage.CANCELED);
+        } else {
+          this.addProjectMember(result);
+        }
+      });
+  }
+
+  private addProjectMember(member: DeepPartial&lt;ProjectMember&gt;): void {
+    member.invitePending &#x3D; true;
+    member.project &#x3D; this.project!;
+
+    this.projectMembers.create(&#x27;&#x27;, member).pipe(take(1)).subscribe({
+      next: (createdMember) &#x3D;&gt; {
+        this.snackbar.open(&#x27;Mitglied erfolgreich hinzugefügt&#x27;);
+        this.project!.members.push(createdMember);
+
+        if (createdMember.role &#x3D;&#x3D;&#x3D; ProjectRole.Contributor) {
+          this.contributors?.push(createdMember.user);
+        } else {
+          this.viewers?.push(createdMember.user);
+        }
+      },
+      error: (exception: HttpException) &#x3D;&gt; {
+        this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
+      },
+    });
+  }
+
+  onNewMilestoneClick(): void {
+    const dialogRef &#x3D; this.dialog.open(NewMilestoneDialogComponent);
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((result: Nullable&lt;ProjectMilestone&gt;) &#x3D;&gt; {
+      if (!result) {
+        this.snackbar.open(SnackbarMessage.CANCELED);
+      } else {
+        this.saveNewMilestone(result);
+      }
+    });
+  }
+
+  private saveNewMilestone(milestone: ProjectMilestone): void {
+    this.projectMilestones.create(&#x27;&#x27;, {
+      ...milestone,
+      project: this.project,
+    }).pipe(take(1)).subscribe({
+      next: (createdMilestone) &#x3D;&gt; {
+        this.project!.milestones.push(createdMilestone);
+        this.snackbar.open(&#x27;Meilenstein erfolgreich hinzugefügt&#x27;);
+        this.chart.refresh();
+      },
+      error: (exception: HttpException) &#x3D;&gt; {
+        this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
+      },
     });
   }
 
   isMilestoneReached(estimates: MilestoneEstimate[]): boolean {
     return estimates.filter((estimate) &#x3D;&gt; estimate.milestoneReached).length &gt; 0;
+  }
+
+  getNextSequenceNumber(): number {
+    if (!this.project || this.project.reports.length &#x3D;&#x3D;&#x3D; 0) return 1;
+
+    return this.project.reports[this.project.reports.length - 1].sequenceNumber + 1;
   }
 }
 </code></pre>
@@ -845,7 +1218,11 @@ export class ProjectDetailsComponent implements OnInit {
           }
         &lt;/mat-card-content&gt;
         &lt;mat-card-actions align&#x3D;&#x27;end&#x27;&gt;
-          &lt;button [routerLink]&#x3D;&quot;[&#x27;report/new&#x27;]&quot; mat-button&gt;
+          &lt;button
+            [routerLink]&#x3D;&quot;[&#x27;report/new&#x27;]&quot;
+            [state]&#x3D;&quot;{ sequenceNumber: getNextSequenceNumber() }&quot;
+            mat-button
+          &gt;
             Projektbericht hinzufügen
           &lt;/button&gt;
         &lt;/mat-card-actions&gt;
@@ -878,7 +1255,7 @@ export class ProjectDetailsComponent implements OnInit {
           &lt;button class&#x3D;&quot;mr-4&quot; [routerLink]&#x3D;&quot;[&#x27;estimates/edit&#x27;]&quot; mat-button&gt;
             Schätzungen bearbeiten/hinzufügen
           &lt;/button&gt;
-          &lt;button mat-button&gt;
+          &lt;button (click)&#x3D;&quot;onNewMilestoneClick()&quot; mat-button&gt;
             Meilenstein hinzufügen
           &lt;/button&gt;
         &lt;/mat-card-actions&gt;
@@ -888,9 +1265,10 @@ export class ProjectDetailsComponent implements OnInit {
   &lt;hsel-milestone-trend-analysis-chart
     class&#x3D;&quot;lt-sm:hidden&quot;
     [interval]&#x3D;&quot;project.reportInterval&quot;
-    [startDate]&#x3D;&quot;project.officialStart&quot;
+    [startDate]&#x3D;&quot;project.officialStart!&quot;
     [endDate]&#x3D;&quot;project.officialEnd&quot;
-    [milestones]&#x3D;&quot;project.milestones&quot;&gt;
+    [milestones]&#x3D;&quot;project.milestones&quot;
+    #chart&gt;
   &lt;/hsel-milestone-trend-analysis-chart&gt;
   &lt;div class&#x3D;&quot;fab-button-toolbar&quot;&gt;
     &lt;button color&#x3D;&quot;accent&quot; [routerLink]&#x3D;&quot;[&#x27;edit&#x27;]&quot; mat-fab&gt;
@@ -927,8 +1305,8 @@ export class ProjectDetailsComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@if (project === null) {  <p>Auf Basis der ID, die innerhalb der URL zu finden ist, konnte kein Projekt gefunden werden</p>} @else {  <div class="flex flex-col gap-y-4">    <mat-card>      <mat-card-header>        <mat-card-title>{{ project.name }}</mat-card-title>        <mat-card-subtitle>vom Typ "{{ project.type }}"</mat-card-subtitle>      </mat-card-header>      <mat-card-content>        <mat-list>          <mat-list-item>            <span matListItemTitle>              Berichtszeitraum: {{ project.officialStart | date:\'dd.MM.yyyy\' }} bis              @if (project.officialEnd) {                {{ project.officialEnd | date:\'dd.MM.yyyy\' }}              } @else {                TBA              }            </span>          </mat-list-item>          <mat-list-item>            <span matListItemTitle>              Berichtsintervall: {{ project.reportInterval }}              @if (project.reportInterval !== 1) {                Tage              } @else {                Tag              }            </span>          </mat-list-item>        </mat-list>      </mat-card-content>    </mat-card>    <div class="flex flex-row gap-x-4">      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Studierende</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          <mat-list>            @for (student of contributors; track student.id) {              <mat-list-item>                <span matListItemTitle>{{ student.firstName }} {{ student.lastName }} ({{ student.matriculationNumber }})</span>                <span matListItemLine>                  E-Mail-Adresse: {{ student.email }}                </span>                @if (student.phoneNumber !== null) {                  <span matListItemLine>                    Telefonnummer: {{ student.phoneNumber }}                  </span>                }              </mat-list-item>            }          </mat-list>        </mat-card-content>        <mat-card-actions align=\'end\'>          <button (click)=\'openContributorDialog()\' mat-button>            Student hinzufügen          </button>        </mat-card-actions>      </mat-card>      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Betreuer</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          <mat-list>            @for (companion of viewers; track companion.id) {              <mat-list-item>                <span matListItemTitle>{{ companion.firstName }} {{ companion.lastName }}</span>                <span matListItemLine>                  E-Mail-Adresse: {{ companion.email }}                </span>                @if (companion.phoneNumber !== null) {                  <span matListItemLine>                    Telefonnummer: {{ companion.phoneNumber }}                  </span>                }              </mat-list-item>            } @empty {              <mat-list-item>                <span matListItemTitle>Dieses Projekt hat noch keine Betreuer</span>              </mat-list-item>            }          </mat-list>        </mat-card-content>        <mat-card-actions align=\'end\'>          <button (click)=\'openViewerDialog()\' mat-button>            Betreuer hinzufügen          </button>        </mat-card-actions>      </mat-card>    </div>    <div class="flex flex-row gap-x-4">      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Projektberichte</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          @if (project.reports.length === 0) {            <mat-list>              <mat-list-item>                <span matListItemTitle>Dieses Projekt hat noch keine Berichte</span>              </mat-list-item>            </mat-list>          } @else {            <mat-nav-list>              @for (report of project.reports; track report.id) {                <a                  mat-list-item                  [routerLink]="[\'report\', report.id]"                >                  <span matListItemTitle>                    {{ report.sequenceNumber }}. Projektbericht vom {{ report.reportDate | date:\'dd.MM.yyyy\' }}                  </span>                </a>              }            </mat-nav-list>          }        </mat-card-content>        <mat-card-actions align=\'end\'>          <button [routerLink]="[\'report/new\']" mat-button>            Projektbericht hinzufügen          </button>        </mat-card-actions>      </mat-card>      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Meilensteine</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          <mat-list>            @for (milestone of project.milestones; track milestone.id) {              <mat-list-item>                @if (isMilestoneReached(milestone.estimates)) {                  <mat-icon style="color: var(--done);" matTooltip="Abgeschlossen" matListItemIcon>check_small</mat-icon>                } @else {                  <mat-icon style="color: var(--pending);" matTooltip="Noch in Arbeit" matListItemIcon>pending</mat-icon>                }                <span matListItemTitle>                  {{ milestone.name }}                </span>              </mat-list-item>            } @empty {              <mat-list-item>                <span matListItemTitle>Dieses Projekt hat noch keine Meilensteine</span>              </mat-list-item>            }          </mat-list>        </mat-card-content>        <mat-card-actions align=\'end\'>          <button class="mr-4" [routerLink]="[\'estimates/edit\']" mat-button>            Schätzungen bearbeiten/hinzufügen          </button>          <button mat-button>            Meilenstein hinzufügen          </button>        </mat-card-actions>      </mat-card>    </div>  </div>  <hsel-milestone-trend-analysis-chart    class="lt-sm:hidden"    [interval]="project.reportInterval"    [startDate]="project.officialStart"    [endDate]="project.officialEnd"    [milestones]="project.milestones">  </hsel-milestone-trend-analysis-chart>  <div class="fab-button-toolbar">    <button color="accent" [routerLink]="[\'edit\']" mat-fab>      <mat-icon>edit</mat-icon>    </button>  </div>}</div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+        var COMPONENT_TEMPLATE = '<div>@if (project === null) {  <p>Auf Basis der ID, die innerhalb der URL zu finden ist, konnte kein Projekt gefunden werden</p>} @else {  <div class="flex flex-col gap-y-4">    <mat-card>      <mat-card-header>        <mat-card-title>{{ project.name }}</mat-card-title>        <mat-card-subtitle>vom Typ "{{ project.type }}"</mat-card-subtitle>      </mat-card-header>      <mat-card-content>        <mat-list>          <mat-list-item>            <span matListItemTitle>              Berichtszeitraum: {{ project.officialStart | date:\'dd.MM.yyyy\' }} bis              @if (project.officialEnd) {                {{ project.officialEnd | date:\'dd.MM.yyyy\' }}              } @else {                TBA              }            </span>          </mat-list-item>          <mat-list-item>            <span matListItemTitle>              Berichtsintervall: {{ project.reportInterval }}              @if (project.reportInterval !== 1) {                Tage              } @else {                Tag              }            </span>          </mat-list-item>        </mat-list>      </mat-card-content>    </mat-card>    <div class="flex flex-row gap-x-4">      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Studierende</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          <mat-list>            @for (student of contributors; track student.id) {              <mat-list-item>                <span matListItemTitle>{{ student.firstName }} {{ student.lastName }} ({{ student.matriculationNumber }})</span>                <span matListItemLine>                  E-Mail-Adresse: {{ student.email }}                </span>                @if (student.phoneNumber !== null) {                  <span matListItemLine>                    Telefonnummer: {{ student.phoneNumber }}                  </span>                }              </mat-list-item>            }          </mat-list>        </mat-card-content>        <mat-card-actions align=\'end\'>          <button (click)=\'openContributorDialog()\' mat-button>            Student hinzufügen          </button>        </mat-card-actions>      </mat-card>      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Betreuer</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          <mat-list>            @for (companion of viewers; track companion.id) {              <mat-list-item>                <span matListItemTitle>{{ companion.firstName }} {{ companion.lastName }}</span>                <span matListItemLine>                  E-Mail-Adresse: {{ companion.email }}                </span>                @if (companion.phoneNumber !== null) {                  <span matListItemLine>                    Telefonnummer: {{ companion.phoneNumber }}                  </span>                }              </mat-list-item>            } @empty {              <mat-list-item>                <span matListItemTitle>Dieses Projekt hat noch keine Betreuer</span>              </mat-list-item>            }          </mat-list>        </mat-card-content>        <mat-card-actions align=\'end\'>          <button (click)=\'openViewerDialog()\' mat-button>            Betreuer hinzufügen          </button>        </mat-card-actions>      </mat-card>    </div>    <div class="flex flex-row gap-x-4">      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Projektberichte</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          @if (project.reports.length === 0) {            <mat-list>              <mat-list-item>                <span matListItemTitle>Dieses Projekt hat noch keine Berichte</span>              </mat-list-item>            </mat-list>          } @else {            <mat-nav-list>              @for (report of project.reports; track report.id) {                <a                  mat-list-item                  [routerLink]="[\'report\', report.id]"                >                  <span matListItemTitle>                    {{ report.sequenceNumber }}. Projektbericht vom {{ report.reportDate | date:\'dd.MM.yyyy\' }}                  </span>                </a>              }            </mat-nav-list>          }        </mat-card-content>        <mat-card-actions align=\'end\'>          <button            [routerLink]="[\'report/new\']"            [state]="{ sequenceNumber: getNextSequenceNumber() }"            mat-button          >            Projektbericht hinzufügen          </button>        </mat-card-actions>      </mat-card>      <mat-card style="flex: 50%;">        <mat-card-header>          <mat-card-title>Meilensteine</mat-card-title>        </mat-card-header>        <mat-card-content style="height: calc(100% - 48px);">          <mat-list>            @for (milestone of project.milestones; track milestone.id) {              <mat-list-item>                @if (isMilestoneReached(milestone.estimates)) {                  <mat-icon style="color: var(--done);" matTooltip="Abgeschlossen" matListItemIcon>check_small</mat-icon>                } @else {                  <mat-icon style="color: var(--pending);" matTooltip="Noch in Arbeit" matListItemIcon>pending</mat-icon>                }                <span matListItemTitle>                  {{ milestone.name }}                </span>              </mat-list-item>            } @empty {              <mat-list-item>                <span matListItemTitle>Dieses Projekt hat noch keine Meilensteine</span>              </mat-list-item>            }          </mat-list>        </mat-card-content>        <mat-card-actions align=\'end\'>          <button class="mr-4" [routerLink]="[\'estimates/edit\']" mat-button>            Schätzungen bearbeiten/hinzufügen          </button>          <button (click)="onNewMilestoneClick()" mat-button>            Meilenstein hinzufügen          </button>        </mat-card-actions>      </mat-card>    </div>  </div>  <hsel-milestone-trend-analysis-chart    class="lt-sm:hidden"    [interval]="project.reportInterval"    [startDate]="project.officialStart!"    [endDate]="project.officialEnd"    [milestones]="project.milestones"    #chart>  </hsel-milestone-trend-analysis-chart>  <div class="fab-button-toolbar">    <button color="accent" [routerLink]="[\'edit\']" mat-fab>      <mat-icon>edit</mat-icon>    </button>  </div>}</div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneEstimateFormFieldComponent', 'selector': 'hsel-milestone-estimate-form-field'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ProjectDetailsComponent'};
 </script>

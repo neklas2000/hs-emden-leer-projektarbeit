@@ -119,6 +119,16 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service provides to possibility to generate pdf documents by a predefined schema and it
+downloads the generated pdf automatically. Once the singleton is instantiated, a watermark for
+the pdfs is preloaded and made available for future pdf creations. That watermark can then be
+provided as a background of the pdf.</p>
+
+            </p>
 
 
 
@@ -180,7 +190,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/pdf.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/services/pdf.service.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -243,14 +253,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">src/app/services/pdf.service.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/services/pdf.service.ts:62</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function generates a pdf document based on a predefined schema and this schema will be
+populated with the data, provided by the argument <code>content</code>. After the document was
+successfully generated the pdf will be downloaded automatically.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -261,6 +275,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -275,6 +290,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The data which will be rendered within the pdf document.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -312,8 +331,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="62"
-                                    class="link-to-prism">src/app/services/pdf.service.ts:62</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/services/pdf.service.ts:75</a></div>
                         </td>
                     </tr>
 
@@ -360,7 +379,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/pdf.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/services/pdf.service.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -375,13 +394,22 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 
+import { DateTime } from &#x27;luxon&#x27;;
 import * as pdfMake from &#x27;pdfmake/build/pdfmake&#x27;;
 import * as pdfFonts from &#x27;pdfmake/build/vfs_fonts&#x27;;
 import { Content } from &#x27;pdfmake/interfaces&#x27;;
 
+import { ZONE } from &#x27;@Constants&#x27;;
 import { ProjectReportContent, ProjectReportSchema } from &#x27;@PdfSchemas/project-report.schema&#x27;;
 import { Nullable, Undefinable } from &#x27;@Types&#x27;;
 
+/**
+ * @description
+ * This service provides to possibility to generate pdf documents by a predefined schema and it
+ * downloads the generated pdf automatically. Once the singleton is instantiated, a watermark for
+ * the pdfs is preloaded and made available for future pdf creations. That watermark can then be
+ * provided as a background of the pdf.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
@@ -389,7 +417,7 @@ export class PdfService {
   private backgroundDataUri: Nullable&lt;string&gt; &#x3D; null;
 
   constructor(
-    private readonly reportSchema: ProjectReportSchema
+    private readonly reportSchema: ProjectReportSchema,
   ) {
     (async () &#x3D;&gt; {
       const response &#x3D; await fetch(&#x27;../../assets/background.png&#x27;);
@@ -409,7 +437,7 @@ export class PdfService {
         };
 
         reader.onerror &#x3D; (err) &#x3D;&gt; {
-          reject(err);
+          reject(new Error(&#x27;An error occurred while loading the pdf background.&#x27;, { cause: err }));
         };
 
         reader.readAsDataURL(blobData);
@@ -417,14 +445,18 @@ export class PdfService {
     })();
   }
 
+  /**
+   * @description
+   * This function generates a pdf document based on a predefined schema and this schema will be
+   * populated with the data, provided by the argument &#x60;content&#x60;. After the document was
+   * successfully generated the pdf will be downloaded automatically.
+   *
+   * @param content The data which will be rendered within the pdf document.
+   */
   generateProjectReport(content: ProjectReportContent): void {
     this.reportSchema.populate(this.getBackground(), content)
       .then((documentDefinitions) &#x3D;&gt; {
-        const isoDate &#x3D; (new Date(content.reportDate)).toLocaleString(&#x27;de-DE&#x27;, {
-          year: &#x27;numeric&#x27;,
-          month: &#x27;2-digit&#x27;,
-          day: &#x27;2-digit&#x27;
-        }).split(&#x27;.&#x27;).reverse().join(&#x27;-&#x27;);
+        const isoDate &#x3D; DateTime.fromSQL(content.reportDate).setZone(ZONE).toFormat(&#x27;yyyy-MM-dd&#x27;);
 
         pdfMake.createPdf(documentDefinitions, undefined, undefined, pdfFonts.pdfMake.vfs)
           .download(&#x60;MTA-Report_${isoDate}_${content.projectTitle.replaceAll(&#x27; &#x27;, &#x27;&#x27;)}.pdf&#x60;);

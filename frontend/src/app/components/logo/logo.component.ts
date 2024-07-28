@@ -1,10 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
 import { ThemeMode, ThemeService } from '@Services/theme.service';
 import { Undefinable } from '@Types';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'hsel-logo',

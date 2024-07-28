@@ -123,6 +123,20 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This class represents an exception which will be thrown while accessing the api. It takes the
+default JavaScript error object and transforms it to a more accessible exception object
+containing more details provided by the api.</p>
+<h3>Create the exception object</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const http = inject(HttpClient); // Inside of an injection context
+http.get(&#39;/api/helloworld&#39;).pipe(catchError((error) =&gt; new HttpException(error))).subscribe({
+   next: (data: ResponseData) =&gt; { ... },
+   error: (exception: HttpException) =&gt; { ... },
+});</code></pre></div>
+            </p>
 
 
 
@@ -219,7 +233,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/utils/http-exception.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/utils/http-exception.ts:60</a></div>
                             </td>
                         </tr>
 
@@ -294,7 +308,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/utils/http-exception.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/utils/http-exception.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -333,7 +347,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/utils/http-exception.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/utils/http-exception.ts:53</a></div>
                         </td>
                     </tr>
 
@@ -360,7 +374,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/utils/http-exception.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/utils/http-exception.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -395,9 +409,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/utils/http-exception.ts:63</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/utils/http-exception.ts:88</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -417,9 +442,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/utils/http-exception.ts:67</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/utils/http-exception.ts:95</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -439,9 +475,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/utils/http-exception.ts:71</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/utils/http-exception.ts:102</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -461,9 +508,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/utils/http-exception.ts:75</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">src/app/utils/http-exception.ts:109</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -483,9 +541,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/utils/http-exception.ts:83</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="120" class="link-to-prism">src/app/utils/http-exception.ts:120</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -505,9 +574,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/utils/http-exception.ts:87</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">src/app/utils/http-exception.ts:127</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -527,9 +607,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/utils/http-exception.ts:91</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="134" class="link-to-prism">src/app/utils/http-exception.ts:134</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -549,9 +640,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/utils/http-exception.ts:95</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">src/app/utils/http-exception.ts:141</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -571,9 +673,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/app/utils/http-exception.ts:103</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="152" class="link-to-prism">src/app/utils/http-exception.ts:152</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -593,9 +706,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/utils/http-exception.ts:107</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">src/app/utils/http-exception.ts:159</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -615,9 +739,20 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">src/app/utils/http-exception.ts:111</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">src/app/utils/http-exception.ts:166</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -636,6 +771,9 @@
   url: string;
 };
 
+/**
+ * This type represents more detailed information of an exception provided by the api.
+ */
 type DetailedInformation &#x3D; {
   [key: string]: any;
   code: string;
@@ -646,6 +784,22 @@ type DetailedInformation &#x3D; {
   timestamp: string;
 };
 
+/**
+ * @description
+ * This class represents an exception which will be thrown while accessing the api. It takes the
+ * default JavaScript error object and transforms it to a more accessible exception object
+ * containing more details provided by the api.
+ *
+ * @usageNotes
+ * ### Create the exception object
+ * &#x60;&#x60;&#x60;ts
+ * const http &#x3D; inject(HttpClient); // Inside of an injection context
+ * http.get(&#x27;/api/helloworld&#x27;).pipe(catchError((error) &#x3D;&gt; new HttpException(error))).subscribe({
+ *    next: (data: ResponseData) &#x3D;&gt; { ... },
+ *    error: (exception: HttpException) &#x3D;&gt; { ... },
+ * });
+ * &#x60;&#x60;&#x60;
+ */
 export class HttpException {
   private httpHeaders: any;
   private baseInformation: BaseInformation &#x3D; {
@@ -688,18 +842,30 @@ export class HttpException {
     }
   }
 
+  /**
+   * @returns A map of http headers.
+   */
   get headers(): any {
     return this.httpHeaders;
   }
 
+  /**
+   * @returns An exception code from the api (e.g. HSEL-400-001).
+   */
   get code(): string {
     return this.detailedInformation.code;
   }
 
+  /**
+   * @returns A basic description detailing the cause of the exception.
+   */
   get description(): string {
     return this.detailedInformation.description;
   }
 
+  /**
+   * @returns A basic message naming the exception type.
+   */
   get message(): string {
     if (this.detailedInformation.message.length &#x3D;&#x3D;&#x3D; 0) {
       return this.baseInformation.message;
@@ -708,18 +874,30 @@ export class HttpException {
     return this.detailedInformation.message;
   }
 
+  /**
+   * @returns The endpoint which was requested and caused this exception.
+   */
   get requestPath(): string {
     return this.detailedInformation.path;
   }
 
+  /**
+   * @returns The timestamp of when the request was handled within the api.
+   */
   get timestamp(): string {
     return this.detailedInformation.timestamp;
   }
 
+  /**
+   * @returns The full request url, consisting of the protocol, domain and the endpoint.
+   */
   get fullRequestUrl(): string {
     return this.baseInformation.url;
   }
 
+  /**
+   * @returns The http status code (e.g. 400, 404 etc.).
+   */
   get status(): number {
     if (this.detailedInformation.status !&#x3D;&#x3D; 0) {
       return this.detailedInformation.status;
@@ -728,14 +906,23 @@ export class HttpException {
     return this.baseInformation.status;
   }
 
+  /**
+   * @returns The status message corresponding to the HTTP status code (e.g. 404 ~&gt; Not Found).
+   */
   get statusText(): string {
     return this.baseInformation.statusText;
   }
 
+  /**
+   * @returns The name for the type of the exception.
+   */
   get name(): string {
     return this.baseInformation.name;
   }
 
+  /**
+   * @returns &#x60;true&#x60;, if the http status code was 200, otherwise &#x60;false&#x60;.
+   */
   get ok(): boolean {
     return this.baseInformation.ok;
   }

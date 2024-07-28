@@ -41,7 +41,7 @@
           <mat-list>
             @for (student of contributors; track student.id) {
               <mat-list-item>
-                <span matListItemTitle>{{ student.firstName }} {{ student.lastName }} ({{ student.matriculationNumber }})</span>
+                <span matListItemTitle>{{ student | fullTitleName }}</span>
                 <span matListItemLine>
                   E-Mail-Adresse: {{ student.email }}
                 </span>
@@ -68,7 +68,7 @@
           <mat-list>
             @for (companion of viewers; track companion.id) {
               <mat-list-item>
-                <span matListItemTitle>{{ companion.firstName }} {{ companion.lastName }}</span>
+                <span matListItemTitle>{{ companion | fullTitleName:false }}</span>
                 <span matListItemLine>
                   E-Mail-Adresse: {{ companion.email }}
                 </span>

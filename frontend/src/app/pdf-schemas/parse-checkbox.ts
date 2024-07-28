@@ -1,5 +1,12 @@
 import { Content } from 'pdfmake/interfaces';
 
+/**
+ * @description
+ * This function takes an unordered list of a pdf document definition as an input and parses a list
+ * item to look like a checkbox and be properly aligned.
+ *
+ * @param node A node of a pdf document definition representing the unordered list element.
+ */
 function parseUnorderedList(node: any) {
   let parsed = false;
 
@@ -38,6 +45,14 @@ function parseUnorderedList(node: any) {
   }
 }
 
+/**
+ * @description
+ * This function takes an already generated pdf document definition and parses a checkbox so that
+ * a task list is properly visualized inside the pdf document.
+ *
+ * @param content A generated pdf document definition.
+ * @returns An updated pdf document definition.
+ */
 export function parseCheckbox(content: Content): Content {
   if (!Array.isArray(content)) return content;
 

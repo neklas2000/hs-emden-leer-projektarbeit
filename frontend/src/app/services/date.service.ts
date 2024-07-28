@@ -5,12 +5,21 @@ import { DateTime, DurationUnits, Interval } from 'luxon';
 import { ZONE } from '@Constants';
 import { Nullable } from '@Types';
 
+/**
+ * @description
+ * This service provides functions for date manipulations. It is possible to get the current date
+ * as a `DateTime` object (from the library "luxon"), to get the difference between to dates as a
+ * comparison and to get a list of report dates which can be used for rendering the milestone trend
+ * analysis chart.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class DateService {
   /**
-   * This function returns the current date as a `DateTime` object.
+   * @description
+   * This function returns the current date as a `DateTime` object compliant to the timezone
+   * Europe/Berlin.
    *
    * @returns The `DateTime` object.
    */
@@ -19,6 +28,7 @@ export class DateService {
   }
 
   /**
+   * @description
    * This function returns an array of `DateTime` objects describing the dates on which reports
    * and milestone estimations have to be done. The days between two dates is the same amount as
    * the defined report interval.
@@ -64,8 +74,9 @@ export class DateService {
   }
 
   /**
-   * This function evaluates the difference of units between two dates.
-   * The format for both dates needs to match 'yyyy-MM-dd'.
+   * @description
+   * This function evaluates the difference of units between two dates. The expected format for both
+   * dates needs to match 'yyyy-MM-dd'.
    *
    * @param source Source date to use for comparison.
    * @param target Target date to compare against.
@@ -80,7 +91,7 @@ export class DateService {
     if (!source || !target) return 0;
 
     return Object(
-      DateTime.fromSQL(source).diff(DateTime.fromSQL(target), unit).toObject()
+      DateTime.fromSQL(source).diff(DateTime.fromSQL(target), unit).toObject(),
     )[unit as string];
   }
 }

@@ -119,6 +119,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service provides the generic CRUD operations from the json api connector using the default
+endpoint &#39;auth&#39;.</p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -172,7 +180,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#checkStatus" >checkStatus</a>
+                                <a href="#canRefreshTokensWithCookie" >canRefreshTokensWithCookie</a>
                             </li>
                             <li>
                                 <a href="#getAccessToken" >getAccessToken</a>
@@ -205,8 +213,15 @@
                                 <a href="#createAll" >createAll</a>
                             </li>
                             <li>
+                                <a href="#delete" >delete</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Protected</span>
                                 <a href="#getUri" >getUri</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#parseJsonApiQuery" >parseJsonApiQuery</a>
                             </li>
                             <li>
                                 <a href="#read" >read</a>
@@ -244,7 +259,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/services/authentication.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/services/authentication.service.ts:46</a></div>
                             </td>
                         </tr>
 
@@ -291,35 +306,44 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="checkStatus"></a>
+                    <a name="canRefreshTokensWithCookie"></a>
                     <span class="name">
-                        <span ><b>checkStatus</b></span>
-                        <a href="#checkStatus"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>canRefreshTokensWithCookie</b></span>
+                        <a href="#canRefreshTokensWithCookie"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>checkStatus()</code>
+<code>canRefreshTokensWithCookie()</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="115"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:115</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="181"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:181</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function tries to refresh the access and refresh token since these are not present in the
+service. If the user has cookies enabled the request will be automatically extended by them
+and the api will, if the refresh token is still valid, refresh the pair of tokens and return
+them here.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
 
                         </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the token pair could be refreshed, otherwise <code>false</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -344,8 +368,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:87</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:134</a></div>
                         </td>
                     </tr>
 
@@ -357,6 +381,10 @@
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The stored access token, otherwise <code>null</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -381,8 +409,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="91"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:91</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:141</a></div>
                         </td>
                     </tr>
 
@@ -394,6 +422,10 @@
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The stored refresh token, otherwise <code>null</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -418,8 +450,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="83"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:83</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:127</a></div>
                         </td>
                     </tr>
 
@@ -431,6 +463,10 @@
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The stored user, otherwise <code>null</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -455,19 +491,26 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="130"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:130</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:203</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function checks if there is an authenticated user present and returns a boolean value
+representing it&#39;s findings.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the user is authenticated, otherwise <code>false</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -492,14 +535,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:86</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function sends a request to the api to login the user with the provided credentials. It
+will return <code>true</code>, if the user could be signed in successfully.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -510,6 +556,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -524,6 +571,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The email address from the user.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>password</td>
@@ -536,6 +587,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The password from the user.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -545,7 +600,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p><code>true</code> if the login operation was successful.</p>
+
                             </div>
                 </td>
             </tr>
@@ -571,19 +627,27 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="71"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:71</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:112</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function sends a request to the api to signout the user. This will return an observable
+representing the success of the logout operation and if successful all saved data will be
+cleared.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
 
                         </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the signout was successful, otherwise <code>false</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -608,14 +672,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="95"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:95</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:153</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function can be used to refresh the token pair, once the access token has expired.</p>
+<p>further interceptors.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -626,6 +693,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -640,6 +708,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The request which failed since the access token has expired.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>next</td>
@@ -652,6 +724,11 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The next interceptor in an interceptor chain, or the real backend if there are no
+further interceptors.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -661,7 +738,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The result of the next interceptor or the real backend.</p>
+
                             </div>
                 </td>
             </tr>
@@ -687,14 +765,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/services/authentication.service.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:60</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function sends a request to the api to register a new user. The definition of that user,
+inlcuding required credentials, is provided by an object and send as the requests payload.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -704,6 +785,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -715,6 +797,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The definition of the user to be registered.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -724,7 +810,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p><code>true</code>, if the new user was successfully registered.</p>
+
                             </div>
                 </td>
             </tr>
@@ -756,7 +843,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:30</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:68</a></code>
 </div>
                         </td>
                     </tr>
@@ -849,7 +936,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:39</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:77</a></code>
 </div>
                         </td>
                     </tr>
@@ -920,18 +1007,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getUri"></a>
+                    <a name="delete"></a>
                     <span class="name">
-                            <span class="modifier">Protected</span>
-                        <span ><b>getUri</b></span>
-                        <a href="#getUri"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>delete</b></span>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getUri(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>delete(route: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, ids: <a href="../undefineds/RequestIds.html" target="_self">RequestIds | string</a>)</code>
                 </td>
             </tr>
 
@@ -944,7 +1029,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:100</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:123</a></code>
 </div>
                         </td>
                     </tr>
@@ -972,10 +1057,105 @@
                                             </td>
 
                                             <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>ids</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#RequestIds" target="_self" >RequestIds | string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUri"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>getUri</b></span>
+                        <a href="#getUri"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUri(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:189</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function builds the request url consisting of the base url, an optional prefix of the
+endpoint and another optional route.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
                                                     Yes
                                             </td>
 
 
+                                            <td>
+                                                    <p>A subroute which might be needed to be more specific when accessing an endpoint.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -985,7 +1165,91 @@
 
                         </div>
                             <div class="io-description">
+                                <p>The merged request url.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parseJsonApiQuery"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>parseJsonApiQuery</b></span>
+                        <a href="#parseJsonApiQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>parseJsonApiQuery(query?: <a href="../undefineds/JsonApiQueries.html" target="_self">JsonApiQueries</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:208</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function parses the json api query options so that they can be added to the request url.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
                                 
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>query</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#JsonApiQueries" target="_self" >JsonApiQueries</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The query options defined by the json api specification.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A string representing the query options.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1017,11 +1281,19 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:59</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:97</a></code>
 </div>
                         </td>
                     </tr>
 
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -1054,7 +1326,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Observable&lt;Nullable&lt;T&gt;&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Observable&lt;Nullable&lt;T_RETURN&gt;&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -1090,11 +1362,19 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:50</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:88</a></code>
 </div>
                         </td>
                     </tr>
 
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -1139,7 +1419,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;T[]&gt;</code>
+                            <b>Returns : </b>    <code>Observable&lt;T_RETURN[]&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -1177,7 +1457,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:85</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:159</a></code>
 </div>
                         </td>
                     </tr>
@@ -1185,6 +1465,15 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function replaces id patterns within the provided <code>route</code>. If no value for the <code>route</code> is
+provided <code>undefined</code> will be returned and if no value for the <code>ids</code> is provided the <code>route</code>
+will be returned. If both arguments are provided and the <code>ids</code> are of the type <code>string</code> it is
+expected that the <code>route</code> includes the pattern &quot;:id&quot;. If it doesn&#39;t include the pattern an
+error will be thrown. If <code>ids</code> is an object each key will be extended by a colon to find the
+pattern.</p>
+<h3>Replace the pattern &quot;:id&quot; with an id</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">this.replaceIds(&#39;/users/:id&#39;, &#39;1&#39;); // ~&gt; &quot;/users/1&quot;</code></pre></div><h3>Replace multiple patterns for ids</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">this.replaceIds(&#39;/projects/:projectId/report/:reportId&#39;, { projectId: &#39;123&#39;, reportId: &#39;456&#39; }); // ~&gt; &quot;/projects/123/report/456&quot;</code></pre></div></div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1195,6 +1484,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1209,6 +1499,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>A optional route which could look like &quot;:id&quot;.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>ids</td>
@@ -1221,6 +1515,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>An optional string or object of ids (e.g. <code>{ id: &#39;1&#39; }</code>).</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1230,7 +1528,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The route populated by the given ids.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1262,7 +1561,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:73</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:111</a></code>
 </div>
                         </td>
                     </tr>
@@ -1364,7 +1663,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/services/authentication.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/services/authentication.service.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -1397,7 +1696,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:21</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:59</a></code>
 </div>
                         </td>
                     </tr>
@@ -1432,7 +1731,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:22</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:61</a></code>
 </div>
                         </td>
                     </tr>
@@ -1467,7 +1766,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:23</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:60</a></code>
 </div>
                         </td>
                     </tr>
@@ -1488,22 +1787,40 @@ import { Observable, catchError, map, of, switchMap, take } from &#x27;rxjs&#x27
 
 import { JsonApiConnectorService } from &#x27;./json-api-connector.service&#x27;;
 import { User } from &#x27;@Models/user&#x27;;
-import { DeepPartial, Nullable } from &#x27;@Types&#x27;;
 import { SessionStorageService } from &#x27;./session-storage.service&#x27;;
+import { DeepPartial, Nullable } from &#x27;@Types&#x27;;
 
+/**
+ * @description
+ * This type represents the response data when refreshing the token pair.
+ */
 type TokensResponse &#x3D; {
   accessToken: string;
   refreshToken: string;
 };
 
+/**
+ * @description
+ * This type extends the &#x60;TokensResponse&#x60; by an user object and it represents the response data
+ * when a user signs in or registers.
+ */
 type TokensWithUserResponse &#x3D; TokensResponse &amp; {
   user: User;
 };
 
+/**
+ * @description
+ * This type represents the response received when a user signs out from the application.
+ */
 type LogoutResponse &#x3D; {
   success: boolean;
 };
 
+/**
+ * @description
+ * This service provides the generic CRUD operations from the json api connector using the default
+ * endpoint &#x27;auth&#x27;.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
@@ -1514,6 +1831,14 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     super(&#x27;auth&#x27;);
   }
 
+  /**
+   * @description
+   * This function sends a request to the api to register a new user. The definition of that user,
+   * inlcuding required credentials, is provided by an object and send as the requests payload.
+   *
+   * @param userData The definition of the user to be registered.
+   * @returns &#x60;true&#x60;, if the new user was successfully registered.
+   */
   register(userData: DeepPartial&lt;User&gt; &amp; { password: string; email: string; }): Observable&lt;true&gt; {
     return this.create&lt;TokensWithUserResponse&gt;(
       &#x27;register&#x27;,
@@ -1532,6 +1857,14 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     );
   }
 
+  /**
+   * This function sends a request to the api to login the user with the provided credentials. It
+   * will return &#x60;true&#x60;, if the user could be signed in successfully.
+   *
+   * @param email The email address from the user.
+   * @param password The password from the user.
+   * @returns &#x60;true&#x60; if the login operation was successful.
+   */
   login(email: string, password: string): Observable&lt;true&gt; {
     return this.create&lt;TokensWithUserResponse&gt;(
       &#x27;login&#x27;,
@@ -1551,6 +1884,13 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     );
   }
 
+  /**
+   * This function sends a request to the api to signout the user. This will return an observable
+   * representing the success of the logout operation and if successful all saved data will be
+   * cleared.
+   *
+   * @returns &#x60;true&#x60; if the signout was successful, otherwise &#x60;false&#x60;.
+   */
   logout(): Observable&lt;boolean&gt; {
     return this.create&lt;LogoutResponse&gt;(&#x27;logout&#x27;, {}).pipe(take(1), map((response) &#x3D;&gt; {
       if (response.success) {
@@ -1563,18 +1903,35 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     }));
   }
 
+  /**
+   * @returns The stored user, otherwise &#x60;null&#x60;.
+   */
   getUser(): Nullable&lt;string&gt; {
     return this.sessionStorage.getUser();
   }
 
+  /**
+   * @returns The stored access token, otherwise &#x60;null&#x60;.
+   */
   getAccessToken(): Nullable&lt;string&gt; {
     return this.sessionStorage.getAccessToken();
   }
 
+  /**
+   * @returns The stored refresh token, otherwise &#x60;null&#x60;.
+   */
   getRefreshToken(): Nullable&lt;string&gt; {
     return this.sessionStorage.getRefreshToken();
   }
 
+  /**
+   * This function can be used to refresh the token pair, once the access token has expired.
+   *
+   * @param request The request which failed since the access token has expired.
+   * @param next The next interceptor in an interceptor chain, or the real backend if there are no
+   * further interceptors.
+   * @returns The result of the next interceptor or the real backend.
+   */
   refreshTokens(request: HttpRequest&lt;any&gt;, next: HttpHandlerFn) {
     if (!this.sessionStorage.getRefreshToken() || this.refreshing) return next(request);
 
@@ -1583,7 +1940,7 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     return this.create&lt;TokensResponse&gt;(&#x27;refresh&#x27;, {})
       .pipe(
         take(1),
-        switchMap((tokens, index) &#x3D;&gt; {
+        switchMap((tokens) &#x3D;&gt; {
           this.refreshing &#x3D; false;
           this.sessionStorage.setAccessToken(tokens.accessToken);
           this.sessionStorage.setRefreshToken(tokens.refreshToken);
@@ -1595,21 +1952,36 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
       );
   }
 
-  checkStatus(): Observable&lt;boolean&gt; {
-    return this.create&lt;TokensResponse&gt;(&#x27;status&#x27;, {}).pipe(
+  /**
+   * This function tries to refresh the access and refresh token since these are not present in the
+   * service. If the user has cookies enabled the request will be automatically extended by them
+   * and the api will, if the refresh token is still valid, refresh the pair of tokens and return
+   * them here.
+   *
+   * @returns &#x60;true&#x60; if the token pair could be refreshed, otherwise &#x60;false&#x60;.
+   */
+  canRefreshTokensWithCookie(): Observable&lt;boolean&gt; {
+    return this.create&lt;TokensWithUserResponse&gt;(&#x27;refresh&#x27;, {}).pipe(
       take(1),
       switchMap((tokens) &#x3D;&gt; {
         this.sessionStorage.setAccessToken(tokens.accessToken);
         this.sessionStorage.setRefreshToken(tokens.refreshToken);
+        this.sessionStorage.setUser(tokens.user?.id ?? &#x27;&#x27;);
 
         return of(true);
       }),
-      catchError((err) &#x3D;&gt; {
+      catchError((_) &#x3D;&gt; {
         return of(false);
       }),
     )
   }
 
+  /**
+   * This function checks if there is an authenticated user present and returns a boolean value
+   * representing it&#x27;s findings.
+   *
+   * @returns &#x60;true&#x60; if the user is authenticated, otherwise &#x60;false&#x60;.
+   */
   isAuthenticated(): boolean {
     return this.sessionStorage.getUser() !&#x3D;&#x3D; null;
   }

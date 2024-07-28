@@ -9,19 +9,19 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ActivatedRoute, Data } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 
 import { BehaviorSubject, Observable, take } from 'rxjs';
 
+import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
 import { EditMilestoneEstimatesTabComponent } from '../edit-milestone-estimates-tab/edit-milestone-estimates-tab.component';
 import { ProjectMilestone } from '@Models/project-milestone';
 import { Project } from '@Models/project';
-import { NewMilestoneDialogComponent } from '../new-milestone-dialog/new-milestone-dialog.component';
 import { DateService } from '@Services/date.service';
+import { DialogService } from '@Services/dialog.service';
+import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarService } from '@Services/snackbar.service';
 import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
-import { ProjectMilestoneService } from '@Services/project-milestone.service';
 
 @Component({
   selector: 'hsel-edit-milestone-estimates',
@@ -54,7 +54,7 @@ export class EditMilestoneEstimatesComponent implements OnInit {
     private readonly date: DateService,
     private readonly projectMilestones: ProjectMilestoneService,
     private readonly snackbar: SnackbarService,
-    private readonly dialog: MatDialog,
+    private readonly dialog: DialogService,
   ) {
     this.selectedTabSubject = new BehaviorSubject(0);
     this.selectedTab = this.selectedTabSubject.asObservable();
@@ -90,10 +90,7 @@ export class EditMilestoneEstimatesComponent implements OnInit {
       return;
     }
 
-    const dialogRef = this.dialog.open(NewMilestoneDialogComponent, {
-      minWidth: '60dvw',
-      maxWidth: '80dvw',
-    });
+    const dialogRef = this.dialog.open(CreateNewMilestoneComponent);
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((milestone?: ProjectMilestone) => {
       if (!milestone && tabIndex !== 0) {

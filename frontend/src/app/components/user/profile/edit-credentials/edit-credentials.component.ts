@@ -8,10 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 
 import { Subscription, take } from 'rxjs';
 
-import { FormValidators } from '../../../../validators';
 import { ProfileService } from '@Services/profile.service';
-import { HttpException } from '@Utils/http-exception';
 import { SnackbarService } from '@Services/snackbar.service';
+import { HttpException } from '@Utils/http-exception';
+import { FormValidators } from '@Validators';
 
 export enum Credentials {
   EMAIL = 1,

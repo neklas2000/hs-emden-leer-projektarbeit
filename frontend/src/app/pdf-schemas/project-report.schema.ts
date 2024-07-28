@@ -8,6 +8,10 @@ import { Content, DynamicBackground, TDocumentDefinitions } from 'pdfmake/interf
 import { parseCheckbox } from './parse-checkbox';
 import { PdfSchema } from './pdf-schema';
 
+/**
+ * @description
+ * This type represents the required data to generate a pdf of a project report.
+ */
 export type ProjectReportContent<E = string> = {
   projectTitle: string;
   reportStart: string;
@@ -16,8 +20,14 @@ export type ProjectReportContent<E = string> = {
   reportDate: string;
   reportInterval: number;
   projectType: string;
-  students: any[]; // User with role 'Contributor'
-  companions: any[]; // User with role 'Viewer'
+  /**
+   * User with role 'Contributor'
+   */
+  students: any[];
+  /**
+   * User with role 'Viewer'
+   */
+  companions: any[];
   deliverables: E;
   hazards: E;
   objectives: E;
@@ -25,12 +35,25 @@ export type ProjectReportContent<E = string> = {
   milestoneTrendAnalysis: string;
 };
 
+/**
+ * @description
+ * This schema represents the pdf document definition to generate a pdf from a project report.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
   constructor(private readonly markdownService: MarkdownService) {}
 
+  /**
+   * @description
+   * This function populates the document definition with the required data, in order to generate
+   * a populated pdf document.
+   *
+   * @param background An optional background to be included in the pdf document.
+   * @param reportContent The required data used to populate the document definition.
+   * @returns The populated document definition, ready to be downloaded as a pdf document.
+   */
 	async populate(
 		background: DynamicBackground | Content | undefined,
 		reportContent: ProjectReportContent

@@ -1,13 +1,28 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 
+/**
+ * @description
+ * This type represents the available device breakpoints.
+ */
 type Breakpoint = 'gt-lg' | 'lt-lg' | 'gt-md' | 'lt-md' | 'gt-sm' | 'lt-sm' | 'gt-xs' | 'lt-xs';
 type MobileQueryListenerFn = () => void;
 
+/**
+ * @description
+ * This type represents a map of mobile queries consisting of all breakpoints and their query lists
+ * respectively.
+ */
 type MobileQueries = {
   [key: string]: MediaQueryList;
 };
 
+/**
+ * @description
+ * This class can be used to provide a component with an javascript implementation of media device
+ * matching. It can be useful if the media matching from css doesn't fullfil it's needs and the
+ * dynamic responsive behaviour has to be achieved through different means.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -41,6 +56,11 @@ export class MediaMatching {
     }
   }
 
+  /**
+   * @description
+   * This function removes every internal registered listeners. This should be called inside a
+   * component within the lifycycle hook `OnDestroy`.
+   */
   destroy(): void {
     if (!this.mobileQueryListener) {
       return;
@@ -51,6 +71,16 @@ export class MediaMatching {
     }
   }
 
+  /**
+   * @description
+   * This function first checks if the provided breakpoint is defined within the map of breakpoints.
+   * If it is not defined an error will be printed in the console and the function returns `false`.
+   * Otherwise it returns the boolean value, representing if the breakpoint matches the width of the
+   * users device.
+   *
+   * @param breakpoint The breakpoint to check for.
+   * @returns `true`, if the breakpoint is defined and it matches, otherwise `false`.
+   */
   match(breakpoint: Breakpoint): boolean {
     if (!this.mobileQueries.hasOwnProperty(breakpoint)) {
       console.error(`The breakpoint '${breakpoint}' is not defined`);

@@ -175,7 +175,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>compare(a: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, b: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, unit: DurationUnits)</code>
+<code>compare(source: <a href="../undefineds/Nullable.html" target="_self">Nullable&lt;string&gt;</a>, target: <a href="../undefineds/Nullable.html" target="_self">Nullable&lt;string&gt;</a>, unit: DurationUnits)</code>
                 </td>
             </tr>
 
@@ -209,9 +209,9 @@ The format for both dates needs to match &#39;yyyy-MM-dd&#39;.</p>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>a</td>
+                                                <td>source</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
                                             </td>
 
                                             <td>
@@ -227,9 +227,9 @@ The format for both dates needs to match &#39;yyyy-MM-dd&#39;.</p>
                                             </td>
                                         </tr>
                                         <tr>
-                                                <td>b</td>
+                                                <td>target</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
                                             </td>
 
                                             <td>
@@ -514,14 +514,20 @@ export class DateService {
    * This function evaluates the difference of units between two dates.
    * The format for both dates needs to match &#x27;yyyy-MM-dd&#x27;.
    *
-   * @param a Source date to use for comparison.
-   * @param b Target date to compare against.
+   * @param source Source date to use for comparison.
+   * @param target Target date to compare against.
    * @param unit The unit of duration - default: &#x60;&#x27;days&#x27;&#x60;.
    * @returns The amount of units between both dates.
    */
-  compare(a: string, b: string, unit: DurationUnits &#x3D; &#x27;days&#x27;): number {
+  compare(
+    source: Nullable&lt;string&gt;,
+    target: Nullable&lt;string&gt;,
+    unit: DurationUnits &#x3D; &#x27;days&#x27;,
+  ): number {
+    if (!source || !target) return 0;
+
     return Object(
-      DateTime.fromSQL(a).diff(DateTime.fromSQL(b), unit).toObject()
+      DateTime.fromSQL(source).diff(DateTime.fromSQL(target), unit).toObject()
     )[unit as string];
   }
 }

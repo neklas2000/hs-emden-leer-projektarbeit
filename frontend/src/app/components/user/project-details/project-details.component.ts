@@ -9,9 +9,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { take } from 'rxjs';
 
-import {
-  InviteProjectMemberDialogComponent
-} from '../../invite-project-member-dialog/invite-project-member-dialog.component';
+import { InviteProjectMemberComponent } from '@Dialogs/invite-project-member/invite-project-member.component';
+import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
 import {
   MilestoneTrendAnalysisChartComponent
 } from '../../milestone-trend-analysis-chart/milestone-trend-analysis-chart.component';
@@ -20,13 +19,13 @@ import { ProjectMember, ProjectRole } from '@Models/project-member';
 import { User } from '@Models/user';
 import { MilestoneEstimate } from '@Models/milestone-estimate';
 import { DeepPartial, Nullable } from '@Types';
-import { NewMilestoneDialogComponent } from '@Components/new-milestone-dialog/new-milestone-dialog.component';
 import { DialogService } from '@Services/dialog.service';
 import { ProjectMilestone } from '@Models/project-milestone';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { HttpException } from '@Utils/http-exception';
 import { ProjectMemberService } from '@Services/project-member.service';
+import { FullTitleNamePipe } from '@Pipes/full-title-name.pipe';
 
 @Component({
   selector: 'hsel-project-details',
@@ -41,6 +40,7 @@ import { ProjectMemberService } from '@Services/project-member.service';
     CommonModule,
     MilestoneTrendAnalysisChartComponent,
     MatTooltipModule,
+    FullTitleNamePipe,
   ],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss'
@@ -88,7 +88,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   openViewerDialog(): void {
-    const dialogRef = this.dialog.open(InviteProjectMemberDialogComponent, {
+    const dialogRef = this.dialog.open(InviteProjectMemberComponent, {
       data: {
         role: ProjectRole.Viewer,
       },
@@ -105,7 +105,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   openContributorDialog(): void {
-    const dialogRef = this.dialog.open(InviteProjectMemberDialogComponent, {
+    const dialogRef = this.dialog.open(InviteProjectMemberComponent, {
       data: {
         role: ProjectRole.Contributor,
       },
@@ -143,7 +143,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   onNewMilestoneClick(): void {
-    const dialogRef = this.dialog.open(NewMilestoneDialogComponent);
+    const dialogRef = this.dialog.open(CreateNewMilestoneComponent);
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((result: Nullable<ProjectMilestone>) => {
       if (!result) {

@@ -119,6 +119,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service provides the generic CRUD operations from the json api connector using the default
+endpoint &#39;projects&#39;.</p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -174,8 +182,15 @@
                                 <a href="#createAll" >createAll</a>
                             </li>
                             <li>
+                                <a href="#delete" >delete</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Protected</span>
                                 <a href="#getUri" >getUri</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#parseJsonApiQuery" >parseJsonApiQuery</a>
                             </li>
                             <li>
                                 <a href="#read" >read</a>
@@ -213,7 +228,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/services/project.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/project.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -252,7 +267,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:30</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:68</a></code>
 </div>
                         </td>
                     </tr>
@@ -345,7 +360,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:39</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:77</a></code>
 </div>
                         </td>
                     </tr>
@@ -416,18 +431,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getUri"></a>
+                    <a name="delete"></a>
                     <span class="name">
-                            <span class="modifier">Protected</span>
-                        <span ><b>getUri</b></span>
-                        <a href="#getUri"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>delete</b></span>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getUri(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>delete(route: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, ids: <a href="../undefineds/RequestIds.html" target="_self">RequestIds | string</a>)</code>
                 </td>
             </tr>
 
@@ -440,7 +453,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:100</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:123</a></code>
 </div>
                         </td>
                     </tr>
@@ -468,10 +481,105 @@
                                             </td>
 
                                             <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>ids</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#RequestIds" target="_self" >RequestIds | string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUri"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>getUri</b></span>
+                        <a href="#getUri"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUri(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:189</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function builds the request url consisting of the base url, an optional prefix of the
+endpoint and another optional route.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
                                                     Yes
                                             </td>
 
 
+                                            <td>
+                                                    <p>A subroute which might be needed to be more specific when accessing an endpoint.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -481,7 +589,91 @@
 
                         </div>
                             <div class="io-description">
+                                <p>The merged request url.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parseJsonApiQuery"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>parseJsonApiQuery</b></span>
+                        <a href="#parseJsonApiQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>parseJsonApiQuery(query?: <a href="../undefineds/JsonApiQueries.html" target="_self">JsonApiQueries</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:208</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function parses the json api query options so that they can be added to the request url.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
                                 
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>query</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#JsonApiQueries" target="_self" >JsonApiQueries</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The query options defined by the json api specification.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A string representing the query options.</p>
+
                             </div>
                 </td>
             </tr>
@@ -513,11 +705,19 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:59</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:97</a></code>
 </div>
                         </td>
                     </tr>
 
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -550,7 +750,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Observable&lt;Nullable&lt;T&gt;&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Observable&lt;Nullable&lt;T_RETURN&gt;&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -586,11 +786,19 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:50</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:88</a></code>
 </div>
                         </td>
                     </tr>
 
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -635,7 +843,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;T[]&gt;</code>
+                            <b>Returns : </b>    <code>Observable&lt;T_RETURN[]&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -673,7 +881,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:85</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:159</a></code>
 </div>
                         </td>
                     </tr>
@@ -681,6 +889,15 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function replaces id patterns within the provided <code>route</code>. If no value for the <code>route</code> is
+provided <code>undefined</code> will be returned and if no value for the <code>ids</code> is provided the <code>route</code>
+will be returned. If both arguments are provided and the <code>ids</code> are of the type <code>string</code> it is
+expected that the <code>route</code> includes the pattern &quot;:id&quot;. If it doesn&#39;t include the pattern an
+error will be thrown. If <code>ids</code> is an object each key will be extended by a colon to find the
+pattern.</p>
+<h3>Replace the pattern &quot;:id&quot; with an id</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">this.replaceIds(&#39;/users/:id&#39;, &#39;1&#39;); // ~&gt; &quot;/users/1&quot;</code></pre></div><h3>Replace multiple patterns for ids</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">this.replaceIds(&#39;/projects/:projectId/report/:reportId&#39;, { projectId: &#39;123&#39;, reportId: &#39;456&#39; }); // ~&gt; &quot;/projects/123/report/456&quot;</code></pre></div></div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -691,6 +908,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -705,6 +923,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>A optional route which could look like &quot;:id&quot;.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>ids</td>
@@ -717,6 +939,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>An optional string or object of ids (e.g. <code>{ id: &#39;1&#39; }</code>).</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -726,7 +952,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The route populated by the given ids.</p>
+
                             </div>
                 </td>
             </tr>
@@ -758,7 +985,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:73</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:111</a></code>
 </div>
                         </td>
                     </tr>
@@ -861,7 +1088,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:21</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:59</a></code>
 </div>
                         </td>
                     </tr>
@@ -896,7 +1123,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:22</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:61</a></code>
 </div>
                         </td>
                     </tr>
@@ -931,7 +1158,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:23</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:60</a></code>
 </div>
                         </td>
                     </tr>
@@ -950,6 +1177,11 @@
 import { JsonApiConnectorService } from &#x27;./json-api-connector.service&#x27;;
 import { Project } from &#x27;@Models/project&#x27;;
 
+/**
+ * @description
+ * This service provides the generic CRUD operations from the json api connector using the default
+ * endpoint &#x27;projects&#x27;.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })

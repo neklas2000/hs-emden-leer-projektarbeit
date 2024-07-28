@@ -1,4 +1,3 @@
-import { MilestoneEstimate } from '@Models/milestone-estimate';
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -8,8 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 
 import { DateTime } from 'luxon';
 
+import { MilestoneEstimate } from '@Models/milestone-estimate';
 import { Nullable } from '@Types';
-import { FormValidators } from 'app/validators';
+import { FormValidators } from '@Validators';
 
 @Component({
   selector: 'hsel-milestone-estimate-form-field',

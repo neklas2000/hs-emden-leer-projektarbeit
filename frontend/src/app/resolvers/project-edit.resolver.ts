@@ -7,6 +7,17 @@ import { Project } from '@Models/project';
 import { ProjectService } from '@Services/project.service';
 import { Nullable } from '@Types';
 
+/**
+ * @description
+ * This resolver resolves a specific project in order to edit it's data. While accessing the data
+ * all required relationships are included and only the required fields for the visualization are
+ * loaded through the sparse fieldsets.
+ *
+ * @param route The activated route snapshot.
+ * @param state The router state snapshot.
+ * @param projects An automatically injected service to access the resource "projects".
+ * @returns An observable which resolves to the correct project or `null`, if it couldn't be found.
+ */
 export const projectEditResolver: ResolveFn<Observable<Nullable<Project>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,

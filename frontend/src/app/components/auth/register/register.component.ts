@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 
+import { LogoComponent } from '@Components/logo/logo.component';
 import { Credentials, RegisterCredentialsComponent } from './register-credentials/register-credentials.component';
 import { PersonalDetails, RegisterPersonalDetailsComponent } from './register-personal-details/register-personal-details.component';
 import { AuthenticationService } from '@Services/authentication.service';
 import { Nullable } from '@Types';
-import { LogoComponent } from '@Components/logo/logo.component';
 
 @Component({
   selector: 'hsel-register',

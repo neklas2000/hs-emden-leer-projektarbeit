@@ -8,19 +8,37 @@ import { User } from '@Models/user';
 import { SessionStorageService } from './session-storage.service';
 import { DeepPartial, Nullable } from '@Types';
 
+/**
+ * @description
+ * This type represents the response data when refreshing the token pair.
+ */
 type TokensResponse = {
   accessToken: string;
   refreshToken: string;
 };
 
+/**
+ * @description
+ * This type extends the `TokensResponse` by an user object and it represents the response data
+ * when a user signs in or registers.
+ */
 type TokensWithUserResponse = TokensResponse & {
   user: User;
 };
 
+/**
+ * @description
+ * This type represents the response received when a user signs out from the application.
+ */
 type LogoutResponse = {
   success: boolean;
 };
 
+/**
+ * @description
+ * This service provides the generic CRUD operations from the json api connector using the default
+ * endpoint 'auth'.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +49,14 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     super('auth');
   }
 
+  /**
+   * @description
+   * This function sends a request to the api to register a new user. The definition of that user,
+   * inlcuding required credentials, is provided by an object and send as the requests payload.
+   *
+   * @param userData The definition of the user to be registered.
+   * @returns `true`, if the new user was successfully registered.
+   */
   register(userData: DeepPartial<User> & { password: string; email: string; }): Observable<true> {
     return this.create<TokensWithUserResponse>(
       'register',
@@ -49,6 +75,15 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     );
   }
 
+  /**
+   * @description
+   * This function sends a request to the api to login the user with the provided credentials. It
+   * will return `true`, if the user could be signed in successfully.
+   *
+   * @param email The email address from the user.
+   * @param password The password from the user.
+   * @returns `true` if the login operation was successful.
+   */
   login(email: string, password: string): Observable<true> {
     return this.create<TokensWithUserResponse>(
       'login',
@@ -68,6 +103,14 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     );
   }
 
+  /**
+   * @description
+   * This function sends a request to the api to signout the user. This will return an observable
+   * representing the success of the logout operation and if successful all saved data will be
+   * cleared.
+   *
+   * @returns `true` if the signout was successful, otherwise `false`.
+   */
   logout(): Observable<boolean> {
     return this.create<LogoutResponse>('logout', {}).pipe(take(1), map((response) => {
       if (response.success) {
@@ -80,18 +123,36 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     }));
   }
 
+  /**
+   * @returns The stored user, otherwise `null`.
+   */
   getUser(): Nullable<string> {
     return this.sessionStorage.getUser();
   }
 
+  /**
+   * @returns The stored access token, otherwise `null`.
+   */
   getAccessToken(): Nullable<string> {
     return this.sessionStorage.getAccessToken();
   }
 
+  /**
+   * @returns The stored refresh token, otherwise `null`.
+   */
   getRefreshToken(): Nullable<string> {
     return this.sessionStorage.getRefreshToken();
   }
 
+  /**
+   * @description
+   * This function can be used to refresh the token pair, once the access token has expired.
+   *
+   * @param request The request which failed since the access token has expired.
+   * @param next The next interceptor in an interceptor chain, or the real backend if there are no
+   * further interceptors.
+   * @returns The result of the next interceptor or the real backend.
+   */
   refreshTokens(request: HttpRequest<any>, next: HttpHandlerFn) {
     if (!this.sessionStorage.getRefreshToken() || this.refreshing) return next(request);
 
@@ -100,7 +161,7 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     return this.create<TokensResponse>('refresh', {})
       .pipe(
         take(1),
-        switchMap((tokens, index) => {
+        switchMap((tokens) => {
           this.refreshing = false;
           this.sessionStorage.setAccessToken(tokens.accessToken);
           this.sessionStorage.setRefreshToken(tokens.refreshToken);
@@ -112,6 +173,15 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
       );
   }
 
+  /**
+   * @description
+   * This function tries to refresh the access and refresh token since these are not present in the
+   * service. If the user has cookies enabled the request will be automatically extended by them
+   * and the api will, if the refresh token is still valid, refresh the pair of tokens and return
+   * them here.
+   *
+   * @returns `true` if the token pair could be refreshed, otherwise `false`.
+   */
   canRefreshTokensWithCookie(): Observable<boolean> {
     return this.create<TokensWithUserResponse>('refresh', {}).pipe(
       take(1),
@@ -122,12 +192,19 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
 
         return of(true);
       }),
-      catchError((err) => {
+      catchError((_) => {
         return of(false);
       }),
     )
   }
 
+  /**
+   * @description
+   * This function checks if there is an authenticated user present and returns a boolean value
+   * representing it's findings.
+   *
+   * @returns `true` if the user is authenticated, otherwise `false`.
+   */
   isAuthenticated(): boolean {
     return this.sessionStorage.getUser() !== null;
   }

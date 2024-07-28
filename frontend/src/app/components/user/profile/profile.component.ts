@@ -15,8 +15,8 @@ import { take } from 'rxjs';
 import { Credentials, EditCredentialsComponent } from './edit-credentials/edit-credentials.component';
 import { EditPersonalInformationComponent } from './edit-personal-information/edit-personal-information.component';
 import { User } from '@Models/user';
+import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
 import { DeepPartial, Nullable } from '@Types';
-import { UndefinedStringPipe } from 'app/pipes/undefined-string.pipe';
 
 @Component({
   selector: 'hsel-profile',

@@ -1,20 +1,41 @@
 import { Injectable } from '@angular/core';
 
 import { AgChartOptions, AgCharts, AgLineSeriesTooltipRendererParams } from 'ag-charts-community';
-import { DateTime, Interval } from 'luxon';
+import { DateTime } from 'luxon';
 
+import { DateService } from './date.service';
 import { ProjectMilestone } from '@Models/project-milestone';
 import { Nullable } from '@Types';
 
+/**
+ * @description
+ * This class provides an easier access to all labels required by the x- and y-axis of the chart.
+ * In order to reduce the runtime complexity labels will be memorized, once the getter has been
+ * called for the first time.
+ */
 class Categories {
-  private dates: DateTime[];
+  private dates: DateTime[] = [];
   private xAxisLabels: string[] | null = null;
   private yAxisLabels: string[] | null = null;
 
-  constructor(dates: string[]) {
-    this.dates = dates.map((date) => DateTime.fromSQL(date));
+  constructor(dates: string[] | DateTime[]) {
+    if (dates.length > 0) {
+      if (dates[0] instanceof DateTime) {
+        this.dates = dates as DateTime[];
+      } else {
+        this.dates = (dates as string[]).map((date) => DateTime.fromSQL(date));
+      }
+    }
   }
 
+  /**
+   * @description
+   * This function maps all dates to their string representation matching the format "MM/dd".
+   * If this function is called for the first time the labels are memorized and for every other call
+   * the memorized labels will be returned.
+   *
+   * @returns This property returns all labels for the x-axis of the chart diagram.
+   */
   get xAxis(): string[] {
     if (!this.xAxisLabels) {
       this.xAxisLabels = this.dates.map((date) => date.toFormat('MM/dd'));
@@ -23,6 +44,14 @@ class Categories {
     return this.xAxisLabels;
   }
 
+  /**
+   * @description
+   * This function maps all dates to their string representation matching the format "dd.MM.yyyy".
+   * If this function is called for the first time the labels are memorized and for every other call
+   * the memorized labels will be returned.
+   *
+   * @returns This property returns all labels for the y-axis of the chart diagram.
+   */
   get yAxis(): string[] {
     if (!this.yAxisLabels) {
       this.yAxisLabels = this.dates.map((date) => date.toFormat('dd.MM.yyyy'));
@@ -31,26 +60,37 @@ class Categories {
     return this.yAxisLabels;
   }
 
+  /**
+   * @returns The amount of dates stored internally.
+   */
   get size(): number {
     return this.dates.length;
   }
 
-  indexOf(date: DateTime): number {
-    for (let i = 0; i < this.size; i++) {
-      if (this.dates[i].equals(date)) return i;
-    }
-
-    return -1;
-  }
-
-  indexOfAxisLabel(label: string, type: 'x' | 'y'): number {
-    if (type === 'x') {
+  /**
+   * @description
+   * This function returns the index of the axis label either from the x-axis or the y-axis labels.
+   *
+   * @param label The label to find.
+   * @param axisType The axis type, either `'x'` or `'y'`.
+   * @returns The index of the label from the selected axis labels.
+   */
+  indexOfAxisLabel(label: string, axisType: 'x' | 'y'): number {
+    if (axisType === 'x') {
       return this.xAxis.indexOf(label);
     }
 
     return this.yAxis.indexOf(label);
   }
 
+  /**
+   * @description
+   * This function takes an index and tries to return the corresponding label on the x-axis. If the
+   * index is out of bounds `null` is returned, otherwise the label is returned.
+   *
+   * @param index The index of the label to be selected.
+   * @returns The x-axis label, if the index is not out of bounds, otherwise `null`.
+   */
   getXAxisLabel(index: number): Nullable<string> {
     if (index === -1 || index >= this.size) return null;
 
@@ -63,57 +103,45 @@ type Options = {
   end: Nullable<string>;
   milestones: ProjectMilestone[];
   interval: number;
-  chartWidth?: string | number;
   reportDates?: string[];
 };
 
+/**
+ * @description
+ * This service wraps some functionalities of the ag-charts library. It is possible to define the
+ * required chart options through inputting a minimal amount of information.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class AgChartService {
   private chartOptions!: AgChartOptions;
 
-  constructor() {}
+  constructor(private readonly date: DateService) {}
 
+  /**
+   * @description
+   * This function takes a minimal amount of information about the project and builds the
+   * configuration of the chart. The required categories for the axes are generated and the base
+   * chart options are populated by the projects data.
+   *
+   * @param Options.start The official start date of the project.
+   * @param Options.end The official end date of the project, if already defined, otherwise `null`.
+   * @param Options.milestones An array of milestones assigned to the project.
+   * @param Options.interval The report interval for the project.
+   * @param Options.reportDates Optionally predefined report dates as a string array.
+   */
   defineOptions({
     start,
     end,
     milestones,
     interval,
-    chartWidth,
     reportDates,
   }: Options): void {
     let categories: Categories;
 
     if (!reportDates || reportDates.length === 0) {
-      const startDate = DateTime.fromSQL(start);
-      const endDate = end ? (
-        DateTime.fromSQL(end)
-      ) : (
-        DateTime.fromSQL(start).plus({ days: interval * 13 })
-      );
-
-      const reportInterval = Interval.fromDateTimes(startDate, endDate);
-
-      categories = new Categories(
-        reportInterval
-          .splitBy({ days: interval })
-          .map((date, index, arr) => {
-            if (index === arr.length - 1) return [date.start?.toISODate(), date.end?.toISODate()];
-
-            return [date.start?.toISODate()];
-          })
-          .reduce((previous, current) => {
-            previous.push(...current);
-
-            return previous;
-          }, [])
-          .filter((value, index, arr) => {
-            if (value === undefined) return false;
-
-            return arr.indexOf(value) === index;
-          }) as string[]
-      );
+      categories = new Categories(this.date.getReportDates(start, end, interval));
     } else {
       categories = new Categories(reportDates);
     }
@@ -242,10 +270,16 @@ export class AgChartService {
     };
   }
 
+  /**
+   * @returns The populated chart options.
+   */
   get options(): AgChartOptions {
     return this.chartOptions;
   }
 
+  /**
+   * @returns The chart as a base64 image data uri.
+   */
   get dataUri$(): Promise<string> {
     return AgCharts.getImageDataURL(
       AgCharts.create(this.options),

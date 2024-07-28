@@ -1,6 +1,10 @@
 import { ProjectMilestone } from './project-milestone';
 import { Nullable } from '@Types';
 
+/**
+ * @description
+ * This model represents the entity `MilestoneEstimate`.
+ */
 export class MilestoneEstimate {
   id: Nullable<string> = null;
   reportDate: Nullable<string> = null;

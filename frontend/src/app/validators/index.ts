@@ -2,8 +2,8 @@ import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@ang
 
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
-import { Nullable } from '@Types';
 import { DateService } from '@Services/date.service';
+import { Nullable } from '@Types';
 
 /**
  * @description These FormValidators extend the existing Validators from the library
@@ -12,7 +12,7 @@ import { DateService } from '@Services/date.service';
  *
  * @usageNotes
  * ### Using the validators with form controls
- * ```js
+ * ```ts
  * const control = new FormControl('', [FormValidators.required, FormValidators.phoneNumber])
  * ```
  */
@@ -27,7 +27,7 @@ export class FormValidators extends Validators {
    *
    * @usageNotes
    * ### Validate that both controls have a difference matching the interval (as number)
-   * ```js
+   * ```ts
    * const formBuilder = inject(FormBuilder); // Inside of an injection context
    * const form = formBuilder.group({
    *    controlA: [DateTime.now(), [FormValidators.required]],
@@ -36,7 +36,7 @@ export class FormValidators extends Validators {
    * ```
    *
    * ### Validate that both controls have a difference matching the interval (as string)
-   * ```js
+   * ```ts
    * const formBuilder = inject(FormBuilder); // Inside of an injection context
    * const form = formBuilder.group({
    *    controlA: [DateTime.now(), [FormValidators.required]],
@@ -92,7 +92,7 @@ export class FormValidators extends Validators {
    *
    * @usageNotes
    * ### Validate that both controls have a difference greater than zero
-   * ```js
+   * ```ts
    * const formBuilder = inject(FormBuilder); // Inside of an injection context
    * const form = formBuilder.group({
    *    controlA: [DateTime.now(), [FormValidators.required]],
@@ -134,11 +134,12 @@ export class FormValidators extends Validators {
    *
    * @usageNotes
    * ### Validate that the control is a valid phone number
-   * ```js
+   * ```ts
    * const control = new FormControl('-49 1234 1234567', [FormValidators.phoneNumber]);
    *
    * console.log(control).errors); // { phoneNumber: true }
    * ```
+   *
    * @returns
    * An error map with the property `phoneNumber` if the validation check fails, otherwise null.
    */
@@ -157,7 +158,7 @@ export class FormValidators extends Validators {
    *
    * @usageNotes
    * ### Validate that the controls have the same value
-   * ```js
+   * ```ts
    * const formBuilder = inject(FormBuilder); // Inside of an injection context
    * const form = formBuilder.group({
    *    controlA: ['', [FormValidators.required]],
@@ -166,6 +167,7 @@ export class FormValidators extends Validators {
    *
    * console.log(form.get('controlB').errors); // { matchingInputs: true }
    * ```
+   *
    * @returns
    * A validator function populated by the `controlName`. The validator function will return an
    * error map with the property `matchingInputs` if the validation check fails, otherwise null.

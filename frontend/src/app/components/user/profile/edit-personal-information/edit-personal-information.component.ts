@@ -10,10 +10,10 @@ import { take } from 'rxjs';
 
 import { User } from '@Models/user';
 import { ProfileService } from '@Services/profile.service';
-import { DeepPartial, Nullable } from '@Types';
-import { FormValidators } from '../../../../validators';
 import { SnackbarService } from '@Services/snackbar.service';
+import { DeepPartial, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
+import { FormValidators } from '@Validators';
 
 type Form = FormGroup<{
   academicTitle: FormControl<Nullable<string>>;

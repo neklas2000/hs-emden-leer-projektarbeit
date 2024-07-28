@@ -89,7 +89,6 @@ export class ReportDetailsComponent implements OnInit {
           end: project.officialEnd,
           milestones: project.milestones,
           interval: project.reportInterval,
-          chartWidth: 1000,
         });
 
         this.agChart.dataUri$

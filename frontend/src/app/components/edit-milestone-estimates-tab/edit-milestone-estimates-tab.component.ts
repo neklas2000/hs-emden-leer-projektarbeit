@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,18 +10,17 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { take } from 'rxjs';
 
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { ProjectMilestone } from '@Models/project-milestone';
-import { SnackbarService } from '@Services/snackbar.service';
-import { DialogService } from '@Services/dialog.service';
-import { ProjectMilestoneService } from '@Services/project-milestone.service';
-import { HttpException } from '@Utils/http-exception';
-import { DeepPartial } from '@Types';
-import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
-import { FormValidators } from 'app/validators';
 import { MilestoneEstimateFormFieldComponent } from '@Components/milestone-estimate-form-field/milestone-estimate-form-field.component';
-import { DatePipe } from '@angular/common';
+import { ConfirmMilestoneDeletionComponent } from '@Dialogs/confirm-milestone-deletion/confirm-milestone-deletion.component';
 import { MilestoneEstimate } from '@Models/milestone-estimate';
+import { ProjectMilestone } from '@Models/project-milestone';
+import { DialogService } from '@Services/dialog.service';
+import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
+import { ProjectMilestoneService } from '@Services/project-milestone.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { DeepPartial } from '@Types';
+import { HttpException } from '@Utils/http-exception';
+import { FormValidators } from '@Validators';
 
 type Estimate = {
   id: number;
@@ -122,14 +122,7 @@ export class EditMilestoneEstimatesTabComponent implements OnInit {
   onDiscardChanges(): void { }
 
   onMilestoneDelete(): void {
-    const dialogRef = this.dialog.open(
-      ConfirmationDialogComponent,
-      {
-        data: {
-          type: 'delete-milestone',
-        },
-      },
-    );
+    const dialogRef = this.dialog.open(ConfirmMilestoneDeletionComponent);
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((shouldDelete: boolean) => {
       if (shouldDelete) {

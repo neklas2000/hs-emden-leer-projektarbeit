@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Subscription } from 'rxjs';
 
 import { Undefinable } from '@Types';
-import { FormValidators } from '../../../../validators';
+import { FormValidators } from '@Validators';
 
 export type Credentials = {
   password: string;

@@ -28,6 +28,11 @@ import {
   userProjectsResolver,
 } from '@Resolvers';
 
+/**
+ * @description
+ * These routes are used by the `Router` to direct an user through the web application and it's
+ * pages.
+ */
 export const routes: Routes = [
   {
     path: '',

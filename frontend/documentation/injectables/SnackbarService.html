@@ -119,6 +119,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service can be used to provide the user with feedback of the success or failure from the
+operations he/she performed.</p>
+
+            </p>
 
 
 
@@ -164,7 +172,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/services/snackbar.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/services/snackbar.service.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -227,19 +235,20 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="20"
-                                    class="link-to-prism">src/app/services/snackbar.service.ts:20</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">src/app/services/snackbar.service.ts:42</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>This function opens a snack-bar to provide feedback to the user.
-For example, it can be used to show the user that a resource was successfully created, edited,
-deleted etc.
+                        <div class="io-description"><p>This function opens a snack-bar to provide feedback to the user. For example, it can be used
+to show the user that a resource was successfully created, edited, deleted etc.
 The duration is a time in milliseconds, which defines for how long the snack-bar is visible.</p>
-</div>
+<h3>Showing a snackbar with a message</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const snackbar = inject(SnackbarService); // Inside of an injection context
+snackbar.open(&#39;Hello World&#39;); // Shows the message &quot;Hello World&quot; für three seconds</code></pre></div></div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -326,8 +335,8 @@ The duration is a time in milliseconds, which defines for how long the snack-bar
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">src/app/services/snackbar.service.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/services/snackbar.service.ts:75</a></div>
                         </td>
                     </tr>
 
@@ -337,7 +346,15 @@ The duration is a time in milliseconds, which defines for how long the snack-bar
                         <div class="io-description"><p>This function opens a snack-bar to provide feedback to the user when an exception has been
 raised. It wraps the function <code>open</code> by calling it internally with the message being extended
 by the custom exception code (if present).</p>
-</div>
+<h3>Showing a snackbar with an exception code</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const snackbar = inject(SnackbarService); // Inside of an injection context
+const http = inject(HttpClient); // Inside of an injection context
+
+http.get(&#39;/api/helloworld&#39;).subscribe({
+   error: (error) =&gt; {
+     snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, new HttpException(error));
+   },
+});</code></pre></div></div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -428,10 +445,25 @@ by the custom exception code (if present).</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpException } from &#x27;@Utils/http-exception&#x27;;
-import { Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { MatSnackBar } from &#x27;@angular/material/snack-bar&#x27;;
 
+import { HttpException } from &#x27;@Utils/http-exception&#x27;;
+
+/**
+ * @description
+ * This enumeration provides default snack-bar messages for the application.
+ */
+export enum SnackbarMessage {
+  CANCELED &#x3D; &#x27;Vorgang abgebrochen&#x27;,
+  SAVE_OPERATION_FAILED &#x3D; &#x27;Speichervorgang fehlgeschlagen&#x27;,
+}
+
+/**
+ * @description
+ * This service can be used to provide the user with feedback of the success or failure from the
+ * operations he/she performed.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
@@ -439,10 +471,17 @@ export class SnackbarService {
   constructor(private readonly snackbar: MatSnackBar) { }
 
   /**
-   * This function opens a snack-bar to provide feedback to the user.
-   * For example, it can be used to show the user that a resource was successfully created, edited,
-   * deleted etc.
+   * @description
+   * This function opens a snack-bar to provide feedback to the user. For example, it can be used
+   * to show the user that a resource was successfully created, edited, deleted etc.
    * The duration is a time in milliseconds, which defines for how long the snack-bar is visible.
+   *
+   * @usageNotes
+   * ### Showing a snackbar with a message
+   * &#x60;&#x60;&#x60;ts
+   * const snackbar &#x3D; inject(SnackbarService); // Inside of an injection context
+   * snackbar.open(&#x27;Hello World&#x27;); // Shows the message &quot;Hello World&quot; für three seconds
+   * &#x60;&#x60;&#x60;
    *
    * @param message The message to be shown.
    * @param duration The amount of milliseconds to show the snack-bar - default: 3000
@@ -458,9 +497,23 @@ export class SnackbarService {
   }
 
   /**
+   * @description
    * This function opens a snack-bar to provide feedback to the user when an exception has been
    * raised. It wraps the function &#x60;open&#x60; by calling it internally with the message being extended
    * by the custom exception code (if present).
+   *
+   * @usageNotes
+   * ### Showing a snackbar with an exception code
+   * &#x60;&#x60;&#x60;ts
+   * const snackbar &#x3D; inject(SnackbarService); // Inside of an injection context
+   * const http &#x3D; inject(HttpClient); // Inside of an injection context
+   *
+   * http.get(&#x27;/api/helloworld&#x27;).subscribe({
+   *    error: (error) &#x3D;&gt; {
+   *      snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, new HttpException(error));
+   *    },
+   * });
+   * &#x60;&#x60;&#x60;
    *
    * @param message The message to be shown.
    * @param exception The exception which has been raised.

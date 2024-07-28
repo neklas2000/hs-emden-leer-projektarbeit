@@ -11,6 +11,11 @@ import { CHECKED_CHECKBOX, UNCHECKED_CHECKBOX } from '../constants';
 import { authenticationInterceptor } from '@Interceptors/authentication.interceptor';
 import { credentialsInterceptor } from '@Interceptors/credentials.interceptor';
 
+/**
+ * @description
+ * This configuration provides required modules globally so they are accessible throughout the
+ * entire application.
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
@@ -43,7 +48,7 @@ export const appConfig: ApplicationConfig = {
             breaks: false,
             pedantic: false,
           };
-        }
+        },
       },
     }),
     provideHttpClient(withInterceptors([authenticationInterceptor, credentialsInterceptor])),

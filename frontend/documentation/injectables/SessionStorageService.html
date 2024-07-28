@@ -119,6 +119,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service wraps the session storage of a browser. It can be used to store authentication
+information about the user, such as the users id and his/her token pair.</p>
+
+            </p>
 
 
 
@@ -168,24 +176,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/services/session-storage.service.ts:11</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -212,14 +202,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="15"
-                                    class="link-to-prism">src/app/services/session-storage.service.ts:15</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="22"
+                                    class="link-to-prism">src/app/services/session-storage.service.ts:22</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function clears all stored data. This could be used when a user signs out of the app.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -249,19 +241,26 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/app/services/session-storage.service.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/services/session-storage.service.ts:64</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function tries to retrieve a stored access token. If it is present the token will be
+returned, otherwise <code>null</code> is returned.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The stored access token or <code>null</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -286,19 +285,26 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">src/app/services/session-storage.service.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/services/session-storage.service.ts:85</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function tries to retrieve a stored refresh token. If it is present the token will be
+returned, otherwise <code>null</code> is returned.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The stored refresh token or <code>null</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -323,19 +329,26 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">src/app/services/session-storage.service.ts:23</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/services/session-storage.service.ts:43</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function tries to retrieve a stored user id. If it is present the id will be
+returned, otherwise <code>null</code> is returned.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The stored user id or <code>null</code>.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -360,14 +373,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/app/services/session-storage.service.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/services/session-storage.service.ts:53</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function stores an access token inside the session storage of a browser.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -378,6 +393,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -392,6 +408,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The access token to be stored.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -427,14 +447,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/services/session-storage.service.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/services/session-storage.service.ts:74</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function stores a refresh token inside the session storage of a browser.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -445,6 +467,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -459,6 +482,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The refresh token to be stored.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -494,14 +521,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="19"
-                                    class="link-to-prism">src/app/services/session-storage.service.ts:19</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/services/session-storage.service.ts:32</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This function stores an user id inside the session storage of a browser.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -512,6 +541,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -526,6 +556,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The user id to be stored.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -547,44 +581,90 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Nullable } from &#x27;@Types&#x27;;
-import { Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+
+import { Nullable } from &#x27;@Types&#x27;;
 
 const USER_KEY &#x3D; &#x27;auth-user&#x27;;
 const ACCESS_TOKEN_KEY &#x3D; &#x27;auth-access-token&#x27;;
 const REFRESH_TOKEN_KEY &#x3D; &#x27;auth-refresh-token&#x27;;
 
+/**
+ * @description
+ * This service wraps the session storage of a browser. It can be used to store authentication
+ * information about the user, such as the users id and his/her token pair.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class SessionStorageService {
-
-  constructor() { }
-
+  /**
+   * @description
+   * This function clears all stored data. This could be used when a user signs out of the app.
+   */
   clear(): void {
     window.sessionStorage.clear();
   }
 
+  /**
+   * @description
+   * This function stores an user id inside the session storage of a browser.
+   *
+   * @param id The user id to be stored.
+   */
   setUser(id: string): void {
     window.sessionStorage.setItem(USER_KEY, id);
   }
 
+  /**
+   * @description
+   * This function tries to retrieve a stored user id. If it is present the id will be
+   * returned, otherwise &#x60;null&#x60; is returned.
+   *
+   * @returns The stored user id or &#x60;null&#x60;.
+   */
   getUser(): Nullable&lt;string&gt; {
     return window.sessionStorage.getItem(USER_KEY);
   }
 
+  /**
+   * @description
+   * This function stores an access token inside the session storage of a browser.
+   *
+   * @param token The access token to be stored.
+   */
   setAccessToken(token: string): void {
     window.sessionStorage.setItem(ACCESS_TOKEN_KEY, token);
   }
 
+  /**
+   * @description
+   * This function tries to retrieve a stored access token. If it is present the token will be
+   * returned, otherwise &#x60;null&#x60; is returned.
+   *
+   * @returns The stored access token or &#x60;null&#x60;.
+   */
   getAccessToken(): Nullable&lt;string&gt; {
     return window.sessionStorage.getItem(ACCESS_TOKEN_KEY);
   }
 
+  /**
+   * @description
+   * This function stores a refresh token inside the session storage of a browser.
+   *
+   * @param token The refresh token to be stored.
+   */
   setRefreshToken(token: string): void {
     window.sessionStorage.setItem(REFRESH_TOKEN_KEY, token);
   }
 
+  /**
+   * @description
+   * This function tries to retrieve a stored refresh token. If it is present the token will be
+   * returned, otherwise &#x60;null&#x60; is returned.
+   *
+   * @returns The stored refresh token or &#x60;null&#x60;.
+   */
   getRefreshToken(): Nullable&lt;string&gt; {
     return window.sessionStorage.getItem(REFRESH_TOKEN_KEY);
   }

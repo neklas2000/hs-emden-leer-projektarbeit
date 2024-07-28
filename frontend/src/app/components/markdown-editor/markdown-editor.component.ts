@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -9,7 +8,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MarkdownComponent } from 'ngx-markdown';
 import { take } from 'rxjs';
 
-import { MarkdownEditorDialogComponent } from '../markdown-editor-dialog/markdown-editor-dialog.component';
+import { MarkdownProvideExternalUrlComponent } from '@Dialogs/markdown-provide-external-url/markdown-provide-external-url.component';
+import { DialogService } from '@Services/dialog.service';
 
 @Component({
   selector: 'hsel-markdown-editor',
@@ -47,7 +47,7 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
   private cursorPositionUpdateBlocked: boolean = false;
   private shiftPressed: boolean = false;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private readonly dialog: DialogService) { }
 
   ngAfterViewInit(): void {
     const area = this.textArea.nativeElement;
@@ -55,7 +55,9 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     this.currentCursorPosition = [-1, -1];
 
     window.addEventListener('click', (ev) => {
-      if (!area.contains(ev.target as Node) && !buttons.contains(ev.target as Node) && !this.cursorPositionUpdateBlocked) {
+      const node = ev.target as Node;
+
+      if (!area.contains(node) && !buttons.contains(node) && !this.cursorPositionUpdateBlocked) {
         this.currentCursorPosition = [-1, -1];
       }
     });
@@ -117,23 +119,13 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
       let rowsWithIndentation: string;
 
       if (selection.includes('\r\n')) {
-        rowsWithIndentation = selection.split('\r\n').map((row) => {
-          if (!this.shiftPressed) return `\t${row}`;
-
-          return row.replace('\t', '');
-        }).join('\r\n');
+        rowsWithIndentation = this.changeCRLFIndentation(selection);
       } else if (selection.includes('\n')) {
-        rowsWithIndentation = selection.split('\n').map((row) => {
-          if (!this.shiftPressed) return `\t${row}`;
-
-          return row.replace('\t', '');
-        }).join('\n');
+        rowsWithIndentation = this.changeCRIndentation(selection);
+      } else if (!this.shiftPressed) {
+        rowsWithIndentation = `\t${selection}`;
       } else {
-        if (!this.shiftPressed) {
-          rowsWithIndentation = `\t${selection}`;
-        } else {
-          rowsWithIndentation = selection.replace('\t', '');
-        }
+        rowsWithIndentation = selection.replace('\t', '');
       }
 
       this.markdown = [this.markdown.slice(0, start), rowsWithIndentation, this.markdown.slice(end)].join('');
@@ -148,6 +140,22 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
         this.onInputChange();
       }, 0);
     }
+  }
+
+  private changeCRLFIndentation(selection: string): string {
+    return selection.split('\r\n').map((row) => {
+      if (!this.shiftPressed) return `\t${row}`;
+
+      return row.replace('\t', '');
+    }).join('\r\n');
+  }
+
+  private changeCRIndentation(selection: string): string {
+    return selection.split('\n').map((row) => {
+      if (!this.shiftPressed) return `\t${row}`;
+
+      return row.replace('\t', '');
+    }).join('\n');
   }
 
   formatBold(): void {
@@ -247,7 +255,7 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     if (this.currentCursorPosition[0] < 0) return;
 
     this.cursorPositionUpdateBlocked = true;
-    const dialogRef = this.dialog.open(MarkdownEditorDialogComponent, {
+    const dialogRef = this.dialog.open(MarkdownProvideExternalUrlComponent, {
       data: {
         isImage: false,
       },
@@ -271,7 +279,7 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     if (this.currentCursorPosition[0] < 0) return;
 
     this.cursorPositionUpdateBlocked = true;
-    const dialogRef = this.dialog.open(MarkdownEditorDialogComponent, {
+    const dialogRef = this.dialog.open(MarkdownProvideExternalUrlComponent, {
       data: {
         isImage: true,
       },

@@ -12,12 +12,12 @@ import { MediaMatcher } from '@angular/cdk/layout';
 
 import { Subscription, take } from 'rxjs';
 
-import { MediaMatching } from '@Services/media-matching.service';
-import { ThemeMode, ThemeService } from '@Services/theme.service';
-import { AuthenticationService } from '@Services/authentication.service';
-import { Undefinable } from '@Types';
-import { SnackbarService } from '@Services/snackbar.service';
 import { LogoComponent } from '@Components/logo/logo.component';
+import { AuthenticationService } from '@Services/authentication.service';
+import { MediaMatching } from '@Services/media-matching.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { ThemeMode, ThemeService } from '@Services/theme.service';
+import { Undefinable } from '@Types';
 
 type NavigationItem = {
   id: number;

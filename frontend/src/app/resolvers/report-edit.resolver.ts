@@ -11,6 +11,16 @@ type Filters = {
   [field: string]: string | number;
 };
 
+/**
+ * @description
+ * This resolver resolves a specific project report in order to edit it's data.
+ *
+ * @param route The activated route snapshot.
+ * @param state The router state snapshot.
+ * @param projectReports An automatically injected service to access the resource "project/reports".
+ * @returns An observable which resolves to the correct project report or `null`, if it couldn't be
+ * found.
+ */
 export const reportEditResolver: ResolveFn<Observable<Nullable<ProjectReport>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,

@@ -244,12 +244,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(activatedRoute: ActivatedRoute, agChart: <a href="../injectables/AgChartService.html" target="_self">AgChartService</a>, pdf: <a href="../injectables/PdfService.html" target="_self">PdfService</a>, jsonApiDatastore: <a href="../injectables/JsonApiDatastore.html" target="_self">JsonApiDatastore</a>, snackbar: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
+<code>constructor(activatedRoute: ActivatedRoute, agChart: <a href="../injectables/AgChartService.html" target="_self">AgChartService</a>, pdf: <a href="../injectables/PdfService.html" target="_self">PdfService</a>, projects: <a href="../injectables/ProjectService.html" target="_self">ProjectService</a>, snackbar: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:39</a></div>
                             </td>
                         </tr>
 
@@ -303,10 +303,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>jsonApiDatastore</td>
+                                                        <td>projects</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/JsonApiDatastore.html" target="_self" >JsonApiDatastore</a></code>
+                                                                        <code><a href="../injectables/ProjectService.html" target="_self" >ProjectService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -401,8 +401,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -448,7 +448,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -474,14 +474,13 @@ import { MarkdownPipe } from &#x27;ngx-markdown&#x27;;
 import { take } from &#x27;rxjs&#x27;;
 
 import { ProjectReport } from &#x27;@Models/project-report&#x27;;
-import { Project } from &#x27;@Models/project&#x27;;
 import { ProjectRole } from &#x27;@Models/project-member&#x27;;
 import { PdfService } from &#x27;@Services/pdf.service&#x27;;
-import { JsonApiDatastore } from &#x27;@Services/json-api-datastore.service&#x27;;
 import { SnackbarService } from &#x27;@Services/snackbar.service&#x27;;
 import { Nullable } from &#x27;@Types&#x27;;
 import { HttpException } from &#x27;@Utils/http-exception&#x27;;
 import { AgChartService } from &#x27;@Services/ag-chart.service&#x27;;
+import { ProjectService } from &#x27;@Services/project.service&#x27;;
 
 @Component({
   selector: &#x27;hsel-report-details&#x27;,
@@ -506,12 +505,13 @@ export class ReportDetailsComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly agChart: AgChartService,
     private readonly pdf: PdfService,
-    private readonly jsonApiDatastore: JsonApiDatastore,
+    private readonly projects: ProjectService,
     private readonly snackbar: SnackbarService,
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.pipe(take(1))
+    this.activatedRoute.data
+      .pipe(take(1))
       .subscribe({
         next: (data: Data) &#x3D;&gt; {
           this.projectReport &#x3D; data[&#x27;report&#x27;] || null;
@@ -520,10 +520,16 @@ export class ReportDetailsComponent implements OnInit {
   }
 
   downloadPdf(): void {
-    const project$ &#x3D; this.jsonApiDatastore.load&lt;Project&gt;(
-      Project,
-      this.projectReport?.project?.id ?? null,
-      {
+    if (!this.projectReport) {
+      this.snackbar.open(&#x27;PDF kann nicht erstellt werden&#x27;);
+
+      return;
+    }
+
+    const project$ &#x3D; this.projects.read({
+      route: &#x27;:id&#x27;,
+      ids: this.projectReport.project?.id,
+      query:       {
         includes: [&#x27;owner&#x27;, &#x27;members&#x27;, &#x27;members.user&#x27;, &#x27;milestones&#x27;, &#x27;milestones.estimates&#x27;],
         sparseFieldsets: {
           members: [&#x27;id&#x27;, &#x27;role&#x27;],
@@ -531,18 +537,18 @@ export class ReportDetailsComponent implements OnInit {
           milestones: [&#x27;id&#x27;, &#x27;name&#x27;],
         },
       },
-    );
-
-    if (!project$ || !this.projectReport) {
-      this.snackbar.open(&#x27;PDF kann nicht erstellt werden&#x27;);
-
-      return;
-    }
+    });
 
     project$.pipe(take(1)).subscribe({
       next: (project) &#x3D;&gt; {
+        if (!project) {
+          this.snackbar.open(&#x27;PDF kann nicht erstellt werden&#x27;);
+
+          return;
+        }
+
         this.agChart.defineOptions({
-          start: project.officialStart,
+          start: project.officialStart!,
           end: project.officialEnd,
           milestones: project.milestones,
           interval: project.reportInterval,
@@ -564,7 +570,7 @@ export class ReportDetailsComponent implements OnInit {
               reportDate: this.projectReport?.reportDate ?? &#x27;&#x27;,
               reportEnd: project.officialEnd ?? &#x27;&#x27;,
               reportInterval: project.reportInterval,
-              reportStart: project.officialStart,
+              reportStart: project.officialStart!,
               sequenceNumber: this.projectReport?.sequenceNumber ?? NaN,
               students: project.members
                 .filter((member) &#x3D;&gt; member.role &#x3D;&#x3D;&#x3D; ProjectRole.Contributor)
@@ -577,7 +583,7 @@ export class ReportDetailsComponent implements OnInit {
           });
       },
       error: (exception: HttpException) &#x3D;&gt; {
-        console.log(exception);
+        this.snackbar.showException(&#x27;Daten konnten nicht geladen werden&#x27;, exception);
       }
     })
   }
@@ -677,7 +683,7 @@ export class ReportDetailsComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div>@if (projectReport === null) {  <p>Auf Basis der ID, die innerhalb der URL zu finden ist, konnte kein Projektbericht geladen werden.</p>} @else {  <div class="flex flex-col gap-y-4">    <mat-card>      <mat-card-content class="!flex justify-evenly">        <span>Berichtszeitpunkt: {{ projectReport.reportDate | date:\'dd.MM.yyyy\' }}</span>        <span>Folgenummer: {{ projectReport.sequenceNumber }}</span>      </mat-card-content>    </mat-card>    <mat-card>      <mat-card-header>        <mat-card-title>          Ergebnisse        </mat-card-title>      </mat-card-header>      <mat-card-content>        <div [innerHTML]="projectReport.deliverables | markdown | async"></div>      </mat-card-content>    </mat-card>    <mat-card>      <mat-card-header>        <mat-card-title>          Ziele        </mat-card-title>      </mat-card-header>      <mat-card-content>        <div [innerHTML]="projectReport.objectives | markdown | async"></div>      </mat-card-content>    </mat-card>    <mat-card>      <mat-card-header>        <mat-card-title>          Risiken        </mat-card-title>      </mat-card-header>      <mat-card-content>        <div [innerHTML]="projectReport.hazards | markdown | async"></div>      </mat-card-content>    </mat-card>    <mat-card>      <mat-card-header>        <mat-card-title>          Sonstiges        </mat-card-title>      </mat-card-header>      <mat-card-content>        <div [innerHTML]="projectReport.other || \'\' | markdown | async"></div>      </mat-card-content>    </mat-card>  </div>  <div class=\'fab-button-toolbar\'>    <button mat-fab color=\'primary\' [routerLink]="[\'edit\']">      <mat-icon>edit</mat-icon>    </button>  </div>  <button (click)="downloadPdf()" color=\'accent\' matTooltip="PDF herunterladen" class="!absolute right-4 bottom-20" mat-fab>    <mat-icon>download</mat-icon>  </button>}</div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmationDialogComponent', 'selector': 'hsel-confirmation-dialog'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InviteProjectMemberDialogComponent', 'selector': 'hsel-invite-project-member-dialog'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownEditorDialogComponent', 'selector': 'hsel-markdown-editor-dialog'},{'name': 'MilestoneEstimateFormFieldComponent', 'selector': 'hsel-milestone-estimate-form-field'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewMilestoneDialogComponent', 'selector': 'hsel-new-milestone-dialog'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ReportDetailsComponent'};
 </script>
