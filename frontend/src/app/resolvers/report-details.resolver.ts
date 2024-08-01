@@ -4,8 +4,10 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 import { Observable } from 'rxjs';
 
 import { ProjectReport } from '@Models/project-report';
+import { NotFoundService } from '@Services/not-found.service';
 import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
+import { UUID } from '@Utils/uuid';
 
 /**
  * @description
@@ -17,23 +19,30 @@ import { Nullable } from '@Types';
  * @returns An observable which resolves to the correct project report or `null`, if it couldn't be
  * found.
  */
-export const reportDetailsResolver: ResolveFn<Observable<Nullable<ProjectReport>>> = (
+export const reportDetailsResolver: ResolveFn<Nullable<Observable<Nullable<ProjectReport>>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   projectReports: ProjectReportService = inject(ProjectReportService),
+  notFound: NotFoundService = inject(NotFoundService),
 ) => {
-  const projectId = route.paramMap.get('projectId');
-  const filters: { [field: string]: string | number; } = {};
+  const { paramMap } = route;
 
-  if (projectId) {
-    filters['project.id'] = projectId;
+  const projectId = paramMap.get('projectId');
+  const reportId = paramMap.get('reportId');
+
+  if (!UUID.isWellFormed(projectId) || !UUID.isWellFormed(reportId)) {
+    notFound.emitNotFound();
+
+    return null;
   }
 
   return projectReports.read<ProjectReport>({
     route: ':id',
-    ids: route.paramMap.get('reportId') ?? undefined,
+    ids: reportId!,
     query: {
-      filters,
+      filters: {
+        'project.id': projectId,
+      },
       includes: ['project'],
     },
   });

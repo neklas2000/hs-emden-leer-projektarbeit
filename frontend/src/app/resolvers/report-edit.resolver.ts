@@ -1,15 +1,11 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { ProjectReport } from '@Models/project-report';
 import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
-
-type Filters = {
-  [field: string]: string | number;
-};
 
 /**
  * @description
@@ -26,18 +22,22 @@ export const reportEditResolver: ResolveFn<Observable<Nullable<ProjectReport>>> 
   state: RouterStateSnapshot,
   projectReports: ProjectReportService = inject(ProjectReportService),
 ) => {
-  const projectId = route.paramMap.get('projectId');
-  const filters: Filters = {};
+  const { paramMap } = route;
 
-  if (projectId) {
-    filters['project.id'] = projectId;
+  if (!paramMap.has('projectId') || !paramMap.has('reportId')) {
+    return of(null);
   }
+
+  const projectId = paramMap.get('projectId')!;
+  const reportId = paramMap.get('reportId')!;
 
   return projectReports.read<ProjectReport>({
     route: ':id',
-    ids: route.paramMap.get('reportId') ?? undefined,
+    ids: reportId,
     query: {
-      filters,
+      filters: {
+        'project.id': projectId,
+      },
     },
   });
 };

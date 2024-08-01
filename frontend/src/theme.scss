@@ -282,6 +282,7 @@ $altTheme: mat.define-dark-theme($theme-primary, $theme-accent, $theme-warn);
   justify-content: center;
   align-items: center;
   background-color: var(--mat-sidenav-content-background-color);
+  z-index: 1;
 
   @media (max-width: 599.99px) {
     bottom: 64px;

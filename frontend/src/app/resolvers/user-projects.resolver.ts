@@ -26,7 +26,9 @@ export const userProjectsResolver: ResolveFn<Observable<Project[]>> = (
 ) => {
   const userId = authentication.getUser();
 
-  if (!userId) return of([]);
+  if (!userId) {
+    return of([]);
+  }
 
   return projects.readAll('', {
     filters: {

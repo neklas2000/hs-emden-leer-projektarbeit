@@ -3,13 +3,13 @@ import { ResolveFn } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { ProjectReport } from '@Models/project-report';
 import { reportDetailsResolver } from './report-details.resolver';
+import { ProjectReport } from '@Models/project-report';
 import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
 
 describe('Resolver: reportDetailsResolver', () => {
-  const executeResolver: ResolveFn<Observable<Nullable<ProjectReport>>> = (...resolverParameters) =>
+  const executeResolver: ResolveFn<Nullable<Observable<Nullable<ProjectReport>>>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => reportDetailsResolver(...resolverParameters));
 
   beforeEach(() => {

@@ -1,3 +1,4 @@
+import { MediaMatcher } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,14 +8,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterOutlet, RouterModule, Router } from '@angular/router';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { Title } from '@angular/platform-browser';
+import { RouterOutlet, RouterModule, Router, NavigationStart } from '@angular/router';
 
 import { Subscription, take } from 'rxjs';
 
 import { LogoComponent } from '@Components/logo/logo.component';
+import { PageNotFoundComponent } from '@Components/page-not-found/page-not-found.component';
 import { AuthenticationService } from '@Services/authentication.service';
 import { MediaMatching } from '@Services/media-matching.service';
+import { NotFoundService } from '@Services/not-found.service';
 import { SnackbarService } from '@Services/snackbar.service';
 import { ThemeMode, ThemeService } from '@Services/theme.service';
 import { Undefinable } from '@Types';
@@ -25,6 +28,7 @@ type NavigationItem = {
   label: string;
   icon?: string;
   clickEvent?: () => void;
+  shouldHide?: () => boolean;
 };
 
 type NavigationGroup = {
@@ -48,6 +52,7 @@ type NavigationGroup = {
     MatListModule,
     RouterModule,
     MatDividerModule,
+    PageNotFoundComponent,
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
@@ -55,6 +60,7 @@ type NavigationGroup = {
 export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
+  navigationSuccessful: boolean = true;
   title: string = 'Meilensteintrendanalyse';
   subtitle: string = 'Hochschule Emden/Leer';
   navigationGroups: NavigationGroup[] = [
@@ -73,6 +79,9 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
           label: 'Anmelden',
           icon: 'login',
           to: '/auth/login',
+          shouldHide: () => {
+            return this.isSignedIn();
+          },
         },
         {
           id: 3,
@@ -80,7 +89,10 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
           icon: 'logout',
           clickEvent: () => {
             this.logout();
-          }
+          },
+          shouldHide: () => {
+            return !this.isSignedIn();
+          },
         },
       ],
     },
@@ -105,6 +117,8 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
   ];
   private themeMode!: ThemeMode;
   private themeSubscription: Undefinable<Subscription> = undefined;
+  private eventsSubscription: Undefinable<Subscription> = undefined;
+  private pageNotFoundSubscription: Undefinable<Subscription> = undefined;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -113,6 +127,8 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
     private readonly router: Router,
     private readonly authenticationService: AuthenticationService,
     private readonly snackbar: SnackbarService,
+    private readonly notFoundService: NotFoundService,
+    private readonly titleService: Title,
   ) {
     super(changeDetectorRef, media);
   }
@@ -121,11 +137,33 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
     this.themeSubscription = this.theme.modeStateChanged$.subscribe((mode) => {
       this.themeMode = mode;
     });
+
+    this.eventsSubscription = this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationStart) {
+        this.navigationSuccessful = true;
+      }
+    });
+
+    this.pageNotFoundSubscription = this.notFoundService.pageNotFound$.subscribe((pageNotFound) => {
+      this.navigationSuccessful = !pageNotFound;
+
+      if (!this.navigationSuccessful) {
+        this.titleService.setTitle(`404 - Page Not Found - ${this.titleService.getTitle()}`);
+      }
+    });
   }
 
   ngOnDestroy(): void {
     if (this.themeSubscription) {
       this.themeSubscription.unsubscribe();
+    }
+
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
+    }
+
+    if (this.pageNotFoundSubscription) {
+      this.pageNotFoundSubscription.unsubscribe();
     }
 
     this.destroy();
@@ -157,5 +195,9 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
         this.snackbar.open('Sie konnten nicht abgemeldet werden');
       }
     });
+  }
+
+  private isSignedIn(): boolean {
+    return this.authenticationService.isAuthenticated();
   }
 }

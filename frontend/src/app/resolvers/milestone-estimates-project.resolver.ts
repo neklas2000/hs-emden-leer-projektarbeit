@@ -4,8 +4,10 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 import { Observable } from 'rxjs';
 
 import { Project } from '@Models/project';
+import { NotFoundService } from '@Services/not-found.service';
 import { ProjectService } from '@Services/project.service';
 import { Nullable } from '@Types';
+import { UUID } from '@Utils/uuid';
 
 /**
  * @description
@@ -19,11 +21,22 @@ import { Nullable } from '@Types';
  * @returns An observable which resolves to the correct project or `null`, if it couldn't be
  * found.
  */
-export const milestoneEstimatesProjectResolver: ResolveFn<Observable<Nullable<Project>>> = (
+export const milestoneEstimatesProjectResolver: ResolveFn<Nullable<Observable<Nullable<Project>>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   projects: ProjectService = inject(ProjectService),
+  notFound: NotFoundService = inject(NotFoundService),
 ) => {
+  const { paramMap } = route;
+
+  const id = paramMap.get('id');
+
+  if (!UUID.isWellFormed(id)) {
+    notFound.emitNotFound();
+
+    return null;
+  }
+
   return projects.read<Project>({
     route: ':id',
     ids: route.paramMap.get('id') ?? undefined,

@@ -9,7 +9,7 @@ import { ProjectService } from '@Services/project.service';
 import { Nullable } from '@Types';
 
 describe('Resolver: milestoneEstimatesProjectResolver', () => {
-  const executeResolver: ResolveFn<Observable<Nullable<Project>>> = (...resolverParameters) =>
+  const executeResolver: ResolveFn<Nullable<Observable<Nullable<Project>>>> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => milestoneEstimatesProjectResolver(...resolverParameters));
 
   beforeEach(() => {

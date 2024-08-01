@@ -21,32 +21,34 @@
           </div>
 
           @for (navigationItem of navigationGroup.items; track navigationItem.id) {
-            <mat-divider></mat-divider>
-            @if (navigationItem.clickEvent) {
-              <a
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="onNavigationClick(); navigationItem.clickEvent();"
-                mat-list-item
-              >
-                <div class="flex items-center gap-x-4">
-                  <mat-icon>{{ navigationItem.icon }}</mat-icon>
-                  <h3 matLine>{{ navigationItem.label }}</h3>
-                </div>
-              </a>
-            } @else if (navigationItem.to) {
-              <a
-                [routerLink]="navigationItem.to"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="onNavigationClick()"
-                mat-list-item
-              >
-                <div class="flex items-center gap-x-4">
-                  <mat-icon>{{ navigationItem.icon }}</mat-icon>
-                  <h3 matLine>{{ navigationItem.label }}</h3>
-                </div>
-              </a>
+            @if (!(navigationItem.shouldHide && navigationItem.shouldHide())) {
+              <mat-divider></mat-divider>
+              @if (navigationItem.clickEvent) {
+                <a
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="onNavigationClick(); navigationItem.clickEvent();"
+                  mat-list-item
+                >
+                  <div class="flex items-center gap-x-4">
+                    <mat-icon>{{ navigationItem.icon }}</mat-icon>
+                    <h3 matLine>{{ navigationItem.label }}</h3>
+                  </div>
+                </a>
+              } @else if (navigationItem.to) {
+                <a
+                  [routerLink]="navigationItem.to"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="onNavigationClick()"
+                  mat-list-item
+                >
+                  <div class="flex items-center gap-x-4">
+                    <mat-icon>{{ navigationItem.icon }}</mat-icon>
+                    <h3 matLine>{{ navigationItem.label }}</h3>
+                  </div>
+                </a>
+              }
             }
           }
         }
@@ -78,7 +80,11 @@
       </button>
     </mat-toolbar>
     <main class="p-4 overflow-y-auto main-content">
-      <router-outlet></router-outlet>
+      @if (navigationSuccessful) {
+        <router-outlet></router-outlet>
+      } @else {
+        <hsel-page-not-found></hsel-page-not-found>
+      }
     </main>
     <mat-toolbar color='accent' class="flex flex-row justify-around">
       <a href="https://www.hs-emden-leer.de/generische-seiten/impressum" target="_blank">

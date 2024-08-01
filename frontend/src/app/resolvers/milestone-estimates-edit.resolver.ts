@@ -4,7 +4,10 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 import { Observable } from 'rxjs';
 
 import { ProjectMilestone } from '@Models/project-milestone';
+import { NotFoundService } from '@Services/not-found.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
+import { Nullable } from '@Types';
+import { UUID } from '@Utils/uuid';
 
 /**
  * @description
@@ -18,15 +21,26 @@ import { ProjectMilestoneService } from '@Services/project-milestone.service';
  * "project/milestones".
  * @returns An observable which resolves to all milestone estimates associated with the project.
  */
-export const milestoneEstimatesEditResolver: ResolveFn<Observable<ProjectMilestone[]>> = (
+export const milestoneEstimatesEditResolver: ResolveFn<Nullable<Observable<ProjectMilestone[]>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   projectMilestones: ProjectMilestoneService = inject(ProjectMilestoneService),
+  notFound: NotFoundService = inject(NotFoundService),
 ) => {
-  const id = route.paramMap.get('id');
+  const { paramMap } = route;
+
+  const id = paramMap.get('id');
+
+  if (!UUID.isWellFormed(id)) {
+    notFound.emitNotFound();
+
+    return null;
+  }
 
   return projectMilestones.readAll('', {
-    filters: id ? { 'project.id': id } : {},
+    filters: {
+      'project.id': id!,
+    },
     includes: ['estimates'],
   });
 };

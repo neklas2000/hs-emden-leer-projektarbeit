@@ -16,6 +16,7 @@ import {
   RegisterComponent,
   ReportDetailsComponent,
 } from '@Components';
+import { PageNotFoundComponent } from '@Components/page-not-found/page-not-found.component';
 import { authenticationGuard } from '@Guards/authentication.guard';
 import {
   milestoneEstimatesEditResolver,
@@ -134,6 +135,11 @@ export const routes: Routes = [
           report: reportEditResolver,
         },
         canActivate: [authenticationGuard],
+      },
+      {
+        path: '**',
+        component: PageNotFoundComponent,
+        title: '404 - Page Not Found',
       },
     ],
   },
