@@ -24,7 +24,7 @@ export class ProjectMember extends BaseEntityWithExtras {
 	}
 
 	static getColumns(): string[] {
-		return ['id', 'role', 'invitePending'];
+		return ['id', 'role'];
 	}
 
 	@PrimaryGeneratedUUID()
@@ -32,9 +32,6 @@ export class ProjectMember extends BaseEntityWithExtras {
 
 	@Column({ type: 'enum', enum: ProjectRole })
 	role: ProjectRole;
-
-	@Column({ name: 'invite_pending', type: 'boolean', default: true })
-	invitePending: boolean;
 
 	@ManyToOne(() => User, (user) => user.matriculationNumber)
 	user: User;

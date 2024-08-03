@@ -53,19 +53,4 @@ export class ProfileService extends JsonApiConnectorService<User> {
       },
     });
   }
-
-  /**
-   * @description
-   * This function sends a request to the api and reads the amount of pending invites associated
-   * with the authenticated user. This can then be used to check for pending invites in an interval
-   * and present the user with an information about this.
-   *
-   * @returns An observable of a number representing the amount of pending invites associated with
-   * the authenticated user.
-   */
-  getPendingInvites(): Observable<Nullable<number>> {
-    return this.read({
-      route: 'invites',
-    });
-  }
 }

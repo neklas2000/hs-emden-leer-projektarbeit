@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import {
@@ -12,6 +12,8 @@ import {
 import { ProjectMemberAlreadyExistsException } from '@Exceptions/project-member-already-exists.exception';
 import { ProjectMember } from '@Routes/ProjectMember/entities';
 import { Project } from '@Routes/Project/entities';
+import { NoAffectedRowException } from '@Exceptions/no-affected-row.exception';
+import { BadRequestException } from '@Exceptions/bad-request.exception';
 
 @Injectable()
 export class ProjectMemberService {
@@ -86,14 +88,35 @@ export class ProjectMemberService {
 		return projectMember.save();
 	}
 
-	async countInvites(userId: string): Promise<number> {
-		const projectInvitations = await this.projectMemberRepository.findBy({
-			user: {
-				id: userId,
-			},
-			invitePending: true,
-		});
+	async update(id: string, updatedFields: DeepPartial<Project>): Promise<boolean> {
+		try {
+			const updated = await this.projectMemberRepository.update({ id }, updatedFields);
 
-		return projectInvitations.length;
+			if (updated.affected && updated.affected > 0) return true;
+
+			throw new NoAffectedRowException(null);
+		} catch (exception) {
+			if (exception instanceof NoAffectedRowException) throw exception;
+
+			throw new BadRequestException(exception);
+		}
+	}
+
+	async delete(id: string): Promise<boolean> {
+		try {
+			const member = await this.findOne(id, {}, {}, {});
+
+			if (!member) {
+				throw new NotFoundException();
+			}
+
+			await member.remove();
+
+			return true;
+		} catch (exception) {
+			if (exception instanceof NoAffectedRowException) throw exception;
+
+			throw new BadRequestException(exception);
+		}
 	}
 }

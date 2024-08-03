@@ -17,7 +17,6 @@ export enum ProjectRole {
 export class ProjectMember {
   id!: string;
   role!: ProjectRole;
-  invitePending!: boolean;
   user!: User;
   project!: Project;
 }

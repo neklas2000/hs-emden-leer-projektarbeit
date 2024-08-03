@@ -17,7 +17,8 @@
     "test:ci": "jest --silent --no-watch --no-watchAll --coverage=false --runInBand",
     "schema:sync": "npx typeorm schema:sync -d build/src/type-orm.config.js",
     "migrations:generate": "npx typeorm migration:generate -d build/src/type-orm.config.js build/src/migrations/ProjektarbeitAPI",
-    "migrations:revert": "npx typeorm migration:revert -d build/src/type-orm.config.js"
+    "migrations:revert": "npx typeorm migration:revert -d build/src/type-orm.config.js",
+    "migrations:status": "npx typeorm migration:show -d build/src/type-orm.config.js"
   },
   "author": "",
   "license": "ISC",

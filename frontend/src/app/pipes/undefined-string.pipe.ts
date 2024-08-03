@@ -4,9 +4,9 @@ import { Nullable, Undefinable } from '@Types';
 
 /**
  * @description
- * This pipe takes a nullable or undefinable string literal and transforms the given value. If no
- * value is given or the literal has a length of zero a fallback literal will be returned. Otherwise
- * the given value is returned.
+ * This pipe takes a nullable or undefinable string or number literal and transforms the given
+ * value. If no value is given or the string literal has a length of zero a fallback literal will be
+ * returned. Otherwise the given value is returned.
  */
 @Pipe({
   name: 'undefinedString',
@@ -15,17 +15,21 @@ import { Nullable, Undefinable } from '@Types';
 export class UndefinedStringPipe implements PipeTransform {
   /**
    * @description
-   * This transform function takes a nullable or undefinable string literal and transforms it's
-   * value. If no value is given or the literal has a length of zero a fallback literal will be
-   * returned, otherwise the given value is returned.
+   * This transform function takes a nullable or undefinable string or number literal and transforms
+   * it's value. If no value is given or the string literal has a length of zero a fallback literal
+   * will be returned, otherwise the given value is returned.
    *
    * @param value The original value to be transformed.
    * @param fallback A fallback string literal for transformation - default: 'Nicht definiert'.
    * @returns Either the original value or the fallback string literal.
    */
-  transform(value: Nullable<Undefinable<string>>, fallback: string = 'Nicht definiert'): string {
-    if (!value || value.length === 0) return fallback;
+  transform(
+    value: Nullable<Undefinable<string | number>>,
+    fallback: string = 'Nicht definiert',
+  ): string {
+    if (!value) return fallback;
+    if (typeof value === 'string' && value.length === 0) return fallback;
 
-    return value;
+    return `${value}`;
   }
 }

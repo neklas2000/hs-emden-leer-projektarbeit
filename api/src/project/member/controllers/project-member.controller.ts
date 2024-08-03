@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 
 import { Observable, switchMap } from 'rxjs';
 import { FindOptionsWhere, FindOptionsSelect, FindOptionsRelations, DeepPartial } from 'typeorm';
@@ -10,6 +10,7 @@ import { ProjectMemberService } from '@Routes/ProjectMember/services';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 import { UserService } from '@Routes/User/services';
 import { User } from '@Routes/User/entities';
+import { Success } from '@Types/index';
 
 @UseGuards(AccessTokenGuard)
 @Controller('project/members')
@@ -65,5 +66,31 @@ export class ProjectMemberController {
 				);
 			}),
 		) as Observable<ProjectMember>;
+	}
+
+	@Patch(':id')
+	update(
+		@Param('id')
+		id: string,
+		@Body()
+		payload: DeepPartial<ProjectMember>,
+	): Observable<Success> {
+		return promiseToObservable(this.projectMemberService.update(id, payload), (result) => {
+			return {
+				success: result,
+			};
+		}) as Observable<Success>;
+	}
+
+	@Delete(':id')
+	delete(
+		@Param('id')
+		id: string,
+	): Observable<Success> {
+		return promiseToObservable(this.projectMemberService.delete(id), (result) => {
+			return {
+				success: result,
+			};
+		}) as Observable<Success>;
 	}
 }

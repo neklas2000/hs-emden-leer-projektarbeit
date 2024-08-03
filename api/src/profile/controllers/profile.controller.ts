@@ -11,15 +11,11 @@ import { Nullable, Success } from '@Types/index';
 import { User as UserEntity } from '@Routes/User/entities';
 import { Filters } from '@Decorators/filters.decorator';
 import { IncorrectCredentialsException } from '@Exceptions/incorrect-credentials.exception';
-import { ProjectMemberService } from '@Routes/Project/member/services';
 
 @UseGuards(AccessTokenGuard)
 @Controller()
 export class ProfileController {
-	constructor(
-		private readonly userService: UserService,
-		private readonly projectMemberService: ProjectMemberService,
-	) {}
+	constructor(private readonly userService: UserService) {}
 
 	@Get('profile')
 	getProfile(
@@ -33,14 +29,6 @@ export class ProfileController {
 
 			return user;
 		});
-	}
-
-	@Get('profile/invites')
-	getPendingInvites(
-		@User()
-		user: Express.User,
-	): Observable<number> {
-		return promiseToObservable(this.projectMemberService.countInvites(user['sub']));
 	}
 
 	@Get('profile/:id')
