@@ -40,3 +40,18 @@ body {
     scale: 0.9;
   }
 }
+
+.snack-bar-info {
+  border: 2px solid var(--info);
+  border-radius: var(--mdc-snackbar-container-shape);
+}
+
+.snack-bar-warning {
+  border: 2px solid var(--warning);
+  border-radius: var(--mdc-snackbar-container-shape);
+}
+
+.snack-bar-error {
+  border: 2px solid var(--warn-color);
+  border-radius: var(--mdc-snackbar-container-shape);
+}

@@ -42,7 +42,7 @@ export class ProjectsComponent implements OnInit {
 
   createNewProject(): void {
     if (!this.profile.firstName || !this.profile.lastName || !this.profile.matriculationNumber) {
-      this.snackbar.open('Für diese Aktion müssen Sie erst die persönlichen Daten angeben', 5000);
+      this.snackbar.showWarning('Für diese Aktion müssen Sie erst die persönlichen Daten angeben');
       this.router.navigateByUrl('/profile');
     } else {
       this.router.navigateByUrl('/projects/new');
