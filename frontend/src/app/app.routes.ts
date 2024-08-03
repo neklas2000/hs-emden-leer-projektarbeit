@@ -75,6 +75,7 @@ export const routes: Routes = [
         title: 'Meine Projekte',
         resolve: {
           projects: userProjectsResolver,
+          profile: profileResolver,
         },
         canActivate: [authenticationGuard],
       },

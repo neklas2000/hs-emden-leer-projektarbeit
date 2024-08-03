@@ -1,11 +1,13 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { Project } from '@Models/project';
+import { User } from '@Models/user';
+import { SnackbarService } from '@Services/snackbar.service';
 
 @Component({
   selector: 'hsel-projects',
@@ -23,13 +25,27 @@ import { Project } from '@Models/project';
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
+  private profile!: User;
 
-  constructor(private readonly activatedRoute: ActivatedRoute) {}
+  constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly snackbar: SnackbarService,
+    private readonly router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ projects }) => {
-      console.log(projects);
+    this.activatedRoute.data.subscribe(({ projects, profile }) => {
       this.projects = projects;
+      this.profile = profile;
     });
+  }
+
+  createNewProject(): void {
+    if (!this.profile.firstName || !this.profile.lastName || !this.profile.matriculationNumber) {
+      this.snackbar.open('Für diese Aktion müssen Sie erst die persönlichen Daten angeben', 5000);
+      this.router.navigateByUrl('/profile');
+    } else {
+      this.router.navigateByUrl('/projects/new');
+    }
   }
 }

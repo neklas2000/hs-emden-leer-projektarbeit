@@ -48,10 +48,10 @@ export class FullTitleNamePipe implements PipeTransform {
       parts.push(value.academicTitle);
     }
 
-    parts.push(value.firstName, value.lastName);
+    parts.push(value.firstName!, value.lastName!);
 
     if (includeMatriculationNumber) {
-      parts.push(`(${value.matriculationNumber})`);
+      parts.push(`(${value.matriculationNumber!})`);
     }
 
     return parts.join(' ');

@@ -8,9 +8,9 @@ import { Nullable } from '@Types';
 export class User {
   id: Nullable<string> = null;
   academicTitle: Nullable<string> = null;
-  matriculationNumber: number = 0;
-  firstName: string = '';
-  lastName: string = '';
+  matriculationNumber: Nullable<number> = 0;
+  firstName: Nullable<string> = '';
+  lastName: Nullable<string> = '';
   email: string = '';
   password: Nullable<string> = null;
   phoneNumber: Nullable<string> = null;
