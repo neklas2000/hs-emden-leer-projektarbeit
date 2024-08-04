@@ -260,7 +260,7 @@ export class AgChartService {
   private getTooltipRenderer(categories: Categories, customColor: string | null = null) {
     return ({ datum, xKey, yKey, color, yName }: AgLineSeriesTooltipRendererParams) => {
       const index = categories.indexOfAxisLabel(datum[xKey], 'x');
-      const estimate = `Schätzung vom ${categories.yAxis[index]}:`;
+      const estimate = `Prognose vom ${categories.yAxis[index]}:`;
       const estimatedDate = categories.yAxis[datum[yKey]];
 
       return (

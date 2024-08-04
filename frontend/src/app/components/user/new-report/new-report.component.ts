@@ -37,8 +37,12 @@ type State = {
     MarkdownEditorComponent,
     ReactiveFormsModule,
   ],
+  providers: [{
+    provide: Window,
+    useFactory: () => window,
+  }],
   templateUrl: './new-report.component.html',
-  styleUrl: './new-report.component.scss'
+  styleUrl: './new-report.component.scss',
 })
 export class NewReportComponent implements OnInit {
   private projectId!: Nullable<string>;

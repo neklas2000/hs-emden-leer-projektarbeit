@@ -1,5 +1,5 @@
 <mat-form-field class="w-full" [formGroup]="form">
-  <mat-label aria-required="true">Schätzung vom {{ estimate.reportDate | date:'dd.MM.yyyy' }}</mat-label>
+  <mat-label aria-required="true">Prognose vom {{ estimate.reportDate | date:'dd.MM.yyyy' }}</mat-label>
   <input
     [matDatepicker]="dpEstimationDate"
     [min]="minDate"
