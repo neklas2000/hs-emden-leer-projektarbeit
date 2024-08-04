@@ -1,5 +1,5 @@
 import { ApplicationConfig, SecurityContext } from '@angular/core';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
@@ -8,7 +8,7 @@ import { MARKED_OPTIONS, MarkedRenderer, provideMarkdown } from 'ngx-markdown';
 
 import { routes } from './app.routes';
 import { CHECKED_CHECKBOX, UNCHECKED_CHECKBOX } from '../constants';
-import { authenticationInterceptor } from '@Interceptors/authentication.interceptor';
+import { AuthenticationInterceptor } from '@Interceptors/authentication.interceptor';
 import { credentialsInterceptor } from '@Interceptors/credentials.interceptor';
 
 /**
@@ -51,7 +51,12 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    provideHttpClient(withInterceptors([authenticationInterceptor, credentialsInterceptor])),
+    provideHttpClient(withInterceptorsFromDi(), withInterceptors([credentialsInterceptor])),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
+    },
     provideLuxonDateAdapter({
       parse: {
         dateInput: ['dd.MM.yyyy', 'yyyy-MM-dd'],

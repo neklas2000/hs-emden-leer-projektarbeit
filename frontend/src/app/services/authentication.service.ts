@@ -1,7 +1,6 @@
-import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, catchError, map, of, switchMap, take } from 'rxjs';
+import { Observable, catchError, map, of, switchMap, take, throwError } from 'rxjs';
 
 import { JsonApiConnectorService } from './json-api-connector.service';
 import { User } from '@Models/user';
@@ -43,8 +42,6 @@ type LogoutResponse = {
   providedIn: 'root'
 })
 export class AuthenticationService extends JsonApiConnectorService<User> {
-  private refreshing: boolean = false;
-
   constructor(private readonly sessionStorage: SessionStorageService) {
     super('auth');
   }
@@ -148,27 +145,22 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
    * @description
    * This function can be used to refresh the token pair, once the access token has expired.
    *
-   * @param request The request which failed since the access token has expired.
-   * @param next The next interceptor in an interceptor chain, or the real backend if there are no
-   * further interceptors.
-   * @returns The result of the next interceptor or the real backend.
+   * @returns The new access token.
+   * @throws An error if there is no refresh token is available.
    */
-  refreshTokens(request: HttpRequest<any>, next: HttpHandlerFn) {
-    if (!this.sessionStorage.getRefreshToken() || this.refreshing) return next(request);
-
-    this.refreshing = true;
+  refreshTokens(): Observable<string> {
+    if (!this.sessionStorage.getRefreshToken()) {
+      return throwError(() => new Error('No refresh token available'));
+    }
 
     return this.create<TokensResponse>('refresh', {})
       .pipe(
         take(1),
         switchMap((tokens) => {
-          this.refreshing = false;
           this.sessionStorage.setAccessToken(tokens.accessToken);
           this.sessionStorage.setRefreshToken(tokens.refreshToken);
 
-          return next(request.clone({
-            headers: request.headers.set('Authorization', `Bearer ${tokens.accessToken}`),
-          }));
+          return tokens.accessToken;
         }),
       );
   }
