@@ -18,11 +18,31 @@ body {
   box-sizing: border-box;
 }
 
-.text-decoration-none {
+a {
   text-decoration: none;
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+body.theme-alternate {
+  a {
+    color: #7ab7ff;
+
+    &:hover {
+      color: #5e83b3;
+    }
+  }
+}
+
+body:not(.theme-alternate) {
+  a {
+    color: #2964aa;
+
+    &:hover {
+      color: #749ac8;
+    }
   }
 }
 
