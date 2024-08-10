@@ -79,13 +79,17 @@
         }
       </button>
     </mat-toolbar>
-    <main class="p-4 overflow-y-auto main-content">
+    <main
+      class="p-4 overflow-y-auto"
+      [style.height]="getContentHeight()"
+    >
       @if (navigationSuccessful) {
         <router-outlet></router-outlet>
       } @else {
         <hsel-page-not-found></hsel-page-not-found>
       }
     </main>
+    <mat-progress-bar [style.display]="isLoading ? 'block' : 'none'" mode="indeterminate"></mat-progress-bar>
     <mat-toolbar color='accent' class="flex flex-row justify-around">
       <a href="https://www.hs-emden-leer.de/generische-seiten/impressum" target="_blank">
         Impressum

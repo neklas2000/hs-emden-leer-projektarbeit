@@ -5,11 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
-import { RouterOutlet, RouterModule, Router, NavigationStart } from '@angular/router';
+import { RouterOutlet, RouterModule, Router, NavigationStart, NavigationEnd } from '@angular/router';
 
 import { Subscription, take } from 'rxjs';
 
@@ -51,6 +52,7 @@ type NavigationGroup = {
     MatTooltipModule,
     MatListModule,
     RouterModule,
+    MatProgressBarModule,
     MatDividerModule,
     PageNotFoundComponent,
   ],
@@ -61,6 +63,7 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   navigationSuccessful: boolean = true;
+  isLoading: boolean = false;
   title: string = 'Meilensteintrendanalyse';
   subtitle: string = 'Hochschule Emden/Leer';
   navigationGroups: NavigationGroup[] = [
@@ -141,6 +144,9 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
     this.eventsSubscription = this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationStart) {
         this.navigationSuccessful = true;
+        this.isLoading = true;
+      } else if (ev instanceof NavigationEnd) {
+        this.isLoading = false;
       }
     });
 
@@ -199,5 +205,21 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
 
   private isSignedIn(): boolean {
     return this.authenticationService.isAuthenticated();
+  }
+
+  getContentHeight(): string {
+    const heights = ['100vh'];
+
+    if (this.match('lt-xs')) {
+      heights.push('var(--mat-toolbar-mobile-height)', 'var(--mat-toolbar-mobile-height)');
+    } else {
+      heights.push('var(--mat-toolbar-standard-height)', 'var(--mat-toolbar-standard-height)');
+    }
+
+    if (this.isLoading) {
+      heights.push('max(var(--mdc-linear-progress-track-height), var(--mdc-linear-progress-active-indicator-height))');
+    }
+
+    return `calc(${heights.join(' - ')})`;
   }
 }
