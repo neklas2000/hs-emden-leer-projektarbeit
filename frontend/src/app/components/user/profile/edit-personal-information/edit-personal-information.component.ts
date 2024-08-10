@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,7 +38,7 @@ type Form = FormGroup<{
   templateUrl: './edit-personal-information.component.html',
   styleUrl: './edit-personal-information.component.scss'
 })
-export class EditPersonalInformationComponent implements OnInit, OnChanges {
+export class EditPersonalInformationComponent implements OnInit {
   @Input() profile!: DeepPartial<User>;
   @Output() onCancel: EventEmitter<void> = new EventEmitter();
   @Output() onSubmit: EventEmitter<DeepPartial<User>> = new EventEmitter();
@@ -64,10 +64,6 @@ export class EditPersonalInformationComponent implements OnInit, OnChanges {
       matriculationNumber: this.profile.matriculationNumber ?? null,
       phoneNumber: this.profile.phoneNumber ?? null,
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges', changes);
   }
 
   saveChanges(): void {
