@@ -4,11 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { take } from 'rxjs';
 
@@ -17,6 +17,12 @@ import { EditPersonalInformationComponent } from './edit-personal-information/ed
 import { User } from '@Models/user';
 import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
 import { DeepPartial, Nullable } from '@Types';
+import { ConfirmProfileDeletionComponent } from '@Components/dialog/confirm-profile-deletion/confirm-profile-deletion.component';
+import { DialogService } from '@Services/dialog.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
+import { UserService } from '@Services/user.service';
+import { HttpException } from '@Utils/http-exception';
+import { AuthenticationService } from '@Services/authentication.service';
 
 @Component({
   selector: 'hsel-profile',
@@ -31,6 +37,7 @@ import { DeepPartial, Nullable } from '@Types';
     MatSelectModule,
     MatIconModule,
     MatListModule,
+    MatTooltipModule,
     EditPersonalInformationComponent,
     UndefinedStringPipe,
   ],
@@ -43,7 +50,11 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly dialog: MatDialog,
+    private readonly dialog: DialogService,
+    private readonly snackbar: SnackbarService,
+    private readonly users: UserService,
+    private readonly auth: AuthenticationService,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -78,8 +89,6 @@ export class ProfileComponent implements OnInit {
         type: Credentials.EMAIL,
         userId: this.profile.id,
       },
-      minWidth: '60dvw',
-      maxWidth: '80dvw',
     });
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((result: Nullable<string>) => {
@@ -95,8 +104,35 @@ export class ProfileComponent implements OnInit {
         type: Credentials.PASSWORD,
         userId: this.profile.id,
       },
-      minWidth: '60dvw',
-      maxWidth: '80dvw',
+    });
+  }
+
+  deleteProfile(): void {
+    const dialogRef = this.dialog.open(ConfirmProfileDeletionComponent);
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((shouldDelete: boolean) => {
+      if (shouldDelete) {
+        this.deleteUsersProfile();
+      } else {
+        this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_CANCELED);
+      }
+    });
+  }
+
+  private deleteUsersProfile(): void {
+    this.users.delete().subscribe({
+      next: (deletionSuccessful) => {
+        if (!deletionSuccessful) {
+          this.snackbar.showError(SnackbarMessage.DELETE_OPERATION_FAILED);
+        } else {
+          this.auth.clear();
+          this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_SUCCEEDED);
+          this.router.navigateByUrl('/');
+        }
+      },
+      error: (exception: HttpException) => {
+        this.snackbar.showException(SnackbarMessage.DELETE_OPERATION_FAILED, exception);
+      },
     });
   }
 }

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>
+  Profil löschen?
+</h1>
+<div mat-dialog-content>
+  Wollen Sie Ihr Profil wirklich unwiderruflich löschen?
+</div>
+<div mat-dialog-actions>
+  <button (click)='onCancel()' mat-button cdkFocusInitial>Nein</button>
+  <button [mat-dialog-close]='true' mat-button>
+    Ja, unwiderruflich löschen
+  </button>
+</div>

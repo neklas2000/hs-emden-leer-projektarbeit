@@ -1,78 +1,84 @@
-@if (!profile) {
-  <p>Ihr Profil konnte nicht geladen werden.</p>
-} @else {
-  <mat-card class="max-w-3/4 mx-auto my-0">
-    <mat-card-header>
-      <mat-card-title>Persönliche Informationen</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="mt-2">
-      @if (isEditingPersonalInformationActivated) {
-        <hsel-edit-personal-information
-          [profile]="profile"
-          (onCancel)="cancelEditPersonalInformation()"
-          (onSubmit)="saveEditedPersonalInformation($event)">
-        </hsel-edit-personal-information>
-      } @else {
-        <div class="flex flex-col gap-y-2">
-          <mat-list>
-            <mat-list-item>
-              <span matListItemTitle>
-                <strong>Akademischer Titel:</strong> {{ profile.academicTitle | undefinedString }}
-              </span>
-            </mat-list-item>
-            <mat-list-item>
-              <span matListItemTitle>
-                <strong>Vorname:</strong> {{ profile.firstName | undefinedString }}
-              </span>
-            </mat-list-item>
-            <mat-list-item>
-              <span matListItemTitle>
-                <strong>Nachname:</strong> {{ profile.lastName | undefinedString }}
-              </span>
-            </mat-list-item>
-            <mat-list-item>
-              <span matListItemTitle>
-                <strong>Matrikelnummer:</strong> {{ profile.matriculationNumber | undefinedString }}
-              </span>
-            </mat-list-item>
-            <mat-list-item>
-              <span matListItemTitle>
-                <strong>Telefonnummer:</strong> {{ profile.phoneNumber | undefinedString }}
-              </span>
-            </mat-list-item>
-          </mat-list>
-        </div>
-      }
-    </mat-card-content>
-    @if (!isEditingPersonalInformationActivated) {
-      <mat-card-actions align="end">
-        <button color="primary" (click)="editPersonalInformation()" mat-button>Bearbeiten</button>
-      </mat-card-actions>
+<mat-card class="max-w-3/4 mx-auto my-0">
+  <mat-card-header>
+    <mat-card-title>Persönliche Informationen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    @if (isEditingPersonalInformationActivated) {
+      <hsel-edit-personal-information
+        [profile]="profile"
+        (onCancel)="cancelEditPersonalInformation()"
+        (onSubmit)="saveEditedPersonalInformation($event)">
+      </hsel-edit-personal-information>
+    } @else {
+      <div class="flex flex-col gap-y-2">
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>
+              <strong>Akademischer Titel:</strong> {{ profile.academicTitle | undefinedString }}
+            </span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>
+              <strong>Vorname:</strong> {{ profile.firstName | undefinedString }}
+            </span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>
+              <strong>Nachname:</strong> {{ profile.lastName | undefinedString }}
+            </span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>
+              <strong>Matrikelnummer:</strong> {{ profile.matriculationNumber | undefinedString }}
+            </span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>
+              <strong>Telefonnummer:</strong> {{ profile.phoneNumber | undefinedString }}
+            </span>
+          </mat-list-item>
+        </mat-list>
+      </div>
     }
-  </mat-card>
-  <mat-card class="max-w-3/4 mx-auto my-0 mt-4">
-    <mat-card-header>
-      <mat-card-title>Anmeldedaten</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="mt-2">
-      <mat-list>
-        <mat-list-item>
-          <span class="flex flex-row justify-between items-center" matListItemTitle>
-            <span><strong>E-Mail-Adresse:</strong> {{ profile.email }}</span>
-            <button (click)="editEmail()" mat-icon-button>
-              <mat-icon>edit</mat-icon>
-            </button>
-          </span>
-        </mat-list-item>
-        <mat-list-item>
-          <span class="flex flex-row justify-between items-center" matListItemTitle>
-            <span><strong>Passwort:</strong> ******</span>
-            <button (click)="editPassword()" mat-icon-button>
-              <mat-icon>edit</mat-icon>
-            </button>
-          </span>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
-}
+  </mat-card-content>
+  @if (!isEditingPersonalInformationActivated) {
+    <mat-card-actions align="end">
+      <button color="primary" (click)="editPersonalInformation()" mat-button>Bearbeiten</button>
+    </mat-card-actions>
+  }
+</mat-card>
+<mat-card class="max-w-3/4 mx-auto my-0 mt-4">
+  <mat-card-header>
+    <mat-card-title>Anmeldedaten</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <mat-list>
+      <mat-list-item>
+        <span class="flex flex-row justify-between items-center" matListItemTitle>
+          <span><strong>E-Mail-Adresse:</strong> {{ profile.email }}</span>
+          <button (click)="editEmail()" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </span>
+      </mat-list-item>
+      <mat-list-item>
+        <span class="flex flex-row justify-between items-center" matListItemTitle>
+          <span><strong>Passwort:</strong> ******</span>
+          <button (click)="editPassword()" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<div class='fab-button-toolbar'>
+  <button
+    matTooltip="Profil unwiderruflich löschen"
+    color='primary'
+    (click)="deleteProfile()"
+    mat-fab
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
