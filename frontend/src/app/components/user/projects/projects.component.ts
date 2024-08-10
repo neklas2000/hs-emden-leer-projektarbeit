@@ -7,6 +7,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { Project } from '@Models/project';
 import { User } from '@Models/user';
+import { ProjectTypePipe } from '@Pipes/project-type.pipe';
 import { SnackbarService } from '@Services/snackbar.service';
 
 @Component({
@@ -15,6 +16,7 @@ import { SnackbarService } from '@Services/snackbar.service';
   imports: [
     CommonModule,
     DatePipe,
+    ProjectTypePipe,
     MatButtonModule,
     MatIconModule,
     MatListModule,

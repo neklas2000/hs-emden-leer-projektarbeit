@@ -3,7 +3,7 @@
     <a [routerLink]="['/projects', project.id]" mat-list-item>
       <span matListItemTitle>{{ project.name }}</span>
       <span matListItemLine>
-        vom Typ "{{ project.type }}" -
+        {{ project.type | projectType }}
         Gestartet am: {{ project.officialStart | date:'dd.MM.yyyy' }} -
         @if (project.officialEnd) {
           Beendet am: {{ project.officialEnd | date:'dd.MM.yyyy' }} -
