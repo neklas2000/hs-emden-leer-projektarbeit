@@ -12,12 +12,12 @@ import { Test } from '@nestjs/testing';
 
 import { ExtractJwt } from 'passport-jwt';
 
-import { AccessTokenStrategy } from './access-token.strategy';
-import { TokenWhitelistService } from '@Routes/Authentication/services';
-import { provideTokenWhitelistRepository } from '@Mocks/Providers/token-whitelist-repository.provider';
-import { ACCESS_TOKEN_COOKIE } from '@Tokens/index';
-import { DateService } from '@Services/date.service';
 import { CryptoService } from '@Services/crypto.service';
+import { DateService } from '@Services/date.service';
+import { TokenWhitelistService } from '@Services/token-whitelist.service';
+import { AccessTokenStrategy } from '@Strategies/access-token.strategy';
+import { provideTokenWhitelistRepository } from '@Test/Providers/token-whitelist-repository.provider';
+import { ACCESS_TOKEN_COOKIE } from '@Tokens/access-token-cookie';
 
 describe('Strategy: AccessTokenStrategy', () => {
 	const PREVIOUS_PROCESS_ENVIRONMENT = process.env;

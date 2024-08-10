@@ -12,12 +12,12 @@ import { Test } from '@nestjs/testing';
 
 import { ExtractJwt } from 'passport-jwt';
 
-import { TokenWhitelistService } from '@Routes/Authentication/services';
-import { provideTokenWhitelistRepository } from '@Mocks/Providers/token-whitelist-repository.provider';
-import { REFRESH_TOKEN_COOKIE } from '@Tokens/index';
-import { RefreshTokenStrategy } from './refresh-token.strategy';
-import { DateService } from '@Services/date.service';
 import { CryptoService } from '@Services/crypto.service';
+import { DateService } from '@Services/date.service';
+import { TokenWhitelistService } from '@Services/token-whitelist.service';
+import { RefreshTokenStrategy } from '@Strategies/refresh-token.strategy';
+import { provideTokenWhitelistRepository } from '@Test/Providers/token-whitelist-repository.provider';
+import { REFRESH_TOKEN_COOKIE } from '@Tokens/refresh-token-cookie';
 
 describe('Strategy: RefreshTokenStrategy', () => {
 	const PREVIOUS_PROCESS_ENVIRONMENT = process.env;

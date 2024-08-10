@@ -2,7 +2,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 
-import { AllExceptionsFilter } from './all-exceptions.filter';
+import { AllExceptionsFilter } from '@Filters/all-exceptions.filter';
 import { DateService } from '@Services/date.service';
 
 describe('Filter: AllExceptionsFilter', () => {

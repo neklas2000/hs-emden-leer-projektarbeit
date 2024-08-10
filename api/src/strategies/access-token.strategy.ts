@@ -5,9 +5,9 @@ import { Request } from 'express';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import env from '@Environment';
-import { TokenWhitelistService } from '@Routes/Authentication/services';
-import { ACCESS_TOKEN_COOKIE } from '@Tokens/index';
-import { Nullable } from '@Types/index';
+import { TokenWhitelistService } from '@Services/token-whitelist.service';
+import { ACCESS_TOKEN_COOKIE } from '@Tokens/access-token-cookie';
+import { Nullable } from '@Types/nullable';
 
 type JwtPayload = {
 	sub: string;

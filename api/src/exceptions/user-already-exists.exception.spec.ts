@@ -1,4 +1,4 @@
-import { UserAlreadyExistsException } from './user-already-exists.exception';
+import { UserAlreadyExistsException } from '@Exceptions/user-already-exists.exception';
 
 describe('Exception: UserAlreadyExistsException', () => {
 	it('should throw a UserAlreadyExistsException with the correct content', () => {

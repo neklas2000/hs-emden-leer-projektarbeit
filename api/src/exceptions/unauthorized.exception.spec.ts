@@ -1,4 +1,4 @@
-import { UnauthorizedException } from './unauthorized.exception';
+import { UnauthorizedException } from '@Exceptions/unauthorized.exception';
 
 describe('Exception: UnauthorizedException', () => {
 	it('should throw a UnauthorizedException with the correct content', () => {

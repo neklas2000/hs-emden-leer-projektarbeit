@@ -1,4 +1,4 @@
-import { NoAffectedRowException } from './no-affected-row.exception';
+import { NoAffectedRowException } from '@Exceptions/no-affected-row.exception';
 
 describe('Exception: NoAffectedRowException', () => {
 	it('should throw a NoAffectedRowException with the correct content', () => {

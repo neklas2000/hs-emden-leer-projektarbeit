@@ -1,4 +1,4 @@
-import { BadRequestException } from './bad-request.exception';
+import { BadRequestException } from '@Exceptions/bad-request.exception';
 
 describe('Exception: BadRequestException', () => {
 	it('should throw a BadRequestException with the correct content', () => {

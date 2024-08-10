@@ -3,13 +3,13 @@ dotenv.config();
 
 import { DataSourceOptions } from 'typeorm';
 
-import { MilestoneEstimate } from '@Routes/MilestoneEstimate/entities';
-import { Project } from '@Routes/Project/entities';
-import { ProjectMember } from '@Routes/ProjectMember/entities';
-import { ProjectMilestone } from '@Routes/ProjectMilestone/entities';
-import { ProjectReport } from '@Routes/ProjectReport/entities';
-import { TokenWhitelist } from '@Routes/Authentication/entities';
-import { User } from '@Routes/User/entities';
+import { MilestoneEstimate } from '@Entities/milestone-estimate';
+import { Project } from '@Entities/project';
+import { ProjectMember } from '@Entities/project-member';
+import { ProjectMilestone } from '@Entities/project-milestone';
+import { ProjectReport } from '@Entities/project-report';
+import { TokenWhitelist } from '@Entities/token-whitelist';
+import { User } from '@Entities/user';
 
 export default {
 	type: 'mariadb',

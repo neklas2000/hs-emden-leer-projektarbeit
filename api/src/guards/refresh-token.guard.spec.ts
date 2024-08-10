@@ -1,4 +1,4 @@
-import { RefreshTokenGuard } from './refresh-token.guard';
+import { RefreshTokenGuard } from '@Guards/refresh-token.guard';
 
 describe('Guard: RefreshTokenGuard', () => {
 	it('should be created', () => {

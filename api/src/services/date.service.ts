@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { DateTime } from 'luxon';
 
+const TIME_ZONE = 'Europe/Berlin';
+
 @Injectable()
 export class DateService {
 	/**
@@ -32,7 +34,7 @@ export class DateService {
 		const unit = offsetWithUnit.replace(offset.toString(), '');
 
 		return DateTime.local()
-			.setZone('Europe/Berlin')
+			.setZone(TIME_ZONE)
 			.plus(offset * (this.UNITS[unit] ?? 1))
 			.toJSDate();
 	}
@@ -57,7 +59,30 @@ export class DateService {
 		const jsDate = this.getExpirationDateWithOffset(offsetWithUnit);
 
 		return DateTime.fromJSDate(jsDate)
-			.setZone('Europe/Berlin')
+			.setZone(TIME_ZONE)
 			.toFormat('yyyy-MM-dd HH:mm:ss', { locale: 'de-DE' });
+	}
+
+	isAfterCurrentTimestamp(timestamp: string | Date): boolean {
+		let date: string;
+
+		if (timestamp instanceof Date) {
+			date = DateTime.fromJSDate(timestamp)
+				.setZone(TIME_ZONE)
+				.toFormat('yyyy-MM-dd HH:mm:ss', { locale: 'de-DE' });
+		} else {
+			date = timestamp;
+		}
+
+		const given = DateTime.fromFormat(date, 'yyyy-MM-dd HH:mm:ss', {
+			locale: 'de-DE',
+		}).setZone(TIME_ZONE);
+		const now = DateTime.fromFormat(
+			this.getCurrentTimestampWithOffset('0m'),
+			'yyyy-MM-dd HH:mm:ss',
+			{ locale: 'de-DE' },
+		).setZone(TIME_ZONE);
+
+		return given.diff(now).toObject().milliseconds > 0;
 	}
 }

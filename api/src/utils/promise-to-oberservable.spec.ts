@@ -1,6 +1,6 @@
 import { Observable, take } from 'rxjs';
 
-import { promiseToObservable } from './promise-to-oberservable';
+import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 type ChangedSuccessResponse = {
 	success: boolean;
@@ -42,29 +42,25 @@ describe('Util: promiseToObservable', () => {
 		});
 	});
 
-	it('should turn a promise into an observable with an error handler', (done) => {
-		const source$ = Promise.reject('exception');
-		const errorHandler = jest.fn((exception: string) => ({
-			message: exception,
-		}));
-		const observable$ = promiseToObservable(
-			source$,
-			undefined,
-			errorHandler,
-		);
+	it('should turn a promise into an observable with a error handler', (done) => {
+		const source$ = async () => {
+			throw new Error('exception');
+		};
 
-		expect(source$).toBeInstanceOf(Promise);
-		expect(observable$).toBeInstanceOf(Observable);
+		promiseToObservable(source$(), null, (exception: Error) => {
+			return {
+				message: exception.message,
+			};
+		})
+			.pipe(take(1))
+			.subscribe({
+				error: (err) => {
+					expect(err).toEqual({
+						message: 'exception',
+					});
 
-		observable$.pipe(take(1)).subscribe({
-			error: (exception) => {
-				expect(errorHandler).toHaveBeenCalledWith('exception');
-				expect(exception).toEqual({
-					message: 'exception',
-				});
-
-				done();
-			},
-		});
+					done();
+				},
+			});
 	});
 });

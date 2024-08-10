@@ -1,4 +1,4 @@
-import { userFactory } from './user.decorator';
+import { userFactory } from '@Decorators/user.decorator';
 
 describe('Decorator: User', () => {
 	it('should return the value of the requests property "user"', () => {

@@ -4,15 +4,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
 import config from './config';
-import { AuthenticationModule } from '@Routes/Authentication/authentication.module';
-import { MilestoneEstimateModule } from '@Routes/MilestoneEstimate/milestone-estimate.module';
-import { ProfileModule } from '@Routes/Profile/profile.module';
-import { ProjectMemberModule } from '@Routes/ProjectMember/project-member.module';
-import { ProjectMilestoneModule } from '@Routes/ProjectMilestone/project-milestone.module';
-import { ProjectModule } from '@Routes/Project/project.module';
-import { ProjectReportModule } from '@Routes/ProjectReport/project-report.module';
-import { UserModule } from '@Routes/User/user.module';
-import { ServicesModule } from '@Services/services.module';
+import { AuthenticationModule } from '@Modules/authentication.module';
+import { MilestoneEstimateModule } from '@Modules/milestone-estimate.module';
+import { ProfileModule } from '@Modules/profile.module';
+import { ProjectModule } from '@Modules/project.module';
+import { ProjectMemberModule } from '@Modules/project-member.module';
+import { ProjectMilestoneModule } from '@Modules/project-milestone.module';
+import { ProjectReportModule } from '@Modules/project-report.module';
+import { UserModule } from '@Modules/user.module';
 
 @Module({
 	imports: [
@@ -27,7 +26,6 @@ import { ServicesModule } from '@Services/services.module';
 		ProjectModule,
 		ProjectReportModule,
 		UserModule,
-		ServicesModule,
 	],
 })
 export class AppModule {

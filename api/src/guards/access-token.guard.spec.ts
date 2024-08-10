@@ -1,4 +1,4 @@
-import { AccessTokenGuard } from './access-token.guard';
+import { AccessTokenGuard } from '@Guards/access-token.guard';
 
 describe('Guard: AccessTokenGuard', () => {
 	it('should be created', () => {

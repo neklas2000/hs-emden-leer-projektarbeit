@@ -1,4 +1,4 @@
-import { sparseFieldsetsFactory } from './sparse-fieldsets.decorator';
+import { sparseFieldsetsFactory } from '@Decorators/sparse-fieldsets.decorator';
 
 describe('Decorator: SparseFieldsets', () => {
 	it('should return all fields which were requested', () => {

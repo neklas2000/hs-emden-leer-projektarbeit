@@ -1,4 +1,4 @@
-import { BaseException } from './base.exception';
+import { BaseException } from '@Exceptions/base.exception';
 
 describe('Exception: BaseException', () => {
 	it('should throw a BaseException with the correct content and extend the HttpException', () => {

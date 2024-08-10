@@ -1,4 +1,4 @@
-import { filtersFactory } from './filters.decorator';
+import { filtersFactory } from '@Decorators/filters.decorator';
 
 describe('Decorator: Filters', () => {
 	it('should return all conditions', () => {

@@ -1,6 +1,6 @@
 import { Entity, getMetadataArgsStorage } from 'typeorm';
 
-import { PrimaryGeneratedUUID } from './primary-generated-uuid.decorator';
+import { PrimaryGeneratedUUID } from '@Decorators/primary-generated-uuid.decorator';
 
 describe('Decorator: PrimaryGeneratedUUID', () => {
 	it('should have an property of a primary generated uuid', () => {

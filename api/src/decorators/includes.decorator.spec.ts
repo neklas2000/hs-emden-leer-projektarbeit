@@ -1,4 +1,4 @@
-import { includesFactory } from './includes.decorator';
+import { includesFactory } from '@Decorators/includes.decorator';
 
 describe('Decorator: Includes', () => {
 	it('should return all relations based on a single string', () => {

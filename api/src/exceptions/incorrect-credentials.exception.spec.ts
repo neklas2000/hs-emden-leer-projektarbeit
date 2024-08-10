@@ -1,4 +1,4 @@
-import { IncorrectCredentialsException } from './incorrect-credentials.exception';
+import { IncorrectCredentialsException } from '@Exceptions/incorrect-credentials.exception';
 
 describe('Exception: IncorrectCredentialsException', () => {
 	it('should throw a IncorrectCredentialsException with the correct content', () => {

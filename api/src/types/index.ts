@@ -1,5 +1,0 @@
-export type Nullable<T> = T | null;
-
-export type Success = {
-	success: boolean;
-};
