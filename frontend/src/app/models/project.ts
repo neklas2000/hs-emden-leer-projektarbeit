@@ -14,7 +14,7 @@ export class Project {
   officialStart: Nullable<string> = null;
   officialEnd: Nullable<string> = null;
   reportInterval: number = 7;
-  type!: string;
+  type!: Nullable<string>;
   owner!: User;
   members: ProjectMember[] = [];
   reports: ProjectReport[] = [];
