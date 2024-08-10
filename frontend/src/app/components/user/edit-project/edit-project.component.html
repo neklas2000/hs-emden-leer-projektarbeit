@@ -1,1 +1,65 @@
-<p>edit-project works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Basisdetails
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-form-field class="w-full">
+        <mat-label aria-required="true">Projektname</mat-label>
+        <input formControlName="name" type="text" matInput required />
+        @if (form.get('name')?.hasError('required')) {
+          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label aria-required="true">Berichtsintervall</mat-label>
+        <input formControlName="interval" type="number" min="1" step="1" matInput required />
+        @if (form.get('interval')?.hasError('required')) {
+          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+        } @else if (form.get('interval')?.hasError('min')) {
+          <mat-error>Für den Berichtsintervall kann minimal der Wert 1 angegeben werden</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Projekttyp</mat-label>
+        <input formControlName="type" type="text" matInput />
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label aria-required="true">Projektstart</mat-label>
+        <input [matDatepicker]="dpProjectStart" formControlName="startDate" matInput required />
+        <mat-datepicker-toggle [for]="dpProjectStart" matIconSuffix></mat-datepicker-toggle>
+        <mat-datepicker #dpProjectStart></mat-datepicker>
+        @if (form.get('startDate')?.hasError('required')) {
+          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+        }
+        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Projektende</mat-label>
+        <input [matDatepickerFilter]="boundFilterEndDate" [matDatepicker]="dpProjectEnd" formControlName="endDate" matInput />
+        <mat-datepicker-toggle [for]="dpProjectEnd" matIconSuffix></mat-datepicker-toggle>
+        <mat-datepicker #dpProjectEnd></mat-datepicker>
+        @if (form.get('endDate')?.hasError('behindDate')) {
+          <mat-error>Das Projektende kann nicht vor dem Projektstart liegen</mat-error>
+        } @else if (form.get('endDate')?.hasError('matchesInterval')) {
+          <mat-error>Das Projektende muss mindestens um ein Intervall nach dem Projektstart liegen</mat-error>
+        }
+        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+<div class="mt-8 flex flex-row gap-x-4 justify-end">
+  <button color="accent" (click)="onCancelClick()" mat-raised-button>Änderungen verwerfen</button>
+  <button
+    color="primary"
+    [disabled]="form.invalid"
+    type="submit"
+    (click)="onSubmitClick()"
+    mat-raised-button
+  >
+    Änderungen speichern
+  </button>
+</div>
