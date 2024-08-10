@@ -10,7 +10,10 @@ import { HttpException } from '@Utils/http-exception';
  */
 export enum SnackbarMessage {
   CANCELED = 'Vorgang abgebrochen',
+  DELETE_OPERATION_CANCELED = 'Löschvorgang abgebrochen',
   SAVE_OPERATION_FAILED = 'Speichervorgang fehlgeschlagen',
+  DELETE_OPERATION_FAILED = 'Löschvorgang fehlgeschlagen',
+  DELETE_OPERATION_SUCCEEDED = 'Löschvorgang erfolgreich',
 }
 
 /**

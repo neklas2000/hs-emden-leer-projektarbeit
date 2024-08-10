@@ -137,8 +137,8 @@ export class JsonApiConnectorService<T> {
    * requested from the api.
    * @returns An observable resolving to the found data records or an empty array.
    */
-  readAll<T_RETURN = T>(route: string, query?: JsonApiQueries): Observable<T_RETURN[]> {
-    const uri = this.getUri(route) + this.parseJsonApiQuery(query);
+  readAll<T_RETURN = T>(route?: string, query?: JsonApiQueries, ids?: RequestIds | string): Observable<T_RETURN[]> {
+    const uri = this.getUri(this.replaceIds(route, ids)) + this.parseJsonApiQuery(query);
 
     return this.httpClient.get<T_RETURN[]>(uri)
       .pipe(catchError((err) => {
@@ -231,7 +231,7 @@ export class JsonApiConnectorService<T> {
    * @param ids The id either as a string or a map of multiple ids if the `route` consists of more.
    * @returns An observable with a boolean value indicating if the deletion was successful.
    */
-  delete(route: string, ids: RequestIds | string): Observable<boolean> {
+  delete(route?: string, ids?: RequestIds | string): Observable<boolean> {
     const uri = this.getUri(this.replaceIds(route, ids));
 
     return this.httpClient.delete<SuccessResponse>(uri)

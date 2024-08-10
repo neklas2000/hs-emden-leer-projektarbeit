@@ -111,7 +111,7 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
   logout(): Observable<boolean> {
     return this.create<LogoutResponse>('logout', {}).pipe(take(1), map((response) => {
       if (response.success) {
-        this.sessionStorage.clear();
+        this.clear();
 
         return true;
       }
@@ -199,5 +199,14 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
    */
   isAuthenticated(): boolean {
     return this.sessionStorage.getUser() !== null;
+  }
+
+  /**
+   * @description
+   * This function clears the data stored in the session storage. It can be called after an user
+   * signs out of the application or an user deleted his profile.
+   */
+  clear(): void {
+    this.sessionStorage.clear();
   }
 }
