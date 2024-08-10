@@ -1,29 +1,29 @@
 DELETE FROM project;
 DELETE FROM `user`;
 
-INSERT INTO projektarbeit.`user` (id,matriculation_number,first_name,last_name,email,password,phone_number) VALUES
-	 ('b21cfc80-a823-11ee-871a-0242ac120002',7022410,'Niklas','Hagengers','niklas.hagengers@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('b21e2108-a823-11ee-871a-0242ac120002',7020985,'Max','Hahn','max.hahn@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('b21f1455-a823-11ee-871a-0242ac120002',7011916,'Jasper','Gnüg','jasper.gnueg@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('b21fef5b-a823-11ee-871a-0242ac120002',7013597,'Marcus','Rosengart','marcus.rosengart@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('b220c85c-a823-11ee-871a-0242ac120002',7022319,'Torben','Landwehr','torben.landwehr@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('b221c5a8-a823-11ee-871a-0242ac120002',9999999,'Maria','Krüger-Basener','krueger-basener@technik-emden.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('b22298f0-a823-11ee-871a-0242ac120002',9999998,'Thorsten','Schmidt','thorsten.schmidt@hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('b22344ba-a823-11ee-871a-0242ac120002',9999997,'Hilke','Fasse','hilke.fasse@hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
-	 ('223ea86e-a68b-11ee-97c1-0242ac120002',7022823,'Neklas','Meyer','neklas.meyer@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2','+49 1573 6970288');
+INSERT INTO projektarbeit.`user` (id,academic_title,matriculation_number,first_name,last_name,email,password,phone_number) VALUES
+	 ('b21cfc80-a823-11ee-871a-0242ac120002',NULL,7022410,'Niklas','Hagengers','niklas.hagengers@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('b21e2108-a823-11ee-871a-0242ac120002',NULL,7020985,'Max','Hahn','max.hahn@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('b21f1455-a823-11ee-871a-0242ac120002',NULL,7011916,'Jasper','Gnüg','jasper.gnueg@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('b21fef5b-a823-11ee-871a-0242ac120002',NULL,7013597,'Marcus','Rosengart','marcus.rosengart@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('b220c85c-a823-11ee-871a-0242ac120002',NULL,7022319,'Torben','Landwehr','torben.landwehr@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('b221c5a8-a823-11ee-871a-0242ac120002','Prof.',NULL,'Maria','Krüger-Basener','krueger-basener@technik-emden.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('b22298f0-a823-11ee-871a-0242ac120002','Prof. Dr. rer. nat.',NULL,'Thorsten','Schmidt','thorsten.schmidt@hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('b22344ba-a823-11ee-871a-0242ac120002',NULL,NULL,'Hilke','Fasse','hilke.fasse@hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',NULL),
+	 ('223ea86e-a68b-11ee-97c1-0242ac120002',NULL,7022823,'Neklas','Meyer','neklas.meyer@stud.hs-emden-leer.de','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2','+49 1573 6970288');
 
 INSERT INTO projektarbeit.project (id,name,official_start,official_end,report_interval,`type`,ownerId) VALUES
 	 ('c94c5795-a051-11ee-b998-0242c0a87002','Projektarbeit','2023-03-07','2023-05-30',7,'Softwareprojekt','223ea86e-a68b-11ee-97c1-0242ac120002');
 
-INSERT INTO projektarbeit.project_member (id,`role`,invite_pending,userId,projectId) VALUES
-	 ('fa0eb76d-a823-11ee-871a-0242ac120002','contributor',1,'b21cfc80-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
-	 ('fa0f9483-a823-11ee-871a-0242ac120002','contributor',1,'b21e2108-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
-	 ('fa11a611-a823-11ee-871a-0242ac120002','contributor',1,'b21f1455-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
-	 ('fa12570c-a823-11ee-871a-0242ac120002','contributor',1,'b21fef5b-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
-	 ('fa135342-a823-11ee-871a-0242ac120002','contributor',1,'b220c85c-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
-	 ('fa13f2b5-a823-11ee-871a-0242ac120002','viewer',1,'b221c5a8-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
-	 ('fa14b1a6-a823-11ee-871a-0242ac120002','viewer',1,'b22298f0-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
-	 ('fa15e088-a823-11ee-871a-0242ac120002','viewer',1,'b22344ba-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002');
+INSERT INTO projektarbeit.project_member (id,`role`,userId,projectId) VALUES
+	 ('fa0eb76d-a823-11ee-871a-0242ac120002','contributor','b21cfc80-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
+	 ('fa0f9483-a823-11ee-871a-0242ac120002','contributor','b21e2108-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
+	 ('fa11a611-a823-11ee-871a-0242ac120002','contributor','b21f1455-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
+	 ('fa12570c-a823-11ee-871a-0242ac120002','contributor','b21fef5b-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
+	 ('fa135342-a823-11ee-871a-0242ac120002','contributor','b220c85c-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
+	 ('fa13f2b5-a823-11ee-871a-0242ac120002','viewer','b221c5a8-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
+	 ('fa14b1a6-a823-11ee-871a-0242ac120002','viewer','b22298f0-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002'),
+	 ('fa15e088-a823-11ee-871a-0242ac120002','viewer','b22344ba-a823-11ee-871a-0242ac120002','c94c5795-a051-11ee-b998-0242c0a87002');
 
 INSERT INTO projektarbeit.project_report (id,sequence_number,report_date,deliverables,hazards,objectives,other,projectId) VALUES
 	 ('6ad77508-a83a-11ee-871a-0242ac120002',1,'2023-05-09','Zum aktuellen Zeitpunkt wurde der Großteil der Meilensteine erreicht. Teilweise nahmen diese weniger Aufwand in Anspruch als ursprünglich angenommen.
