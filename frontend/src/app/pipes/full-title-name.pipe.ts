@@ -50,8 +50,8 @@ export class FullTitleNamePipe implements PipeTransform {
 
     parts.push(value.firstName!, value.lastName!);
 
-    if (includeMatriculationNumber) {
-      parts.push(`(${value.matriculationNumber!})`);
+    if (includeMatriculationNumber && value.matriculationNumber !== null) {
+      parts.push(`(${value.matriculationNumber})`);
     }
 
     return parts.join(' ');
