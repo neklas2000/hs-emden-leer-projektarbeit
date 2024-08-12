@@ -70,7 +70,7 @@ export class ReportDetailsComponent implements OnInit {
         includes: ['owner', 'members', 'members.user', 'milestones', 'milestones.estimates'],
         sparseFieldsets: {
           members: ['id', 'role'],
-          'members.user': ['id', 'firstName', 'lastName', 'matriculationNumber', 'email', 'phoneNumber'],
+          'members.user': ['id', 'academicTitle', 'firstName', 'lastName', 'matriculationNumber', 'email', 'phoneNumber'],
           milestones: ['id', 'name'],
         },
       },
@@ -79,7 +79,7 @@ export class ReportDetailsComponent implements OnInit {
     project$.pipe(take(1)).subscribe({
       next: (project) => {
         if (!project) {
-          this.snackbar.open('PDF kann nicht erstellt werden');
+          this.snackbar.showError('PDF kann nicht erstellt werden');
 
           return;
         }
@@ -115,7 +115,7 @@ export class ReportDetailsComponent implements OnInit {
             });
           })
           .catch((_) => {
-            this.snackbar.open('MTA Diagramm konnte nicht erzeugt werden');
+            this.snackbar.showError('MTA Diagramm konnte nicht erzeugt werden');
           });
       },
       error: (exception: HttpException) => {

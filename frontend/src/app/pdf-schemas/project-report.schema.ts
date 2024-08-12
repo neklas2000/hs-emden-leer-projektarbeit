@@ -7,6 +7,7 @@ import { Content, DynamicBackground, TDocumentDefinitions } from 'pdfmake/interf
 
 import { parseCheckbox } from './parse-checkbox';
 import { PdfSchema } from './pdf-schema';
+import { Nullable } from '@Types';
 
 /**
  * @description
@@ -15,11 +16,11 @@ import { PdfSchema } from './pdf-schema';
 export type ProjectReportContent<E = string> = {
   projectTitle: string;
   reportStart: string;
-  reportEnd: string;
+  reportEnd: Nullable<string>;
   sequenceNumber: number;
   reportDate: string;
   reportInterval: number;
-  projectType: string;
+  projectType: Nullable<string>;
   /**
    * User with role 'Contributor'
    */
@@ -101,7 +102,7 @@ export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
 							border: [false, false, false, false],
 							alignment: 'right'
 						}, {
-							text: `${DateTime.fromSQL(content.reportStart).toFormat('dd.MM.yyyy')} - ${content.reportEnd ? DateTime.fromSQL(content.reportEnd).toFormat('dd.MM.yyyy') : 'TBA'}`,
+							text: this.getReportPeriod(content.reportStart, content.reportEnd),
 							color: 'red',
 							border: [true, true, false, false],
 							colSpan: 2
@@ -137,7 +138,7 @@ export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
 							alignment: 'right',
 							border: [false, false, false, true]
 						}, {
-							text: content.projectType,
+							text: content.projectType ?? '',
 							border: [false, false, true, true]
 						}]]
 					}
@@ -175,8 +176,8 @@ export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
 							const row = [];
 							row.push({ text: `${student.firstName} ${student.lastName}` });
 							row.push({ text: student.email });
-							row.push({ text: student.phoneNumber || '' });
-							row.push({ text: student.matriculationNumber || '' });
+							row.push({ text: student.phoneNumber ?? '' });
+							row.push({ text: student.matriculationNumber ?? '' });
 
 							return row;
 						}, [])]
@@ -210,9 +211,14 @@ export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
 						}],
 						...content.companions.map((companion, idx, arr) => {
 							const row = [];
-							row.push({ text: `${companion?.academicTitle || ''} ${companion.firstName} ${companion.lastName}` });
+              const name = [];
+
+              if (companion.academicTitle) name.push(companion.academicTitle);
+              name.push(companion.firstName, companion.lastName);
+
+							row.push({ text: name.join(' ') });
 							row.push({ text: companion.email });
-							row.push({ text: companion.phoneNumber || '' });
+							row.push({ text: companion.phoneNumber ?? '' });
 
 							return row;
 						}, [])]
@@ -260,5 +266,12 @@ export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
         },
 			]
 		};
+	}
+
+	private getReportPeriod(start: string, end: Nullable<string>): string {
+		start = DateTime.fromSQL(start).toFormat('dd.MM.yyyy');
+		end = end ? DateTime.fromSQL(end).toFormat('dd.MM.yyyy') : 'TBA';
+
+		return `${start} - ${end}`;
 	}
 }
