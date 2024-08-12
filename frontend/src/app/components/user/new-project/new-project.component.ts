@@ -216,7 +216,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       reportInterval: this.form.get('interval')!.value,
       officialStart: this.form.get('startDate')!.value.toFormat('yyyy-MM-dd'),
       officialEnd: this.getOfficialEnd(),
-      type: this.form.get('type')?.value,
+      type: this.getProjectType(),
       ...(this.milestones.length > 0 ? { milestones: this.milestones } : {}),
       ...(this.companions.length > 0 || this.students.length > 0 ? { members: [...this.companions, ...this.students] } : {}),
     }).pipe(take(1)).subscribe({
@@ -234,6 +234,16 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     if (this.form.get('endDate')?.value) {
       if (this.form.get('endDate')!.value instanceof DateTime) {
         return this.form.get('endDate')!.value.toFormat('yyyy-MM-dd');
+      }
+    }
+
+    return null;
+  }
+
+  private getProjectType(): Nullable<string> {
+    if (this.form.get('type')?.value) {
+      if (this.form.get('type')!.value.length > 0) {
+        return this.form.get('type')!.value;
       }
     }
 
