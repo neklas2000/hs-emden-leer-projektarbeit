@@ -228,6 +228,7 @@ export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
 					marginTop: 12,
 					fontSize: 10,
 					table: {
+            widths: ['*'],
 						body: [[{
 							text: 'Ergebnisse:',
 							bold: true,
