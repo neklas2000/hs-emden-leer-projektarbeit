@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, Data, RouterModule } from '@angular/router';
+import { ActivatedRoute, Data, Router, RouterModule } from '@angular/router';
 
 import { take } from 'rxjs';
 
@@ -27,6 +27,8 @@ import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { DeepPartial, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { AuthenticationService } from '@Services/authentication.service';
+import { ConfirmProjectDeletionComponent } from '@Components/dialog/confirm-project-deletion/confirm-project-deletion.component';
+import { ProjectService } from '@Services/project.service';
 
 @Component({
   selector: 'hsel-project-details',
@@ -60,6 +62,8 @@ export class ProjectDetailsComponent implements OnInit {
     private readonly projectMembers: ProjectMemberService,
     private readonly snackbar: SnackbarService,
     private readonly auth: AuthenticationService,
+    private readonly projects: ProjectService,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -298,6 +302,34 @@ export class ProjectDetailsComponent implements OnInit {
       },
       error: (exception: HttpException) => {
         this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
+      },
+    });
+  }
+
+  deleteProject(): void {
+    const dialogRef = this.dialog.open(ConfirmProjectDeletionComponent);
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((shouldDelete) => {
+      if (shouldDelete) {
+        this.deleteProjectPermanently();
+      } else {
+        this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_CANCELED);
+      }
+    });
+  }
+
+  private deleteProjectPermanently(): void {
+    this.projects.delete(':id', this.project.id).pipe(take(1)).subscribe({
+      next: (deletionSuccessful) => {
+        if (deletionSuccessful) {
+          this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_SUCCEEDED);
+          this.router.navigateByUrl('/projects');
+        } else {
+          this.snackbar.showWarning(SnackbarMessage.DELETE_OPERATION_FAILED_CONFIRMATION);
+        }
+      },
+      error: (exception: HttpException) => {
+        this.snackbar.showException(SnackbarMessage.DELETE_OPERATION_FAILED, exception);
       },
     });
   }

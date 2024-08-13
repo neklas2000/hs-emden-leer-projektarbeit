@@ -15,6 +15,7 @@ export enum SnackbarMessage {
   SAVE_OPERATION_FAILED = 'Speichervorgang fehlgeschlagen',
   DELETE_OPERATION_FAILED = 'Löschvorgang fehlgeschlagen',
   DELETE_OPERATION_SUCCEEDED = 'Löschvorgang erfolgreich',
+  DELETE_OPERATION_FAILED_CONFIRMATION = 'Löschvorgang konnte nicht bestätigt werden',
   LOGIN_SUCCEEDED = 'Erfolgreich angemeldet',
   LOGOUT_SUCCEEDED = 'Erfolgreich abgemeldet',
   LOGOUT_NOT_POSSIBLE = 'Abmelden scheint derzeit nicht möglich zu sein',
