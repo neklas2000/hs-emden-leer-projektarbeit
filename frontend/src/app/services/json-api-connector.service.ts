@@ -21,7 +21,7 @@ type SuccessResponse = {
  * query options from the json api specification in order to reduce or extend the data requested
  * from the api.
  */
-type JsonApiQueries = {
+export type JsonApiQueries = {
   includes?: string[];
   sparseFieldsets?: {
     [table: string]: string[];

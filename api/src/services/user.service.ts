@@ -36,7 +36,7 @@ export class UserService {
 			.createQueryBuilder('u')
 			.select()
 			.where(
-				"LOWER(CONCAT(u.academic_title, ' ', u.first_name, ' ', u.last_name)) LIKE :searchTerm",
+				"LOWER(CONCAT(COALESCE(u.academic_title, ''), ' ', COALESCE(u.first_name, ''), ' ', COALESCE(u.last_name, ''))) LIKE :searchTerm",
 				{
 					searchTerm: `%${searchTerm.toLowerCase()}%`,
 				},

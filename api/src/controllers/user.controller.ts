@@ -1,6 +1,6 @@
-import { Controller, Delete, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 
-import { Observable } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { FindOptionsRelations, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
 
 import { Filters } from '@Decorators/filters.decorator';
@@ -12,6 +12,10 @@ import { AccessTokenGuard } from '@Guards/access-token.guard';
 import { UserService } from '@Services/user.service';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 import { Success } from '@Types/success';
+
+type SearchBody = {
+	searchTerm: string;
+};
 
 @UseGuards(AccessTokenGuard)
 @Controller('users')
@@ -30,12 +34,23 @@ export class UserController {
 		return promiseToObservable(this.userService.findAll(where, select, relations));
 	}
 
-	@Get('search/:searchTerm')
+	@Post('search')
 	searchAll(
-		@Param('searchTerm')
-		searchTerm: string,
+		@Body()
+		payload: SearchBody,
 	): Observable<User[]> {
-		return promiseToObservable(this.userService.searchAll(searchTerm));
+		return promiseToObservable(this.userService.searchAll(payload.searchTerm)).pipe(
+			take(1),
+			map((users) => {
+				for (const user of users) {
+					delete user.email;
+					delete user.password;
+					delete user.phoneNumber;
+				}
+
+				return users;
+			}),
+		);
 	}
 
 	@Delete()

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-export function promiseToObservable<T_1, T_2>(
+export function promiseToObservable<T_1, T_2 = T_1>(
 	promise$: Promise<T_1>,
 	successHandler?: (result: T_1) => T_1 | T_2,
 	errorHandler?: (exception: any) => any,
