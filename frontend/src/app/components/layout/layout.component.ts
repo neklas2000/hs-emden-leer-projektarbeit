@@ -19,7 +19,7 @@ import { PageNotFoundComponent } from '@Components/page-not-found/page-not-found
 import { AuthenticationService } from '@Services/authentication.service';
 import { MediaMatching } from '@Services/media-matching.service';
 import { NotFoundService } from '@Services/not-found.service';
-import { SnackbarService } from '@Services/snackbar.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { ThemeMode, ThemeService } from '@Services/theme.service';
 import { Undefinable } from '@Types';
 
@@ -196,9 +196,10 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
   logout(): void {
     this.authenticationService.logout().pipe(take(1)).subscribe((successful) => {
       if (successful) {
+        this.snackbar.showInfo(SnackbarMessage.LOGOUT_SUCCEEDED);
         this.router.navigateByUrl('/auth/login');
       } else {
-        this.snackbar.open('Sie konnten nicht abgemeldet werden');
+        this.snackbar.showWarning(SnackbarMessage.LOGOUT_NOT_POSSIBLE);
       }
     });
   }

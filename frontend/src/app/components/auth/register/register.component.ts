@@ -1,12 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
+import { Credentials, RegisterCredentialsComponent } from '@Components/auth/register/register-credentials/register-credentials.component';
+import { PersonalDetails, RegisterPersonalDetailsComponent } from '@Components/auth/register/register-personal-details/register-personal-details.component';
 import { LogoComponent } from '@Components/logo/logo.component';
-import { Credentials, RegisterCredentialsComponent } from './register-credentials/register-credentials.component';
-import { PersonalDetails, RegisterPersonalDetailsComponent } from './register-personal-details/register-personal-details.component';
 import { AuthenticationService } from '@Services/authentication.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { Nullable } from '@Types';
+import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-register',
@@ -29,6 +31,7 @@ export class RegisterComponent {
   constructor(
     private readonly authenticationService: AuthenticationService,
     private readonly router: Router,
+    private readonly snackbar: SnackbarService,
   ) {}
 
   oneStepBack(): void {
@@ -60,18 +63,22 @@ export class RegisterComponent {
     this.authenticationService.register({
       ...credentials,
       ...(personalDetails ?? {}),
-    }).subscribe((result) => {
-      if (typeof result === 'boolean') {
-        this.step = 2;
+    }).subscribe({
+      next: (registerSuccessful) => {
+        if (registerSuccessful) {
+          this.step = 2;
+          this.snackbar.showInfo(SnackbarMessage.REGISTER_SUCCEEDED);
 
-        const timeout = setTimeout(() => {
-          this.router.navigateByUrl('/').then(() => {
-            clearTimeout(timeout);
-          });
-        }, 2000);
-      } else {
-        console.log(result);
-      }
+          const timeout = setTimeout(() => {
+            this.router.navigateByUrl('/').then(() => {
+              clearTimeout(timeout);
+            });
+          }, 2000);
+        }
+      },
+      error: (exception: HttpException) => {
+        this.snackbar.showException(SnackbarMessage.REGISTER_FAILED, exception);
+      },
     });
   }
 }

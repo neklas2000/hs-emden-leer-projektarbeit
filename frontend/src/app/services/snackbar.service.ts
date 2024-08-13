@@ -9,11 +9,17 @@ import { HttpException } from '@Utils/http-exception';
  * This enumeration provides default snack-bar messages for the application.
  */
 export enum SnackbarMessage {
+  INCORRECT_CREDENTIALS = 'Fehlerhafte Logindaten',
   CANCELED = 'Vorgang abgebrochen',
   DELETE_OPERATION_CANCELED = 'Löschvorgang abgebrochen',
   SAVE_OPERATION_FAILED = 'Speichervorgang fehlgeschlagen',
   DELETE_OPERATION_FAILED = 'Löschvorgang fehlgeschlagen',
   DELETE_OPERATION_SUCCEEDED = 'Löschvorgang erfolgreich',
+  LOGIN_SUCCEEDED = 'Erfolgreich angemeldet',
+  LOGOUT_SUCCEEDED = 'Erfolgreich abgemeldet',
+  LOGOUT_NOT_POSSIBLE = 'Abmelden scheint derzeit nicht möglich zu sein',
+  REGISTER_FAILED = 'Registrierung fehlgeschlagen',
+  REGISTER_SUCCEEDED = 'Erfolgreich registriert',
 }
 
 /**

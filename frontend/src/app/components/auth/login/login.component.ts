@@ -10,6 +10,8 @@ import { take } from 'rxjs';
 
 import { AuthenticationService } from '@Services/authentication.service';
 import { LogoComponent } from '@Components/logo/logo.component';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
+import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-login',
@@ -38,6 +40,7 @@ export class LoginComponent {
     private readonly formBuilder: FormBuilder,
     private readonly authenticationService: AuthenticationService,
     private readonly router: Router,
+    private readonly snackbar: SnackbarService,
   ) {}
 
   login(): void {
@@ -45,10 +48,11 @@ export class LoginComponent {
       .pipe(take(1))
       .subscribe({
         next: () => {
+          this.snackbar.showInfo(SnackbarMessage.LOGIN_SUCCEEDED);
           this.router.navigateByUrl('/');
         },
-        error: (err) => {
-          console.log(err);
+        error: (exception: HttpException) => {
+          this.snackbar.showException(SnackbarMessage.INCORRECT_CREDENTIALS, exception);
         },
       });
   }
