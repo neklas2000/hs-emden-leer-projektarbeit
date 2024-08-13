@@ -18,6 +18,7 @@ import {
 } from '@Components';
 import { PageNotFoundComponent } from '@Components/page-not-found/page-not-found.component';
 import { authenticationGuard } from '@Guards/authentication.guard';
+import { projectExistsGuard } from '@Guards/project-exists.guard';
 import {
   milestoneEstimatesEditResolver,
   milestoneEstimatesProjectResolver,
@@ -117,7 +118,7 @@ export const routes: Routes = [
         path: 'projects/:projectId/report/new',
         component: NewReportComponent,
         title: 'Projektbericht erstellen',
-        canActivate: [authenticationGuard],
+        canActivate: [authenticationGuard, projectExistsGuard],
       },
       {
         path: 'projects/:projectId/report/:reportId',

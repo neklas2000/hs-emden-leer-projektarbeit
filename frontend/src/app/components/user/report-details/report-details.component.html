@@ -1,61 +1,56 @@
-@if (projectReport === null) {
-  <p>Auf Basis der ID, die innerhalb der URL zu finden ist, konnte kein Projektbericht geladen werden.</p>
-} @else {
-  <div class="flex flex-col gap-y-4">
-    <mat-card>
-      <mat-card-content class="!flex justify-evenly">
-        <span>Berichtszeitpunkt: {{ projectReport.reportDate | date:'dd.MM.yyyy' }}</span>
-        <span>Folgenummer: {{ projectReport.sequenceNumber }}</span>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          Ergebnisse
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div [innerHTML]="projectReport.deliverables | markdown | async"></div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          Ziele
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div [innerHTML]="projectReport.objectives | markdown | async"></div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          Risiken
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div [innerHTML]="projectReport.hazards | markdown | async"></div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          Sonstiges
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div [innerHTML]="projectReport.other || '' | markdown | async"></div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class='fab-button-toolbar'>
-    <button mat-fab color='primary' [routerLink]="['edit']">
-      <mat-icon>edit</mat-icon>
-    </button>
-  </div>
-  <button (click)="downloadPdf()" color='accent' matTooltip="PDF herunterladen" class="!absolute right-4 bottom-20" mat-fab>
-    <mat-icon>download</mat-icon>
+<div class="flex flex-col gap-y-4">
+  <mat-card>
+    <mat-card-content class="!flex justify-evenly">
+      <span>Berichtszeitpunkt: {{ projectReport.reportDate | date:'dd.MM.yyyy' }}</span>
+      <span>Folgenummer: {{ projectReport.sequenceNumber }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Ergebnisse
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport.deliverables | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Ziele
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport.objectives | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Risiken
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport.hazards | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Sonstiges
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="projectReport.other || '' | markdown | async"></div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class='fab-button-toolbar'>
+  <button mat-fab color='primary' [routerLink]="['edit']">
+    <mat-icon>edit</mat-icon>
   </button>
-}
-
+</div>
+<button (click)="downloadPdf()" color='accent' matTooltip="PDF herunterladen" class="!absolute right-4 bottom-20" mat-fab>
+  <mat-icon>download</mat-icon>
+</button>

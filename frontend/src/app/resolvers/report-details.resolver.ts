@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 
 import { ProjectReport } from '@Models/project-report';
 import { NotFoundService } from '@Services/not-found.service';
@@ -45,5 +45,11 @@ export const reportDetailsResolver: ResolveFn<Nullable<Observable<Nullable<Proje
       },
       includes: ['project'],
     },
-  });
+  }).pipe(switchMap((report) => {
+    if (!report) {
+      notFound.emitNotFound();
+    }
+
+    return of(report);
+  }));
 };

@@ -1,11 +1,13 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 
 import { ProjectReport } from '@Models/project-report';
+import { NotFoundService } from '@Services/not-found.service';
 import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
+import { UUID } from '@Utils/uuid';
 
 /**
  * @description
@@ -17,10 +19,11 @@ import { Nullable } from '@Types';
  * @returns An observable which resolves to the correct project report or `null`, if it couldn't be
  * found.
  */
-export const reportEditResolver: ResolveFn<Observable<Nullable<ProjectReport>>> = (
+export const reportEditResolver: ResolveFn<Nullable<Observable<Nullable<ProjectReport>>>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   projectReports: ProjectReportService = inject(ProjectReportService),
+  notFound: NotFoundService = inject(NotFoundService),
 ) => {
   const { paramMap } = route;
 
@@ -31,6 +34,12 @@ export const reportEditResolver: ResolveFn<Observable<Nullable<ProjectReport>>> 
   const projectId = paramMap.get('projectId')!;
   const reportId = paramMap.get('reportId')!;
 
+  if (!UUID.isWellFormed(projectId) || !UUID.isWellFormed(reportId)) {
+    notFound.emitNotFound();
+
+    return null;
+  }
+
   return projectReports.read<ProjectReport>({
     route: ':id',
     ids: reportId,
@@ -39,5 +48,11 @@ export const reportEditResolver: ResolveFn<Observable<Nullable<ProjectReport>>> 
         'project.id': projectId,
       },
     },
-  });
+  }).pipe(switchMap((report) => {
+    if (!report) {
+      notFound.emitNotFound();
+    }
+
+    return of(report);
+  }));
 };

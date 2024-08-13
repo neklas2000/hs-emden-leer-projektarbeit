@@ -1,23 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute, Data, RouterModule } from '@angular/router';
 
 import { MarkdownPipe } from 'ngx-markdown';
 import { take } from 'rxjs';
 
-import { ProjectReport } from '@Models/project-report';
 import { ProjectRole } from '@Models/project-member';
-import { PdfService } from '@Services/pdf.service';
-import { SnackbarService } from '@Services/snackbar.service';
-import { Nullable } from '@Types';
-import { HttpException } from '@Utils/http-exception';
+import { ProjectReport } from '@Models/project-report';
 import { AgChartService } from '@Services/ag-chart.service';
+import { PdfService } from '@Services/pdf.service';
 import { ProjectService } from '@Services/project.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-report-details',
@@ -36,7 +35,7 @@ import { ProjectService } from '@Services/project.service';
   styleUrl: './report-details.component.scss'
 })
 export class ReportDetailsComponent implements OnInit {
-  projectReport: Nullable<ProjectReport> = null;
+  projectReport!: ProjectReport;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -51,18 +50,12 @@ export class ReportDetailsComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (data: Data) => {
-          this.projectReport = data['report'] || null;
+          this.projectReport = data['report'];
         }
       });
   }
 
   downloadPdf(): void {
-    if (!this.projectReport) {
-      this.snackbar.open('PDF kann nicht erstellt werden');
-
-      return;
-    }
-
     const project$ = this.projects.read({
       route: ':id',
       ids: this.projectReport.project?.id,

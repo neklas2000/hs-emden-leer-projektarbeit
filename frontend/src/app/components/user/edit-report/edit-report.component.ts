@@ -12,7 +12,6 @@ import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-ed
 import { ProjectReport } from '@Models/project-report';
 import { SnackbarService } from '@Services/snackbar.service';
 import { ProjectReportService } from '@Services/project-report.service';
-import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 
 @Component({
@@ -31,7 +30,7 @@ import { HttpException } from '@Utils/http-exception';
   styleUrl: './edit-report.component.scss'
 })
 export class EditReportComponent implements OnInit {
-  projectReport: Nullable<ProjectReport> = null;
+  projectReport!: ProjectReport;
   deliverables: string = '';
   objectives: string = '';
   hazards: string = '';
@@ -52,8 +51,7 @@ export class EditReportComponent implements OnInit {
         this.deliverables = this.projectReport?.deliverables || '';
         this.objectives = this.projectReport?.objectives || '';
         this.hazards = this.projectReport?.hazards || '';
-        this.other = this.projectReport?.other || '';
-        console.log(this.projectReport);
+        this.other = this.projectReport?.other ?? '';
       });
   }
 

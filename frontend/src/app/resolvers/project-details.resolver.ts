@@ -49,11 +49,11 @@ export const projectDetailsResolver: ResolveFn<Nullable<Observable<Nullable<Proj
         milestones: ['id', 'name'],
       },
     },
-  }).pipe((switchMap((project) => {
+  }).pipe(switchMap((project) => {
     if (!project) {
       notFound.emitNotFound();
     }
 
     return of(project);
-  })));
+  }));
 };
