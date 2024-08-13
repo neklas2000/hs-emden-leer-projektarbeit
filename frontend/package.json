@@ -31,7 +31,7 @@
     "crypto-js": "^4.2.0",
     "d3": "^7.8.5",
     "html-to-pdfmake": "^2.5.1",
-    "katex": "^0.16.9",
+    "katex": "^0.16.11",
     "libphonenumber-js": "^1.10.61",
     "luxon": "^3.4.4",
     "marked": "^9.1.6",
