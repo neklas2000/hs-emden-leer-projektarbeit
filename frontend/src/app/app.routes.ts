@@ -104,7 +104,7 @@ export const routes: Routes = [
         canActivate: [authenticationGuard],
       },
       {
-        path: 'projects/:id/estimates/edit',
+        path: 'projects/:id/milestones/edit',
         component: EditMilestoneEstimatesComponent,
         title: 'Meilensteinprognosen bearbeiten',
         resolve: {
