@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { catchError, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { User } from '@Models/user';
-import { JsonApiConnectorService, JsonApiQueries } from '@Services/json-api-connector.service';
-import { HttpException } from '@Utils/http-exception';
+import { JsonApiConnectorService, JsonApiQueries, JsonApiResponseBody } from '@Services/json-api-connector.service';
 
 /**
  * @description
@@ -22,10 +21,10 @@ export class UserService extends JsonApiConnectorService<User> {
   search(searchTerm: string, query?: JsonApiQueries): Observable<User[]> {
     const uri = this.getUri('search') + this.parseJsonApiQuery(query);
 
-    return this.httpClient.post<User[]>(uri, {
-      searchTerm,
-    }).pipe(catchError((err) => {
-      throw new HttpException(err);
-    }));
+    return this.handleJsonApiRequest(
+      this.httpClient.post<JsonApiResponseBody<User[]>>(uri, {
+        searchTerm,
+      }),
+    );
   }
 }

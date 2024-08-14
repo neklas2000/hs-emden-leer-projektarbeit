@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
 
-import { catchError, of, switchMap, take, throwError } from 'rxjs';
+import { catchError, map, of, take } from 'rxjs';
 
 import { NotFoundService } from '@Services/not-found.service';
 import { ProjectService } from '@Services/project.service';
@@ -25,17 +25,13 @@ export const projectExistsGuard: CanActivateFn = (
 
   return projects.read({ route: ':id', ids: projectId! }).pipe(
     take(1),
-    switchMap((project) => {
-      if (!project) {
-        notFound.emitNotFound();
-      }
-
-      return of(true);
+    map((_) => {
+      return true;
     }),
     catchError((err) => {
       notFound.emitNotFound();
 
-      return throwError(() => err);
+      return of(true);
     }),
   );
 };

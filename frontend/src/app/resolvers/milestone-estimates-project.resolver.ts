@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
-import { Observable, of, switchMap } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
 import { Project } from '@Models/project';
 import { NotFoundService } from '@Services/not-found.service';
@@ -45,11 +45,9 @@ export const milestoneEstimatesProjectResolver: ResolveFn<Nullable<Observable<Nu
         project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
       },
     },
-  }).pipe(switchMap((project) => {
-    if (!project) {
-      notFound.emitNotFound();
-    }
+  }).pipe(catchError(() => {
+    notFound.emitNotFound();
 
-    return of(project);
+    return of(null);
   }));
 };

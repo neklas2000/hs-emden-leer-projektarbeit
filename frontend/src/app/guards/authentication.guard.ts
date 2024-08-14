@@ -20,13 +20,12 @@ import { AuthenticationService } from '@Services/authentication.service';
 export const authenticationGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
+  auth: AuthenticationService = inject(AuthenticationService),
+  router: Router = inject(Router),
 ) => {
-  const authenticationService = inject(AuthenticationService);
-  const router = inject(Router);
+  if (auth.isAuthenticated()) return true;
 
-  if (authenticationService.isAuthenticated()) return true;
-
-  return authenticationService.canRefreshTokensWithCookie()
+  return auth.canRefreshTokensWithCookie()
     .pipe(take(1), switchMap((tokensRefreshed) => {
       if (!tokensRefreshed) {
         router.navigateByUrl('/auth/login');

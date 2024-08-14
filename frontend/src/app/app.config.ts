@@ -1,4 +1,4 @@
-import { ApplicationConfig, SecurityContext } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, SecurityContext } from '@angular/core';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -10,6 +10,8 @@ import { routes } from './app.routes';
 import { CHECKED_CHECKBOX, UNCHECKED_CHECKBOX } from '../constants';
 import { AuthenticationInterceptor } from '@Interceptors/authentication.interceptor';
 import { credentialsInterceptor } from '@Interceptors/credentials.interceptor';
+import { AuthenticationService } from '@Services/authentication.service';
+import { appInitializerFactory } from './app-initializer-factory';
 
 /**
  * @description
@@ -68,5 +70,11 @@ export const appConfig: ApplicationConfig = {
         monthYearA11yLabel: 'dd.MM.yyyy',
       },
     }),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFactory,
+      deps: [AuthenticationService],
+      multi: true,
+    },
   ]
 };

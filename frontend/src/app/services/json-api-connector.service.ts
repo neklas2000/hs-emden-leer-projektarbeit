@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 
-import { Observable, catchError, forkJoin, of, switchMap } from 'rxjs';
+import { Observable, catchError, forkJoin, map } from 'rxjs';
 
 import { DeepPartial, Nullable, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
@@ -49,6 +49,10 @@ type ReadParameters = {
   query?: JsonApiQueries;
 };
 
+export type JsonApiResponseBody<T> = {
+  data: Nullable<T>;
+};
+
 /**
  * @description
  * This class provides a generic implementation of the CRUD operations to manipulate data in the
@@ -85,10 +89,9 @@ export class JsonApiConnectorService<T> {
   create<T_RETURN = T>(route: string, resource: DeepPartial<T>): Observable<T_RETURN> {
     const uri = this.getUri(route);
 
-    return this.httpClient.post<T_RETURN>(uri, resource)
-      .pipe(catchError((err) => {
-        throw new HttpException(err);
-      }));
+    return this.handleJsonApiRequest(
+      this.httpClient.post<JsonApiResponseBody<T_RETURN>>(uri, resource),
+    );
   }
 
   /**
@@ -112,10 +115,9 @@ export class JsonApiConnectorService<T> {
     const uri = this.getUri(route);
 
     return forkJoin([...resources].map((entry) => {
-      return this.httpClient.post<T_RETURN>(uri, entry)
-        .pipe(catchError((err) => {
-          throw new HttpException(err);
-        }));
+      return this.handleJsonApiRequest(
+        this.httpClient.post<JsonApiResponseBody<T_RETURN>>(uri, entry),
+      );
     }));
   }
 
@@ -137,13 +139,14 @@ export class JsonApiConnectorService<T> {
    * requested from the api.
    * @returns An observable resolving to the found data records or an empty array.
    */
-  readAll<T_RETURN = T>(route?: string, query?: JsonApiQueries, ids?: RequestIds | string): Observable<T_RETURN[]> {
+  readAll<T_RETURN = T>(
+    route?: string,
+    query?: JsonApiQueries,
+    ids?: RequestIds | string,
+  ): Observable<T_RETURN[]> {
     const uri = this.getUri(this.replaceIds(route, ids)) + this.parseJsonApiQuery(query);
 
-    return this.httpClient.get<T_RETURN[]>(uri)
-      .pipe(catchError((err) => {
-        throw new HttpException(err);
-      }));
+    return this.handleJsonApiRequest(this.httpClient.get<JsonApiResponseBody<T_RETURN[]>>(uri));
   }
 
   /**
@@ -167,7 +170,7 @@ export class JsonApiConnectorService<T> {
    * it is possible to provide json api query options.
    * @returns An observable resolving to the found data record or `null`.
    */
-  read<T_RETURN = T>(params?: ReadParameters): Observable<Nullable<T_RETURN>> {
+  read<T_RETURN = T>(params?: ReadParameters): Observable<T_RETURN> {
     let uri = this.getUri();
 
     if (params) {
@@ -175,10 +178,7 @@ export class JsonApiConnectorService<T> {
       uri = this.getUri(this.replaceIds(route, ids)) + this.parseJsonApiQuery(query);
     }
 
-    return this.httpClient.get<T_RETURN>(uri)
-      .pipe(catchError((err) => {
-        throw new HttpException(err);
-      }));
+    return this.handleJsonApiRequest(this.httpClient.get<JsonApiResponseBody<T_RETURN>>(uri));
   }
 
   /**
@@ -204,13 +204,11 @@ export class JsonApiConnectorService<T> {
   update(route: string, ids: RequestIds | string, data: DeepPartial<T>): Observable<boolean> {
     const uri = this.getUri(this.replaceIds(route, ids));
 
-    return this.httpClient.patch<SuccessResponse>(uri, data)
-      .pipe(
-        catchError((err) => {
-          throw new HttpException(err);
-        }),
-        switchMap((response) => of(response.success)),
-      );
+    return this.handleJsonApiRequest(
+      this.httpClient.patch<JsonApiResponseBody<SuccessResponse>>(uri, data),
+    ).pipe(map((response) => {
+      return response.success;
+    }));
   }
 
   /**
@@ -234,13 +232,13 @@ export class JsonApiConnectorService<T> {
   delete(route?: string, ids?: RequestIds | string): Observable<boolean> {
     const uri = this.getUri(this.replaceIds(route, ids));
 
-    return this.httpClient.delete<SuccessResponse>(uri)
-      .pipe(
-        catchError((err) => {
-          throw new HttpException(err);
-        }),
-        switchMap((response) => of(response.success)),
-      );
+    return this.handleJsonApiRequest(
+      this.httpClient.delete<JsonApiResponseBody<SuccessResponse>>(uri),
+    ).pipe(
+      map((response) => {
+        return response.success;
+      }),
+    );
   }
 
   /**
@@ -344,5 +342,65 @@ export class JsonApiConnectorService<T> {
     if (queries.length === 0) return '';
 
     return `?${queries.join('&')}`;
+  }
+
+  /**
+   * @description
+   * This function handles every request in the same way. In case an exception occurs the error will
+   * be parsed to an object of the `HttpException`. The response body will be parsed correctly so
+   * only the actual data will be returned. If the request couldn't resolve any data a new error is
+   * thrown. In the other cases the actual data will be returned, either as an object or as an array.
+   *
+   * The reponse body of every request within this app will look like the following:
+   * ### In case no data was found
+   * ```json
+   * {
+   *    "data": null,
+   * }
+   * ```
+   *
+   * ### In case an array of data was resolved
+   * ```json
+   * {
+   *    "data": [ ... ],
+   * }
+   * ```
+   *
+   * ### In case an object of data was resolved
+   * ```json
+   * {
+   *    "data": { ... },
+   * }
+   * ```
+   *
+   * @param request$ An observable object representing the request to be executed.
+   * @returns An observable resolving to `null` if no data was found within the response body or the
+   * actual data.
+   * @throws An error if the response body didn't include any data.
+   */
+  protected handleJsonApiRequest<T_RETURN = T>(
+    request$: Observable<JsonApiResponseBody<T_RETURN>>,
+  ): Observable<T_RETURN> {
+    return request$.pipe(
+      catchError((err) => {
+        throw new HttpException(err);
+      }),
+      map((responseBody) => {
+        if (responseBody.data === null) {
+          throw new HttpException({
+            code: 'HSEL-404-001',
+            description: 'The http request resulted in no data which could be found by the given ' +
+              'filter criteria.',
+            message: 'No data record/s could be found',
+            status: 404,
+            name: 'Not Found',
+            ok: false,
+            statusText: 'Http error 404 Not Found',
+          });
+        }
+
+        return responseBody.data;
+      }),
+    );
   }
 }
