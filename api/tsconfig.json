@@ -28,6 +28,7 @@
       "@Exceptions/*": ["exceptions/*"],
       "@Filters/*": ["filters/*"],
       "@Guards/*": ["guards/*"],
+      "@Interceptors/*": ["interceptors/*"],
       "@Modules/*": ["modules/*"],
       "@Pipes/*": ["pipes/*"],
       "@Services/*": ["services/*"],

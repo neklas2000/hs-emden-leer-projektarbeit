@@ -6,6 +6,7 @@ import { createDatabase } from 'typeorm-extension';
 import { AppModule } from './app.module';
 import config from './config';
 import { AllExceptionsFilter } from '@Filters/all-exceptions.filter';
+import { JsonApiInterceptor } from '@Interceptors/json-api.interceptor';
 import { DateService } from '@Services/date.service';
 
 export async function bootstrap(port: number) {
@@ -20,6 +21,7 @@ export async function bootstrap(port: number) {
 	const httpAdapterHost = app.get(HttpAdapterHost);
 	const date = app.get(DateService);
 	app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost, date));
+	app.useGlobalInterceptors(new JsonApiInterceptor());
 	app.use(cookieParser());
 
 	await app.listen(port);
