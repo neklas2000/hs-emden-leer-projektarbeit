@@ -1,17 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef } from '@angular/material/dialog';
 
-import { ConfirmProjectDeletionComponent } from './confirm-project-deletion.component';
+import {
+  ConfirmProjectDeletionComponent
+} from '@Components/dialog/confirm-project-deletion/confirm-project-deletion.component';
 
-describe('ConfirmProjectDeletionComponent', () => {
+describe('Component: ConfirmProjectDeletionComponent', () => {
   let component: ConfirmProjectDeletionComponent;
   let fixture: ComponentFixture<ConfirmProjectDeletionComponent>;
+  let dialogRefCloseSpy: jasmine.Spy<jasmine.Func>;
 
   beforeEach(async () => {
+    dialogRefCloseSpy = jasmine.createSpy();
+
     await TestBed.configureTestingModule({
-      imports: [ConfirmProjectDeletionComponent]
-    })
-    .compileComponents();
-    
+      imports: [ConfirmProjectDeletionComponent],
+      providers: [{
+        provide: MatDialogRef,
+        useValue: {
+          close: dialogRefCloseSpy,
+        },
+      }],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ConfirmProjectDeletionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

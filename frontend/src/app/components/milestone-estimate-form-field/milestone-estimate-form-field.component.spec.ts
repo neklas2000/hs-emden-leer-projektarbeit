@@ -3,7 +3,9 @@ import { FormBuilder } from '@angular/forms';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { MilestoneEstimateFormFieldComponent } from './milestone-estimate-form-field.component';
+import {
+  MilestoneEstimateFormFieldComponent
+} from '@Components/milestone-estimate-form-field/milestone-estimate-form-field.component';
 
 describe('Component: MilestoneEstimateFormFieldComponent', () => {
   let component: MilestoneEstimateFormFieldComponent;
@@ -21,7 +23,6 @@ describe('Component: MilestoneEstimateFormFieldComponent', () => {
       id: '1',
       estimationDate: '2024-06-08',
       reportDate: '2024-06-01',
-      milestoneReached: false,
       milestone: null,
     };
     fixture.detectChanges();

@@ -9,9 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { provideMarkdown } from 'ngx-markdown';
 import { of } from 'rxjs';
 
-import { NewReportComponent } from './new-report.component';
-import { ProjectReportService } from '@Services/project-report.service';
+import { NewReportComponent } from '@Components/user/new-report/new-report.component';
 import { DateService } from '@Services/date.service';
+import { ProjectReportService } from '@Services/project-report.service';
 import { SnackbarService } from '@Services/snackbar.service';
 
 describe('Component: NewReportComponent', () => {
@@ -32,16 +32,6 @@ describe('Component: NewReportComponent', () => {
             }),
           },
         },
-        {
-          provide: Window,
-          useValue: {
-            history: {
-              state: {
-                sequenceNumber: 2,
-              },
-            },
-          },
-        },
         Router,
         ProjectReportService,
         provideHttpClient(),
@@ -55,6 +45,10 @@ describe('Component: NewReportComponent', () => {
       ],
       imports: [NewReportComponent],
     }).compileComponents();
+
+    spyOnProperty(window.history, 'state').and.returnValue({
+      sequenceNumber: 2,
+    });
 
     fixture = TestBed.createComponent(NewReportComponent);
     component = fixture.componentInstance;

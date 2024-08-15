@@ -1,10 +1,14 @@
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { of } from 'rxjs';
 
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from '@Components/user/profile/profile.component';
+import { AuthenticationService } from '@Services/authentication.service';
+import { DialogService } from '@Services/dialog.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { UserService } from '@Services/user.service';
 
 describe('Component: ProfileComponent', () => {
   let component: ProfileComponent;
@@ -22,7 +26,12 @@ describe('Component: ProfileComponent', () => {
             }),
           },
         },
-        MatDialog,
+        DialogService,
+        SnackbarService,
+        UserService,
+        provideHttpClient(),
+        AuthenticationService,
+        Router,
       ],
     }).compileComponents();
 

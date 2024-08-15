@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 import { CustomSnackBarComponent } from './custom-snack-bar.component';
 
@@ -8,10 +9,16 @@ describe('CustomSnackBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomSnackBarComponent]
-    })
-    .compileComponents();
-    
+      imports: [CustomSnackBarComponent],
+      providers: [{
+        provide: MAT_SNACK_BAR_DATA,
+        useValue: {
+          label: 'Info message',
+          type: 'info',
+        },
+      }],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(CustomSnackBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

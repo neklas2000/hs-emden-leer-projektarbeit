@@ -22,7 +22,23 @@ describe('Component: ProjectDetailsComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             data: of({
-              project: null,
+              project: {
+                name: 'Test',
+                type: null,
+                officialStart: '2024-01-01',
+                officialEnd: null,
+                reportInterval: 7,
+                owner: {
+                  email: 'max.mustermann@gmx.de',
+                  phoneNumber: null,
+                  academicTitle: null,
+                  firstName: 'Max',
+                  lastName: 'Mustermann',
+                },
+                members: [],
+                reports: [],
+                milestones: [],
+              },
             }),
           },
         },

@@ -1,10 +1,12 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { provideMarkdown } from 'ngx-markdown';
 import { of } from 'rxjs';
 
-import { EditReportComponent } from './edit-report.component';
+import { EditReportComponent } from '@Components/user/edit-report/edit-report.component';
 import { ProjectReportService } from '@Services/project-report.service';
 import { SnackbarService } from '@Services/snackbar.service';
 
@@ -23,7 +25,14 @@ describe('Component: EditReportComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             data: of({
-              report: null,
+              report: {
+                reportDate: '2024-01-01',
+                sequenceNumber: 1,
+                deliverables: 'Nothing has been done the past week.',
+                objectives: 'We plan to accomplish more than the previous week.',
+                hazards: 'The typical risk of random sickness stays.',
+                other: null,
+              },
             }),
           },
         },
@@ -36,6 +45,8 @@ describe('Component: EditReportComponent', () => {
         ProjectReportService,
         provideHttpClient(),
         SnackbarService,
+        provideMarkdown(),
+        provideAnimations(),
       ],
     }).compileComponents();
 

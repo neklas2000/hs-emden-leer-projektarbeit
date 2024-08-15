@@ -23,7 +23,14 @@ describe('Component: ReportDetailsComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             data: of({
-              report: null,
+              report: {
+                reportDate: '2024-01-01',
+                sequenceNumber: 1,
+                deliverables: 'Nothing has been done the past week.',
+                objectives: 'We plan to accomplish more than the previous week.',
+                hazards: 'The typical risk of random sickness stays.',
+                other: null,
+              },
             }),
           },
         },

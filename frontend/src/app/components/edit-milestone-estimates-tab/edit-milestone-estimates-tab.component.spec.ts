@@ -3,7 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { EditMilestoneEstimatesTabComponent } from './edit-milestone-estimates-tab.component';
+import {
+  EditMilestoneEstimatesTabComponent
+} from '@Components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
 import { DialogService } from '@Services/dialog.service';
@@ -25,8 +27,7 @@ describe('Component: EditMilestoneEstimatesTabComponent', () => {
         SnackbarService,
         provideAnimations(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditMilestoneEstimatesTabComponent);
     component = fixture.componentInstance;
@@ -35,6 +36,7 @@ describe('Component: EditMilestoneEstimatesTabComponent', () => {
       id: '1',
       name: 'Milestone A',
       project: null,
+      milestoneReached: true,
     };
     fixture.detectChanges();
   });
