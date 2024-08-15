@@ -64,8 +64,7 @@ export class EditMilestoneEstimatesTabComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.milestoneReached = this.milestone.estimates
-      .filter((estimate) => estimate.milestoneReached).length > 0;
+    this.milestoneReached = this.milestone.milestoneReached;
 
     this.form = this.formBuilder.group({
       name: [this.milestone.name, [FormValidators.required]],
@@ -82,7 +81,6 @@ export class EditMilestoneEstimatesTabComponent implements OnInit {
           id: null,
           reportDate,
           estimationDate: null,
-          milestoneReached: false,
           milestone: this.milestone,
         },
       });

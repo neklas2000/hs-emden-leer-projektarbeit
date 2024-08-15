@@ -9,6 +9,7 @@ import { Nullable } from '@Types';
 export class ProjectMilestone {
   id: Nullable<string> = null;
   name: string = '';
+  milestoneReached: boolean = false;
   project: Nullable<Project> = null;
   estimates: MilestoneEstimate[] = [];
 }

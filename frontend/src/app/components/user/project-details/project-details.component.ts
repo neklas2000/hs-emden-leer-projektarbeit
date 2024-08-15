@@ -14,11 +14,9 @@ import { ConfirmMilestoneDeletionComponent } from '@Dialogs/confirm-milestone-de
 import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
 import { ConfirmProjectMemberRemovalComponent } from '@Dialogs/confirm-project-member-removal/confirm-project-member-removal.component';
 import { InviteProjectMemberComponent } from '@Dialogs/invite-project-member/invite-project-member.component';
-import { MilestoneEstimate } from '@Models/milestone-estimate';
 import { Project } from '@Models/project';
 import { ProjectMember, ProjectRole } from '@Models/project-member';
 import { ProjectMilestone } from '@Models/project-milestone';
-import { User } from '@Models/user';
 import { FullTitleNamePipe } from '@Pipes/full-title-name.pipe';
 import { DialogService } from '@Services/dialog.service';
 import { ProjectMemberService } from '@Services/project-member.service';
@@ -182,10 +180,6 @@ export class ProjectDetailsComponent implements OnInit {
         this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
       },
     });
-  }
-
-  isMilestoneReached(estimates: MilestoneEstimate[]): boolean {
-    return estimates.filter((estimate) => estimate.milestoneReached).length > 0;
   }
 
   getNextSequenceNumber(): number {

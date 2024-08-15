@@ -178,7 +178,7 @@
         <mat-list>
           @for (milestone of project.milestones; track milestone.id) {
             <mat-list-item>
-              @if (isMilestoneReached(milestone.estimates)) {
+              @if (milestone.milestoneReached) {
                 <mat-icon style="color: var(--done);" matTooltip="Abgeschlossen" matListItemIcon>check_small</mat-icon>
               } @else {
                 <mat-icon style="color: var(--pending);" matTooltip="Noch in Arbeit" matListItemIcon>pending</mat-icon>

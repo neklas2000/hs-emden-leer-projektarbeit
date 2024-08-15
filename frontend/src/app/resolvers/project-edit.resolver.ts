@@ -45,7 +45,7 @@ export const projectEditResolver: ResolveFn<Nullable<Observable<Nullable<Project
         members: ['id', 'role'],
         'members.user': ['id', 'firstName', 'lastName', 'matriculationNumber', 'email', 'phoneNumber'],
         reports: ['id', 'sequenceNumber', 'reportDate'],
-        milestones: ['id', 'name'],
+        milestones: ['id', 'name', 'milestoneReached'],
       },
     },
   }).pipe(catchError(() => {

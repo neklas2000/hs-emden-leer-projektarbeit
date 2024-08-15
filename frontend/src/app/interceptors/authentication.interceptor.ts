@@ -6,6 +6,7 @@ import {
   HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
 
@@ -17,7 +18,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private accessTokenSubject = new BehaviorSubject<Nullable<string>>(null);
 
-  constructor(private readonly authentication: AuthenticationService) { }
+  constructor(
+    private readonly authentication: AuthenticationService,
+    private readonly router: Router,
+  ) { }
 
   /**
    * @description
@@ -40,6 +44,12 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(catchError((error, caught) => {
       if (this.isUnauthorizedRequest(request, error)) {
+        if (this.isRefreshRequest(request)) {
+          this.router.navigateByUrl('/auth/login');
+
+          return throwError(() => error);
+        }
+
         return this.handleUnauthorizedError(request, next);
       } else {
         return throwError(() => error);
@@ -81,6 +91,18 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     if (request.url.includes('auth/login')) return false;
 
     return error.status === 401;
+  }
+
+  /**
+   * @description
+   * This function checks if the current request was sent to the endpoint `auth/refresh` and returns
+   * a boolean value to indicate the truthness.
+   *
+   * @param request The http request which failed.
+   * @returns `true`, if the request was sent to the endpoint `auth/refresh`, otherwise `false`.
+   */
+  private isRefreshRequest(request: HttpRequest<any>): boolean {
+    return request.url.includes('auth/refresh');
   }
 
   /**

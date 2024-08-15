@@ -17,7 +17,7 @@ export class MilestoneEstimate extends BaseEntityWithExtras {
 	}
 
 	static getColumns(): string[] {
-		return ['id', 'reportDate', 'estimationDate', 'milestoneReached'];
+		return ['id', 'reportDate', 'estimationDate'];
 	}
 
 	@PrimaryGeneratedUUID()
@@ -28,9 +28,6 @@ export class MilestoneEstimate extends BaseEntityWithExtras {
 
 	@Column({ name: 'estimation_date', type: 'date' })
 	estimationDate: string;
-
-	@Column({ name: 'milestone_reached', type: 'boolean' })
-	milestoneReached: boolean;
 
 	@ManyToOne(() => ProjectMilestone, (m) => m.estimates, { onDelete: 'CASCADE' })
 	milestone: ProjectMilestone;

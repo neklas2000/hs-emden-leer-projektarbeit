@@ -19,7 +19,7 @@ export class ProjectMilestone extends BaseEntityWithExtras {
 	}
 
 	static getColumns(): string[] {
-		return ['id', 'name'];
+		return ['id', 'name', 'milestoneReached'];
 	}
 
 	@PrimaryGeneratedUUID()
@@ -27,6 +27,9 @@ export class ProjectMilestone extends BaseEntityWithExtras {
 
 	@Column()
 	name: string;
+
+	@Column({ name: 'milestone_reached', type: 'boolean', default: () => false })
+	milestoneReached: boolean;
 
 	@ManyToOne(() => Project, (project) => project.milestones, { onDelete: 'CASCADE' })
 	project: Project;
