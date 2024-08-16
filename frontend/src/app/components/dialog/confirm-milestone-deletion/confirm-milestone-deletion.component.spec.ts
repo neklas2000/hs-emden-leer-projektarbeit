@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { ConfirmMilestoneDeletionComponent } from './confirm-milestone-deletion.component';
+import {
+  ConfirmMilestoneDeletionComponent
+} from '@Dialogs/confirm-milestone-deletion/confirm-milestone-deletion.component';
 
 describe('Component: ConfirmMilestoneDeletionComponent', () => {
   let component: ConfirmMilestoneDeletionComponent;

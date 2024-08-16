@@ -2,8 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
-import { Credentials, RegisterCredentialsComponent } from '@Components/auth/register/register-credentials/register-credentials.component';
-import { PersonalDetails, RegisterPersonalDetailsComponent } from '@Components/auth/register/register-personal-details/register-personal-details.component';
+import {
+  Credentials,
+  RegisterCredentialsComponent
+} from '@Components/auth/register/register-credentials/register-credentials.component';
+import {
+  PersonalDetails,
+  RegisterPersonalDetailsComponent
+} from '@Components/auth/register/register-personal-details/register-personal-details.component';
 import { LogoComponent } from '@Components/logo/logo.component';
 import { AuthenticationService } from '@Services/authentication.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
@@ -12,15 +18,15 @@ import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-register',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
   standalone: true,
   imports: [
     LogoComponent,
+    MatCardModule,
     RegisterCredentialsComponent,
     RegisterPersonalDetailsComponent,
-    MatCardModule,
   ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   @ViewChild('provideCredentials') provideCredentials!: RegisterCredentialsComponent;

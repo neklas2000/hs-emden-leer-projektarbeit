@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { provideMarkdown } from 'ngx-markdown';
 
-import { PdfService } from './pdf.service';
+import { PdfService } from '@Services/pdf.service';
 
 describe('Service: PdfService', () => {
   let service: PdfService;
@@ -17,7 +17,7 @@ describe('Service: PdfService', () => {
     service = TestBed.inject(PdfService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

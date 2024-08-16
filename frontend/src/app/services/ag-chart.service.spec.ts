@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AgChartService } from './ag-chart.service';
+import { AgChartService } from '@Services/ag-chart.service';
 
-describe('AgChartService', () => {
+describe('Service: AgChartService', () => {
   let service: AgChartService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('AgChartService', () => {
     service = TestBed.inject(AgChartService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

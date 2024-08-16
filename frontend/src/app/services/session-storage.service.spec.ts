@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SessionStorageService } from './session-storage.service';
+import { SessionStorageService } from '@Services/session-storage.service';
 
-describe('SessionStorageService', () => {
+describe('Service: SessionStorageService', () => {
   let service: SessionStorageService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('SessionStorageService', () => {
     service = TestBed.inject(SessionStorageService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-import { HttpException } from './http-exception';
+import { HttpException } from '@Utils/http-exception';
 
 describe('Util: HttpException', () => {
   it('should create an empty exception from an empty object', () => {

@@ -1,20 +1,20 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AsyncPipe } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 import { Observable, of, startWith, switchMap } from 'rxjs';
 
 import { ProjectMember, ProjectRole } from '@Models/project-member';
 import { User } from '@Models/user';
+import { FullTitleNamePipe } from '@Pipes/full-title-name.pipe';
 import { UserService } from '@Services/user.service';
 import { DeepPartial, Nullable } from '@Types';
-import { FullTitleNamePipe } from '@Pipes/full-title-name.pipe';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
 import { FormValidators } from '@Validators';
 
 type DialogData = {
@@ -27,16 +27,16 @@ type DialogData = {
   styleUrl: './invite-project-member.component.scss',
   standalone: true,
   imports: [
+    AsyncPipe,
     FormsModule,
+    FullTitleNamePipe,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    AsyncPipe,
-    FullTitleNamePipe,
-    MatButtonModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
 })
 export class InviteProjectMemberComponent implements OnInit {

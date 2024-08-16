@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MilestoneTrendAnalysisChartComponent } from './milestone-trend-analysis-chart.component';
+import {
+  MilestoneTrendAnalysisChartComponent
+} from '@Components/milestone-trend-analysis-chart/milestone-trend-analysis-chart.component';
 import { AgChartService } from '@Services/ag-chart.service';
 import { ThemeService } from '@Services/theme.service';
 
@@ -12,8 +14,7 @@ describe('Component: MilestoneTrendAnalysisChartComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MilestoneTrendAnalysisChartComponent],
       providers: [AgChartService, ThemeService],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MilestoneTrendAnalysisChartComponent);
     component = fixture.componentInstance;

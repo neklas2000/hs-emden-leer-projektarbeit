@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { take } from 'rxjs';
 
@@ -15,7 +15,6 @@ import { ConfirmMilestoneDeletionComponent } from '@Dialogs/confirm-milestone-de
 import { MilestoneEstimate } from '@Models/milestone-estimate';
 import { ProjectMilestone } from '@Models/project-milestone';
 import { DialogService } from '@Services/dialog.service';
-import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarService } from '@Services/snackbar.service';
 import { DeepPartial } from '@Types';
@@ -30,11 +29,12 @@ type Estimate = {
 
 @Component({
   selector: 'hsel-edit-milestone-estimates-tab',
+  templateUrl: './edit-milestone-estimates-tab.component.html',
+  styleUrl: './edit-milestone-estimates-tab.component.scss',
   standalone: true,
   imports: [
     DatePipe,
     FormsModule,
-    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -42,9 +42,8 @@ type Estimate = {
     MatFormFieldModule,
     MatInputModule,
     MilestoneEstimateFormFieldComponent,
+    ReactiveFormsModule,
   ],
-  templateUrl: './edit-milestone-estimates-tab.component.html',
-  styleUrl: './edit-milestone-estimates-tab.component.scss'
 })
 export class EditMilestoneEstimatesTabComponent implements OnInit {
   @Input() reportDates: string[] = [];
@@ -58,7 +57,6 @@ export class EditMilestoneEstimatesTabComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly projectMilestone: ProjectMilestoneService,
-    private readonly milestoneEstimate: MilestoneEstimateService,
     private readonly dialog: DialogService,
     private readonly snackbar: SnackbarService,
   ) { }

@@ -1,17 +1,23 @@
-import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+  provideRouter
+} from '@angular/router';
 
 import { Observable, of, take } from 'rxjs';
 
-import { authenticationGuard } from './authentication.guard';
+import { authenticationGuard } from '@Guards/authentication.guard';
 import { AuthenticationService } from '@Services/authentication.service';
 
 describe('Guard: authenticationGuard', () => {
   let authentication: AuthenticationService;
   let router: Router;
   const executeGuard: CanActivateFn = (...guardParameters) =>
-      TestBed.runInInjectionContext(() => authenticationGuard(...guardParameters));
+    TestBed.runInInjectionContext(() => authenticationGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,7 +32,7 @@ describe('Guard: authenticationGuard', () => {
     router = TestBed.inject(Router);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(executeGuard).toBeTruthy();
   });
 

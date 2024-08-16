@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
@@ -15,36 +15,36 @@ import { Subscription, take } from 'rxjs';
 
 import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
 import { InviteProjectMemberComponent } from '@Dialogs/invite-project-member/invite-project-member.component';
-import { ProjectMilestone } from '@Models/project-milestone';
 import { ProjectMember, ProjectRole } from '@Models/project-member';
+import { ProjectMilestone } from '@Models/project-milestone';
 import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
-import { DateService } from '@Services/date.service';
-import { SnackbarService } from '@Services/snackbar.service';
-import { ProjectService } from '@Services/project.service';
 import { AuthenticationService } from '@Services/authentication.service';
+import { DateService } from '@Services/date.service';
 import { DialogService } from '@Services/dialog.service';
+import { ProjectService } from '@Services/project.service';
+import { SnackbarService } from '@Services/snackbar.service';
 import { Nullable, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
 
 @Component({
   selector: 'hsel-new-project',
+  templateUrl: './new-project.component.html',
+  styleUrl: './new-project.component.scss',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
     MatButtonModule,
-    MatIconModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     MatListModule,
-    UndefinedStringPipe,
     MatTooltipModule,
+    ReactiveFormsModule,
+    UndefinedStringPipe,
   ],
-  templateUrl: './new-project.component.html',
-  styleUrl: './new-project.component.scss'
 })
 export class NewProjectComponent implements OnInit, OnDestroy {
   form: FormGroup = this.formBuilder.group({

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { JsonApiConnectorService } from './json-api-connector.service';
 import { User } from '@Models/user';
+import { JsonApiConnectorService } from '@Services/json-api-connector.service';
 import { Nullable } from '@Types';
 
 /**

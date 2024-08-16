@@ -9,27 +9,41 @@ import { ActivatedRoute, Data, Router, RouterModule } from '@angular/router';
 
 import { take } from 'rxjs';
 
-import { MilestoneTrendAnalysisChartComponent } from '@Components/milestone-trend-analysis-chart/milestone-trend-analysis-chart.component';
-import { ConfirmMilestoneDeletionComponent } from '@Dialogs/confirm-milestone-deletion/confirm-milestone-deletion.component';
-import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
-import { ConfirmProjectMemberRemovalComponent } from '@Dialogs/confirm-project-member-removal/confirm-project-member-removal.component';
-import { InviteProjectMemberComponent } from '@Dialogs/invite-project-member/invite-project-member.component';
+import {
+  MilestoneTrendAnalysisChartComponent
+} from '@Components/milestone-trend-analysis-chart/milestone-trend-analysis-chart.component';
+import {
+  ConfirmMilestoneDeletionComponent
+} from '@Dialogs/confirm-milestone-deletion/confirm-milestone-deletion.component';
+import {
+  CreateNewMilestoneComponent
+} from '@Dialogs/create-new-milestone/create-new-milestone.component';
+import {
+  ConfirmProjectDeletionComponent
+} from '@Dialogs/confirm-project-deletion/confirm-project-deletion.component';
+import {
+  ConfirmProjectMemberRemovalComponent
+} from '@Dialogs/confirm-project-member-removal/confirm-project-member-removal.component';
+import {
+  InviteProjectMemberComponent
+} from '@Dialogs/invite-project-member/invite-project-member.component';
 import { Project } from '@Models/project';
 import { ProjectMember, ProjectRole } from '@Models/project-member';
 import { ProjectMilestone } from '@Models/project-milestone';
 import { FullTitleNamePipe } from '@Pipes/full-title-name.pipe';
+import { AuthenticationService } from '@Services/authentication.service';
 import { DialogService } from '@Services/dialog.service';
+import { ProjectService } from '@Services/project.service';
 import { ProjectMemberService } from '@Services/project-member.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { DeepPartial, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
-import { AuthenticationService } from '@Services/authentication.service';
-import { ConfirmProjectDeletionComponent } from '@Components/dialog/confirm-project-deletion/confirm-project-deletion.component';
-import { ProjectService } from '@Services/project.service';
 
 @Component({
   selector: 'hsel-project-details',
+  templateUrl: './project-details.component.html',
+  styleUrl: './project-details.component.scss',
   standalone: true,
   imports: [
     CommonModule,
@@ -43,8 +57,6 @@ import { ProjectService } from '@Services/project.service';
     MilestoneTrendAnalysisChartComponent,
     RouterModule,
   ],
-  templateUrl: './project-details.component.html',
-  styleUrl: './project-details.component.scss'
 })
 export class ProjectDetailsComponent implements OnInit {
   @ViewChild('chart') private readonly chart!: MilestoneTrendAnalysisChartComponent;

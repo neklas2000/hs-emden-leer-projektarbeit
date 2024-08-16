@@ -1,34 +1,30 @@
 import { Routes } from '@angular/router';
 
-import {
-  AuthComponent,
-  EditMilestoneEstimatesComponent,
-  EditProjectComponent,
-  EditReportComponent,
-  HomeComponent,
-  LayoutComponent,
-  LoginComponent,
-  NewProjectComponent,
-  NewReportComponent,
-  ProfileComponent,
-  ProjectDetailsComponent,
-  ProjectsComponent,
-  RegisterComponent,
-  ReportDetailsComponent,
-} from '@Components';
+import { AuthComponent } from '@Components/auth/auth.component';
+import { LoginComponent } from '@Components/auth/login/login.component';
+import { RegisterComponent } from '@Components/auth/register/register.component';
+import { EditMilestoneEstimatesComponent } from '@Components/edit-milestone-estimates/edit-milestone-estimates.component';
+import { HomeComponent } from '@Components/home/home.component';
+import { LayoutComponent } from '@Components/layout/layout.component';
 import { PageNotFoundComponent } from '@Components/page-not-found/page-not-found.component';
+import { EditProjectComponent } from '@Components/user/edit-project/edit-project.component';
+import { EditReportComponent } from '@Components/user/edit-report/edit-report.component';
+import { NewProjectComponent } from '@Components/user/new-project/new-project.component';
+import { NewReportComponent } from '@Components/user/new-report/new-report.component';
+import { ProfileComponent } from '@Components/user/profile/profile.component';
+import { ProjectDetailsComponent } from '@Components/user/project-details/project-details.component';
+import { ProjectsComponent } from '@Components/user/projects/projects.component';
+import { ReportDetailsComponent } from '@Components/user/report-details/report-details.component';
 import { authenticationGuard } from '@Guards/authentication.guard';
 import { projectExistsGuard } from '@Guards/project-exists.guard';
-import {
-  milestoneEstimatesEditResolver,
-  milestoneEstimatesProjectResolver,
-  profileResolver,
-  projectDetailsResolver,
-  projectEditResolver,
-  reportDetailsResolver,
-  reportEditResolver,
-  userProjectsResolver,
-} from '@Resolvers';
+import { milestoneEstimatesEditResolver } from '@Resolvers/milestone-estimates-edit.resolver';
+import { milestoneEstimatesProjectResolver } from '@Resolvers/milestone-estimates-project.resolver';
+import { profileResolver } from '@Resolvers/profile.resolver';
+import { projectDetailsResolver } from '@Resolvers/project-details.resolver';
+import { projectEditResolver } from '@Resolvers/project-edit.resolver';
+import { reportDetailsResolver } from '@Resolvers/report-details.resolver';
+import { reportEditResolver } from '@Resolvers/report-edit.resolver';
+import { userProjectsResolver } from '@Resolvers/user-projects.resolver';
 
 /**
  * @description

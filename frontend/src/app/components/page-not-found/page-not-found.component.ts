@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'hsel-page-not-found',
+  templateUrl: './page-not-found.component.html',
+  styleUrl: './page-not-found.component.scss',
   standalone: true,
   imports: [
-    MatButtonModule,
     A11yModule,
+    MatButtonModule,
   ],
-  templateUrl: './page-not-found.component.html',
-  styleUrl: './page-not-found.component.scss'
 })
 export class PageNotFoundComponent {
   constructor(private readonly router: Router) {}

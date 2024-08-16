@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
 
-import { ProjectsComponent } from './projects.component';
+import { ProjectsComponent } from '@Components/user/projects/projects.component';
 
 describe('Component: ProjectsComponent', () => {
   let component: ProjectsComponent;

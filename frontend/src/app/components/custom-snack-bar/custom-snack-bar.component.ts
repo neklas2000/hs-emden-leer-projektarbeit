@@ -11,10 +11,13 @@ type SnackBarData = {
 
 @Component({
   selector: 'hsel-custom-snack-bar',
-  standalone: true,
-  imports: [MatIconModule, MatSnackBarLabel],
   templateUrl: './custom-snack-bar.component.html',
-  styleUrl: './custom-snack-bar.component.scss'
+  styleUrl: './custom-snack-bar.component.scss',
+  standalone: true,
+  imports: [
+    MatIconModule,
+    MatSnackBarLabel,
+  ],
 })
 export class CustomSnackBarComponent {
   colorMap = {

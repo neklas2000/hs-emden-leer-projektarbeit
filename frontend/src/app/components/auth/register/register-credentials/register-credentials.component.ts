@@ -18,18 +18,18 @@ export type Credentials = {
 
 @Component({
   selector: 'hsel-register-credentials',
+  templateUrl: './register-credentials.component.html',
+  styleUrl: './register-credentials.component.scss',
   standalone: true,
   imports: [
     FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
-    MatCheckboxModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
-  templateUrl: './register-credentials.component.html',
-  styleUrl: './register-credentials.component.scss'
 })
 export class RegisterCredentialsComponent implements OnInit, OnDestroy {
   @Output() onCancel: EventEmitter<void> = new EventEmitter();
@@ -48,7 +48,7 @@ export class RegisterCredentialsComponent implements OnInit, OnDestroy {
   constructor(private readonly formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.subscription = this.form.get('password')?.valueChanges.subscribe((changes) => {
+    this.subscription = this.form.get('password')?.valueChanges.subscribe((_) => {
       const control = this.form.get('passwordRepeat');
 
       if (control?.dirty) {

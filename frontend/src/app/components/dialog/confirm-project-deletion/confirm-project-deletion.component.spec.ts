@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 import {
   ConfirmProjectDeletionComponent
-} from '@Components/dialog/confirm-project-deletion/confirm-project-deletion.component';
+} from '@Dialogs/confirm-project-deletion/confirm-project-deletion.component';
 
 describe('Component: ConfirmProjectDeletionComponent', () => {
   let component: ConfirmProjectDeletionComponent;

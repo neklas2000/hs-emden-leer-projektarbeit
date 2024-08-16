@@ -5,7 +5,10 @@ import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { Credentials, EditCredentialsComponent } from './edit-credentials.component';
+import {
+  Credentials,
+  EditCredentialsComponent
+} from '@Components/user/profile/edit-credentials/edit-credentials.component';
 import { ProfileService } from '@Services/profile.service';
 import { SnackbarService } from '@Services/snackbar.service';
 

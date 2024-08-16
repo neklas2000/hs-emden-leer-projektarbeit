@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { MilestoneEstimateService } from './milestone-estimate.service';
+import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
 
 describe('Service: MilestoneEstimateService', () => {
   let service: MilestoneEstimateService;
@@ -14,7 +14,7 @@ describe('Service: MilestoneEstimateService', () => {
     service = TestBed.inject(MilestoneEstimateService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-import { ProjectMilestone } from './project-milestone';
+import { ProjectMilestone } from '@Models/project-milestone';
 import { Nullable } from '@Types';
 
 /**

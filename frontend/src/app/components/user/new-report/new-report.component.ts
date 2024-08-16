@@ -25,24 +25,24 @@ type State = {
 
 @Component({
   selector: 'hsel-new-report',
+  templateUrl: './new-report.component.html',
+  styleUrl: './new-report.component.scss',
   standalone: true,
   imports: [
-    FormsModule,
     CommonModule,
-    MatCardModule,
-    MatInputModule,
+    FormsModule,
+    MarkdownEditorComponent,
     MatButtonModule,
+    MatCardModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MarkdownEditorComponent,
+    MatInputModule,
     ReactiveFormsModule,
   ],
   providers: [{
     provide: Window,
     useFactory: () => window,
   }],
-  templateUrl: './new-report.component.html',
-  styleUrl: './new-report.component.scss',
 })
 export class NewReportComponent implements OnInit {
   private projectId!: Nullable<string>;

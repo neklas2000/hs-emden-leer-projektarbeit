@@ -13,17 +13,17 @@ import { FormValidators } from '@Validators';
 
 @Component({
   selector: 'hsel-milestone-estimate-form-field',
+  templateUrl: './milestone-estimate-form-field.component.html',
+  styleUrl: './milestone-estimate-form-field.component.scss',
   standalone: true,
   imports: [
+    DatePipe,
     FormsModule,
-    ReactiveFormsModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule,
-    DatePipe,
+    ReactiveFormsModule,
   ],
-  templateUrl: './milestone-estimate-form-field.component.html',
-  styleUrl: './milestone-estimate-form-field.component.scss'
 })
 export class MilestoneEstimateFormFieldComponent implements OnInit {
 	@Input() estimate!: MilestoneEstimate;

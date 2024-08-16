@@ -8,29 +8,31 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MarkdownComponent } from 'ngx-markdown';
 import { take } from 'rxjs';
 
-import { MarkdownProvideExternalUrlComponent } from '@Dialogs/markdown-provide-external-url/markdown-provide-external-url.component';
+import {
+  MarkdownProvideExternalUrlComponent
+} from '@Dialogs/markdown-provide-external-url/markdown-provide-external-url.component';
 import { DialogService } from '@Services/dialog.service';
 
 @Component({
   selector: 'hsel-markdown-editor',
-  standalone: true,
-  imports: [
-    MarkdownComponent,
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatInputModule,
-  ],
   templateUrl: './markdown-editor.component.html',
   styleUrl: './markdown-editor.component.scss',
+  standalone: true,
+  imports: [
+    FormsModule,
+    MarkdownComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatTooltipModule,
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: MarkdownEditorComponent
-    }
-  ]
+      useExisting: MarkdownEditorComponent,
+    },
+  ],
 })
 export class MarkdownEditorComponent implements AfterViewInit, ControlValueAccessor {
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;

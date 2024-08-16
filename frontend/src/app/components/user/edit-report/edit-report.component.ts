@@ -1,33 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 
 import { take } from 'rxjs';
 
 import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
 import { ProjectReport } from '@Models/project-report';
-import { SnackbarService } from '@Services/snackbar.service';
 import { ProjectReportService } from '@Services/project-report.service';
+import { SnackbarService } from '@Services/snackbar.service';
 import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-edit-report',
+  templateUrl: './edit-report.component.html',
+  styleUrl: './edit-report.component.scss',
   standalone: true,
   imports: [
-    MarkdownEditorComponent,
-    MatCardModule,
-    FormsModule,
     CommonModule,
-    MatIconModule,
-    MatButtonModule,
     DatePipe,
+    FormsModule,
+    MarkdownEditorComponent,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
   ],
-  templateUrl: './edit-report.component.html',
-  styleUrl: './edit-report.component.scss'
 })
 export class EditReportComponent implements OnInit {
   projectReport!: ProjectReport;

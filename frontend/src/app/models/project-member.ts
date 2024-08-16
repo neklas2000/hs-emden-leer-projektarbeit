@@ -1,5 +1,5 @@
-import { Project } from './project';
-import { User } from './user';
+import { Project } from '@Models/project';
+import { User } from '@Models/user';
 
 /**
  * @description

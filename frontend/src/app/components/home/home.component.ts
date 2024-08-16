@@ -3,9 +3,9 @@ import { MatExpansionModule } from '@angular/material/expansion'
 
 @Component({
   selector: 'hsel-home',
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
   standalone: true,
   imports: [MatExpansionModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
 })
 export class HomeComponent { }

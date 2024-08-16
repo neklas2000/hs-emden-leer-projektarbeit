@@ -1,16 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import {
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { Nullable } from '@Types';
 
@@ -20,19 +13,16 @@ type DialogData = {
 
 @Component({
   selector: 'hsel-markdown-provide-external-url',
+  templateUrl: './markdown-provide-external-url.component.html',
+  styleUrl: './markdown-provide-external-url.component.scss',
   standalone: true,
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
     FormsModule,
     MatButtonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
-  templateUrl: './markdown-provide-external-url.component.html',
-  styleUrl: './markdown-provide-external-url.component.scss'
 })
 export class MarkdownProvideExternalUrlComponent {
   uri: Nullable<string> = null;

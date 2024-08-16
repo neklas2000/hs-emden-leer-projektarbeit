@@ -3,8 +3,10 @@
 </h1>
 <div mat-dialog-content>
   Wollen Sie Ihr Profil wirklich unwiderruflich löschen?
+  Die von Ihnen erstellen Projekte werden dabei auch unwiderruflich gelöscht.
+  In Projekten, bei denen Sie ein Mitglied sind, werden Sie lediglich unwiderruflich als Mitglied entfernt.
 </div>
-<div mat-dialog-actions>
+<div class="!justify-end" mat-dialog-actions>
   <button (click)='onCancel()' mat-button cdkFocusInitial>Nein</button>
   <button [mat-dialog-close]='true' mat-button>
     Ja, unwiderruflich löschen

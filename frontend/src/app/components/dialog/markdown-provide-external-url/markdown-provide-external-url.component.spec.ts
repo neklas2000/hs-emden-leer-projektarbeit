@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { MarkdownProvideExternalUrlComponent } from './markdown-provide-external-url.component';
+import {
+  MarkdownProvideExternalUrlComponent
+} from '@Dialogs/markdown-provide-external-url/markdown-provide-external-url.component';
 
 describe('Component: MarkdownProvideExternalUrlComponent', () => {
   let component: MarkdownProvideExternalUrlComponent;
@@ -28,8 +30,7 @@ describe('Component: MarkdownProvideExternalUrlComponent', () => {
         },
         provideAnimations(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MarkdownProvideExternalUrlComponent);
     component = fixture.componentInstance;

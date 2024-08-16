@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { UserService } from './user.service';
+import { UserService } from '@Services/user.service';
 
 describe('Service: UserService', () => {
   let service: UserService;
@@ -14,7 +14,7 @@ describe('Service: UserService', () => {
     service = TestBed.inject(UserService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

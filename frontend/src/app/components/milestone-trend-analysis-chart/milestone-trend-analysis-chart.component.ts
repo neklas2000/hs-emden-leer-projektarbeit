@@ -11,10 +11,10 @@ import { ThemeMode, ThemeService } from '@Services/theme.service';
 
 @Component({
   selector: 'hsel-milestone-trend-analysis-chart',
+  templateUrl: './milestone-trend-analysis-chart.component.html',
+  styleUrl: './milestone-trend-analysis-chart.component.scss',
   standalone: true,
   imports: [AgChartsAngular],
-  templateUrl: './milestone-trend-analysis-chart.component.html',
-  styleUrl: './milestone-trend-analysis-chart.component.scss'
 })
 export class MilestoneTrendAnalysisChartComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('chartContainer') chartContainer!: ElementRef<HTMLDivElement>;

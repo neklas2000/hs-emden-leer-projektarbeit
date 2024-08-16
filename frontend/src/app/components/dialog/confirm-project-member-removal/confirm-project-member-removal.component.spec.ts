@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { ConfirmProjectMemberRemovalComponent } from './confirm-project-member-removal.component';
+import {
+  ConfirmProjectMemberRemovalComponent
+} from '@Dialogs/confirm-project-member-removal/confirm-project-member-removal.component';
 
 describe('Component: ConfirmProjectMemberRemovalComponent', () => {
   let component: ConfirmProjectMemberRemovalComponent;

@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { RegisterCredentialsComponent } from './register-credentials.component';
+import {
+  RegisterCredentialsComponent
+} from '@Components/auth/register/register-credentials/register-credentials.component';
 
 describe('Component: RegisterCredentialsComponent', () => {
   let component: RegisterCredentialsComponent;

@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
 
-import { EditProjectComponent } from './edit-project.component';
+import { EditProjectComponent } from '@Components/user/edit-project/edit-project.component';
 import { ProjectService } from '@Services/project.service';
 
 describe('Component: EditProjectComponent', () => {

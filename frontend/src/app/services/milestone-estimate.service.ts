@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { JsonApiConnectorService } from './json-api-connector.service';
+
 import { MilestoneEstimate } from '@Models/milestone-estimate';
+import { JsonApiConnectorService } from '@Services/json-api-connector.service';
 
 /**
  * @description

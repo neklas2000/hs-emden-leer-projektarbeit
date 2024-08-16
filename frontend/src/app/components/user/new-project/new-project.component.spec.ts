@@ -6,7 +6,7 @@ import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
-import { NewProjectComponent } from './new-project.component';
+import { NewProjectComponent } from '@Components/user/new-project/new-project.component';
 import { AuthenticationService } from '@Services/authentication.service';
 import { DateService } from '@Services/date.service';
 import { ProjectService } from '@Services/project.service';

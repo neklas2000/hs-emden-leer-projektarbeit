@@ -1,8 +1,8 @@
-import { ProjectMember } from './project-member';
-import { ProjectMilestone } from './project-milestone';
-import { ProjectReport } from './project-report';
+import { ProjectMember } from '@Models/project-member';
+import { ProjectMilestone } from '@Models/project-milestone';
+import { ProjectReport } from '@Models/project-report';
+import { User } from '@Models/user';
 import { Nullable } from '@Types';
-import { User } from './user';
 
 /**
  * @description

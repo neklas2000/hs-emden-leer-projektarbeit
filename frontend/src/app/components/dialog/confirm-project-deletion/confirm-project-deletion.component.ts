@@ -8,8 +8,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './confirm-project-deletion.component.scss',
   standalone: true,
   imports: [
-    MatDialogModule,
     MatButtonModule,
+    MatDialogModule,
   ],
 })
 export class ConfirmProjectDeletionComponent {

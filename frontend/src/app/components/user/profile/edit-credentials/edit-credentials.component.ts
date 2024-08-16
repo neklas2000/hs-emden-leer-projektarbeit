@@ -25,18 +25,18 @@ type DialogData = {
 
 @Component({
   selector: 'hsel-edit-credentials',
+  templateUrl: './edit-credentials.component.html',
+  styleUrl: './edit-credentials.component.scss',
   standalone: true,
   imports: [
-    MatDialogModule,
-    ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
     MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
-  templateUrl: './edit-credentials.component.html',
-  styleUrl: './edit-credentials.component.scss'
 })
 export class EditCredentialsComponent implements OnInit, OnDestroy {
   EMAIL = Credentials.EMAIL as const;

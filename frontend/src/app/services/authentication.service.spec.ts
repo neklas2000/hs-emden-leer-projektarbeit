@@ -1,8 +1,8 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { AuthenticationService } from './authentication.service';
-import { SessionStorageService } from './session-storage.service';
+import { AuthenticationService } from '@Services/authentication.service';
+import { SessionStorageService } from '@Services/session-storage.service';
 
 describe('Service: AuthenticationService', () => {
   let service: AuthenticationService;
@@ -18,7 +18,7 @@ describe('Service: AuthenticationService', () => {
     service = TestBed.inject(AuthenticationService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

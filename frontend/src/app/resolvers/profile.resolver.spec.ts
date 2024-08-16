@@ -3,14 +3,14 @@ import { ResolveFn } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { profileResolver } from './profile.resolver';
-import { Nullable } from '@Types';
 import { User } from '@Models/user';
+import { profileResolver } from '@Resolvers/profile.resolver';
 import { ProfileService } from '@Services/profile.service';
+import { Nullable } from '@Types';
 
-describe('profileResolver', () => {
+describe('Resolver: profileResolver', () => {
   const executeResolver: ResolveFn<Observable<Nullable<User>>> = (...resolverParameters) =>
-      TestBed.runInInjectionContext(() => profileResolver(...resolverParameters));
+    TestBed.runInInjectionContext(() => profileResolver(...resolverParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,7 +18,7 @@ describe('profileResolver', () => {
     });
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(executeResolver).toBeTruthy();
   });
 });

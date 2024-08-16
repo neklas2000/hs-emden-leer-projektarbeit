@@ -62,10 +62,11 @@
     }
   </mat-form-field>
   <markdown
+    class="markdown-parser min-h-50 max-h-125 overflow-y-auto"
     lineNumbers
     lineHighlight
     [data]="markdown"
     [hidden]="!previewOpen"
-    style="min-height: 200px; max-height: 500px; overflow-y: auto; background-color: var(--mdc-filled-text-field-container-color);">
+    style="background-color: var(--mdc-filled-text-field-container-color)">
   </markdown>
 </div>

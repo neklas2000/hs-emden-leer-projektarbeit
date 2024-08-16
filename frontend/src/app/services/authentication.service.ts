@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable, catchError, map, of, switchMap, take, throwError } from 'rxjs';
 
-import { JsonApiConnectorService } from './json-api-connector.service';
 import { User } from '@Models/user';
-import { SessionStorageService } from './session-storage.service';
+import { JsonApiConnectorService } from '@Services/json-api-connector.service';
+import { SessionStorageService } from '@Services/session-storage.service';
 import { DeepPartial, Nullable } from '@Types';
 
 /**

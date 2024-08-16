@@ -25,18 +25,18 @@ type Form = FormGroup<{
 
 @Component({
   selector: 'hsel-edit-personal-information',
+  templateUrl: './edit-personal-information.component.html',
+  styleUrl: './edit-personal-information.component.scss',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
-    MatSelectModule,
     MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
   ],
-  templateUrl: './edit-personal-information.component.html',
-  styleUrl: './edit-personal-information.component.scss'
 })
 export class EditPersonalInformationComponent implements OnInit {
   @Input() profile!: DeepPartial<User>;

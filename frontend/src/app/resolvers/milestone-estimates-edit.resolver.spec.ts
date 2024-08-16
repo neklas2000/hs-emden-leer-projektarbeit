@@ -3,14 +3,16 @@ import { ResolveFn } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { milestoneEstimatesEditResolver } from './milestone-estimates-edit.resolver';
 import { ProjectMilestone } from '@Models/project-milestone';
+import { milestoneEstimatesEditResolver } from '@Resolvers/milestone-estimates-edit.resolver';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { Nullable } from '@Types';
 
 describe('Resolver: milestoneEstimatesEditResolver', () => {
-  const executeResolver: ResolveFn<Nullable<Observable<ProjectMilestone[]>>> = (...resolverParameters) =>
-      TestBed.runInInjectionContext(() => milestoneEstimatesEditResolver(...resolverParameters));
+  const executeResolver: ResolveFn<Nullable<Observable<ProjectMilestone[]>>> =
+    (...resolverParameters) => TestBed.runInInjectionContext(
+      () => milestoneEstimatesEditResolver(...resolverParameters),
+    );
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,7 +20,7 @@ describe('Resolver: milestoneEstimatesEditResolver', () => {
     });
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(executeResolver).toBeTruthy();
   });
 });

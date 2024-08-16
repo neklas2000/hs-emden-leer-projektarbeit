@@ -3,7 +3,12 @@
 </h1>
 <div mat-dialog-content>
   Wollen Sie Ihr Projekt wirklich unwiderruflich löschen?
-  Dadurch werden alle mit dem Projekt verbundenen Daten (Mitglieder, Berichte und Meilensteine sowie Ihre Prognosen) unwiderruflich gelöscht.
+  Dadurch werden alle mit dem Projekt verbundenen Daten unwiderruflich gelöscht:
+  <ul>
+    <li>alle verbundenen Mitglieder werden entfernt (lediglich die Verbindung wird aufgelöst)</li>
+    <li>alle Berichte werden entfernt</li>
+    <li>alle Meilensteine mit den verbundenen Prognosen werden entfernt</li>
+  </ul>
 </div>
 <div class="!justify-end" mat-dialog-actions>
   <button (click)='onCancel()' mat-button cdkFocusInitial>Nein</button>

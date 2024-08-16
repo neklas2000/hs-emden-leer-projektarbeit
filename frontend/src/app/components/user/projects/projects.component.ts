@@ -12,6 +12,8 @@ import { SnackbarService } from '@Services/snackbar.service';
 
 @Component({
   selector: 'hsel-projects',
+  templateUrl: './projects.component.html',
+  styleUrl: './projects.component.scss',
   standalone: true,
   imports: [
     CommonModule,
@@ -22,8 +24,6 @@ import { SnackbarService } from '@Services/snackbar.service';
     MatListModule,
     RouterModule,
   ],
-  templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss'
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];

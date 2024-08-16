@@ -3,7 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { InviteProjectMemberComponent } from './invite-project-member.component';
+import {
+  InviteProjectMemberComponent
+} from '@Dialogs/invite-project-member/invite-project-member.component';
 import { ProjectRole } from '@Models/project-member';
 import { UserService } from '@Services/user.service';
 

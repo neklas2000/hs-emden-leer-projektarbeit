@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { provideMarkdown } from 'ngx-markdown';
 import { of } from 'rxjs';
 
-import { ReportDetailsComponent } from './report-details.component';
+import { ReportDetailsComponent } from '@Components/user/report-details/report-details.component';
 import { AgChartService } from '@Services/ag-chart.service';
 import { PdfService } from '@Services/pdf.service';
 import { ProjectService } from '@Services/project.service';
@@ -41,8 +41,7 @@ describe('Component: ReportDetailsComponent', () => {
         SnackbarService,
         provideMarkdown(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ReportDetailsComponent);
     component = fixture.componentInstance;

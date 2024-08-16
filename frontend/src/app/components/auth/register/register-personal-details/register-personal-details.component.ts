@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 import { Nullable } from '@Types';
+import { FormValidators } from '@Validators';
 
 export type PersonalDetails = {
   academicTitle: Nullable<string>;
@@ -17,17 +18,17 @@ export type PersonalDetails = {
 
 @Component({
   selector: 'hsel-register-personal-details',
+  templateUrl: './register-personal-details.component.html',
+  styleUrl: './register-personal-details.component.scss',
   standalone: true,
   imports: [
     FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
-  templateUrl: './register-personal-details.component.html',
-  styleUrl: './register-personal-details.component.scss'
 })
 export class RegisterPersonalDetailsComponent {
   @Output() onBack: EventEmitter<void> = new EventEmitter();
@@ -36,9 +37,9 @@ export class RegisterPersonalDetailsComponent {
 
   form = this.formBuilder.group({
     academicTitle: ['', []],
-    firstName: ['', [Validators.required]],
-    lastName: ['', [Validators.required]],
-    matriculationNumber: [null, [Validators.required]],
+    firstName: ['', [FormValidators.required]],
+    lastName: ['', [FormValidators.required]],
+    matriculationNumber: [null, [FormValidators.required]],
     phoneNumber: ['', []],
   });
 

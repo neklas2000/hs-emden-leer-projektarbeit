@@ -11,7 +11,7 @@
     <input [(ngModel)]="uri" [placeholder]="data.isImage ? 'Die URL vom Bild' : 'Die URL für den Link'" matInput required>
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div class="!justify-end" mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Abbrechen</button>
   <button mat-button [mat-dialog-close]="uri" cdkFocusInitial>Ok</button>
 </div>

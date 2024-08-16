@@ -3,46 +3,53 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Data, Router } from '@angular/router';
-import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 
 import { take } from 'rxjs';
 
-import { Credentials, EditCredentialsComponent } from './edit-credentials/edit-credentials.component';
-import { EditPersonalInformationComponent } from './edit-personal-information/edit-personal-information.component';
+import {
+  Credentials,
+  EditCredentialsComponent
+} from '@Components/user/profile/edit-credentials/edit-credentials.component';
+import {
+  EditPersonalInformationComponent
+} from '@Components/user/profile/edit-personal-information/edit-personal-information.component';
+import {
+  ConfirmProfileDeletionComponent
+} from '@Dialogs/confirm-profile-deletion/confirm-profile-deletion.component';
 import { User } from '@Models/user';
 import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
-import { DeepPartial, Nullable } from '@Types';
-import { ConfirmProfileDeletionComponent } from '@Components/dialog/confirm-profile-deletion/confirm-profile-deletion.component';
 import { DialogService } from '@Services/dialog.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { UserService } from '@Services/user.service';
+import { DeepPartial, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { AuthenticationService } from '@Services/authentication.service';
 
 @Component({
   selector: 'hsel-profile',
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss',
   standalone: true,
   imports: [
-    MatCardModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
-    MatListModule,
-    MatTooltipModule,
     EditPersonalInformationComponent,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatSelectModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
     UndefinedStringPipe,
   ],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
   profile!: DeepPartial<User>;

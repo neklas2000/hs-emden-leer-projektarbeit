@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NotFoundService } from './not-found.service';
+import { NotFoundService } from '@Services/not-found.service';
 
-describe('NotFoundService', () => {
+describe('Service: NotFoundService', () => {
   let service: NotFoundService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('NotFoundService', () => {
     service = TestBed.inject(NotFoundService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

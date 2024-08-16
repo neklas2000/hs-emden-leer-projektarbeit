@@ -1,5 +1,5 @@
-import { MilestoneEstimate } from './milestone-estimate';
-import { Project } from './project';
+import { MilestoneEstimate } from '@Models/milestone-estimate';
+import { Project } from '@Models/project';
 import { Nullable } from '@Types';
 
 /**

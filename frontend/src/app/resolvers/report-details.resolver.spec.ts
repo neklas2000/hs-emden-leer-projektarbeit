@@ -3,14 +3,16 @@ import { ResolveFn } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { reportDetailsResolver } from './report-details.resolver';
 import { ProjectReport } from '@Models/project-report';
+import { reportDetailsResolver } from '@Resolvers/report-details.resolver';
 import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
 
 describe('Resolver: reportDetailsResolver', () => {
-  const executeResolver: ResolveFn<Nullable<Observable<Nullable<ProjectReport>>>> = (...resolverParameters) =>
-      TestBed.runInInjectionContext(() => reportDetailsResolver(...resolverParameters));
+  const executeResolver: ResolveFn<Nullable<Observable<Nullable<ProjectReport>>>> =
+    (...resolverParameters) => TestBed.runInInjectionContext(
+      () => reportDetailsResolver(...resolverParameters),
+    );
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,7 +20,7 @@ describe('Resolver: reportDetailsResolver', () => {
     });
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(executeResolver).toBeTruthy();
   });
 });

@@ -75,3 +75,15 @@ body:not(.theme-alternate) {
   border: 2px solid var(--warn-color);
   border-radius: var(--mdc-snackbar-container-shape);
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

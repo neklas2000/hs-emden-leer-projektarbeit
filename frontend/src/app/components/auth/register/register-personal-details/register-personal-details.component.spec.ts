@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { RegisterPersonalDetailsComponent } from './register-personal-details.component';
+import {
+  RegisterPersonalDetailsComponent
+} from '@Components/auth/register/register-personal-details/register-personal-details.component';
 
 describe('Component: RegisterPersonalDetailsComponent', () => {
   let component: RegisterPersonalDetailsComponent;

@@ -2,13 +2,13 @@ import { TestBed } from '@angular/core/testing';
 
 import { provideMarkdown } from 'ngx-markdown';
 
-import { ProjectReportSchema } from './project-report.schema';
+import { ProjectReportSchema } from '@PdfSchemas/project-report.schema';
 
 describe('PdfSchema: ProjectReportSchema', () => {
   let schema: ProjectReportSchema;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       providers: [
         provideMarkdown(),
       ],
@@ -17,7 +17,7 @@ describe('PdfSchema: ProjectReportSchema', () => {
     schema = TestBed.inject(ProjectReportSchema);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(schema).toBeTruthy();
   });
 });

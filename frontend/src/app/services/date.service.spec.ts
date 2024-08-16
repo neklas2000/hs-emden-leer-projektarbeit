@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DateService } from './date.service';
+import { DateService } from '@Services/date.service';
 
 describe('Service: DateService', () => {
   let service: DateService;
@@ -10,7 +10,7 @@ describe('Service: DateService', () => {
     service = TestBed.inject(DateService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

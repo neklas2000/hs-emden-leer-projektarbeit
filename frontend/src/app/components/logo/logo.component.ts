@@ -8,10 +8,10 @@ import { Undefinable } from '@Types';
 
 @Component({
   selector: 'hsel-logo',
+  templateUrl: './logo.component.html',
+  styleUrl: './logo.component.scss',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './logo.component.html',
-  styleUrl: './logo.component.scss'
 })
 export class LogoComponent {
   @Input() imgClasses: string = '';

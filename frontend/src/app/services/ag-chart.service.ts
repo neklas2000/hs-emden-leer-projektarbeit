@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { AgChartOptions, AgCharts, AgLineSeriesTooltipRendererParams } from 'ag-charts-community';
 import { DateTime } from 'luxon';
 
-import { DateService } from './date.service';
 import { ProjectMilestone } from '@Models/project-milestone';
+import { DateService } from '@Services/date.service';
 import { Nullable } from '@Types';
 
 /**

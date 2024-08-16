@@ -20,19 +20,19 @@ import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-report-details',
+  templateUrl: './report-details.component.html',
+  styleUrl: './report-details.component.scss',
   standalone: true,
   imports: [
-    MarkdownPipe,
     CommonModule,
     FormsModule,
+    MarkdownPipe,
+    MatButtonModule,
     MatCardModule,
     MatIconModule,
-    RouterModule,
     MatTooltipModule,
-    MatButtonModule,
+    RouterModule,
   ],
-  templateUrl: './report-details.component.html',
-  styleUrl: './report-details.component.scss'
 })
 export class ReportDetailsComponent implements OnInit {
   projectReport!: ProjectReport;

@@ -40,24 +40,24 @@ type NavigationGroup = {
 
 @Component({
   selector: 'hsel-layout',
+  templateUrl: './layout.component.html',
+  styleUrl: './layout.component.scss',
   standalone: true,
   imports: [
-    LogoComponent,
     CommonModule,
-    RouterOutlet,
-    MatToolbarModule,
-    MatSidenavModule,
+    LogoComponent,
     MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatListModule,
-    RouterModule,
-    MatProgressBarModule,
     MatDividerModule,
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatProgressBarModule,
+    RouterOutlet,
+    RouterModule,
     PageNotFoundComponent,
   ],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
 })
 export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;

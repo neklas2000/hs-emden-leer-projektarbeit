@@ -4,7 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { MarkdownService, provideMarkdown } from 'ngx-markdown';
 
-import { MarkdownEditorComponent } from './markdown-editor.component';
+import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
 
 describe('Component: MarkdownEditorComponent', () => {
   let component: MarkdownEditorComponent;

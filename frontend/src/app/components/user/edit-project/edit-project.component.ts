@@ -13,9 +13,9 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { Subscription, take } from 'rxjs';
 
+import { Project } from '@Models/project';
 import { ProjectMember } from '@Models/project-member';
 import { ProjectMilestone } from '@Models/project-milestone';
-import { Project } from '@Models/project';
 import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
 import { DateService } from '@Services/date.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
@@ -30,22 +30,22 @@ type RouteData = Data & {
 
 @Component({
   selector: 'hsel-edit-project',
+  templateUrl: './edit-project.component.html',
+  styleUrl: './edit-project.component.scss',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
     MatButtonModule,
-    MatIconModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     MatListModule,
-    UndefinedStringPipe,
     MatTooltipModule,
+    ReactiveFormsModule,
+    UndefinedStringPipe,
   ],
-  templateUrl: './edit-project.component.html',
-  styleUrl: './edit-project.component.scss'
 })
 export class EditProjectComponent implements OnInit, OnDestroy {
   form!: FormGroup; // Will be initialized inside #ngOnInit

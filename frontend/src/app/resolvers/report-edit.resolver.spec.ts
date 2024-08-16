@@ -10,9 +10,10 @@ import { ProjectReportService } from '@Services/project-report.service';
 import { Nullable } from '@Types';
 
 describe('Resolver: reportEditResolver', () => {
-  const executeResolver: ResolveFn<Nullable<Observable<Nullable<ProjectReport>>>> = (
-		...resolverParameters
-	) => TestBed.runInInjectionContext(() => reportEditResolver(...resolverParameters));
+  const executeResolver: ResolveFn<Nullable<Observable<Nullable<ProjectReport>>>> =
+    (...resolverParameters) => TestBed.runInInjectionContext(
+      () => reportEditResolver(...resolverParameters),
+    );
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,7 +21,7 @@ describe('Resolver: reportEditResolver', () => {
     });
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(executeResolver).toBeTruthy();
   });
 });

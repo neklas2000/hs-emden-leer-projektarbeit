@@ -9,6 +9,12 @@ module.exports = {
         'inherit': 'inherit',
         '3/4': '75%',
       },
+      minHeight: {
+        '50': '12.5rem',
+      },
+      maxHeight: {
+        '125': '31.25rem',
+      },
       flex: {
         '1/2': '50%',
       },

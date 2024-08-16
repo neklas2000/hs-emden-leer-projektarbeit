@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 
-import { DialogService } from './dialog.service';
+import { DialogService } from '@Services/dialog.service';
 
 describe('Service: DialogService', () => {
   let service: DialogService;
@@ -14,7 +14,7 @@ describe('Service: DialogService', () => {
     service = TestBed.inject(DialogService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

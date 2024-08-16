@@ -1,4 +1,4 @@
-import { UUID } from './uuid';
+import { UUID } from '@Utils/uuid';
 
 describe('Util: UUID', () => {
   it('should report that the uuid is not well formed since the input is undefined', () => {

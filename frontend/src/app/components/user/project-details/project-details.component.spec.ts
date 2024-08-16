@@ -4,7 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
 
-import { ProjectDetailsComponent } from './project-details.component';
+import {
+  ProjectDetailsComponent
+} from '@Components/user/project-details/project-details.component';
 import { DialogService } from '@Services/dialog.service';
 import { SnackbarService } from '@Services/snackbar.service';
 import { ProjectMemberService } from '@Services/project-member.service';

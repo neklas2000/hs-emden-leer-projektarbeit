@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { ProjectService } from './project.service';
+import { ProjectService } from '@Services/project.service';
 
 describe('Service: ProjectService', () => {
   let service: ProjectService;
@@ -14,7 +14,7 @@ describe('Service: ProjectService', () => {
     service = TestBed.inject(ProjectService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

@@ -6,7 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
 
-import { EditMilestoneEstimatesComponent } from './edit-milestone-estimates.component';
+import {
+  EditMilestoneEstimatesComponent
+} from '@Components/edit-milestone-estimates/edit-milestone-estimates.component';
 import { DateService } from '@Services/date.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarService } from '@Services/snackbar.service';
@@ -35,8 +37,7 @@ describe('Component: EditMilestoneEstimatesComponent', () => {
         MatDialog,
         provideAnimations(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditMilestoneEstimatesComponent);
     component = fixture.componentInstance;

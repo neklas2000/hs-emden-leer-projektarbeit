@@ -6,9 +6,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   EditMilestoneEstimatesTabComponent
 } from '@Components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component';
-import { ProjectMilestoneService } from '@Services/project-milestone.service';
-import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
 import { DialogService } from '@Services/dialog.service';
+import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarService } from '@Services/snackbar.service';
 
 describe('Component: EditMilestoneEstimatesTabComponent', () => {
@@ -21,7 +20,6 @@ describe('Component: EditMilestoneEstimatesTabComponent', () => {
       providers: [
         FormBuilder,
         ProjectMilestoneService,
-        MilestoneEstimateService,
         provideHttpClient(),
         DialogService,
         SnackbarService,

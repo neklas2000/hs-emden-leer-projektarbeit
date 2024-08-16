@@ -2,20 +2,24 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCommonModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ActivatedRoute, Data } from '@angular/router';
 
 import { BehaviorSubject, Observable, take } from 'rxjs';
 
-import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
-import { EditMilestoneEstimatesTabComponent } from '../edit-milestone-estimates-tab/edit-milestone-estimates-tab.component';
-import { ProjectMilestone } from '@Models/project-milestone';
+import {
+  EditMilestoneEstimatesTabComponent
+} from '@Components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component';
+import {
+  CreateNewMilestoneComponent
+} from '@Dialogs/create-new-milestone/create-new-milestone.component';
 import { Project } from '@Models/project';
+import { ProjectMilestone } from '@Models/project-milestone';
 import { DateService } from '@Services/date.service';
 import { DialogService } from '@Services/dialog.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
@@ -25,22 +29,22 @@ import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-edit-milestone-estimates',
+  templateUrl: './edit-milestone-estimates.component.html',
+  styleUrl: './edit-milestone-estimates.component.scss',
   standalone: true,
   imports: [
-    MatInputModule,
-    MatCommonModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatTableModule,
-    DatePipe,
-    MatDatepickerModule,
-    MatTabsModule,
-    MatIconModule,
-    EditMilestoneEstimatesTabComponent,
     AsyncPipe,
+    DatePipe,
+    EditMilestoneEstimatesTabComponent,
+    FormsModule,
+    MatCommonModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatTableModule,
+    MatTabsModule,
   ],
-  templateUrl: './edit-milestone-estimates.component.html',
-  styleUrl: './edit-milestone-estimates.component.scss'
 })
 export class EditMilestoneEstimatesComponent implements OnInit {
   reportDates: string[] = [];

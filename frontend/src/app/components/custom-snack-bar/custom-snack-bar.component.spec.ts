@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
-import { CustomSnackBarComponent } from './custom-snack-bar.component';
+import { CustomSnackBarComponent } from '@Components/custom-snack-bar/custom-snack-bar.component';
 
-describe('CustomSnackBarComponent', () => {
+describe('Component: CustomSnackBarComponent', () => {
   let component: CustomSnackBarComponent;
   let fixture: ComponentFixture<CustomSnackBarComponent>;
 

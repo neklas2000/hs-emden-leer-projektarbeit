@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { CreateNewMilestoneComponent } from './create-new-milestone.component';
+import { CreateNewMilestoneComponent } from '@Dialogs/create-new-milestone/create-new-milestone.component';
 
 describe('Component: CreateNewMilestoneComponent', () => {
   let component: CreateNewMilestoneComponent;

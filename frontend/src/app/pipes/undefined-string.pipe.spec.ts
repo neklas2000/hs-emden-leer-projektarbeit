@@ -1,7 +1,7 @@
-import { UndefinedStringPipe } from './undefined-string.pipe';
+import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
 
-describe('UndefinedStringPipe', () => {
-  it('create an instance', () => {
+describe('Pipe: UndefinedStringPipe', () => {
+  it('should create', () => {
     const pipe = new UndefinedStringPipe();
     expect(pipe).toBeTruthy();
   });

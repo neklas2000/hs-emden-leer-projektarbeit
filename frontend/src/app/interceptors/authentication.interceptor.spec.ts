@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { AuthenticationInterceptor } from './authentication.interceptor';
+import { AuthenticationInterceptor } from '@Interceptors/authentication.interceptor';
 import { AuthenticationService } from '@Services/authentication.service';
 
 describe('Interceptor: AuthenticationInterceptor', () => {
@@ -21,7 +21,7 @@ describe('Interceptor: AuthenticationInterceptor', () => {
     authentication = TestBed.inject(AuthenticationService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
 		expect(interceptor).toBeTruthy();
 	});
 });

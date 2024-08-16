@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ConfirmProfileDeletionComponent } from './confirm-profile-deletion.component';
 import { MatDialogRef } from '@angular/material/dialog';
+
+import {
+  ConfirmProfileDeletionComponent
+} from '@Dialogs/confirm-profile-deletion/confirm-profile-deletion.component';
 
 describe('Component: ConfirmProfileDeletionComponent', () => {
   let component: ConfirmProfileDeletionComponent;

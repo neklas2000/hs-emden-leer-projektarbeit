@@ -1,7 +1,7 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { MediaMatching } from './media-matching.service';
-import { ChangeDetectorRef } from '@angular/core';
+import { MediaMatching } from '@Services/media-matching.service';
 
 describe('Service: MediaMatching', () => {
   let service: MediaMatching;
@@ -24,7 +24,7 @@ describe('Service: MediaMatching', () => {
     service = TestBed.inject(MediaMatching);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

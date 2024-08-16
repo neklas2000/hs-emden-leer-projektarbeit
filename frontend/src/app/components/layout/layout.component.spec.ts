@@ -2,10 +2,10 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { provideHttpClient } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 
-import { LayoutComponent } from './layout.component';
+import { LayoutComponent } from '@Components/layout/layout.component';
 import { AuthenticationService } from '@Services/authentication.service';
 import { SnackbarService } from '@Services/snackbar.service';
 import { ThemeService } from '@Services/theme.service';
@@ -27,8 +27,7 @@ describe('Component: LayoutComponent', () => {
         SnackbarService,
         provideAnimations(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;

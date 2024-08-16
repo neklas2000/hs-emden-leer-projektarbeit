@@ -1,10 +1,10 @@
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 
-import { LoginComponent } from './login.component';
+import { LoginComponent } from '@Components/auth/login/login.component';
 import { AuthenticationService } from '@Services/authentication.service';
 
 describe('Component: LoginComponent', () => {
@@ -21,8 +21,7 @@ describe('Component: LoginComponent', () => {
         provideRouter([]),
         provideAnimations(),
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;

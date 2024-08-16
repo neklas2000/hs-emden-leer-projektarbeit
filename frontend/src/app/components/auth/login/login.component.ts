@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,32 +8,33 @@ import { Router, RouterModule } from '@angular/router';
 
 import { take } from 'rxjs';
 
-import { AuthenticationService } from '@Services/authentication.service';
 import { LogoComponent } from '@Components/logo/logo.component';
+import { AuthenticationService } from '@Services/authentication.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { HttpException } from '@Utils/http-exception';
+import { FormValidators } from '@Validators';
 
 @Component({
   selector: 'hsel-login',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
   standalone: true,
   imports: [
-    LogoComponent,
-    ReactiveFormsModule,
     FormsModule,
-    MatInputModule,
-    MatIconModule,
+    LogoComponent,
     MatButtonModule,
     MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
     RouterModule,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   hide: boolean = true;
   formGroup: FormGroup = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    email: ['', [FormValidators.required, FormValidators.email]],
+    password: ['', [FormValidators.required]],
   });
 
   constructor(

@@ -4,13 +4,13 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'hsel-confirm-milestone-deletion',
+  templateUrl: './confirm-milestone-deletion.component.html',
+  styleUrl: './confirm-milestone-deletion.component.scss',
   standalone: true,
   imports: [
-    MatDialogModule,
     MatButtonModule,
+    MatDialogModule,
   ],
-  templateUrl: './confirm-milestone-deletion.component.html',
-  styleUrl: './confirm-milestone-deletion.component.scss'
 })
 export class ConfirmMilestoneDeletionComponent {
   constructor(private readonly dialogRef: MatDialogRef<ConfirmMilestoneDeletionComponent>) {}
