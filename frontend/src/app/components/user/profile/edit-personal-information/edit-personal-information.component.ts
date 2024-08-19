@@ -10,7 +10,7 @@ import { take } from 'rxjs';
 
 import { User } from '@Models/user';
 import { ProfileService } from '@Services/profile.service';
-import { SnackbarService } from '@Services/snackbar.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { DeepPartial, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
@@ -43,11 +43,11 @@ export class EditPersonalInformationComponent implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter();
   @Output() onSubmit: EventEmitter<DeepPartial<User>> = new EventEmitter();
   form: Form = this.formBuilder.group({
-    academicTitle: ['', []],
-    firstName: ['', [FormValidators.required]],
-    lastName: ['', [FormValidators.required]],
-    matriculationNumber: [null, [FormValidators.required]],
-    phoneNumber: ['', [FormValidators.phoneNumber]],
+    academicTitle: new FormControl<Nullable<string>>(null),
+    firstName: new FormControl<Nullable<string>>(null, [FormValidators.required]),
+    lastName: new FormControl<Nullable<string>>(null, [FormValidators.required]),
+    matriculationNumber: new FormControl<Nullable<number>>(null),
+    phoneNumber: new FormControl<Nullable<string>>(null, [FormValidators.phoneNumber]),
   }) as any;
 
   constructor(
@@ -74,11 +74,11 @@ export class EditPersonalInformationComponent implements OnInit {
     }
 
     const data = {
-      academicTitle: this.form.get('academicTitle')!.value,
+      academicTitle: this.form.get('academicTitle')!.value ?? null,
       firstName: this.form.get('firstName')!.value,
       lastName: this.form.get('lastName')!.value,
-      matriculationNumber: this.form.get('matriculationNumber')?.value ?? undefined,
-      phoneNumber: this.form.get('phoneNumber')!.value,
+      matriculationNumber: this.form.get('matriculationNumber')!.value ?? null,
+      phoneNumber: this.form.get('phoneNumber')!.value ?? null,
     };
 
     this.profileService.update(':id', this.profile.id, data)
@@ -86,21 +86,15 @@ export class EditPersonalInformationComponent implements OnInit {
         .subscribe({
           next: (isProfileUpdated) => {
             if (isProfileUpdated) {
-              this.snackbar.open('Änderungen gespeichert');
+              this.snackbar.showInfo(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
               this.onSubmit.emit(data);
             } else {
-              this.snackbar.open('Änderungen nicht gespeichert');
+              this.snackbar.showWarning(SnackbarMessage.SAVE_OPERATION_FAILED_CONFIRMATION);
               this.onCancel.emit();
             }
           },
           error: (exception: HttpException) => {
-            let message = 'Es ist ein Fehler aufgetreten';
-
-            if (exception.code.length > 0) {
-              message += ` (${exception.code})`;
-            }
-
-            this.snackbar.open(message);
+            this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
             this.onCancel.emit();
           },
         });

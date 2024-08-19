@@ -17,14 +17,16 @@
       <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
     }
   </mat-form-field>
-  <mat-form-field class="w-full">
-    <mat-label aria-required="true">Matrikelnummer</mat-label>
-    <input type="text" formControlName="matriculationNumber" aria-required="true" pattern="[0-9]+" matInput required />
-    @if (form.get('matriculationNumber')?.hasError('required')) {
-      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
-    } @else if (form.get('matriculationNumber')?.hasError('pattern')) {
+  <mat-form-field class="w-full" subscriptSizing="dynamic">
+    <mat-label>Matrikelnummer</mat-label>
+    <input type="text" formControlName="matriculationNumber" pattern="[0-9]+" matInput />
+    @if (form.get('matriculationNumber')?.hasError('pattern')) {
       <mat-error>Für die Matrikelnummer darf nur eine Ganzzahl eingegeben werden</mat-error>
     }
+    <mat-hint>
+      Studierende sollten hier auf jeden Fall die Matrikelnummer angegeben.
+      Betreuer können dieses Feld leer lassen, aber können hier auch eine Nummer (z. B. eine Mitarbeiternummer) o. ä. angeben.
+    </mat-hint>
   </mat-form-field>
   <mat-form-field class="w-full">
     <mat-label>Telefonnummer</mat-label>

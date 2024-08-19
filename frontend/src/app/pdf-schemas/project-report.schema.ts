@@ -174,7 +174,12 @@ export class ProjectReportSchema implements PdfSchema<ProjectReportContent> {
 						}],
 						...content.students.map((student, idx, arr) => {
 							const row = [];
-							row.push({ text: `${student.firstName} ${student.lastName}` });
+              const name = [];
+
+              if (student.academicTitle) name.push(student.academicTitle);
+              name.push(student.firstName, student.lastName);
+
+							row.push({ text: name.join(' ') });
 							row.push({ text: student.email });
 							row.push({ text: student.phoneNumber ?? '' });
 							row.push({ text: student.matriculationNumber ?? '' });

@@ -17,19 +17,24 @@
       <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
     }
   </mat-form-field>
-  <mat-form-field class="w-full">
-    <mat-label aria-required="true">Matrikelnummer</mat-label>
-    <input type="number" formControlName="matriculationNumber" aria-required="true" pattern="\d+" required matInput />
-    @if (form.get('matriculationNumber')?.hasError('required')) {
-      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
-    } @else if (form.get('matriculationNumber')?.hasError('pattern')) {
+  <mat-form-field class="w-full" subscriptSizing="dynamic">
+    <mat-label>Matrikelnummer</mat-label>
+    <input type="number" min="1" formControlName="matriculationNumber" pattern="\d+" matInput />
+    @if (form.get('matriculationNumber')?.hasError('pattern')) {
       <mat-error>Für die Matrikelnummer wird eine Ganzzahl erwartet</mat-error>
     }
+    <mat-hint>
+      Studierende sollten hier auf jeden Fall die Matrikelnummer angegeben.
+      Betreuer können dieses Feld leer lassen, aber können hier auch eine Nummer (z. B. eine Mitarbeiternummer) o. ä. angeben.
+    </mat-hint>
   </mat-form-field>
   <mat-form-field class="w-full">
     <mat-label>Telefonnummer</mat-label>
     <input type="text" formControlName="phoneNumber" matInput />
     <mat-icon matPrefix>phone</mat-icon>
+    @if (form.get('phoneNumber')?.hasError('phoneNumber')) {
+      <mat-error>Das Format der Telefonnummer ist nicht korrekt</mat-error>
+    }
   </mat-form-field>
   <div class="mt-8 flex flex-row justify-end">
     <button (click)="onBackClick()" mat-button>Zurück</button>

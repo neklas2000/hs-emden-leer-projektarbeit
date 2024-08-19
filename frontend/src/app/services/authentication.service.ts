@@ -63,7 +63,7 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     ).pipe(
       take(1),
       map((response) => {
-        this.sessionStorage.setUser(response.user.id ?? '');
+        this.sessionStorage.setUser(response.user.id);
         this.sessionStorage.setAccessToken(response.accessToken);
         this.sessionStorage.setRefreshToken(response.refreshToken);
 

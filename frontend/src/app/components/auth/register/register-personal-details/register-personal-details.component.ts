@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ export type PersonalDetails = {
   academicTitle: Nullable<string>;
   firstName: string;
   lastName: string;
-  matriculationNumber: number;
+  matriculationNumber: Nullable<number>;
   phoneNumber: Nullable<string>;
 };
 
@@ -36,11 +36,11 @@ export class RegisterPersonalDetailsComponent {
   @Output() onNext: EventEmitter<void> = new EventEmitter();
 
   form = this.formBuilder.group({
-    academicTitle: ['', []],
-    firstName: ['', [FormValidators.required]],
-    lastName: ['', [FormValidators.required]],
-    matriculationNumber: [null, [FormValidators.required]],
-    phoneNumber: ['', []],
+    academicTitle: new FormControl<Nullable<string>>(null),
+    firstName: new FormControl<Nullable<string>>(null, [FormValidators.required]),
+    lastName: new FormControl<Nullable<string>>(null, [FormValidators.required]),
+    matriculationNumber: new FormControl<Nullable<number>>(null),
+    phoneNumber: new FormControl<Nullable<string>>(null, [FormValidators.phoneNumber]),
   });
 
   constructor(private readonly formBuilder: FormBuilder) {}
@@ -59,11 +59,11 @@ export class RegisterPersonalDetailsComponent {
 
   getPersonalDetails(): PersonalDetails {
     return {
-      academicTitle: this.form.get('academicTitle')?.value ?? null,
-      firstName: this.form.get('firstName')?.value ?? '',
-      lastName: this.form.get('lastName')?.value ?? '',
-      matriculationNumber: this.form.get('matriculationNumber')?.value ?? 0,
-      phoneNumber: this.form.get('phoneNumber')?.value ?? '',
+      academicTitle: this.form.get('academicTitle')!.value ?? null,
+      firstName: this.form.get('firstName')!.value ?? '',
+      lastName: this.form.get('lastName')!.value ?? '',
+      matriculationNumber: this.form.get('matriculationNumber')!.value ?? null,
+      phoneNumber: this.form.get('phoneNumber')!.value ?? null,
     };
   }
 }

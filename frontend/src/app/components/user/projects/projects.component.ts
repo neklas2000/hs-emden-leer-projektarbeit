@@ -43,10 +43,14 @@ export class ProjectsComponent implements OnInit {
   }
 
   createNewProject(): void {
-    if (!this.profile.firstName || !this.profile.lastName || !this.profile.matriculationNumber) {
+    if (!this.profile.firstName || !this.profile.lastName) {
       this.snackbar.showWarning('Für diese Aktion müssen Sie erst die persönlichen Daten angeben');
       this.router.navigateByUrl('/profile');
     } else {
+      if (!this.profile.matriculationNumber) {
+        this.snackbar.showWarning('Sie haben Ihre Matrikelnummer noch nicht hinterlegt');
+      }
+
       this.router.navigateByUrl('/projects/new');
     }
   }

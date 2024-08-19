@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Subscription, take } from 'rxjs';
 
 import { ProfileService } from '@Services/profile.service';
-import { SnackbarService } from '@Services/snackbar.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
 
@@ -107,7 +107,7 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
     }).pipe(take(1)).subscribe({
       next: (user) => {
         if (!user) {
-          this.snackbar.open('Anmeldedaten fehlerhaft');
+          this.snackbar.showError(SnackbarMessage.INCORRECT_CREDENTIALS);
         } else if (this.data.type === Credentials.EMAIL) {
           this.updateEmail();
         } else {
@@ -115,13 +115,7 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
         }
       },
       error: (exception: HttpException) => {
-        let message = 'Fehlerhafte Anmeldedaten';
-
-        if (exception.code.length > 0) {
-          message += ` (${exception.code})`;
-        }
-
-        this.snackbar.open(message);
+        this.snackbar.showException(SnackbarMessage.INCORRECT_CREDENTIALS, exception);
       },
     });
   }
@@ -132,19 +126,12 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
     }).pipe(take(1)).subscribe({
       next: (updatedSuccessfully) => {
         if (updatedSuccessfully) {
-          this.snackbar.open('E-Mail-Adresse aktualisiert');
+          this.snackbar.showInfo(SnackbarMessage.UPDATE_EMAIL_SUCCEEDED);
           this.dialogRef.close(this.form.get('newEmail')?.value ?? null);
         }
       },
       error: (exception: HttpException) => {
-        let message = 'E-Mail-Adresse wurde nicht aktualisiert';
-
-        if (exception.code.length > 0) {
-          message += ` (${exception.code})`;
-        }
-
-        this.snackbar.open(message);
-        console.log(exception);
+        this.snackbar.showException(SnackbarMessage.UPDATE_EMAIL_FAILED, exception);
         this.onCancelClick();
       },
     });
@@ -156,19 +143,12 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
     }).pipe(take(1)).subscribe({
       next: (updatedSuccessfully) => {
         if (updatedSuccessfully) {
-          this.snackbar.open('Passwort aktualisiert');
+          this.snackbar.showInfo(SnackbarMessage.UPDATE_PASSWORD_SUCCEEDED);
           this.onCancelClick();
         }
       },
       error: (exception: HttpException) => {
-        let message = 'Passwort wurde nicht aktualisiert';
-
-        if (exception.code.length > 0) {
-          message += ` (${exception.code})`;
-        }
-
-        this.snackbar.open(message);
-        console.log(exception);
+        this.snackbar.showException(SnackbarMessage.UPDATE_PASSWORD_FAILED, exception);
         this.onCancelClick();
       },
     });
