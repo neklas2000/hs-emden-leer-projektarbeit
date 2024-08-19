@@ -3,19 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ProjectController } from '@Controllers/project.controller';
 import { Project } from '@Entities/project';
-import { ProjectMember } from '@Entities/project-member';
-import { ProjectMilestone } from '@Entities/project-milestone';
+import { ProjectMemberModule } from '@Modules/project-member.module';
+import { ProjectMilestoneModule } from '@Modules/project-milestone.module';
 import { ProjectService } from '@Services/project.service';
-import { ProjectMemberService } from '@Services/project-member.service';
-import { ProjectMilestoneService } from '@Services/project-milestone.service';
 
 @Module({
-	imports: [
-		TypeOrmModule.forFeature([Project]),
-		TypeOrmModule.forFeature([ProjectMilestone]),
-		TypeOrmModule.forFeature([ProjectMember]),
-	],
-	providers: [ProjectService, ProjectMilestoneService, ProjectMemberService],
+	imports: [TypeOrmModule.forFeature([Project]), ProjectMilestoneModule, ProjectMemberModule],
+	providers: [ProjectService],
 	controllers: [ProjectController],
+	exports: [ProjectService],
 })
 export class ProjectModule {}

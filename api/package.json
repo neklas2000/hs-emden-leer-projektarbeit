@@ -110,23 +110,57 @@
     },
     "testEnvironment": "node",
     "moduleNameMapper": {
-      "^@Common/(.*)$": ["<rootDir>/../src/common/$1"],
-      "^@Controllers/(.*)$": ["<rootDir>/../src/controllers/$1"],
-      "^@Decorators/(.*)$": ["<rootDir>/../src/decorators/$1"],
-      "^@Entities/(.*)$": ["<rootDir>/../src/entities/$1"],
-      "^@Exceptions/(.*)$": ["<rootDir>/../src/exceptions/$1"],
-      "^@Filters/(.*)$": ["<rootDir>/../src/filters/$1"],
-      "^@Guards/(.*)$": ["<rootDir>/../src/guards/$1"],
-      "^@Interceptors/(.*)": ["<rootDir>/../src/interceptors/$1"],
-      "^@Modules/(.*)$": ["<rootDir>/../src/modules/$1"],
-      "^@Pipes/(.*)$": ["<rootDir>/../src/pipes/$1"],
-      "^@Services/(.*)$": ["<rootDir>/../src/services/$1"],
-      "^@Strategies/(.*)$": ["<rootDir>/../src/strategies/$1"],
-      "^@Tokens/(.*)$": ["<rootDir>/../src/tokens/$1"],
-      "^@Types/(.*)$": ["<rootDir>/../src/types/$1"],
-      "^@Utils/(.*)$": ["<rootDir>/../src/utils/$1"],
-      "^@Environment$": ["<rootDir>/../src/environment"],
-      "^@Test/Providers/(.*)$": ["<rootDir>/../test/providers/$1"]
+      "^@Common/(.*)$": [
+        "<rootDir>/../src/common/$1"
+      ],
+      "^@Controllers/(.*)$": [
+        "<rootDir>/../src/controllers/$1"
+      ],
+      "^@Decorators/(.*)$": [
+        "<rootDir>/../src/decorators/$1"
+      ],
+      "^@Entities/(.*)$": [
+        "<rootDir>/../src/entities/$1"
+      ],
+      "^@Exceptions/(.*)$": [
+        "<rootDir>/../src/exceptions/$1"
+      ],
+      "^@Filters/(.*)$": [
+        "<rootDir>/../src/filters/$1"
+      ],
+      "^@Guards/(.*)$": [
+        "<rootDir>/../src/guards/$1"
+      ],
+      "^@Interceptors/(.*)": [
+        "<rootDir>/../src/interceptors/$1"
+      ],
+      "^@Modules/(.*)$": [
+        "<rootDir>/../src/modules/$1"
+      ],
+      "^@Pipes/(.*)$": [
+        "<rootDir>/../src/pipes/$1"
+      ],
+      "^@Services/(.*)$": [
+        "<rootDir>/../src/services/$1"
+      ],
+      "^@Strategies/(.*)$": [
+        "<rootDir>/../src/strategies/$1"
+      ],
+      "^@Tokens/(.*)$": [
+        "<rootDir>/../src/tokens/$1"
+      ],
+      "^@Types/(.*)$": [
+        "<rootDir>/../src/types/$1"
+      ],
+      "^@Utils/(.*)$": [
+        "<rootDir>/../src/utils/$1"
+      ],
+      "^@Environment$": [
+        "<rootDir>/../src/environment"
+      ],
+      "^@Test/Providers/(.*)$": [
+        "<rootDir>/../test/providers/$1"
+      ]
     }
   }
 }

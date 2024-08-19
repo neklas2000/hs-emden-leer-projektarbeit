@@ -7,6 +7,7 @@ const TIME_ZONE = 'Europe/Berlin';
 @Injectable()
 export class DateService {
 	/**
+	 * @description
 	 * This object contains the representation for one day and one minute in milliseconds.
 	 */
 	private readonly UNITS = {
@@ -15,6 +16,7 @@ export class DateService {
 	};
 
 	/**
+	 * @description
 	 * This function takes one argument representing an offset and a time unit which will be used
 	 * to increment the current timestamp. For example, it can be used to get an expiration date for
 	 * the access token which would be used as follows:
@@ -40,6 +42,7 @@ export class DateService {
 	}
 
 	/**
+	 * @description
 	 * This function takes one argument representing an offset and a time unit which will be used
 	 * to increment the current timestamp. It wraps the function `getExpirationDateWithOffset` and
 	 * returns the value as a string. For example, it can be used to get an expiration date for
@@ -63,6 +66,14 @@ export class DateService {
 			.toFormat('yyyy-MM-dd HH:mm:ss', { locale: 'de-DE' });
 	}
 
+	/**
+	 * @description
+	 * This function checks if the given timestamp is after the current time. It can be used to
+	 * validate an authorization token so that it has not yet expired.
+	 *
+	 * @param timestamp The timestamp to check if it's behind the current time.
+	 * @returns `true` if it's behind the current time, otherwise `false`
+	 */
 	isAfterCurrentTimestamp(timestamp: string | Date): boolean {
 		let date: string;
 
@@ -84,5 +95,17 @@ export class DateService {
 		).setZone(TIME_ZONE);
 
 		return given.diff(now).toObject().milliseconds > 0;
+	}
+
+	/**
+	 * @description
+	 * This function takes a javascript date object as input and parses it to be a string with the
+	 * format 'yyyy-MM-dd'.
+	 *
+	 * @param date The date to be parsed.
+	 * @returns The parsed date in the format 'yyyy-MM-dd'.
+	 */
+	parseDate(date: Date): string {
+		return DateTime.fromJSDate(date).setZone(TIME_ZONE).toFormat('yyyy-MM-dd');
 	}
 }

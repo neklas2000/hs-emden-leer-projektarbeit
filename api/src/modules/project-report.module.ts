@@ -9,5 +9,6 @@ import { ProjectReportService } from '@Services/project-report.service';
 	imports: [TypeOrmModule.forFeature([ProjectReport])],
 	providers: [ProjectReportService],
 	controllers: [ProjectReportController],
+	exports: [ProjectReportService],
 })
 export class ProjectReportModule {}

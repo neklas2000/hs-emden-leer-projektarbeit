@@ -106,7 +106,7 @@ export class ProjectMemberService {
 
 			return true;
 		} catch (exception) {
-			if (exception instanceof NoAffectedRowException) throw exception;
+			if (exception instanceof NotFoundException) throw exception;
 
 			throw new BadRequestException(exception);
 		}
