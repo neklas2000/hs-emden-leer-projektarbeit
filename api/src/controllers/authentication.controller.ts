@@ -34,8 +34,14 @@ export class AuthenticationController {
 	register(
 		@Body()
 		payload: RegisterPayload,
+		@Res({ passthrough: true })
+		res: Response,
 	): Observable<TokensWithUserResponse> {
-		return promiseToObservable(this.authenticationService.register(payload));
+		return promiseToObservable(this.authenticationService.register(payload), (result) => {
+			this.setCookies(result, res);
+
+			return result;
+		});
 	}
 
 	@Post('login')
@@ -48,19 +54,7 @@ export class AuthenticationController {
 		return promiseToObservable(
 			this.authenticationService.login(payload.email, payload.password),
 			(result) => {
-				res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: 'lax',
-					expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
-				});
-
-				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: 'lax',
-					expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
-				});
+				this.setCookies(result, res);
 
 				return result;
 			},
@@ -103,22 +97,26 @@ export class AuthenticationController {
 		return promiseToObservable(
 			this.authenticationService.refreshTokens(userEmail, refreshToken),
 			(result) => {
-				res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: 'lax',
-					expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
-				});
-
-				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: 'lax',
-					expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
-				});
+				this.setCookies(result, res);
 
 				return result;
 			},
 		);
+	}
+
+	private setCookies(tokens: TokensWithUserResponse, res: Response): void {
+		res.cookie(ACCESS_TOKEN_COOKIE, tokens.accessToken, {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'lax',
+			expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
+		});
+
+		res.cookie(REFRESH_TOKEN_COOKIE, tokens.refreshToken, {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'lax',
+			expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
+		});
 	}
 }
