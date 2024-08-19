@@ -1,0 +1,4 @@
+output: ../documentation/api
+theme: material
+customFavicon: ../frontend/src/assets/favicon.ico
+name: API Dokumentation

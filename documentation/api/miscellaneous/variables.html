@@ -1,0 +1,651 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>API Dokumentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">API Dokumentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#ACCESS_TOKEN_COOKIE" title="src/tokens/access-token-cookie.ts" ><b>ACCESS_TOKEN_COOKIE</b>&nbsp;&nbsp;&nbsp;(src/.../access-token-cookie.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Filters" title="src/decorators/filters.decorator.ts" ><b>Filters</b>&nbsp;&nbsp;&nbsp;(src/.../filters.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#filtersFactory" title="src/decorators/filters.decorator.ts" ><b>filtersFactory</b>&nbsp;&nbsp;&nbsp;(src/.../filters.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Includes" title="src/decorators/includes.decorator.ts" ><b>Includes</b>&nbsp;&nbsp;&nbsp;(src/.../includes.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#includesFactory" title="src/decorators/includes.decorator.ts" ><b>includesFactory</b>&nbsp;&nbsp;&nbsp;(src/.../includes.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REFRESH_TOKEN_COOKIE" title="src/tokens/refresh-token-cookie.ts" ><b>REFRESH_TOKEN_COOKIE</b>&nbsp;&nbsp;&nbsp;(src/.../refresh-token-cookie.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SparseFieldsets" title="src/decorators/sparse-fieldsets.decorator.ts" ><b>SparseFieldsets</b>&nbsp;&nbsp;&nbsp;(src/.../sparse-fieldsets.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#sparseFieldsetsFactory" title="src/decorators/sparse-fieldsets.decorator.ts" ><b>sparseFieldsetsFactory</b>&nbsp;&nbsp;&nbsp;(src/.../sparse-fieldsets.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TIME_ZONE" title="src/services/date.service.ts" ><b>TIME_ZONE</b>&nbsp;&nbsp;&nbsp;(src/.../date.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#User" title="src/decorators/user.decorator.ts" ><b>User</b>&nbsp;&nbsp;&nbsp;(src/.../user.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userFactory" title="src/decorators/user.decorator.ts" ><b>userFactory</b>&nbsp;&nbsp;&nbsp;(src/.../user.decorator.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/tokens/access-token-cookie.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ACCESS_TOKEN_COOKIE"></a>
+                    <span class="name">
+                        <span ><b>ACCESS_TOKEN_COOKIE</b></span>
+                        <a href="#ACCESS_TOKEN_COOKIE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;hsel_mta-access_token&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/decorators/filters.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Filters"></a>
+                    <span class="name">
+                        <span ><b>Filters</b></span>
+                        <a href="#Filters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(filtersFactory)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtersFactory"></a>
+                    <span class="name">
+                        <span ><b>filtersFactory</b></span>
+                        <a href="#filtersFactory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&lt;T extends BaseEntityWithExtras&gt;(
+	entity: typeof BaseEntityWithExtras,
+	ctx: ExecutionContext,
+) &#x3D;&gt; {
+	const request &#x3D; ctx.switchToHttp().getRequest&lt;Request&gt;();
+	const where: FindOptionsWhere&lt;T&gt; &#x3D; {};
+
+	const assignPartialEqualFilters &#x3D; (
+		filters: object,
+		fields: string[],
+		value: string,
+		entity: typeof BaseEntityWithExtras,
+	) &#x3D;&gt; {
+		const field &#x3D; fields[0];
+		fields &#x3D; fields.slice(1);
+		const properties &#x3D; entity.getProperties();
+
+		if (!properties.includes(field)) return;
+
+		if (fields.length &#x3D;&#x3D;&#x3D; 0) {
+			filters[field] &#x3D; value;
+
+			return;
+		}
+
+		filters[field] &#x3D; {
+			...(filters[field] || {}),
+		};
+		assignPartialEqualFilters(filters[field], fields, value, entity.getRelationTypes()[field]);
+	};
+
+	if (Object.hasOwn(request.query, &#x27;filter&#x27;)) {
+		for (const field in request.query.filter as { [field: string]: string }) {
+			assignPartialEqualFilters(where, field.split(&#x27;.&#x27;), request.query.filter[field], entity);
+		}
+	}
+
+	return where;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/decorators/includes.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Includes"></a>
+                    <span class="name">
+                        <span ><b>Includes</b></span>
+                        <a href="#Includes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(includesFactory)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="includesFactory"></a>
+                    <span class="name">
+                        <span ><b>includesFactory</b></span>
+                        <a href="#includesFactory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&lt;T extends BaseEntityWithExtras&gt;(
+	entity: typeof BaseEntityWithExtras,
+	ctx: ExecutionContext,
+) &#x3D;&gt; {
+	const request &#x3D; ctx.switchToHttp().getRequest&lt;Request&gt;();
+	const relations: FindOptionsRelations&lt;T&gt; &#x3D; {};
+
+	const assignPartialIncludes &#x3D; (
+		relations: object,
+		includes: string[],
+		entity: typeof BaseEntityWithExtras,
+	) &#x3D;&gt; {
+		const include &#x3D; includes[0];
+		includes &#x3D; includes.slice(1);
+		const existingRelations &#x3D; entity.getRelations();
+
+		if (!existingRelations.includes(include)) return;
+
+		if (includes.length &#x3D;&#x3D;&#x3D; 0) {
+			relations[include] &#x3D; true;
+
+			return;
+		}
+
+		relations[include] &#x3D; {
+			...(relations[include] || {}),
+		};
+		assignPartialIncludes(relations[include], includes, entity.getRelationTypes()[include]);
+	};
+
+	if (Object.hasOwn(request.query, &#x27;include&#x27;)) {
+		const includes: string[] &#x3D; [];
+
+		if (Array.isArray(request.query.include)) {
+			for (const entry of request.query.include as string[]) {
+				includes.push(...entry.split(&#x27;,&#x27;));
+			}
+		} else {
+			includes.push(...(request.query.include as string).split(&#x27;,&#x27;));
+		}
+
+		for (const include of includes) {
+			assignPartialIncludes(relations, include.split(&#x27;.&#x27;), entity);
+		}
+	}
+
+	return relations;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/tokens/refresh-token-cookie.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REFRESH_TOKEN_COOKIE"></a>
+                    <span class="name">
+                        <span ><b>REFRESH_TOKEN_COOKIE</b></span>
+                        <a href="#REFRESH_TOKEN_COOKIE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;hsel_mta-refresh_token&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/decorators/sparse-fieldsets.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SparseFieldsets"></a>
+                    <span class="name">
+                        <span ><b>SparseFieldsets</b></span>
+                        <a href="#SparseFieldsets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(sparseFieldsetsFactory)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sparseFieldsetsFactory"></a>
+                    <span class="name">
+                        <span ><b>sparseFieldsetsFactory</b></span>
+                        <a href="#sparseFieldsetsFactory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&lt;T extends BaseEntityWithExtras&gt;(
+	entity: typeof BaseEntityWithExtras,
+	ctx: ExecutionContext,
+) &#x3D;&gt; {
+	const request &#x3D; ctx.switchToHttp().getRequest&lt;Request&gt;();
+	const sparseFieldsets: FindOptionsSelect&lt;T&gt; &#x3D; {};
+
+	const assignPartialSparseFieldsets &#x3D; (
+		fieldsets: object,
+		tables: string[],
+		fields: string[],
+		subEntity: typeof BaseEntityWithExtras,
+	) &#x3D;&gt; {
+		const table &#x3D; tables[0];
+		tables &#x3D; tables.slice(1);
+		fieldsets[table] &#x3D; {
+			...(fieldsets[table] || {}),
+		};
+		const relations &#x3D; subEntity.getRelationTypes();
+
+		if (!(table in relations)) return;
+
+		subEntity &#x3D; relations[table];
+
+		if (tables.length &#x3D;&#x3D;&#x3D; 0) {
+			const columns &#x3D; subEntity.getColumns();
+
+			for (const field of fields) {
+				if (!columns.includes(field)) continue;
+
+				fieldsets[table][field] &#x3D; true;
+			}
+
+			return;
+		}
+
+		assignPartialSparseFieldsets(fieldsets[table], tables, fields, subEntity);
+	};
+
+	const assignSparseFieldsets &#x3D; (fieldsets: object, table: string, fields: string[]) &#x3D;&gt; {
+		if (table &#x3D;&#x3D;&#x3D; entity.name.toLowerCase()) {
+			const columns &#x3D; entity.getColumns();
+
+			for (const field of fields) {
+				if (!columns.includes(field)) continue;
+
+				fieldsets[field] &#x3D; true;
+			}
+
+			return;
+		}
+
+		assignPartialSparseFieldsets(fieldsets, table.split(&#x27;.&#x27;), fields, entity);
+	};
+
+	if (Object.hasOwn(request.query, &#x27;fields&#x27;)) {
+		for (const table in request.query.fields as {
+			[table: string]: string | string[];
+		}) {
+			const fields: string[] &#x3D; [];
+
+			if (Array.isArray(request.query.fields[table])) {
+				for (const entry of request.query.fields[table] as string[]) {
+					fields.push(...entry.split(&#x27;,&#x27;));
+				}
+			} else {
+				fields.push(...(request.query.fields[table] as string).split(&#x27;,&#x27;));
+			}
+
+			assignSparseFieldsets(sparseFieldsets, table, fields);
+		}
+	}
+
+	return sparseFieldsets;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/services/date.service.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TIME_ZONE"></a>
+                    <span class="name">
+                        <span ><b>TIME_ZONE</b></span>
+                        <a href="#TIME_ZONE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Europe/Berlin&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/decorators/user.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="User"></a>
+                    <span class="name">
+                        <span ><b>User</b></span>
+                        <a href="#User"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(userFactory)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userFactory"></a>
+                    <span class="name">
+                        <span ><b>userFactory</b></span>
+                        <a href="#userFactory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(data: unknown, ctx: ExecutionContext) &#x3D;&gt; {
+	const request &#x3D; ctx.switchToHttp().getRequest();
+
+	return request.user;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

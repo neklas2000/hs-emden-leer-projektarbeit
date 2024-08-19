@@ -1,0 +1,2273 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Frontend Dokumentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Frontend Dokumentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >AuthenticationService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/authentication.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service provides the generic CRUD operations from the json api connector using the default
+endpoint &#39;auth&#39;.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+            </p>
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#baseUrl" >baseUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#httpClient" >httpClient</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#resourcePrefix" >resourcePrefix</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#canRefreshTokensWithCookie" >canRefreshTokensWithCookie</a>
+                            </li>
+                            <li>
+                                <a href="#clear" >clear</a>
+                            </li>
+                            <li>
+                                <a href="#getAccessToken" >getAccessToken</a>
+                            </li>
+                            <li>
+                                <a href="#getRefreshToken" >getRefreshToken</a>
+                            </li>
+                            <li>
+                                <a href="#getUser" >getUser</a>
+                            </li>
+                            <li>
+                                <a href="#isAuthenticated" >isAuthenticated</a>
+                            </li>
+                            <li>
+                                <a href="#login" >login</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#refreshTokens" >refreshTokens</a>
+                            </li>
+                            <li>
+                                <a href="#register" >register</a>
+                            </li>
+                            <li>
+                                <a href="#create" >create</a>
+                            </li>
+                            <li>
+                                <a href="#createAll" >createAll</a>
+                            </li>
+                            <li>
+                                <a href="#delete" >delete</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#getUri" >getUri</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#handleJsonApiRequest" >handleJsonApiRequest</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#parseJsonApiQuery" >parseJsonApiQuery</a>
+                            </li>
+                            <li>
+                                <a href="#read" >read</a>
+                            </li>
+                            <li>
+                                <a href="#readAll" >readAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#replaceIds" >replaceIds</a>
+                            </li>
+                            <li>
+                                <a href="#update" >update</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(sessionStorage: <a href="../injectables/SessionStorageService.html" target="_self">SessionStorageService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/services/authentication.service.ts:44</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>sessionStorage</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SessionStorageService.html" target="_self" >SessionStorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canRefreshTokensWithCookie"></a>
+                    <span class="name">
+                        <span ><b>canRefreshTokensWithCookie</b></span>
+                        <a href="#canRefreshTokensWithCookie"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canRefreshTokensWithCookie()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:177</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function tries to refresh the access and refresh token since these are not present in the
+service. If the user has cookies enabled the request will be automatically extended by them
+and the api will, if the refresh token is still valid, refresh the pair of tokens and return
+them here.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the token pair could be refreshed, otherwise <code>false</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clear"></a>
+                    <span class="name">
+                        <span ><b>clear</b></span>
+                        <a href="#clear"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clear()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function clears the data stored in the session storage. It can be called after an user
+signs out of the application or an user deleted his profile.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAccessToken"></a>
+                    <span class="name">
+                        <span ><b>getAccessToken</b></span>
+                        <a href="#getAccessToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAccessToken()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The stored access token, otherwise <code>null</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRefreshToken"></a>
+                    <span class="name">
+                        <span ><b>getRefreshToken</b></span>
+                        <a href="#getRefreshToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRefreshToken()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The stored refresh token, otherwise <code>null</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUser"></a>
+                    <span class="name">
+                        <span ><b>getUser</b></span>
+                        <a href="#getUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The stored user, otherwise <code>null</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAuthenticated"></a>
+                    <span class="name">
+                        <span ><b>isAuthenticated</b></span>
+                        <a href="#isAuthenticated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isAuthenticated()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function checks if there is an authenticated user present and returns a boolean value
+representing it&#39;s findings.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the user is authenticated, otherwise <code>false</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="login"></a>
+                    <span class="name">
+                        <span ><b>login</b></span>
+                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>login(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function sends a request to the api to login the user with the provided credentials. It
+will return <code>true</code>, if the user could be signed in successfully.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The email address from the user.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>password</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The password from the user.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;undefined&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the login operation was successful.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function sends a request to the api to signout the user. This will return an observable
+representing the success of the logout operation and if successful all saved data will be
+cleared.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the signout was successful, otherwise <code>false</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refreshTokens"></a>
+                    <span class="name">
+                        <span ><b>refreshTokens</b></span>
+                        <a href="#refreshTokens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>refreshTokens()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function can be used to refresh the token pair, once the access token has expired.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;string&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The new access token.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="register"></a>
+                    <span class="name">
+                        <span ><b>register</b></span>
+                        <a href="#register"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>register(userData)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/services/authentication.service.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function sends a request to the api to register a new user. The definition of that user,
+inlcuding required credentials, is provided by an object and send as the requests payload.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>userData</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The definition of the user to be registered.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;undefined&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code>, if the new user was successfully registered.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                        <span ><b>create</b></span>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>create(route: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, resource: <a href="../undefineds/DeepPartial.html" target="_self">DeepPartial&lt;T&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:89</a></code>
+</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function represents the CRUD operation &quot;Create&quot;. It allows that one new resource can be
+inserted into the database by sending http requests to the api.</p>
+<h3>Create a new product</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const connector = new JsonApiConnectorService&lt;Product&gt;(&#39;products&#39;);
+// ~&gt; This sends a http post request to the route /api/v1/products
+connector.createAll(&#39;&#39;, { name: &#39;A&#39; }).subscribe(...); // Handle the subscription</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The specific endpoint of the api (e.g. &quot;foo&quot;).</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>resource</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#DeepPartial" target="_self" >DeepPartial&lt;T&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;T_RETURN&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable resolving to the inserted data record (now expanded by the id).</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createAll"></a>
+                    <span class="name">
+                        <span ><b>createAll</b></span>
+                        <a href="#createAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createAll(route: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, resources: <a href="../undefineds/DeepPartial.html" target="_self">DeepPartial&lt;T&gt;[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:114</a></code>
+</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function represents the CRUD operation &quot;Create&quot;. It allows that multiple resources can be
+inserted into the database by sending http requests to the api.</p>
+<h3>Create two new products at the same time</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const connector = new JsonApiConnectorService&lt;Product&gt;(&#39;products&#39;);
+// ~&gt; This sends a http post request to the route /api/v1/products
+connector.createAll(&#39;&#39;, [{ name: &#39;A&#39; }, { name: &#39;B&#39; }]).subscribe(...); // Handle the subscription</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The specific endpoint of the api (e.g. &quot;foo&quot;).</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>resources</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#DeepPartial" target="_self" >DeepPartial&lt;T&gt;[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>An array of resources which will be inserted into the database.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;T_RETURN[]&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable resolving to the inserted data records (now expanded by their ids).</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <span ><b>delete</b></span>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, ids?: <a href="../undefineds/RequestIds.html" target="_self">RequestIds | string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:232</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function represents the CRUD operation &quot;Delete&quot;. It allows that a resource can be deleted
+from the database by sending a http request to the api. The api endpoint is expected to contain
+an id to specifiy which data record needs to be deleted precisely.</p>
+<h3>Delete a product with the id &quot;1&quot;</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const connector = new JsonApiConnectorService&lt;Product&gt;(&#39;products&#39;);
+// ~&gt; This sends a http delete request to the route /api/v1/products/1
+connector.delete(&#39;:id&#39;, &#39;1&#39;).subscribe(...); // Handle the subscription</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The specific endpoint of the api consisting of an id (e.g. &quot;/foo/:id&quot;).</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>ids</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#RequestIds" target="_self" >RequestIds | string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The id either as a string or a map of multiple ids if the <code>route</code> consists of more.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with a boolean value indicating if the deletion was successful.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUri"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>getUri</b></span>
+                        <a href="#getUri"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUri(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:298</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function builds the request url consisting of the base url, an optional prefix of the
+endpoint and another optional route.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>A subroute which might be needed to be more specific when accessing an endpoint.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The merged request url.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleJsonApiRequest"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>handleJsonApiRequest</b></span>
+                        <a href="#handleJsonApiRequest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleJsonApiRequest(request$: <a href="../undefineds/JsonApiResponseBody.html" target="_self">Observable&lt;JsonApiResponseBody&lt;T_RETURN&gt;&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:381</a></code>
+</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function handles every request in the same way. In case an exception occurs the error will
+be parsed to an object of the <code>HttpException</code>. The response body will be parsed correctly so
+only the actual data will be returned. If the request couldn&#39;t resolve any data a new error is
+thrown. In the other cases the actual data will be returned, either as an object or as an array.</p>
+<p>The reponse body of every request within this app will look like the following:</p>
+<h3>In case no data was found</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+   &quot;data&quot;: null,
+}</code></pre></div><h3>In case an array of data was resolved</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+   &quot;data&quot;: [ ... ],
+}</code></pre></div><h3>In case an object of data was resolved</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+   &quot;data&quot;: { ... },
+}</code></pre></div><p>actual data.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>request$</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#JsonApiResponseBody" target="_self" >Observable&lt;JsonApiResponseBody&lt;T_RETURN&gt;&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>An observable object representing the request to be executed.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;T_RETURN&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable resolving to <code>null</code> if no data was found within the response body or the
+actual data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parseJsonApiQuery"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>parseJsonApiQuery</b></span>
+                        <a href="#parseJsonApiQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>parseJsonApiQuery(query?: <a href="../undefineds/JsonApiQueries.html" target="_self">JsonApiQueries</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:317</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function parses the json api query options so that they can be added to the request url.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>query</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#JsonApiQueries" target="_self" >JsonApiQueries</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The query options defined by the json api specification.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A string representing the query options.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="read"></a>
+                    <span class="name">
+                        <span ><b>read</b></span>
+                        <a href="#read"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>read(params?: <a href="../undefineds/ReadParameters.html" target="_self">ReadParameters</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:173</a></code>
+</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function represents the CRUD operation &quot;Read&quot;. It allows that a specific resource can be
+read from the database by sending a http request to the api. The api endpoint is expected to
+contain an id to specifiy which data record needs to be read precisely.</p>
+<h3>Read a product with the id &quot;1&quot;</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const connector = new JsonApiConnectorService&lt;Product&gt;(&#39;products&#39;);
+// ~&gt; This sends a http get request to the route /api/v1/products/1
+connector.read({ route: &#39;:id&#39;, ids: &#39;1&#39; }).subscribe(...); // Handle the subscription</code></pre></div><p>which is the specific endpoint of the api. The route should consist of an id (e.g. &quot;/foo/:id&quot;).
+It is also possible to provide the id either as a string or a map of multiple ids if the
+<code>route</code> consists of multiple ids. In order to reduce or extend the data requested from the api,
+it is possible to provide json api query options.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ReadParameters" target="_self" >ReadParameters</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>An optional object of optional arguments. It is possible to provide a route,
+which is the specific endpoint of the api. The route should consist of an id (e.g. &quot;/foo/:id&quot;).
+It is also possible to provide the id either as a string or a map of multiple ids if the
+<code>route</code> consists of multiple ids. In order to reduce or extend the data requested from the api,
+it is possible to provide json api query options.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;T_RETURN&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable resolving to the found data record or <code>null</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="readAll"></a>
+                    <span class="name">
+                        <span ><b>readAll</b></span>
+                        <a href="#readAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>readAll(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, query?: <a href="../undefineds/JsonApiQueries.html" target="_self">JsonApiQueries</a>, ids?: <a href="../undefineds/RequestIds.html" target="_self">RequestIds | string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:142</a></code>
+</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T_RETURN</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function represents the CRUD operation &quot;Read&quot;. It allows that all resources can be
+read from the database by sending a http request to the api.</p>
+<h3>Read all products</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const connector = new JsonApiConnectorService&lt;Product&gt;(&#39;products&#39;);
+// ~&gt; This sends a http get request to the route /api/v1/products
+connector.readAll(&#39;&#39;).subscribe(...); // Handle the subscription</code></pre></div><p>requested from the api.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The specific endpoint of the api (e.g. &quot;foo&quot;).</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>query</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#JsonApiQueries" target="_self" >JsonApiQueries</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>An optional object of json api query options to reduce or extend the data
+requested from the api.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>ids</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#RequestIds" target="_self" >RequestIds | string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;T_RETURN[]&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable resolving to the found data records or an empty array.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="replaceIds"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>replaceIds</b></span>
+                        <a href="#replaceIds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>replaceIds(route?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, ids?: <a href="../undefineds/RequestIds.html" target="_self">RequestIds | string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:268</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function replaces id patterns within the provided <code>route</code>. If no value for the <code>route</code> is
+provided <code>undefined</code> will be returned and if no value for the <code>ids</code> is provided the <code>route</code>
+will be returned. If both arguments are provided and the <code>ids</code> are of the type <code>string</code> it is
+expected that the <code>route</code> includes the pattern &quot;:id&quot;. If it doesn&#39;t include the pattern an
+error will be thrown. If <code>ids</code> is an object each key will be extended by a colon to find the
+pattern.</p>
+<h3>Replace the pattern &quot;:id&quot; with an id</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">this.replaceIds(&#39;/users/:id&#39;, &#39;1&#39;); // ~&gt; &quot;/users/1&quot;</code></pre></div><h3>Replace multiple patterns for ids</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">this.replaceIds(&#39;/projects/:projectId/report/:reportId&#39;, { projectId: &#39;123&#39;, reportId: &#39;456&#39; }); // ~&gt; &quot;/projects/123/report/456&quot;</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>A optional route which could look like &quot;:id&quot;.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>ids</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#RequestIds" target="_self" >RequestIds | string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <p>An optional string or object of ids (e.g. <code>{ id: &#39;1&#39; }</code>).</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Undefinable" target="_self" >Undefinable&lt;string&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The route populated by the given ids.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>update(route: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, ids: <a href="../undefineds/RequestIds.html" target="_self">RequestIds | string</a>, data: <a href="../undefineds/DeepPartial.html" target="_self">DeepPartial&lt;T&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:204</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function represents the CRUD operation &quot;Update&quot;. It allows that a resource can be updated
+in the database by sending a http request to the api. The api endpoint is expected to contain
+an id to specifiy which data record needs to be updated precisely.</p>
+<h3>Update a product with the id &quot;1&quot;</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">const connector = new JsonApiConnectorService&lt;Product&gt;(&#39;products&#39;);
+// ~&gt; This sends a http patch request to the route /api/v1/products/1 with the payload defined
+//    by the third argument.
+connector.update(&#39;:id&#39;, &#39;1&#39;, { name: &#39;Hello World&#39; }).subscribe(...); // Handle the subscription</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>route</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The specific endpoint of the api consisting of an id (e.g. &quot;/foo/:id&quot;).</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>ids</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#RequestIds" target="_self" >RequestIds | string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The id either as a string or a map of multiple ids if the <code>route</code> consists of more.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#DeepPartial" target="_self" >DeepPartial&lt;T&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The updated properties of the resource which will be send as the requests payload.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with a boolean value indicating if the update was successful.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="baseUrl"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>baseUrl</b></span>
+                        <a href="#baseUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;/api/v1&#x27; as const</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:63</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="httpClient"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>httpClient</b></span>
+                        <a href="#httpClient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HttpClient</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:65</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resourcePrefix"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>resourcePrefix</b></span>
+                        <a href="#resourcePrefix"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/JsonApiConnectorService.html" target="_self" >JsonApiConnectorService</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/JsonApiConnectorService.html#source" target="_self" >JsonApiConnectorService:64</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+
+import { Observable, catchError, map, of, switchMap, take, throwError } from &#x27;rxjs&#x27;;
+
+import { User } from &#x27;@Models/user&#x27;;
+import { JsonApiConnectorService } from &#x27;@Services/json-api-connector.service&#x27;;
+import { SessionStorageService } from &#x27;@Services/session-storage.service&#x27;;
+import { DeepPartial, Nullable } from &#x27;@Types&#x27;;
+
+/**
+ * @description
+ * This type represents the response data when refreshing the token pair.
+ */
+type TokensResponse &#x3D; {
+  accessToken: string;
+  refreshToken: string;
+};
+
+/**
+ * @description
+ * This type extends the &#x60;TokensResponse&#x60; by an user object and it represents the response data
+ * when a user signs in or registers.
+ */
+type TokensWithUserResponse &#x3D; TokensResponse &amp; {
+  user: User;
+};
+
+/**
+ * @description
+ * This type represents the response received when a user signs out from the application.
+ */
+type LogoutResponse &#x3D; {
+  success: boolean;
+};
+
+/**
+ * @description
+ * This service provides the generic CRUD operations from the json api connector using the default
+ * endpoint &#x27;auth&#x27;.
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
+  constructor(private readonly sessionStorage: SessionStorageService) {
+    super(&#x27;auth&#x27;);
+  }
+
+  /**
+   * @description
+   * This function sends a request to the api to register a new user. The definition of that user,
+   * inlcuding required credentials, is provided by an object and send as the requests payload.
+   *
+   * @param userData The definition of the user to be registered.
+   * @returns &#x60;true&#x60;, if the new user was successfully registered.
+   */
+  register(userData: DeepPartial&lt;User&gt; &amp; { password: string; email: string; }): Observable&lt;true&gt; {
+    return this.create&lt;TokensWithUserResponse&gt;(
+      &#x27;register&#x27;,
+      {
+        ...userData,
+      },
+    ).pipe(
+      take(1),
+      map((response) &#x3D;&gt; {
+        this.sessionStorage.setUser(response.user.id ?? &#x27;&#x27;);
+        this.sessionStorage.setAccessToken(response.accessToken);
+        this.sessionStorage.setRefreshToken(response.refreshToken);
+
+        return true as const;
+      }),
+    );
+  }
+
+  /**
+   * @description
+   * This function sends a request to the api to login the user with the provided credentials. It
+   * will return &#x60;true&#x60;, if the user could be signed in successfully.
+   *
+   * @param email The email address from the user.
+   * @param password The password from the user.
+   * @returns &#x60;true&#x60; if the login operation was successful.
+   */
+  login(email: string, password: string): Observable&lt;true&gt; {
+    return this.create&lt;TokensWithUserResponse&gt;(
+      &#x27;login&#x27;,
+      {
+        email,
+        password,
+      },
+    ).pipe(
+      take(1),
+      map((response) &#x3D;&gt; {
+        this.sessionStorage.setUser(response.user.id ?? &#x27;&#x27;);
+        this.sessionStorage.setAccessToken(response.accessToken);
+        this.sessionStorage.setRefreshToken(response.refreshToken);
+
+        return true;
+      }),
+    );
+  }
+
+  /**
+   * @description
+   * This function sends a request to the api to signout the user. This will return an observable
+   * representing the success of the logout operation and if successful all saved data will be
+   * cleared.
+   *
+   * @returns &#x60;true&#x60; if the signout was successful, otherwise &#x60;false&#x60;.
+   */
+  logout(): Observable&lt;boolean&gt; {
+    return this.create&lt;LogoutResponse&gt;(&#x27;logout&#x27;, {}).pipe(take(1), map((response) &#x3D;&gt; {
+      if (response.success) {
+        this.clear();
+
+        return true;
+      }
+
+      return false;
+    }));
+  }
+
+  /**
+   * @returns The stored user, otherwise &#x60;null&#x60;.
+   */
+  getUser(): Nullable&lt;string&gt; {
+    return this.sessionStorage.getUser();
+  }
+
+  /**
+   * @returns The stored access token, otherwise &#x60;null&#x60;.
+   */
+  getAccessToken(): Nullable&lt;string&gt; {
+    return this.sessionStorage.getAccessToken();
+  }
+
+  /**
+   * @returns The stored refresh token, otherwise &#x60;null&#x60;.
+   */
+  getRefreshToken(): Nullable&lt;string&gt; {
+    return this.sessionStorage.getRefreshToken();
+  }
+
+  /**
+   * @description
+   * This function can be used to refresh the token pair, once the access token has expired.
+   *
+   * @returns The new access token.
+   * @throws An error if there is no refresh token is available.
+   */
+  refreshTokens(): Observable&lt;string&gt; {
+    if (!this.sessionStorage.getRefreshToken()) {
+      return throwError(() &#x3D;&gt; new Error(&#x27;No refresh token available&#x27;));
+    }
+
+    return this.create&lt;TokensResponse&gt;(&#x27;refresh&#x27;, {})
+      .pipe(
+        take(1),
+        switchMap((tokens) &#x3D;&gt; {
+          this.sessionStorage.setAccessToken(tokens.accessToken);
+          this.sessionStorage.setRefreshToken(tokens.refreshToken);
+
+          return tokens.accessToken;
+        }),
+      );
+  }
+
+  /**
+   * @description
+   * This function tries to refresh the access and refresh token since these are not present in the
+   * service. If the user has cookies enabled the request will be automatically extended by them
+   * and the api will, if the refresh token is still valid, refresh the pair of tokens and return
+   * them here.
+   *
+   * @returns &#x60;true&#x60; if the token pair could be refreshed, otherwise &#x60;false&#x60;.
+   */
+  canRefreshTokensWithCookie(): Observable&lt;boolean&gt; {
+    return this.create&lt;TokensWithUserResponse&gt;(&#x27;refresh&#x27;, {}).pipe(
+      take(1),
+      switchMap((tokens) &#x3D;&gt; {
+        this.sessionStorage.setAccessToken(tokens.accessToken);
+        this.sessionStorage.setRefreshToken(tokens.refreshToken);
+        this.sessionStorage.setUser(tokens.user?.id ?? &#x27;&#x27;);
+
+        return of(true);
+      }),
+      catchError((_) &#x3D;&gt; {
+        return of(false);
+      }),
+    )
+  }
+
+  /**
+   * @description
+   * This function checks if there is an authenticated user present and returns a boolean value
+   * representing it&#x27;s findings.
+   *
+   * @returns &#x60;true&#x60; if the user is authenticated, otherwise &#x60;false&#x60;.
+   */
+  isAuthenticated(): boolean {
+    return this.sessionStorage.getUser() !&#x3D;&#x3D; null;
+  }
+
+  /**
+   * @description
+   * This function clears the data stored in the session storage. It can be called after an user
+   * signs out of the application or an user deleted his profile.
+   */
+  clear(): void {
+    this.sessionStorage.clear();
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthenticationService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

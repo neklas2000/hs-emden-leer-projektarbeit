@@ -1,0 +1,2685 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Frontend Dokumentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Frontend Dokumentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MarkdownEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/markdown-editor/markdown-editor.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>AfterViewInit</code>
+                <code>ControlValueAccessor</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../components/MarkdownEditorComponent.html" target="_self" >{
+    provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MarkdownEditorComponent,
+}</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>hsel-markdown-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >FormsModule</a></code>
+                            <code>MarkdownComponent</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatTooltipModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./markdown-editor.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./markdown-editor.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#currentCursorPosition" >currentCursorPosition</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#cursorPositionUpdateBlocked" >cursorPositionUpdateBlocked</a>
+                            </li>
+                            <li>
+                                <a href="#disabled" >disabled</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#editorButtons" >editorButtons</a>
+                            </li>
+                            <li>
+                                <a href="#markdown" >markdown</a>
+                            </li>
+                            <li>
+                                <a href="#onChange" >onChange</a>
+                            </li>
+                            <li>
+                                <a href="#onTouched" >onTouched</a>
+                            </li>
+                            <li>
+                                <a href="#previewOpen" >previewOpen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#shiftPressed" >shiftPressed</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#textArea" >textArea</a>
+                            </li>
+                            <li>
+                                <a href="#touched" >touched</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#changeCRIndentation" >changeCRIndentation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#changeCRLFIndentation" >changeCRLFIndentation</a>
+                            </li>
+                            <li>
+                                <a href="#changeIndentation" >changeIndentation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#extendMarkdown" >extendMarkdown</a>
+                            </li>
+                            <li>
+                                <a href="#formatBold" >formatBold</a>
+                            </li>
+                            <li>
+                                <a href="#formatBulletList" >formatBulletList</a>
+                            </li>
+                            <li>
+                                <a href="#formatCode" >formatCode</a>
+                            </li>
+                            <li>
+                                <a href="#formatHeading" >formatHeading</a>
+                            </li>
+                            <li>
+                                <a href="#formatImage" >formatImage</a>
+                            </li>
+                            <li>
+                                <a href="#formatItalic" >formatItalic</a>
+                            </li>
+                            <li>
+                                <a href="#formatLink" >formatLink</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#formatMarkdown" >formatMarkdown</a>
+                            </li>
+                            <li>
+                                <a href="#formatNumberedList" >formatNumberedList</a>
+                            </li>
+                            <li>
+                                <a href="#formatQuote" >formatQuote</a>
+                            </li>
+                            <li>
+                                <a href="#formatStrikethrough" >formatStrikethrough</a>
+                            </li>
+                            <li>
+                                <a href="#formatTable" >formatTable</a>
+                            </li>
+                            <li>
+                                <a href="#formatTaskList" >formatTaskList</a>
+                            </li>
+                            <li>
+                                <a href="#markAsTouched" >markAsTouched</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#onInputChange" >onInputChange</a>
+                            </li>
+                            <li>
+                                <a href="#registerOnChange" >registerOnChange</a>
+                            </li>
+                            <li>
+                                <a href="#registerOnTouched" >registerOnTouched</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#setDisabledState" >setDisabledState</a>
+                            </li>
+                            <li>
+                                <a href="#updateSelection" >updateSelection</a>
+                            </li>
+                            <li>
+                                <a href="#writeValue" >writeValue</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#label" >label</a>
+                            </li>
+                            <li>
+                                <a href="#required" >required</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialog: <a href="../injectables/DialogService.html" target="_self">DialogService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DialogService.html" target="_self" >DialogService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="label"></a>
+                        <b>label</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Textarea&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:40</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="required"></a>
+                        <b>required</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:41</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeCRIndentation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>changeCRIndentation</b></span>
+                        <a href="#changeCRIndentation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changeCRIndentation(selection: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="155"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:155</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selection</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeCRLFIndentation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>changeCRLFIndentation</b></span>
+                        <a href="#changeCRLFIndentation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changeCRLFIndentation(selection: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:147</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selection</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeIndentation"></a>
+                    <span class="name">
+                        <span ><b>changeIndentation</b></span>
+                        <a href="#changeIndentation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeIndentation(ev: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>KeyboardEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extendMarkdown"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>extendMarkdown</b></span>
+                        <a href="#extendMarkdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>extendMarkdown(content: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, startOffsets: [number, number])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="304"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:304</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>startOffsets</td>
+                                            <td>
+                                                        <code>[number, number]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatBold"></a>
+                    <span class="name">
+                        <span ><b>formatBold</b></span>
+                        <a href="#formatBold"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatBold()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatBulletList"></a>
+                    <span class="name">
+                        <span ><b>formatBulletList</b></span>
+                        <a href="#formatBulletList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatBulletList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="199"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:199</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatCode"></a>
+                    <span class="name">
+                        <span ><b>formatCode</b></span>
+                        <a href="#formatCode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatCode()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="235"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:235</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatHeading"></a>
+                    <span class="name">
+                        <span ><b>formatHeading</b></span>
+                        <a href="#formatHeading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatHeading()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="181"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:181</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatImage"></a>
+                    <span class="name">
+                        <span ><b>formatImage</b></span>
+                        <a href="#formatImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatImage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="280"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:280</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatItalic"></a>
+                    <span class="name">
+                        <span ><b>formatItalic</b></span>
+                        <a href="#formatItalic"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatItalic()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatLink"></a>
+                    <span class="name">
+                        <span ><b>formatLink</b></span>
+                        <a href="#formatLink"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatLink()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatMarkdown"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>formatMarkdown</b></span>
+                        <a href="#formatMarkdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>formatMarkdown(content: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, startOffset: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, allowMultiline: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="333"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:333</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function expects the placeholder &quot;:selection&quot; inside of the content,
+which will be replaced with the current selected text. The result will then
+be replaced in the markdown text.</p>
+<p>text can be selected again after adding the offset
+was selected or the content parameter doesn&#39;t include the placeholder</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The content containing the placeholder &quot;:selection&quot;</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>startOffset</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The offset from the selection start, so that the original
+text can be selected again after adding the offset</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>allowMultiline</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>true</code>
+                                            </td>
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the content could be replaced and <code>false</code> if no range
+was selected or the content parameter doesn&#39;t include the placeholder</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatNumberedList"></a>
+                    <span class="name">
+                        <span ><b>formatNumberedList</b></span>
+                        <a href="#formatNumberedList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatNumberedList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatQuote"></a>
+                    <span class="name">
+                        <span ><b>formatQuote</b></span>
+                        <a href="#formatQuote"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatQuote()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="226"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:226</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatStrikethrough"></a>
+                    <span class="name">
+                        <span ><b>formatStrikethrough</b></span>
+                        <a href="#formatStrikethrough"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatStrikethrough()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatTable"></a>
+                    <span class="name">
+                        <span ><b>formatTable</b></span>
+                        <a href="#formatTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatTable()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="247"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:247</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatTaskList"></a>
+                    <span class="name">
+                        <span ><b>formatTaskList</b></span>
+                        <a href="#formatTaskList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatTaskList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="217"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:217</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markAsTouched"></a>
+                    <span class="name">
+                        <span ><b>markAsTouched</b></span>
+                        <a href="#markAsTouched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>markAsTouched()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onInputChange"></a>
+                    <span class="name">
+                        <span ><b>onInputChange</b></span>
+                        <a href="#onInputChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onInputChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registerOnChange"></a>
+                    <span class="name">
+                        <span ><b>registerOnChange</b></span>
+                        <a href="#registerOnChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registerOnChange(onChange: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>onChange</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registerOnTouched"></a>
+                    <span class="name">
+                        <span ><b>registerOnTouched</b></span>
+                        <a href="#registerOnTouched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registerOnTouched(onTouched: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>onTouched</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDisabledState"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>setDisabledState</b></span>
+                        <a href="#setDisabledState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDisabledState(isDisabled: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>isDisabled</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSelection"></a>
+                    <span class="name">
+                        <span ><b>updateSelection</b></span>
+                        <a href="#updateSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateSelection(ev: KeyboardEvent | MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>KeyboardEvent | MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="writeValue"></a>
+                    <span class="name">
+                        <span ><b>writeValue</b></span>
+                        <a href="#writeValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>writeValue(markdown: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>markdown</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentCursorPosition"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>currentCursorPosition</b></span>
+                        <a href="#currentCursorPosition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[number, number]</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cursorPositionUpdateBlocked"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>cursorPositionUpdateBlocked</b></span>
+                        <a href="#cursorPositionUpdateBlocked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="disabled"></a>
+                    <span class="name">
+                        <span ><b>disabled</b></span>
+                        <a href="#disabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editorButtons"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>editorButtons</b></span>
+                        <a href="#editorButtons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;editorButtons&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markdown"></a>
+                    <span class="name">
+                        <span ><b>markdown</b></span>
+                        <a href="#markdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onChange"></a>
+                    <span class="name">
+                        <span ><b>onChange</b></span>
+                        <a href="#onChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTouched"></a>
+                    <span class="name">
+                        <span ><b>onTouched</b></span>
+                        <a href="#onTouched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="previewOpen"></a>
+                    <span class="name">
+                        <span ><b>previewOpen</b></span>
+                        <a href="#previewOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shiftPressed"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>shiftPressed</b></span>
+                        <a href="#shiftPressed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="textArea"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>textArea</b></span>
+                        <a href="#textArea"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLTextAreaElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;textArea&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="touched"></a>
+                    <span class="name">
+                        <span ><b>touched</b></span>
+                        <a href="#touched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/markdown-editor/markdown-editor.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Component, ElementRef, Input, ViewChild } from &#x27;@angular/core&#x27;;
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+
+import { MarkdownComponent } from &#x27;ngx-markdown&#x27;;
+import { take } from &#x27;rxjs&#x27;;
+
+import {
+  MarkdownProvideExternalUrlComponent
+} from &#x27;@Dialogs/markdown-provide-external-url/markdown-provide-external-url.component&#x27;;
+import { DialogService } from &#x27;@Services/dialog.service&#x27;;
+
+@Component({
+  selector: &#x27;hsel-markdown-editor&#x27;,
+  templateUrl: &#x27;./markdown-editor.component.html&#x27;,
+  styleUrl: &#x27;./markdown-editor.component.scss&#x27;,
+  standalone: true,
+  imports: [
+    FormsModule,
+    MarkdownComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatTooltipModule,
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: MarkdownEditorComponent,
+    },
+  ],
+})
+export class MarkdownEditorComponent implements AfterViewInit, ControlValueAccessor {
+  @ViewChild(&#x27;textArea&#x27;) textArea!: ElementRef&lt;HTMLTextAreaElement&gt;;
+  @ViewChild(&#x27;editorButtons&#x27;) editorButtons!: ElementRef&lt;HTMLElement&gt;;
+  @Input() label: string &#x3D; &#x27;Textarea&#x27;;
+  @Input() required: boolean &#x3D; false;
+
+  markdown: string &#x3D; &#x27;&#x27;;
+  previewOpen: boolean &#x3D; false;
+  touched &#x3D; false;
+  disabled &#x3D; false;
+
+  private currentCursorPosition!: [number, number];
+  private cursorPositionUpdateBlocked: boolean &#x3D; false;
+  private shiftPressed: boolean &#x3D; false;
+
+  constructor(private readonly dialog: DialogService) { }
+
+  ngAfterViewInit(): void {
+    const area &#x3D; this.textArea.nativeElement;
+    const buttons &#x3D; this.editorButtons.nativeElement;
+    this.currentCursorPosition &#x3D; [-1, -1];
+
+    window.addEventListener(&#x27;click&#x27;, (ev) &#x3D;&gt; {
+      const node &#x3D; ev.target as Node;
+
+      if (!area.contains(node) &amp;&amp; !buttons.contains(node) &amp;&amp; !this.cursorPositionUpdateBlocked) {
+        this.currentCursorPosition &#x3D; [-1, -1];
+      }
+    });
+
+    area.addEventListener(&#x27;click&#x27;, () &#x3D;&gt; {
+      this.markAsTouched();
+    });
+  }
+
+  onChange &#x3D; (markdown: string) &#x3D;&gt; { };
+  onTouched &#x3D; () &#x3D;&gt; { };
+
+  writeValue(markdown: string): void {
+    this.markdown &#x3D; markdown;
+  }
+
+  registerOnChange(onChange: any): void {
+    this.onChange &#x3D; onChange;
+  }
+
+  registerOnTouched(onTouched: any): void {
+    this.onTouched &#x3D; onTouched;
+  }
+
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched &#x3D; true;
+    }
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled &#x3D; isDisabled;
+  }
+
+  onInputChange(): void {
+    this.markAsTouched();
+
+    if (!this.disabled) {
+      this.onChange(this.markdown);
+    }
+  }
+
+  updateSelection(ev: KeyboardEvent | MouseEvent): void {
+    if (ev instanceof KeyboardEvent) {
+      if (ev.key &#x3D;&#x3D;&#x3D; &#x27;Shift&#x27;) this.shiftPressed &#x3D; false;
+    }
+
+    const { selectionStart, selectionEnd } &#x3D; this.textArea.nativeElement;
+    this.currentCursorPosition &#x3D; [selectionStart, selectionEnd];
+  }
+
+  changeIndentation(ev: KeyboardEvent): void {
+    if (ev.key &#x3D;&#x3D;&#x3D; &#x27;Shift&#x27;) this.shiftPressed &#x3D; true;
+    if (ev.key &#x3D;&#x3D;&#x3D; &#x27;Tab&#x27;) {
+      ev.preventDefault();
+      const [start, end] &#x3D; this.currentCursorPosition;
+      const selection &#x3D; this.markdown.slice(start, end);
+      let rowsWithIndentation: string;
+
+      if (selection.includes(&#x27;\r\n&#x27;)) {
+        rowsWithIndentation &#x3D; this.changeCRLFIndentation(selection);
+      } else if (selection.includes(&#x27;\n&#x27;)) {
+        rowsWithIndentation &#x3D; this.changeCRIndentation(selection);
+      } else if (!this.shiftPressed) {
+        rowsWithIndentation &#x3D; &#x60;\t${selection}&#x60;;
+      } else {
+        rowsWithIndentation &#x3D; selection.replace(&#x27;\t&#x27;, &#x27;&#x27;);
+      }
+
+      this.markdown &#x3D; [this.markdown.slice(0, start), rowsWithIndentation, this.markdown.slice(end)].join(&#x27;&#x27;);
+      this.textArea.nativeElement.focus();
+
+      setTimeout(() &#x3D;&gt; {
+        this.textArea.nativeElement.setSelectionRange(
+          start,
+          start + rowsWithIndentation.length
+        );
+
+        this.onInputChange();
+      }, 0);
+    }
+  }
+
+  private changeCRLFIndentation(selection: string): string {
+    return selection.split(&#x27;\r\n&#x27;).map((row) &#x3D;&gt; {
+      if (!this.shiftPressed) return &#x60;\t${row}&#x60;;
+
+      return row.replace(&#x27;\t&#x27;, &#x27;&#x27;);
+    }).join(&#x27;\r\n&#x27;);
+  }
+
+  private changeCRIndentation(selection: string): string {
+    return selection.split(&#x27;\n&#x27;).map((row) &#x3D;&gt; {
+      if (!this.shiftPressed) return &#x60;\t${row}&#x60;;
+
+      return row.replace(&#x27;\t&#x27;, &#x27;&#x27;);
+    }).join(&#x27;\n&#x27;);
+  }
+
+  formatBold(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;**strong text**&#x27;, [2, 13])) {
+      this.formatMarkdown(&#x27;**:selection**&#x27;, 2);
+    }
+
+    this.onInputChange();
+  }
+
+  formatItalic(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;*emphasized text*&#x27;, [1, 16])) {
+      this.formatMarkdown(&#x27;*:selection*&#x27;, 1);
+    }
+
+    this.onInputChange();
+  }
+
+  formatHeading(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;## Heading&#x27;, [3, 10])) {
+      this.formatMarkdown(&#x27;## :selection&#x27;, 3);
+    }
+
+    this.onInputChange();
+  }
+
+  formatStrikethrough(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;~~strikethrough text~~&#x27;, [2, 20])) {
+      this.formatMarkdown(&#x27;~~:selection~~&#x27;, 2);
+    }
+
+    this.onInputChange();
+  }
+
+  formatBulletList(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;- List item&#x27;, [2, 11])) {
+      this.formatMarkdown(&#x27;- :selection&#x27;, 2);
+    }
+
+    this.onInputChange();
+  }
+
+  formatNumberedList(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;1. List item&#x27;, [3, 12])) {
+      this.formatMarkdown(&#x27;1. :selection&#x27;, 3);
+    }
+
+    this.onInputChange();
+  }
+
+  formatTaskList(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;- [ ] List Item&#x27;, [6, 15])) {
+      this.formatMarkdown(&#x27;- [ ] :selection&#x27;, 6);
+    }
+
+    this.onInputChange();
+  }
+
+  formatQuote(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;&gt; Blockquote&#x27;, [2, 12])) {
+      this.formatMarkdown(&#x27;&gt; :selection&#x27;, 2);
+    }
+
+    this.onInputChange();
+  }
+
+  formatCode(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+
+    const content &#x3D; &#x27;&#x60;&#x60;&#x60;\r\n\tenter code here\r\n&#x60;&#x60;&#x60;\r\n&#x27;;
+
+    if (!this.extendMarkdown(content, [content.indexOf(&#x27;e&#x27;) - 1, content.indexOf(&#x27;e&#x27;) + 14])) {
+      this.formatMarkdown(&#x27;&#x60;&#x60;&#x60;\r\n\t:selection\r\n&#x60;&#x60;&#x60;\r\n&#x27;, content.indexOf(&#x27;e&#x27;) - 1, false); // alles markierte in den Codeblock
+    }
+
+    this.onInputChange();
+  }
+
+  formatTable(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+    if (!this.extendMarkdown(&#x27;|  |  |\r\n|--|--|\r\n|  |  |&#x27;, [1, 3])) {
+      this.formatMarkdown(&#x27;|:selection|  |\r\n|--|--|\r\n|  |  |&#x27;, 1, false);
+    }
+
+    this.onInputChange();
+  }
+
+  formatLink(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+
+    this.cursorPositionUpdateBlocked &#x3D; true;
+    const dialogRef &#x3D; this.dialog.open(MarkdownProvideExternalUrlComponent, {
+      data: {
+        isImage: false,
+      },
+    });
+
+    dialogRef.afterClosed()
+      .pipe(take(1))
+      .subscribe((result) &#x3D;&gt; {
+        result &#x3D; result ?? &#x27;&#x27;;
+        this.cursorPositionUpdateBlocked &#x3D; false;
+
+        if (!this.extendMarkdown(&#x60;[enter link description here](${result})&#x60;, [1, 28])) {
+          this.formatMarkdown(&#x60;[:selection](${result})&#x60;, 1, false);
+        }
+
+        this.onInputChange();
+      });
+  }
+
+  formatImage(): void {
+    if (this.currentCursorPosition[0] &lt; 0) return;
+
+    this.cursorPositionUpdateBlocked &#x3D; true;
+    const dialogRef &#x3D; this.dialog.open(MarkdownProvideExternalUrlComponent, {
+      data: {
+        isImage: true,
+      },
+    });
+
+    dialogRef.afterClosed()
+      .pipe(take(1))
+      .subscribe((result) &#x3D;&gt; {
+        result &#x3D; result ?? &#x27;&#x27;;
+        this.cursorPositionUpdateBlocked &#x3D; false;
+
+        if (!this.extendMarkdown(&#x60;![enter image description here](${result})&#x60;, [2, 30])) {
+          this.formatMarkdown(&#x60;![:selection](${result})&#x60;, 2, false);
+        }
+
+        this.onInputChange();
+      });
+  }
+
+  private extendMarkdown(content: string, startOffsets: [number, number]): boolean {
+    if (this.currentCursorPosition[0] !&#x3D;&#x3D; this.currentCursorPosition[1]) return false;
+
+    const [start, end] &#x3D; this.currentCursorPosition;
+    this.markdown &#x3D; [this.markdown.slice(0, start), content, this.markdown.slice(end)].join(&#x27;&#x27;);
+    this.textArea.nativeElement.focus();
+
+    setTimeout(() &#x3D;&gt; {
+      this.currentCursorPosition &#x3D; [start + startOffsets[0], start + startOffsets[1]];
+      this.textArea.nativeElement.setSelectionRange(
+        start + startOffsets[0],
+        start + startOffsets[1]
+      );
+    }, 0);
+
+    return true;
+  }
+
+  /**
+   * This function expects the placeholder &quot;:selection&quot; inside of the content,
+   * which will be replaced with the current selected text. The result will then
+   * be replaced in the markdown text.
+   *
+   * @param content The content containing the placeholder &quot;:selection&quot;
+   * @param startOffset The offset from the selection start, so that the original
+   * text can be selected again after adding the offset
+   * @returns &#x60;true&#x60; if the content could be replaced and &#x60;false&#x60; if no range
+   * was selected or the content parameter doesn&#x27;t include the placeholder
+   */
+  private formatMarkdown(content: string, startOffset: number, allowMultiline: boolean &#x3D; true): boolean {
+    if (this.currentCursorPosition[0] &#x3D;&#x3D;&#x3D; this.currentCursorPosition[1]) return false;
+    if (!content.includes(&#x27;:selection&#x27;)) return false;
+
+    const [start, end] &#x3D; this.currentCursorPosition;
+    const selection &#x3D; this.markdown.slice(start, end);
+    let newSelectionRange &#x3D; [start + startOffset, start + startOffset + selection.length];
+
+    if (selection.includes(&#x27;\r\n&#x27;) &amp;&amp; allowMultiline) {
+      content &#x3D; selection.split(&#x27;\r\n&#x27;).map((row) &#x3D;&gt; content.replace(&#x27;:selection&#x27;, row)).join(&#x27;\r\n&#x27;);
+      newSelectionRange &#x3D; [start, start + content.length];
+    } else if (selection.includes(&#x27;\n&#x27;) &amp;&amp; allowMultiline) {
+      content &#x3D; selection.split(&#x27;\n&#x27;).map((row) &#x3D;&gt; content.replace(&#x27;:selection&#x27;, row)).join(&#x27;\n&#x27;);
+      newSelectionRange &#x3D; [start, start + content.length];
+    } else {
+      content &#x3D; content.replace(&#x27;:selection&#x27;, selection);
+    }
+
+    this.markdown &#x3D; [this.markdown.slice(0, start), content, this.markdown.slice(end)].join(&#x27;&#x27;);
+    this.textArea.nativeElement.focus();
+
+    setTimeout(() &#x3D;&gt; {
+      this.currentCursorPosition &#x3D; [newSelectionRange[0], newSelectionRange[1]];
+      this.textArea.nativeElement.setSelectionRange(
+        newSelectionRange[0],
+        newSelectionRange[1]
+      );
+    }, 0);
+
+    return true;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;markdown-editor-and-preview&quot;&gt;
+  &lt;section class&#x3D;&quot;markdown-editor-buttons&quot; #editorButtons&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Bold&#x27; (click)&#x3D;&quot;formatBold()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;format_bold&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Italic&#x27; (click)&#x3D;&quot;formatItalic()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;format_italic&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Heading&#x27; (click)&#x3D;&quot;formatHeading()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;format_size&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Strikethrough&#x27; (click)&#x3D;&quot;formatStrikethrough()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;format_strikethrough&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Unordered list&#x27; (click)&#x3D;&quot;formatBulletList()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;format_list_bulleted&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Ordered list&#x27; (click)&#x3D;&quot;formatNumberedList()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;format_list_numbered&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Task List&#x27; (click)&#x3D;&quot;formatTaskList()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;checklist&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Blockquote&#x27; (click)&#x3D;&quot;formatQuote()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;format_quote&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Code&#x27; (click)&#x3D;&quot;formatCode()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;code&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Table&#x27; (click)&#x3D;&quot;formatTable()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;table_chart&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Link&#x27; (click)&#x3D;&quot;formatLink()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;link&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-icon-button matTooltip&#x3D;&#x27;Image&#x27; (click)&#x3D;&quot;formatImage()&quot; [disabled]&#x3D;&quot;previewOpen&quot;&gt;
+      &lt;mat-icon&gt;image&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button
+      mat-icon-button
+      [matTooltip]&#x3D;&#x27;previewOpen ? &quot;Close preview&quot; : &quot;Open preview&quot;&#x27;
+      (click)&#x3D;&quot;previewOpen &#x3D; !previewOpen&quot;
+    &gt;
+      &lt;mat-icon&gt;{{ previewOpen ? &#x27;preview_off&#x27; : &#x27;preview&#x27; }}&lt;/mat-icon&gt;
+    &lt;/button&gt;
+  &lt;/section&gt;
+  &lt;mat-form-field
+    [class]&#x3D;&#x27;previewOpen ? &quot;cdk-visually-hidden&quot; : &quot;&quot;&#x27;
+    style&#x3D;&#x27;margin: 0 16px; border-radius: 8px; width: calc(100% - 32px);&#x27;
+    (click)&#x3D;&#x27;updateSelection($event)&#x27;
+    (keyup)&#x3D;&#x27;updateSelection($event)&#x27;
+    (keydown)&#x3D;&#x27;changeIndentation($event)&#x27;
+    (input)&#x3D;&#x27;onInputChange()&#x27;
+  &gt;
+    &lt;mat-label [ariaRequired]&#x3D;&quot;required&quot;&gt;{{ label }}&lt;/mat-label&gt;
+    &lt;textarea [(ngModel)]&#x3D;&#x27;markdown&#x27; rows&#x3D;&#x27;10&#x27; #textArea maxlength&#x3D;&#x27;16777215&#x27; [required]&#x3D;&quot;required&quot; matInput&gt;&lt;/textarea&gt;
+    @if (required &amp;&amp; touched &amp;&amp; (!markdown || markdown.length &#x3D;&#x3D;&#x3D; 0)) {
+      &lt;mat-error&gt;Dies ist ein &lt;strong&gt;Pflichtfeld&lt;/strong&gt;&lt;/mat-error&gt;
+    }
+    @if (textArea.value.length / 16777215 &gt;&#x3D; 0.9) {
+      &lt;mat-hint align&#x3D;&quot;end&quot;&gt;{{ textArea.value.length }}/16777215&lt;/mat-hint&gt;
+    }
+  &lt;/mat-form-field&gt;
+  &lt;markdown
+    class&#x3D;&quot;markdown-parser min-h-50 max-h-125 overflow-y-auto&quot;
+    lineNumbers
+    lineHighlight
+    [data]&#x3D;&quot;markdown&quot;
+    [hidden]&#x3D;&quot;!previewOpen&quot;
+    style&#x3D;&quot;background-color: var(--mdc-filled-text-field-container-color)&quot;&gt;
+  &lt;/markdown&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="markdown-editor-and-preview">  <section class="markdown-editor-buttons" #editorButtons>    <button mat-icon-button matTooltip=\'Bold\' (click)="formatBold()" [disabled]="previewOpen">      <mat-icon>format_bold</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Italic\' (click)="formatItalic()" [disabled]="previewOpen">      <mat-icon>format_italic</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Heading\' (click)="formatHeading()" [disabled]="previewOpen">      <mat-icon>format_size</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Strikethrough\' (click)="formatStrikethrough()" [disabled]="previewOpen">      <mat-icon>format_strikethrough</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Unordered list\' (click)="formatBulletList()" [disabled]="previewOpen">      <mat-icon>format_list_bulleted</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Ordered list\' (click)="formatNumberedList()" [disabled]="previewOpen">      <mat-icon>format_list_numbered</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Task List\' (click)="formatTaskList()" [disabled]="previewOpen">      <mat-icon>checklist</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Blockquote\' (click)="formatQuote()" [disabled]="previewOpen">      <mat-icon>format_quote</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Code\' (click)="formatCode()" [disabled]="previewOpen">      <mat-icon>code</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Table\' (click)="formatTable()" [disabled]="previewOpen">      <mat-icon>table_chart</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Link\' (click)="formatLink()" [disabled]="previewOpen">      <mat-icon>link</mat-icon>    </button>    <button mat-icon-button matTooltip=\'Image\' (click)="formatImage()" [disabled]="previewOpen">      <mat-icon>image</mat-icon>    </button>    <button      mat-icon-button      [matTooltip]=\'previewOpen ? "Close preview" : "Open preview"\'      (click)="previewOpen = !previewOpen"    >      <mat-icon>{{ previewOpen ? \'preview_off\' : \'preview\' }}</mat-icon>    </button>  </section>  <mat-form-field    [class]=\'previewOpen ? "cdk-visually-hidden" : ""\'    style=\'margin: 0 16px; border-radius: 8px; width: calc(100% - 32px);\'    (click)=\'updateSelection($event)\'    (keyup)=\'updateSelection($event)\'    (keydown)=\'changeIndentation($event)\'    (input)=\'onInputChange()\'  >    <mat-label [ariaRequired]="required">{{ label }}</mat-label>    <textarea [(ngModel)]=\'markdown\' rows=\'10\' #textArea maxlength=\'16777215\' [required]="required" matInput></textarea>    @if (required && touched && (!markdown || markdown.length === 0)) {      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>    }    @if (textArea.value.length / 16777215 >= 0.9) {      <mat-hint align="end">{{ textArea.value.length }}/16777215</mat-hint>    }  </mat-form-field>  <markdown    class="markdown-parser min-h-50 max-h-125 overflow-y-auto"    lineNumbers    lineHighlight    [data]="markdown"    [hidden]="!previewOpen"    style="background-color: var(--mdc-filled-text-field-container-color)">  </markdown></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmMilestoneDeletionComponent', 'selector': 'hsel-confirm-milestone-deletion'},{'name': 'ConfirmMilestoneEstimateDeletionComponent', 'selector': 'hsel-confirm-milestone-estimate-deletion'},{'name': 'ConfirmProfileDeletionComponent', 'selector': 'hsel-confirm-profile-deletion'},{'name': 'ConfirmProjectDeletionComponent', 'selector': 'hsel-confirm-project-deletion'},{'name': 'ConfirmProjectMemberRemovalComponent', 'selector': 'hsel-confirm-project-member-removal'},{'name': 'CreateNewMilestoneComponent', 'selector': 'hsel-create-new-milestone'},{'name': 'CustomSnackBarComponent', 'selector': 'hsel-custom-snack-bar'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InfoBoxComponent', 'selector': 'hsel-info-box'},{'name': 'InviteProjectMemberComponent', 'selector': 'hsel-invite-project-member'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownProvideExternalUrlComponent', 'selector': 'hsel-markdown-provide-external-url'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'PageNotFoundComponent', 'selector': 'hsel-page-not-found'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MarkdownEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MarkdownEditorComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

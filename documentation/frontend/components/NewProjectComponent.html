@@ -1,0 +1,1974 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Frontend Dokumentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Frontend Dokumentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  NewProjectComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/user/new-project/new-project.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>hsel-new-project</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >FormsModule</a></code>
+                            <code>MatButtonModule</code>
+                            <code>MatCardModule</code>
+                            <code>MatDatepickerModule</code>
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >MatFormFieldModule</a></code>
+                            <code>MatIconModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatListModule</code>
+                            <code>MatTooltipModule</code>
+                                <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >ReactiveFormsModule</a></code>
+                            <code>UndefinedStringPipe</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./new-project.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./new-project.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#boundFilterEndDate" >boundFilterEndDate</a>
+                            </li>
+                            <li>
+                                <a href="#companions" >companions</a>
+                            </li>
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#intervalChangesSubscription" >intervalChangesSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#milestones" >milestones</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#startDateChangesSubscription" >startDateChangesSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#students" >students</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#userId" >userId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addMilestone" >addMilestone</a>
+                            </li>
+                            <li>
+                                <a href="#deleteMilestone" >deleteMilestone</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#filterEndDate" >filterEndDate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getOfficialEnd" >getOfficialEnd</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getProjectType" >getProjectType</a>
+                            </li>
+                            <li>
+                                <a href="#inviteCompanion" >inviteCompanion</a>
+                            </li>
+                            <li>
+                                <a href="#inviteStudent" >inviteStudent</a>
+                            </li>
+                            <li>
+                                <a href="#moveToCompanions" >moveToCompanions</a>
+                            </li>
+                            <li>
+                                <a href="#moveToStudents" >moveToStudents</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onCancelClick" >onCancelClick</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmitClick" >onSubmitClick</a>
+                            </li>
+                            <li>
+                                <a href="#removeCompanion" >removeCompanion</a>
+                            </li>
+                            <li>
+                                <a href="#removeStudent" >removeStudent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(formBuilder: <a href="../undefineds/Form.html" target="_self">FormBuilder</a>, date: <a href="../injectables/DateService.html" target="_self">DateService</a>, dialog: <a href="../injectables/DialogService.html" target="_self">DialogService</a>, snackbar: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>, project: <a href="../injectables/ProjectService.html" target="_self">ProjectService</a>, router: Router, authentication: <a href="../injectables/AuthenticationService.html" target="_self">AuthenticationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:62</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>date</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DialogService.html" target="_self" >DialogService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbar</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>project</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ProjectService.html" target="_self" >ProjectService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authentication</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthenticationService.html" target="_self" >AuthenticationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addMilestone"></a>
+                    <span class="name">
+                        <span ><b>addMilestone</b></span>
+                        <a href="#addMilestone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addMilestone()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:120</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteMilestone"></a>
+                    <span class="name">
+                        <span ><b>deleteMilestone</b></span>
+                        <a href="#deleteMilestone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteMilestone(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterEndDate"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>filterEndDate</b></span>
+                        <a href="#filterEndDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>filterEndDate(date: DateTime | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                        <code>DateTime | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOfficialEnd"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getOfficialEnd</b></span>
+                        <a href="#getOfficialEnd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOfficialEnd()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProjectType"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getProjectType</b></span>
+                        <a href="#getProjectType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getProjectType()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="243"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:243</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Nullable" target="_self" >Nullable&lt;string&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inviteCompanion"></a>
+                    <span class="name">
+                        <span ><b>inviteCompanion</b></span>
+                        <a href="#inviteCompanion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>inviteCompanion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inviteStudent"></a>
+                    <span class="name">
+                        <span ><b>inviteStudent</b></span>
+                        <a href="#inviteStudent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>inviteStudent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveToCompanions"></a>
+                    <span class="name">
+                        <span ><b>moveToCompanions</b></span>
+                        <a href="#moveToCompanions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>moveToCompanions(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="181"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:181</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveToStudents"></a>
+                    <span class="name">
+                        <span ><b>moveToStudents</b></span>
+                        <a href="#moveToStudents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>moveToStudents(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCancelClick"></a>
+                    <span class="name">
+                        <span ><b>onCancelClick</b></span>
+                        <a href="#onCancelClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCancelClick()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmitClick"></a>
+                    <span class="name">
+                        <span ><b>onSubmitClick</b></span>
+                        <a href="#onSubmitClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmitClick()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeCompanion"></a>
+                    <span class="name">
+                        <span ><b>removeCompanion</b></span>
+                        <a href="#removeCompanion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeCompanion(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeStudent"></a>
+                    <span class="name">
+                        <span ><b>removeStudent</b></span>
+                        <a href="#removeStudent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeStudent(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="201"
+                                    class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:201</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="boundFilterEndDate"></a>
+                    <span class="name">
+                        <span ><b>boundFilterEndDate</b></span>
+                        <a href="#boundFilterEndDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.filterEndDate.bind(this)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="companions"></a>
+                    <span class="name">
+                        <span ><b>companions</b></span>
+                        <a href="#companions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ProjectMember[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Form" target="_self" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.formBuilder.group({
+    name: [&#x27;&#x27;, [FormValidators.required]],
+    interval: [7, [FormValidators.required, FormValidators.min(1)]],
+    startDate: [this.date.getToday(), [FormValidators.required]],
+    endDate: [&#x27;&#x27;, [FormValidators.behindDate(&#x27;startDate&#x27;), FormValidators.matchesInterval(&#x27;startDate&#x27;, &#x27;interval&#x27;)]],
+    type: [&#x27;&#x27;],
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="intervalChangesSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>intervalChangesSubscription</b></span>
+                        <a href="#intervalChangesSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Undefinable" target="_self" >Undefinable&lt;Subscription&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="milestones"></a>
+                    <span class="name">
+                        <span ><b>milestones</b></span>
+                        <a href="#milestones"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ProjectMilestone[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startDateChangesSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>startDateChangesSubscription</b></span>
+                        <a href="#startDateChangesSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Undefinable" target="_self" >Undefinable&lt;Subscription&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="students"></a>
+                    <span class="name">
+                        <span ><b>students</b></span>
+                        <a href="#students"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ProjectMember[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>userId</b></span>
+                        <a href="#userId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/components/user/new-project/new-project.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatCardModule } from &#x27;@angular/material/card&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatListModule } from &#x27;@angular/material/list&#x27;;
+import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+import { DateTime } from &#x27;luxon&#x27;;
+import { Subscription, take } from &#x27;rxjs&#x27;;
+
+import { CreateNewMilestoneComponent } from &#x27;@Dialogs/create-new-milestone/create-new-milestone.component&#x27;;
+import { InviteProjectMemberComponent } from &#x27;@Dialogs/invite-project-member/invite-project-member.component&#x27;;
+import { ProjectMember, ProjectRole } from &#x27;@Models/project-member&#x27;;
+import { ProjectMilestone } from &#x27;@Models/project-milestone&#x27;;
+import { UndefinedStringPipe } from &#x27;@Pipes/undefined-string.pipe&#x27;;
+import { AuthenticationService } from &#x27;@Services/authentication.service&#x27;;
+import { DateService } from &#x27;@Services/date.service&#x27;;
+import { DialogService } from &#x27;@Services/dialog.service&#x27;;
+import { ProjectService } from &#x27;@Services/project.service&#x27;;
+import { SnackbarService } from &#x27;@Services/snackbar.service&#x27;;
+import { Nullable, Undefinable } from &#x27;@Types&#x27;;
+import { HttpException } from &#x27;@Utils/http-exception&#x27;;
+import { FormValidators } from &#x27;@Validators&#x27;;
+
+@Component({
+  selector: &#x27;hsel-new-project&#x27;,
+  templateUrl: &#x27;./new-project.component.html&#x27;,
+  styleUrl: &#x27;./new-project.component.scss&#x27;,
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    UndefinedStringPipe,
+  ],
+})
+export class NewProjectComponent implements OnInit, OnDestroy {
+  form: FormGroup &#x3D; this.formBuilder.group({
+    name: [&#x27;&#x27;, [FormValidators.required]],
+    interval: [7, [FormValidators.required, FormValidators.min(1)]],
+    startDate: [this.date.getToday(), [FormValidators.required]],
+    endDate: [&#x27;&#x27;, [FormValidators.behindDate(&#x27;startDate&#x27;), FormValidators.matchesInterval(&#x27;startDate&#x27;, &#x27;interval&#x27;)]],
+    type: [&#x27;&#x27;],
+  });
+  milestones: ProjectMilestone[] &#x3D; [];
+  companions: ProjectMember[] &#x3D; [];
+  students: ProjectMember[] &#x3D; [];
+  private intervalChangesSubscription: Undefinable&lt;Subscription&gt;;
+  private startDateChangesSubscription: Undefinable&lt;Subscription&gt;;
+  private userId!: string;
+
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly date: DateService,
+    private readonly dialog: DialogService,
+    private readonly snackbar: SnackbarService,
+    private readonly project: ProjectService,
+    private readonly router: Router,
+    private readonly authentication: AuthenticationService,
+  ) {}
+
+  ngOnInit(): void {
+    this.intervalChangesSubscription &#x3D; this.form.get(&#x27;interval&#x27;)?.valueChanges
+      .subscribe((_) &#x3D;&gt; {
+        const control &#x3D; this.form.get(&#x27;endDate&#x27;);
+
+        if (control?.dirty) {
+          control.updateValueAndValidity();
+        }
+      });
+
+    this.startDateChangesSubscription &#x3D; this.form.get(&#x27;startDate&#x27;)?.valueChanges
+      .subscribe((_) &#x3D;&gt; {
+        const control &#x3D; this.form.get(&#x27;endDate&#x27;);
+
+        if (control?.dirty) {
+          control.updateValueAndValidity();
+        }
+      });
+
+    this.userId &#x3D; this.authentication.getUser()!;
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalChangesSubscription) {
+      this.intervalChangesSubscription.unsubscribe();
+    }
+
+    if (this.startDateChangesSubscription) {
+      this.startDateChangesSubscription.unsubscribe();
+    }
+  }
+
+  private filterEndDate(date: DateTime | null): boolean {
+    if (!date) return false;
+
+    const interval &#x3D; parseInt(this.form.get(&#x27;interval&#x27;)?.value ?? 1);
+    const start: DateTime &#x3D; this.form.get(&#x27;startDate&#x27;)?.value ?? this.date.getToday();
+    const diff &#x3D; this.date.compare(date.toFormat(&#x27;yyyy-MM-dd&#x27;), start.toFormat(&#x27;yyyy-MM-dd&#x27;));
+
+    if (diff &lt;&#x3D; 0) return false;
+
+    return diff % interval &#x3D;&#x3D;&#x3D; 0;
+  }
+
+  boundFilterEndDate &#x3D; this.filterEndDate.bind(this);
+
+  addMilestone(): void {
+    const dialogRef &#x3D; this.dialog.open(CreateNewMilestoneComponent);
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((milestone: Nullable&lt;ProjectMilestone&gt;) &#x3D;&gt; {
+      if (milestone) {
+        this.milestones.push(milestone);
+        this.snackbar.open(&#x27;Meilenstein temporär hinzugefügt&#x27;);
+      }
+    });
+  }
+
+  deleteMilestone(index: number): void {
+    this.milestones.splice(index, 1);
+  }
+
+  inviteStudent(): void {
+    const dialogRef &#x3D; this.dialog.open(InviteProjectMemberComponent, {
+      data: {
+        role: ProjectRole.Contributor,
+      },
+    });
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable&lt;ProjectMember&gt;) &#x3D;&gt; {
+      if (!member) return;
+      if (member.user.id &#x3D;&#x3D;&#x3D; this.userId) {
+        this.snackbar.open(&#x27;Sie können sich nicht selber einladen&#x27;);
+
+        return;
+      }
+
+      if (member.role &#x3D;&#x3D;&#x3D; ProjectRole.Contributor) {
+        this.students.push(member);
+      } else {
+        this.companions.push(member);
+      }
+    });
+  }
+
+  inviteCompanion(): void {
+    const dialogRef &#x3D; this.dialog.open(InviteProjectMemberComponent, {
+      data: {
+        role: ProjectRole.Viewer,
+      },
+    });
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable&lt;ProjectMember&gt;) &#x3D;&gt; {
+      if (!member) return;
+      if (member.user.id &#x3D;&#x3D;&#x3D; this.userId) {
+        this.snackbar.open(&#x27;Sie können sich nicht selber einladen&#x27;);
+
+        return;
+      }
+
+      if (member.role &#x3D;&#x3D;&#x3D; ProjectRole.Viewer) {
+        this.companions.push(member);
+      } else {
+        this.students.push(member);
+      }
+    });
+  }
+
+  moveToCompanions(index: number): void {
+    const student &#x3D; this.students.splice(index, 1);
+
+    if (student.length &gt; 0) {
+      student[0].role &#x3D; ProjectRole.Viewer;
+    }
+
+    this.companions.push(...student);
+  }
+
+  moveToStudents(index: number): void {
+    const companion &#x3D; this.companions.splice(index, 1);
+
+    if (companion.length &gt; 0) {
+      companion[0].role &#x3D; ProjectRole.Contributor;
+    }
+
+    this.students.push(...companion);
+  }
+
+  removeStudent(index: number): void {
+    this.students.splice(index, 1);
+  }
+
+  removeCompanion(index: number): void {
+    this.companions.splice(index, 1);
+  }
+
+  onCancelClick(): void {
+    window.history.back();
+  }
+
+  onSubmitClick(): void {
+    this.project.create(&#x27;&#x27;, {
+      name: this.form.get(&#x27;name&#x27;)!.value,
+      reportInterval: this.form.get(&#x27;interval&#x27;)!.value,
+      officialStart: this.form.get(&#x27;startDate&#x27;)!.value.toFormat(&#x27;yyyy-MM-dd&#x27;),
+      officialEnd: this.getOfficialEnd(),
+      type: this.getProjectType(),
+      ...(this.milestones.length &gt; 0 ? { milestones: this.milestones } : {}),
+      ...(this.companions.length &gt; 0 || this.students.length &gt; 0 ? { members: [...this.companions, ...this.students] } : {}),
+    }).pipe(take(1)).subscribe({
+      next: (createdProject) &#x3D;&gt; {
+        this.snackbar.open(&#x27;Projekt erfolgreich gespeichert&#x27;);
+        this.router.navigateByUrl(&#x60;/projects/${createdProject.id}&#x60;);
+      },
+      error: (exception: HttpException) &#x3D;&gt; {
+        this.snackbar.showException(&#x27;Speichern fehlgeschlagen&#x27;, exception);
+      },
+    });
+  }
+
+  private getOfficialEnd(): Nullable&lt;string&gt; {
+    if (this.form.get(&#x27;endDate&#x27;)?.value) {
+      if (this.form.get(&#x27;endDate&#x27;)!.value instanceof DateTime) {
+        return this.form.get(&#x27;endDate&#x27;)!.value.toFormat(&#x27;yyyy-MM-dd&#x27;);
+      }
+    }
+
+    return null;
+  }
+
+  private getProjectType(): Nullable&lt;string&gt; {
+    if (this.form.get(&#x27;type&#x27;)?.value) {
+      if (this.form.get(&#x27;type&#x27;)!.value.length &gt; 0) {
+        return this.form.get(&#x27;type&#x27;)!.value;
+      }
+    }
+
+    return null;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-card&gt;
+  &lt;mat-card-header&gt;
+    &lt;mat-card-title&gt;
+      Basisdetails
+    &lt;/mat-card-title&gt;
+  &lt;/mat-card-header&gt;
+  &lt;mat-card-content&gt;
+    &lt;form [formGroup]&#x3D;&quot;form&quot;&gt;
+      &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+        &lt;mat-label aria-required&#x3D;&quot;true&quot;&gt;Projektname&lt;/mat-label&gt;
+        &lt;input formControlName&#x3D;&quot;name&quot; type&#x3D;&quot;text&quot; matInput required /&gt;
+        @if (form.get(&#x27;name&#x27;)?.hasError(&#x27;required&#x27;)) {
+          &lt;mat-error&gt;Dies ist ein &lt;strong&gt;Pflichtfeld&lt;/strong&gt;&lt;/mat-error&gt;
+        }
+      &lt;/mat-form-field&gt;
+      &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+        &lt;mat-label aria-required&#x3D;&quot;true&quot;&gt;Berichtsintervall&lt;/mat-label&gt;
+        &lt;input formControlName&#x3D;&quot;interval&quot; type&#x3D;&quot;number&quot; min&#x3D;&quot;1&quot; step&#x3D;&quot;1&quot; matInput required /&gt;
+        @if (form.get(&#x27;interval&#x27;)?.hasError(&#x27;required&#x27;)) {
+          &lt;mat-error&gt;Dies ist ein &lt;strong&gt;Pflichtfeld&lt;/strong&gt;&lt;/mat-error&gt;
+        } @else if (form.get(&#x27;interval&#x27;)?.hasError(&#x27;min&#x27;)) {
+          &lt;mat-error&gt;Für den Berichtsintervall kann minimal der Wert 1 angegeben werden&lt;/mat-error&gt;
+        }
+      &lt;/mat-form-field&gt;
+      &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+        &lt;mat-label&gt;Projekttyp&lt;/mat-label&gt;
+        &lt;input formControlName&#x3D;&quot;type&quot; type&#x3D;&quot;text&quot; matInput /&gt;
+      &lt;/mat-form-field&gt;
+      &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+        &lt;mat-label aria-required&#x3D;&quot;true&quot;&gt;Projektstart&lt;/mat-label&gt;
+        &lt;input [matDatepicker]&#x3D;&quot;dpProjectStart&quot; formControlName&#x3D;&quot;startDate&quot; matInput required /&gt;
+        &lt;mat-datepicker-toggle [for]&#x3D;&quot;dpProjectStart&quot; matIconSuffix&gt;&lt;/mat-datepicker-toggle&gt;
+        &lt;mat-datepicker #dpProjectStart&gt;&lt;/mat-datepicker&gt;
+        @if (form.get(&#x27;startDate&#x27;)?.hasError(&#x27;required&#x27;)) {
+          &lt;mat-error&gt;Dies ist ein &lt;strong&gt;Pflichtfeld&lt;/strong&gt;&lt;/mat-error&gt;
+        }
+        &lt;mat-hint&gt;Das Datum wird im Format DD.MM.YYYY erwartet&lt;/mat-hint&gt;
+      &lt;/mat-form-field&gt;
+      &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+        &lt;mat-label&gt;Projektende&lt;/mat-label&gt;
+        &lt;input [matDatepickerFilter]&#x3D;&quot;boundFilterEndDate&quot; [matDatepicker]&#x3D;&quot;dpProjectEnd&quot; formControlName&#x3D;&quot;endDate&quot; matInput /&gt;
+        &lt;mat-datepicker-toggle [for]&#x3D;&quot;dpProjectEnd&quot; matIconSuffix&gt;&lt;/mat-datepicker-toggle&gt;
+        &lt;mat-datepicker #dpProjectEnd&gt;&lt;/mat-datepicker&gt;
+        @if (form.get(&#x27;endDate&#x27;)?.hasError(&#x27;behindDate&#x27;)) {
+          &lt;mat-error&gt;Das Projektende kann nicht vor dem Projektstart liegen&lt;/mat-error&gt;
+        } @else if (form.get(&#x27;endDate&#x27;)?.hasError(&#x27;matchesInterval&#x27;)) {
+          &lt;mat-error&gt;Das Projektende muss mindestens um ein Intervall nach dem Projektstart liegen&lt;/mat-error&gt;
+        }
+        &lt;mat-hint&gt;Das Datum wird im Format DD.MM.YYYY erwartet&lt;/mat-hint&gt;
+      &lt;/mat-form-field&gt;
+    &lt;/form&gt;
+  &lt;/mat-card-content&gt;
+&lt;/mat-card&gt;
+&lt;div class&#x3D;&quot;mt-4 flex flex-row gap-x-4&quot;&gt;
+  &lt;mat-card class&#x3D;&quot;flex-1/2&quot;&gt;
+    &lt;mat-card-header&gt;
+      &lt;mat-card-title-group&gt;
+        &lt;mat-card-title&gt;Studierende&lt;/mat-card-title&gt;
+        &lt;mat-card-subtitle&gt;Studierende können auch später noch als Mitglieder hinzugefügt werden&lt;/mat-card-subtitle&gt;
+      &lt;/mat-card-title-group&gt;
+    &lt;/mat-card-header&gt;
+    &lt;mat-card-content&gt;
+      &lt;mat-list&gt;
+        @for (student of students; track $index) {
+          &lt;mat-list-item&gt;
+            &lt;span class&#x3D;&quot;flex flex-row justify-between items-center&quot; matListItemTitle&gt;
+              {{ student.user.academicTitle | undefinedString:&#x27;&#x27; }}{{ student.user.firstName }} {{ student.user.lastName }}
+              &lt;div&gt;
+                &lt;button (click)&#x3D;&quot;moveToCompanions($index)&quot; matTooltip&#x3D;&quot;Zu einen Beteuer umwandeln&quot; mat-icon-button&gt;
+                  &lt;mat-icon&gt;keyboard_double_arrow_right&lt;/mat-icon&gt;
+                &lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;removeStudent($index)&quot; matTooltip&#x3D;&quot;Studierenden löschen&quot; mat-icon-button&gt;
+                  &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/span&gt;
+          &lt;/mat-list-item&gt;
+        } @empty {
+          &lt;mat-list-item&gt;
+            &lt;span matListItemTitle&gt;Das Projekt hat noch keine Studenten als Mitglieder (außer Sie selbst)&lt;/span&gt;
+          &lt;/mat-list-item&gt;
+        }
+      &lt;/mat-list&gt;
+    &lt;/mat-card-content&gt;
+    &lt;mat-card-actions align&#x3D;&quot;end&quot;&gt;
+      &lt;button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;inviteStudent()&quot; mat-raised-button&gt;Studierenden hinzufügen&lt;/button&gt;
+    &lt;/mat-card-actions&gt;
+  &lt;/mat-card&gt;
+  &lt;mat-card class&#x3D;&quot;flex-1/2&quot;&gt;
+    &lt;mat-card-header&gt;
+      &lt;mat-card-title-group&gt;
+        &lt;mat-card-title&gt;Betreuer&lt;/mat-card-title&gt;
+        &lt;mat-card-subtitle&gt;Betreuer können auch später noch als Mitglieder hinzugefügt werden&lt;/mat-card-subtitle&gt;
+      &lt;/mat-card-title-group&gt;
+    &lt;/mat-card-header&gt;
+    &lt;mat-card-content&gt;
+      &lt;mat-list&gt;
+        @for (companion of companions; track $index) {
+          &lt;mat-list-item&gt;
+            &lt;span class&#x3D;&quot;flex flex-row justify-between items-center&quot; matListItemTitle&gt;
+              {{ companion.user.academicTitle | undefinedString:&#x27;&#x27; }}{{ companion.user.firstName }} {{ companion.user.lastName }}
+              &lt;div&gt;
+                &lt;button (click)&#x3D;&quot;moveToStudents($index)&quot; matTooltip&#x3D;&quot;Zu einen Studierenden umwandeln&quot; mat-icon-button&gt;
+                  &lt;mat-icon&gt;keyboard_double_arrow_left&lt;/mat-icon&gt;
+                &lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;removeCompanion($index)&quot; matTooltip&#x3D;&quot;Betreuer löschen&quot; mat-icon-button&gt;
+                  &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/span&gt;
+          &lt;/mat-list-item&gt;
+        } @empty {
+          &lt;mat-list-item&gt;
+            &lt;span matListItemTitle&gt;Das Projekt hat noch keine Betreuer als Mitglieder&lt;/span&gt;
+          &lt;/mat-list-item&gt;
+        }
+      &lt;/mat-list&gt;
+    &lt;/mat-card-content&gt;
+    &lt;mat-card-actions align&#x3D;&quot;end&quot;&gt;
+      &lt;button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;inviteCompanion()&quot; mat-raised-button&gt;Betreuer hinzufügen&lt;/button&gt;
+    &lt;/mat-card-actions&gt;
+  &lt;/mat-card&gt;
+&lt;/div&gt;
+&lt;mat-card class&#x3D;&quot;mt-4&quot;&gt;
+  &lt;mat-card-header&gt;
+    &lt;mat-card-title-group&gt;
+      &lt;mat-card-title&gt;Meilensteine&lt;/mat-card-title&gt;
+      &lt;mat-card-subtitle&gt;Meilensteine können auch später noch angelegt werden&lt;/mat-card-subtitle&gt;
+    &lt;/mat-card-title-group&gt;
+  &lt;/mat-card-header&gt;
+  &lt;mat-card-content&gt;
+    &lt;mat-list&gt;
+      @for (milestone of milestones; track $index) {
+        &lt;mat-list-item&gt;
+          &lt;span class&#x3D;&quot;flex flex-row justify-between items-center&quot; matListItemTitle&gt;
+            {{ milestone.name }}
+            &lt;button (click)&#x3D;&quot;deleteMilestone($index)&quot; mat-icon-button&gt;
+              &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+            &lt;/button&gt;
+          &lt;/span&gt;
+        &lt;/mat-list-item&gt;
+      } @empty {
+        &lt;mat-list-item&gt;
+          &lt;span matListItemTitle&gt;Das Projekt hat noch keine Meilensteine&lt;/span&gt;
+        &lt;/mat-list-item&gt;
+      }
+    &lt;/mat-list&gt;
+  &lt;/mat-card-content&gt;
+  &lt;mat-card-actions align&#x3D;&quot;end&quot;&gt;
+    &lt;button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;addMilestone()&quot; mat-raised-button&gt;Meilenstein hinzufügen&lt;/button&gt;
+  &lt;/mat-card-actions&gt;
+&lt;/mat-card&gt;
+&lt;div class&#x3D;&quot;mt-8 flex flex-row gap-x-4 justify-end&quot;&gt;
+  &lt;button color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;onCancelClick()&quot; mat-raised-button&gt;Änderungen verwerfen&lt;/button&gt;
+  &lt;button
+    color&#x3D;&quot;primary&quot;
+    [disabled]&#x3D;&quot;form.invalid&quot;
+    type&#x3D;&quot;submit&quot;
+    (click)&#x3D;&quot;onSubmitClick()&quot;
+    mat-raised-button
+  &gt;
+    Änderungen speichern
+  &lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-card>  <mat-card-header>    <mat-card-title>      Basisdetails    </mat-card-title>  </mat-card-header>  <mat-card-content>    <form [formGroup]="form">      <mat-form-field class="w-full">        <mat-label aria-required="true">Projektname</mat-label>        <input formControlName="name" type="text" matInput required />        @if (form.get(\'name\')?.hasError(\'required\')) {          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>        }      </mat-form-field>      <mat-form-field class="w-full">        <mat-label aria-required="true">Berichtsintervall</mat-label>        <input formControlName="interval" type="number" min="1" step="1" matInput required />        @if (form.get(\'interval\')?.hasError(\'required\')) {          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>        } @else if (form.get(\'interval\')?.hasError(\'min\')) {          <mat-error>Für den Berichtsintervall kann minimal der Wert 1 angegeben werden</mat-error>        }      </mat-form-field>      <mat-form-field class="w-full">        <mat-label>Projekttyp</mat-label>        <input formControlName="type" type="text" matInput />      </mat-form-field>      <mat-form-field class="w-full">        <mat-label aria-required="true">Projektstart</mat-label>        <input [matDatepicker]="dpProjectStart" formControlName="startDate" matInput required />        <mat-datepicker-toggle [for]="dpProjectStart" matIconSuffix></mat-datepicker-toggle>        <mat-datepicker #dpProjectStart></mat-datepicker>        @if (form.get(\'startDate\')?.hasError(\'required\')) {          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>        }        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>      </mat-form-field>      <mat-form-field class="w-full">        <mat-label>Projektende</mat-label>        <input [matDatepickerFilter]="boundFilterEndDate" [matDatepicker]="dpProjectEnd" formControlName="endDate" matInput />        <mat-datepicker-toggle [for]="dpProjectEnd" matIconSuffix></mat-datepicker-toggle>        <mat-datepicker #dpProjectEnd></mat-datepicker>        @if (form.get(\'endDate\')?.hasError(\'behindDate\')) {          <mat-error>Das Projektende kann nicht vor dem Projektstart liegen</mat-error>        } @else if (form.get(\'endDate\')?.hasError(\'matchesInterval\')) {          <mat-error>Das Projektende muss mindestens um ein Intervall nach dem Projektstart liegen</mat-error>        }        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>      </mat-form-field>    </form>  </mat-card-content></mat-card><div class="mt-4 flex flex-row gap-x-4">  <mat-card class="flex-1/2">    <mat-card-header>      <mat-card-title-group>        <mat-card-title>Studierende</mat-card-title>        <mat-card-subtitle>Studierende können auch später noch als Mitglieder hinzugefügt werden</mat-card-subtitle>      </mat-card-title-group>    </mat-card-header>    <mat-card-content>      <mat-list>        @for (student of students; track $index) {          <mat-list-item>            <span class="flex flex-row justify-between items-center" matListItemTitle>              {{ student.user.academicTitle | undefinedString:\'\' }}{{ student.user.firstName }} {{ student.user.lastName }}              <div>                <button (click)="moveToCompanions($index)" matTooltip="Zu einen Beteuer umwandeln" mat-icon-button>                  <mat-icon>keyboard_double_arrow_right</mat-icon>                </button>                <button (click)="removeStudent($index)" matTooltip="Studierenden löschen" mat-icon-button>                  <mat-icon>delete</mat-icon>                </button>              </div>            </span>          </mat-list-item>        } @empty {          <mat-list-item>            <span matListItemTitle>Das Projekt hat noch keine Studenten als Mitglieder (außer Sie selbst)</span>          </mat-list-item>        }      </mat-list>    </mat-card-content>    <mat-card-actions align="end">      <button color="primary" (click)="inviteStudent()" mat-raised-button>Studierenden hinzufügen</button>    </mat-card-actions>  </mat-card>  <mat-card class="flex-1/2">    <mat-card-header>      <mat-card-title-group>        <mat-card-title>Betreuer</mat-card-title>        <mat-card-subtitle>Betreuer können auch später noch als Mitglieder hinzugefügt werden</mat-card-subtitle>      </mat-card-title-group>    </mat-card-header>    <mat-card-content>      <mat-list>        @for (companion of companions; track $index) {          <mat-list-item>            <span class="flex flex-row justify-between items-center" matListItemTitle>              {{ companion.user.academicTitle | undefinedString:\'\' }}{{ companion.user.firstName }} {{ companion.user.lastName }}              <div>                <button (click)="moveToStudents($index)" matTooltip="Zu einen Studierenden umwandeln" mat-icon-button>                  <mat-icon>keyboard_double_arrow_left</mat-icon>                </button>                <button (click)="removeCompanion($index)" matTooltip="Betreuer löschen" mat-icon-button>                  <mat-icon>delete</mat-icon>                </button>              </div>            </span>          </mat-list-item>        } @empty {          <mat-list-item>            <span matListItemTitle>Das Projekt hat noch keine Betreuer als Mitglieder</span>          </mat-list-item>        }      </mat-list>    </mat-card-content>    <mat-card-actions align="end">      <button color="primary" (click)="inviteCompanion()" mat-raised-button>Betreuer hinzufügen</button>    </mat-card-actions>  </mat-card></div><mat-card class="mt-4">  <mat-card-header>    <mat-card-title-group>      <mat-card-title>Meilensteine</mat-card-title>      <mat-card-subtitle>Meilensteine können auch später noch angelegt werden</mat-card-subtitle>    </mat-card-title-group>  </mat-card-header>  <mat-card-content>    <mat-list>      @for (milestone of milestones; track $index) {        <mat-list-item>          <span class="flex flex-row justify-between items-center" matListItemTitle>            {{ milestone.name }}            <button (click)="deleteMilestone($index)" mat-icon-button>              <mat-icon>delete</mat-icon>            </button>          </span>        </mat-list-item>      } @empty {        <mat-list-item>          <span matListItemTitle>Das Projekt hat noch keine Meilensteine</span>        </mat-list-item>      }    </mat-list>  </mat-card-content>  <mat-card-actions align="end">    <button color="primary" (click)="addMilestone()" mat-raised-button>Meilenstein hinzufügen</button>  </mat-card-actions></mat-card><div class="mt-8 flex flex-row gap-x-4 justify-end">  <button color="accent" (click)="onCancelClick()" mat-raised-button>Änderungen verwerfen</button>  <button    color="primary"    [disabled]="form.invalid"    type="submit"    (click)="onSubmitClick()"    mat-raised-button  >    Änderungen speichern  </button></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmMilestoneDeletionComponent', 'selector': 'hsel-confirm-milestone-deletion'},{'name': 'ConfirmMilestoneEstimateDeletionComponent', 'selector': 'hsel-confirm-milestone-estimate-deletion'},{'name': 'ConfirmProfileDeletionComponent', 'selector': 'hsel-confirm-profile-deletion'},{'name': 'ConfirmProjectDeletionComponent', 'selector': 'hsel-confirm-project-deletion'},{'name': 'ConfirmProjectMemberRemovalComponent', 'selector': 'hsel-confirm-project-member-removal'},{'name': 'CreateNewMilestoneComponent', 'selector': 'hsel-create-new-milestone'},{'name': 'CustomSnackBarComponent', 'selector': 'hsel-custom-snack-bar'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InfoBoxComponent', 'selector': 'hsel-info-box'},{'name': 'InviteProjectMemberComponent', 'selector': 'hsel-invite-project-member'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownProvideExternalUrlComponent', 'selector': 'hsel-markdown-provide-external-url'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'PageNotFoundComponent', 'selector': 'hsel-page-not-found'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'NewProjectComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'NewProjectComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

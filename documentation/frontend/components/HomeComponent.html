@@ -1,0 +1,405 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Frontend Dokumentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Frontend Dokumentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HomeComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/home/home.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>hsel-home</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatExpansionModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./home.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./home.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { MatExpansionModule } from &#x27;@angular/material/expansion&#x27;
+
+@Component({
+  selector: &#x27;hsel-home&#x27;,
+  templateUrl: &#x27;./home.component.html&#x27;,
+  styleUrl: &#x27;./home.component.scss&#x27;,
+  standalone: true,
+  imports: [MatExpansionModule],
+})
+export class HomeComponent { }
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1&gt;Willkommen zur Meilensteintrendanalyse der Hochschule Emden/Leer&lt;/h1&gt;
+&lt;h3&gt;Ihre zentrale Plattform für eine effiziente Meilensteintrendanalyse und Projektüberwachung.&lt;/h3&gt;
+
+&lt;mat-accordion multi&gt;
+  &lt;mat-expansion-panel&gt;
+    &lt;mat-expansion-panel-header&gt;
+      &lt;mat-panel-title&gt;Die Idee des Projekts&lt;/mat-panel-title&gt;
+    &lt;/mat-expansion-panel-header&gt;
+    &lt;p&gt;
+      Dieses Projekt ist im Rahmen einer Projektarbeit entstanden.
+    &lt;/p&gt;
+    &lt;p&gt;
+      Das Ziel dieser Arbeit ist es das Excel Dokument zur Meilensteintrendanalyse, das von Prof. Dr. Gerrit Jan Veltink erstellt wurde, mit dieser Web-App abzulösen.
+    &lt;/p&gt;
+    &lt;p&gt;
+      Dieses Projekt wird von Studierenden für Studierende entwickelt und soll ein moderneres und intuitiveres Design für das Projektmanagement-Tool der Meilensteintrendanalyse bereitstellen.
+    &lt;/p&gt;
+  &lt;/mat-expansion-panel&gt;
+  &lt;mat-expansion-panel&gt;
+    &lt;mat-expansion-panel-header&gt;
+      &lt;mat-panel-title&gt;Was ist eine Meilensteintrendanalyse?&lt;/mat-panel-title&gt;
+    &lt;/mat-expansion-panel-header&gt;
+    &lt;p&gt;
+      Die Meilensteintrendanalyse (MTA) ist eine bewährte Methode zur Visualisierung und Verfolgung von Projektfortschritten. Mit dieser App können Sie diese Methode einfach und effektiv anwenden, um Ihre Projektziele stets im Blick zu behalten.
+    &lt;/p&gt;
+  &lt;/mat-expansion-panel&gt;
+  &lt;mat-expansion-panel&gt;
+    &lt;mat-expansion-panel-header&gt;
+      &lt;mat-panel-title&gt;Funktionsübersicht&lt;/mat-panel-title&gt;
+    &lt;/mat-expansion-panel-header&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Projektübersicht:&lt;/strong&gt; Behalten Sie alle Ihre Projekte und deren Fortschritt im Blick.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Trendanalysen:&lt;/strong&gt; Erstellen Sie aussagekräftige Meilensteintrendanalyse-Diagramme.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Einfache Bedienung:&lt;/strong&gt; Intuitive Benutzeroberfläche für eine schnelle Einarbeitung.
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/mat-expansion-panel&gt;
+  &lt;mat-expansion-panel expanded&gt;
+    &lt;mat-expansion-panel-header&gt;
+      &lt;mat-panel-title&gt;Einstieg&lt;/mat-panel-title&gt;
+    &lt;/mat-expansion-panel-header&gt;
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Registrieren:&lt;/strong&gt; Falls Sie noch keinen Account haben, müssen Sie sich &lt;a href&#x3D;&quot;/auth/register&quot;&gt;hier&lt;/a&gt; zunächst registrieren. Bei der Registrierung haben Sie direkt die Möglichkeit Ihre persönlichen Daten, die von der App gefordert sind, anzugeben. Für einen schnelleren Einstieg empfiehlt es sich die Daten an dieser Stelle direkt anzugeben.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Anmelden:&lt;/strong&gt; Sofern Sie noch nicht angemeldet sind, melden Sie sich &lt;a href&#x3D;&quot;/auth/login&quot;&gt;hier&lt;/a&gt; zuerst an.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Projekt anlegen:&lt;/strong&gt; Navigieren Sie zur Liste aller Projekte und klicken Sie auf das Plus-Symbol oder klicken Sie &lt;a href&#x3D;&quot;/projects/new&quot;&gt;hier&lt;/a&gt;. Geben Sie dort die grundlegenden Informationen ein. In der Ansicht können Sie direkt Projektmitglieder und die Meilensteine hinzufügen. Dies ist aber auch noch im Nachhinein möglich.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Projektmitglieder hinzufügen:&lt;/strong&gt; Sofern noch keine bzw. nicht alle Projektmitglieder im vorherigen Schritt hinzugefügt wurden, würde es sich anbieten, diese zum Projekt hinzuzufügen. Dabei ist zu beachten, dass nur bereits registrierte Benutzer hinzugefügt werden können.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Meilensteine hinzufügen:&lt;/strong&gt; Sofern noch keine bzw. nicht alle Meilensteine im dritten Schritt hinzugefügt wurden, sollten diese nun ergänzt werden. Selbstverständlich können die Meilensteine auch später noch erweitert werden. Falls es schon möglich ist, können ebenfalls die ersten Prognosen für die Meilensteine definiert werden.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Projektbericht erstellen:&lt;/strong&gt; Erstellen Sie den ersten Projektbericht, indem Sie auf die Schaltfläche &quot;Projektbericht hinzufügen&quot; (zu finden auf der Detailseite von Ihrem Projekt) drücken. Dort können Sie mit den Markdowneditoren die entsprechenden Informationen angeben. Nach erfolgreichem Speichern kann der Bericht über die entsprechende Detailseite als PDF exportiert werden.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;Meilensteintrendanalyse-Diagramm erstellen:&lt;/strong&gt; Dieses Diagramm müssen Sie nicht selber erstellen. Dies wird automatisch auf der Detailseite des Projekts generiert und im PDF Export eines Projektberichts integriert.
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/mat-expansion-panel&gt;
+&lt;/mat-accordion&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1>Willkommen zur Meilensteintrendanalyse der Hochschule Emden/Leer</h1><h3>Ihre zentrale Plattform für eine effiziente Meilensteintrendanalyse und Projektüberwachung.</h3><mat-accordion multi>  <mat-expansion-panel>    <mat-expansion-panel-header>      <mat-panel-title>Die Idee des Projekts</mat-panel-title>    </mat-expansion-panel-header>    <p>      Dieses Projekt ist im Rahmen einer Projektarbeit entstanden.    </p>    <p>      Das Ziel dieser Arbeit ist es das Excel Dokument zur Meilensteintrendanalyse, das von Prof. Dr. Gerrit Jan Veltink erstellt wurde, mit dieser Web-App abzulösen.    </p>    <p>      Dieses Projekt wird von Studierenden für Studierende entwickelt und soll ein moderneres und intuitiveres Design für das Projektmanagement-Tool der Meilensteintrendanalyse bereitstellen.    </p>  </mat-expansion-panel>  <mat-expansion-panel>    <mat-expansion-panel-header>      <mat-panel-title>Was ist eine Meilensteintrendanalyse?</mat-panel-title>    </mat-expansion-panel-header>    <p>      Die Meilensteintrendanalyse (MTA) ist eine bewährte Methode zur Visualisierung und Verfolgung von Projektfortschritten. Mit dieser App können Sie diese Methode einfach und effektiv anwenden, um Ihre Projektziele stets im Blick zu behalten.    </p>  </mat-expansion-panel>  <mat-expansion-panel>    <mat-expansion-panel-header>      <mat-panel-title>Funktionsübersicht</mat-panel-title>    </mat-expansion-panel-header>    <ul>      <li>        <strong>Projektübersicht:</strong> Behalten Sie alle Ihre Projekte und deren Fortschritt im Blick.      </li>      <li>        <strong>Trendanalysen:</strong> Erstellen Sie aussagekräftige Meilensteintrendanalyse-Diagramme.      </li>      <li>        <strong>Einfache Bedienung:</strong> Intuitive Benutzeroberfläche für eine schnelle Einarbeitung.      </li>    </ul>  </mat-expansion-panel>  <mat-expansion-panel expanded>    <mat-expansion-panel-header>      <mat-panel-title>Einstieg</mat-panel-title>    </mat-expansion-panel-header>    <ol>      <li>        <strong>Registrieren:</strong> Falls Sie noch keinen Account haben, müssen Sie sich <a href="/auth/register">hier</a> zunächst registrieren. Bei der Registrierung haben Sie direkt die Möglichkeit Ihre persönlichen Daten, die von der App gefordert sind, anzugeben. Für einen schnelleren Einstieg empfiehlt es sich die Daten an dieser Stelle direkt anzugeben.      </li>      <li>        <strong>Anmelden:</strong> Sofern Sie noch nicht angemeldet sind, melden Sie sich <a href="/auth/login">hier</a> zuerst an.      </li>      <li>        <strong>Projekt anlegen:</strong> Navigieren Sie zur Liste aller Projekte und klicken Sie auf das Plus-Symbol oder klicken Sie <a href="/projects/new">hier</a>. Geben Sie dort die grundlegenden Informationen ein. In der Ansicht können Sie direkt Projektmitglieder und die Meilensteine hinzufügen. Dies ist aber auch noch im Nachhinein möglich.      </li>      <li>        <strong>Projektmitglieder hinzufügen:</strong> Sofern noch keine bzw. nicht alle Projektmitglieder im vorherigen Schritt hinzugefügt wurden, würde es sich anbieten, diese zum Projekt hinzuzufügen. Dabei ist zu beachten, dass nur bereits registrierte Benutzer hinzugefügt werden können.      </li>      <li>        <strong>Meilensteine hinzufügen:</strong> Sofern noch keine bzw. nicht alle Meilensteine im dritten Schritt hinzugefügt wurden, sollten diese nun ergänzt werden. Selbstverständlich können die Meilensteine auch später noch erweitert werden. Falls es schon möglich ist, können ebenfalls die ersten Prognosen für die Meilensteine definiert werden.      </li>      <li>        <strong>Projektbericht erstellen:</strong> Erstellen Sie den ersten Projektbericht, indem Sie auf die Schaltfläche "Projektbericht hinzufügen" (zu finden auf der Detailseite von Ihrem Projekt) drücken. Dort können Sie mit den Markdowneditoren die entsprechenden Informationen angeben. Nach erfolgreichem Speichern kann der Bericht über die entsprechende Detailseite als PDF exportiert werden.      </li>      <li>        <strong>Meilensteintrendanalyse-Diagramm erstellen:</strong> Dieses Diagramm müssen Sie nicht selber erstellen. Dies wird automatisch auf der Detailseite des Projekts generiert und im PDF Export eines Projektberichts integriert.      </li>    </ol>  </mat-expansion-panel></mat-accordion></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmMilestoneDeletionComponent', 'selector': 'hsel-confirm-milestone-deletion'},{'name': 'ConfirmMilestoneEstimateDeletionComponent', 'selector': 'hsel-confirm-milestone-estimate-deletion'},{'name': 'ConfirmProfileDeletionComponent', 'selector': 'hsel-confirm-profile-deletion'},{'name': 'ConfirmProjectDeletionComponent', 'selector': 'hsel-confirm-project-deletion'},{'name': 'ConfirmProjectMemberRemovalComponent', 'selector': 'hsel-confirm-project-member-removal'},{'name': 'CreateNewMilestoneComponent', 'selector': 'hsel-create-new-milestone'},{'name': 'CustomSnackBarComponent', 'selector': 'hsel-custom-snack-bar'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InfoBoxComponent', 'selector': 'hsel-info-box'},{'name': 'InviteProjectMemberComponent', 'selector': 'hsel-invite-project-member'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownProvideExternalUrlComponent', 'selector': 'hsel-markdown-provide-external-url'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'PageNotFoundComponent', 'selector': 'hsel-page-not-found'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomeComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

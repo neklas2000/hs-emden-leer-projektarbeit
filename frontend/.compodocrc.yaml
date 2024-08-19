@@ -1,0 +1,4 @@
+output: ../documentation/frontend
+theme: material
+customFavicon: ./src/assets/favicon.ico
+name: Frontend Dokumentation
