@@ -3,6 +3,11 @@
     <mat-card-title>Prognosen vom Meilenstein "{{ milestone.name }}" anpassen</mat-card-title>
   </mat-card-header>
   <mat-card-content class="mt-4">
+    @if (isMilestoneReached) {
+      <hsel-info-box>
+        Sie können gerade keine Anpassungen vornehmen, da der Meilenstein abgeschlossen ist.
+      </hsel-info-box>
+    }
     <form [formGroup]="form" class="flex flex-col gap-y-2">
       <mat-form-field class="w-full">
         <mat-label aria-required="true">Name des Meilensteins</mat-label>
@@ -11,18 +16,60 @@
           <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
         }
       </mat-form-field>
-      @for (estimate of estimates; track estimate.id) {
-        <hsel-milestone-estimate-form-field
-          [estimate]="estimate.estimation"
-          [allowedDates]="reportDates"
-        ></hsel-milestone-estimate-form-field>
+      @for (estimateControl of estimateControls; track estimateControl.id) {
+        <div class="flex flex-row gap-x-4 items-center">
+          <mat-form-field class="flex-auto">
+            <mat-label aria-required="true">Prognose vom {{ estimateControl.estimate.reportDate | date:'dd.MM.yyyy' }}</mat-label>
+            <input
+              [matDatepicker]="dpEstimationDate"
+              [min]="convertToDateTime(estimateControl.estimate.reportDate)"
+              [max]="maxDate"
+              [matDatepickerFilter]="boundFilterDates"
+              [formControlName]="estimateControl.control"
+              matInput
+              required
+            />
+            <mat-datepicker-toggle [for]="dpEstimationDate" matIconSuffix></mat-datepicker-toggle>
+            <mat-datepicker #dpEstimationDate></mat-datepicker>
+            @if (form.get(estimateControl.control)?.hasError('required')) {
+              <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+            } @else if (form.get(estimateControl.control)?.hasError('outsideInterval')) {
+              <mat-error>Das eingegebene Datum befindet sich nicht im erwarteten Intervall ({{ reportInterval }} Tag/e)</mat-error>
+            }
+            <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
+          </mat-form-field>
+          <button
+            (click)="clearControl(estimateControl.control)"
+            matTooltip="Diese Prognose leeren"
+            [disabled]="isMilestoneReached"
+            mat-icon-button
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+          @if ($last) {
+            <button
+              (click)="deleteEstimate(estimateControl)"
+              matTooltip="Diese Prognose löschen"
+              [disabled]="isMilestoneReached"
+              mat-icon-button
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+        </div>
       }
+      <button class="w-full" (click)="addNextEstimate()" [disabled]="isMilestoneReached" mat-button>
+        Neue Prognose hinzufügen
+      </button>
       <mat-checkbox formControlName="milestoneReached">Meilenstein erreicht?</mat-checkbox>
     </form>
   </mat-card-content>
   <mat-card-actions align="end" class="gap-x-4">
-    <button mat-raised-button (click)="onDiscardChanges()" color="accent">Änderungen verwerfen</button>
-    <button mat-raised-button (click)="onMilestoneDelete()" color="warn">Meilenstein löschen</button>
-    <button mat-raised-button (click)="onSaveChanges()" color="primary">Änderungen speichern</button>
+    <button mat-raised-button (click)="onMilestoneDelete()" color="warn">
+      Meilenstein löschen
+    </button>
+    <button mat-raised-button (click)="onSaveChanges()" [disabled]="form.invalid" color="primary">
+      Änderungen speichern
+    </button>
   </mat-card-actions>
 </mat-card>

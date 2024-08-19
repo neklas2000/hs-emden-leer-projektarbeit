@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CustomSnackBarComponent, SnackBarType } from '@Components/custom-snack-bar/custom-snack-bar.component';
+import {
+  CustomSnackBarComponent,
+  SnackBarType,
+} from '@Components/custom-snack-bar/custom-snack-bar.component';
 import { HttpException } from '@Utils/http-exception';
 
 /**
@@ -10,9 +13,13 @@ import { HttpException } from '@Utils/http-exception';
  */
 export enum SnackbarMessage {
   INCORRECT_CREDENTIALS = 'Fehlerhafte Logindaten',
-  CANCELED = 'Vorgang abgebrochen',
-  DELETE_OPERATION_CANCELED = 'Löschvorgang abgebrochen',
+  CANCELED = 'Die Aktion wurde erfolgreich abgebrochen',
+  FAILED = 'Die Aktion ist fehlgeschlagen',
+  SAVE_OPERATION_SUCCEEDED = 'Speichervorgang erfolgreich',
+  SAVE_OPERATION_FAILED_CONFIRMATION = 'Speichervorgang konnte nicht bestätigt werden',
   SAVE_OPERATION_FAILED = 'Speichervorgang fehlgeschlagen',
+  CREATE_ESTIMATE_SUCCEEDED = 'Meilensteinprognose erfolgreich hinzugefügt',
+  DELETE_OPERATION_CANCELED = 'Löschvorgang abgebrochen',
   DELETE_OPERATION_FAILED = 'Löschvorgang fehlgeschlagen',
   DELETE_OPERATION_SUCCEEDED = 'Löschvorgang erfolgreich',
   DELETE_OPERATION_FAILED_CONFIRMATION = 'Löschvorgang konnte nicht bestätigt werden',
@@ -21,6 +28,7 @@ export enum SnackbarMessage {
   LOGOUT_NOT_POSSIBLE = 'Abmelden scheint derzeit nicht möglich zu sein',
   REGISTER_FAILED = 'Registrierung fehlgeschlagen',
   REGISTER_SUCCEEDED = 'Erfolgreich registriert',
+  NO_CHANGES = 'Es konnten keine Änderungen festgestellt werden',
 }
 
 /**
@@ -32,7 +40,7 @@ export enum SnackbarMessage {
   providedIn: 'root'
 })
 export class SnackbarService {
-  constructor(private readonly snackbar: MatSnackBar) { }
+  constructor(private readonly snackbar: MatSnackBar) {}
 
   /**
    * @description

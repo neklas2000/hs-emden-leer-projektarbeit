@@ -1,17 +1,15 @@
-<mat-tab-group [selectedIndex]="selectedTab | async" (selectedIndexChange)="onTabChange($event)">
+<mat-tab-group [selectedIndex]="selectedTab">
   @for (milestone of milestones; track milestone.id) {
-    <mat-tab [label]="milestone.name">
+    <mat-tab [label]="milestone.name" [tabIndex]="$index">
       <div class="overflow-hidden p-2">
         <hsel-edit-milestone-estimates-tab
           [milestone]="milestone"
-          [reportDates]="reportDates">
+          [reportStart]="reportStart"
+          [reportEnd]="reportEnd"
+          [reportInterval]="reportInterval"
+          (onDelete)="removeMilestone(milestone.id)">
         </hsel-edit-milestone-estimates-tab>
       </div>
     </mat-tab>
   }
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon>add</mat-icon>
-    </ng-template>
-  </mat-tab>
 </mat-tab-group>

@@ -182,4 +182,22 @@ export class FormValidators extends Validators {
       };
     };
   }
+
+  static withinInterval(
+    startDate: string,
+    interval: number,
+    endDate: Nullable<string> = null,
+  ): ValidatorFn {
+    return (control: AbstractControl): Nullable<ValidationErrors> => {
+      if (!control.value) return null;
+
+      if (this.dateService.isWithinInterval(control.value, interval, startDate, endDate)) {
+        return null;
+      }
+
+      return {
+        outsideInterval: true,
+      };
+    };
+  }
 }

@@ -17,6 +17,7 @@ module.exports = {
       },
       flex: {
         '1/2': '50%',
+        'fit': 'fit-content',
       },
     },
     screens: {

@@ -10,22 +10,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Data } from '@angular/router';
 
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { take } from 'rxjs';
 
 import {
   EditMilestoneEstimatesTabComponent
 } from '@Components/edit-milestone-estimates-tab/edit-milestone-estimates-tab.component';
-import {
-  CreateNewMilestoneComponent
-} from '@Dialogs/create-new-milestone/create-new-milestone.component';
 import { Project } from '@Models/project';
 import { ProjectMilestone } from '@Models/project-milestone';
 import { DateService } from '@Services/date.service';
-import { DialogService } from '@Services/dialog.service';
-import { ProjectMilestoneService } from '@Services/project-milestone.service';
-import { SnackbarService } from '@Services/snackbar.service';
 import { Nullable } from '@Types';
-import { HttpException } from '@Utils/http-exception';
 
 @Component({
   selector: 'hsel-edit-milestone-estimates',
@@ -47,22 +40,17 @@ import { HttpException } from '@Utils/http-exception';
   ],
 })
 export class EditMilestoneEstimatesComponent implements OnInit {
-  reportDates: string[] = [];
   milestones: ProjectMilestone[] = [];
-  project: Nullable<Project> = null;
-  selectedTab: Observable<number>;
-  private selectedTabSubject: BehaviorSubject<number>;
+  reportStart!: string;
+  reportEnd: Nullable<string> = null;
+  reportInterval!: number;
+  project!: Project;
+  selectedTab: number = 0;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly date: DateService,
-    private readonly projectMilestones: ProjectMilestoneService,
-    private readonly snackbar: SnackbarService,
-    private readonly dialog: DialogService,
-  ) {
-    this.selectedTabSubject = new BehaviorSubject(0);
-    this.selectedTab = this.selectedTabSubject.asObservable();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data
@@ -70,61 +58,20 @@ export class EditMilestoneEstimatesComponent implements OnInit {
       .subscribe(({ milestones, project }: Data) => {
         this.milestones = milestones;
         this.project = project;
+        this.reportStart = this.project.officialStart;
+        this.reportEnd = this.project.officialEnd;
+        this.reportInterval = this.project.reportInterval;
 
         this.milestones.forEach((milestone) => {
           milestone.estimates.sort((estimateA, estimateB) => {
-            return this.date.compare(estimateA.estimationDate, estimateB.estimationDate);
+            return this.date.compare(estimateA.reportDate, estimateB.reportDate);
           });
-        })
-
-        if (this.project !== null) {
-          this.reportDates = this.date.getReportDates(
-            this.project.officialStart!,
-            this.project.officialEnd,
-            this.project.reportInterval,
-          ).map((date) => date.toFormat('yyyy-MM-dd'));
-        }
+        });
       });
   }
 
-  onTabChange(tabIndex: number): void {
-    if (tabIndex !== this.milestones.length) {
-      this.activateTab(tabIndex);
-
-      return;
-    }
-
-    const dialogRef = this.dialog.open(CreateNewMilestoneComponent);
-
-    dialogRef.afterClosed().pipe(take(1)).subscribe((milestone?: ProjectMilestone) => {
-      if (!milestone && tabIndex !== 0) {
-        this.activateTab(0);
-      } else if (milestone) {
-        this.createMilestone(milestone, tabIndex);
-      }
-    });
-  }
-
-  createMilestone(milestone: ProjectMilestone, tabIndex: number): void {
-    this.projectMilestones.create('', {
-      ...milestone,
-      project: this.project,
-    }).pipe(take(1)).subscribe({
-      next: (createdMilestone) => {
-        this.milestones.push(createdMilestone);
-        this.activateTab(tabIndex);
-      },
-      error: (exception: HttpException) => {
-        this.snackbar.showException('Erstellen des Meilensteins fehlgeschlagen', exception);
-
-        if (tabIndex !== 0) {
-          this.activateTab(0);
-        }
-      },
-    });
-  }
-
-  private activateTab(tabIndex: number): void {
-    this.selectedTabSubject.next(tabIndex);
+  removeMilestone(id: string): void {
+    this.milestones = this.milestones.filter((milestone) => milestone.id !== id);
+    this.selectedTab = 0;
   }
 }

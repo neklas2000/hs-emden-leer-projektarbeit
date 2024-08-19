@@ -1,30 +1,40 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { take } from 'rxjs';
+import { DateTime } from 'luxon';
+import { Subscription, take } from 'rxjs';
 
-import { MilestoneEstimateFormFieldComponent } from '@Components/milestone-estimate-form-field/milestone-estimate-form-field.component';
-import { ConfirmMilestoneDeletionComponent } from '@Dialogs/confirm-milestone-deletion/confirm-milestone-deletion.component';
+import { InfoBoxComponent } from '@Components/info-box/info-box.component';
+import {
+  ConfirmMilestoneDeletionComponent,
+} from '@Dialogs/confirm-milestone-deletion/confirm-milestone-deletion.component';
+import {
+  ConfirmMilestoneEstimateDeletionComponent,
+} from '@Dialogs/confirm-milestone-estimate-deletion/confirm-milestone-estimate-deletion.component';
 import { MilestoneEstimate } from '@Models/milestone-estimate';
 import { ProjectMilestone } from '@Models/project-milestone';
+import { DateService } from '@Services/date.service';
 import { DialogService } from '@Services/dialog.service';
+import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
-import { SnackbarService } from '@Services/snackbar.service';
-import { DeepPartial } from '@Types';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
+import { DeepPartial, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
 
-type Estimate = {
+type EstimateAndControl = {
   id: number;
-  date: string;
-  estimation: MilestoneEstimate;
+  control: string;
+  estimate: MilestoneEstimate;
 };
 
 @Component({
@@ -35,109 +45,279 @@ type Estimate = {
   imports: [
     DatePipe,
     FormsModule,
+    InfoBoxComponent,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
-    MilestoneEstimateFormFieldComponent,
+    MatTooltipModule,
     ReactiveFormsModule,
   ],
 })
-export class EditMilestoneEstimatesTabComponent implements OnInit {
-  @Input() reportDates: string[] = [];
+export class EditMilestoneEstimatesTabComponent implements OnInit, OnDestroy {
+  @Input() reportStart!: string;
+  @Input() reportEnd: Nullable<string> = null;
+  @Input() reportInterval!: number;
   @Input() milestone!: ProjectMilestone;
-  @Output() onDelete: EventEmitter<ProjectMilestone> = new EventEmitter();
-  @Output() onChanges: EventEmitter<DeepPartial<ProjectMilestone>> = new EventEmitter();
-  milestoneReached: boolean = false;
+  @Output() onDelete: EventEmitter<void> = new EventEmitter();
   form!: FormGroup;
-  estimates: Estimate[] = [];
+  estimateControls: EstimateAndControl[] = [];
+  maxDate: Nullable<DateTime> = null;
+  private milestoneReachedChangesSubscription!: Subscription;
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly projectMilestone: ProjectMilestoneService,
+    private readonly projectMilestones: ProjectMilestoneService,
+    private readonly milestonesEstimates: MilestoneEstimateService,
     private readonly dialog: DialogService,
     private readonly snackbar: SnackbarService,
+    private readonly date: DateService,
   ) { }
 
   ngOnInit(): void {
-    this.milestoneReached = this.milestone.milestoneReached;
-
     this.form = this.formBuilder.group({
       name: [this.milestone.name, [FormValidators.required]],
-      milestoneReached: [this.milestoneReached, [FormValidators.required]],
+      milestoneReached: [this.milestone.milestoneReached, [FormValidators.required]],
     });
 
-    this.reportDates.forEach((reportDate, index) => {
-      this.estimates.push({
-        id: index,
-        date: reportDate,
-        estimation: this.milestone.estimates.find(
-          (milestoneEstimate) => milestoneEstimate.reportDate === reportDate,
-        ) ?? {
-          id: null,
-          reportDate,
-          estimationDate: null,
-          milestone: this.milestone,
-        },
+    this.milestone.estimates.forEach((estimate, idx) => {
+      const control = `estimate_${idx}`;
+      this.estimateControls.push({ id: idx, control, estimate });
+      this.form.addControl(
+        control,
+        new FormControl(estimate.estimationDate, [
+          FormValidators.required,
+          FormValidators.withinInterval(this.reportStart, this.reportInterval, this.reportEnd),
+        ]),
+      );
+    });
+
+    if (this.reportEnd) {
+      this.maxDate = DateTime.fromSQL(this.reportEnd);
+    }
+
+    this.milestoneReachedChangesSubscription = this.form.controls['milestoneReached'].valueChanges
+      .subscribe((_) => {
+        this.toggleFormActivation();
       });
+
+    this.toggleFormActivation();
+  }
+
+  ngOnDestroy(): void {
+    if (this.milestoneReachedChangesSubscription) {
+      this.milestoneReachedChangesSubscription.unsubscribe();
+    }
+  }
+
+  clearControl(control: string): void {
+    this.form.controls[control].reset('', { emitEvent: false });
+  }
+
+  deleteEstimate(estimateControl: EstimateAndControl): void {
+    const dialogRef = this.dialog.open(ConfirmMilestoneEstimateDeletionComponent);
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe((shouldDelete: boolean) => {
+      if (shouldDelete) {
+        this.deleteEstimatePermanently(estimateControl);
+      } else {
+        this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_CANCELED);
+      }
+    });
+  }
+
+  private deleteEstimatePermanently(estimateControl: EstimateAndControl): void {
+    this.milestonesEstimates.delete(':id', estimateControl.estimate.id).pipe(take(1)).subscribe({
+      next: (deletionSuccessful) => {
+        if (deletionSuccessful) {
+          this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_SUCCEEDED);
+        } else {
+          this.snackbar.showWarning(SnackbarMessage.DELETE_OPERATION_FAILED_CONFIRMATION);
+        }
+
+        this.estimateControls.pop();
+        this.form.removeControl(estimateControl.control, { emitEvent: false });
+      },
+      error: (exception: HttpException) => {
+        this.snackbar.showException(SnackbarMessage.DELETE_OPERATION_FAILED, exception);
+      },
+    });
+  }
+
+  addNextEstimate(): void {
+    const id = (this.estimateControls[this.estimateControls.length - 1]?.id ?? -1) + 1;
+    const control = `estimate_${id}`;
+    let nextDate = this.reportStart;
+
+    if (id > 0) {
+      nextDate = this.date.getNextDateInInterval(
+        this.estimateControls[this.estimateControls.length - 1].estimate.reportDate,
+        this.reportInterval,
+      );
+    }
+
+    if (this.reportEnd && this.date.compare(nextDate, this.reportEnd) > 0) {
+      this.snackbar.showError('Berichtszeitpunkt liegt hinter dem Projektende', 5000);
+
+      return;
+    }
+
+    this.milestonesEstimates.create('', {
+      estimationDate: nextDate,
+      milestone: {
+        id: this.milestone.id,
+      },
+      reportDate: nextDate,
+    }).pipe(take(1)).subscribe({
+      next: (estimate) => {
+        this.estimateControls.push({ id, control, estimate });
+        this.milestone.estimates.push(estimate);
+        this.form.addControl(
+          control,
+          new FormControl(estimate.estimationDate, [
+            FormValidators.required,
+            FormValidators.withinInterval(this.reportStart, this.reportInterval, this.reportEnd),
+          ]),
+        );
+
+        this.snackbar.showInfo(SnackbarMessage.CREATE_ESTIMATE_SUCCEEDED);
+      },
+      error: (exception: HttpException) => {
+        this.snackbar.showException(SnackbarMessage.FAILED, exception);
+      },
     });
   }
 
   onSaveChanges(): void {
     const changes = this.getChanges();
 
-    this.projectMilestone.update(':id', this.milestone.id!, changes)
-      .pipe(take(1))
-      .subscribe({
-        next: (updateSuccessful) => {
-          if (updateSuccessful) {
-            this.snackbar.open('Änderungen erfolgreich gespeichert');
-            this.onChanges.emit(changes);
-          } else {
-            this.snackbar.open('Aktualisierung konnte nicht bestätigt werden');
-          }
-        },
-        error: (exception: HttpException) => {
-          this.snackbar.showException('Aktualisierung fehlgeschlagen', exception);
-        },
-      });
+    if (Object.keys(changes).length === 0) {
+      this.snackbar.showWarning(SnackbarMessage.NO_CHANGES);
+
+      return;
+    }
+
+    this.projectMilestones.update(':id', this.milestone.id, changes).pipe(take(1)).subscribe({
+      next: (updateSuccessful) => {
+        if (updateSuccessful) {
+          this.snackbar.showInfo(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
+        } else {
+          this.snackbar.showWarning(SnackbarMessage.SAVE_OPERATION_FAILED_CONFIRMATION);
+        }
+
+        this.applyChanges(changes);
+      },
+      error: (exception: HttpException) => {
+        this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
+      },
+    });
   }
 
   private getChanges(): DeepPartial<ProjectMilestone> {
-		let changes: DeepPartial<ProjectMilestone> = {};
+    const changes: DeepPartial<ProjectMilestone> = {};
 
-    if (this.milestone.name !== this.form.get('name')!.value) {
-      changes.name = this.form.get('name')?.value;
+    if (this.form.controls['name'].value !== this.milestone.name) {
+      changes.name = this.form.controls['name'].value;
     }
 
-		return changes;
+    if (this.isMilestoneReached !== this.milestone.milestoneReached) {
+      changes.milestoneReached = this.isMilestoneReached;
+    }
+
+    const changedEstimates: DeepPartial<MilestoneEstimate>[] = [];
+
+    for (const estimateControl of this.estimateControls) {
+      const formValue = this.date.toString(this.form.controls[estimateControl.control].value);
+
+      if (formValue !== this.milestone.estimates[estimateControl.id].estimationDate) {
+        changedEstimates.push({
+          id: estimateControl.estimate.id,
+          estimationDate: formValue,
+        });
+      }
+    }
+
+    if (changedEstimates.length > 0) {
+      changes.estimates = changedEstimates;
+    }
+
+    return changes;
   }
 
-  onDiscardChanges(): void { }
+  private applyChanges(changes: DeepPartial<ProjectMilestone>): void {
+    if (changes.name) {
+      this.milestone.name = changes.name;
+    }
+
+    if (Object.hasOwn(changes, 'milestoneReached')) {
+      this.milestone.milestoneReached = changes.milestoneReached!;
+    }
+
+    if (changes.estimates) {
+      for (const changedEstimate of changes.estimates) {
+        for (const estimate of this.milestone.estimates) {
+          if (estimate.id === changedEstimate.id) {
+            estimate.estimationDate = changedEstimate.estimationDate!;
+          }
+        }
+      }
+    }
+  }
 
   onMilestoneDelete(): void {
     const dialogRef = this.dialog.open(ConfirmMilestoneDeletionComponent);
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((shouldDelete: boolean) => {
       if (shouldDelete) {
-        this.projectMilestone.delete(':id', this.milestone.id!).pipe(take(1)).subscribe({
-          next: (deletionSuccessful) => {
-            if (deletionSuccessful) {
-              this.snackbar.open('Erfolgreich gelöscht');
-              this.onDelete.emit(this.milestone);
-            } else {
-              this.snackbar.open('Löschvorgang konnte nicht bestätigt werden');
-            }
-          },
-          error: (exception: HttpException) => {
-            this.snackbar.showException('Löschvorgang fehlgeschlagen', exception);
-          },
-        });
+        this.deleteMilestonePermanently();
       } else {
-        this.snackbar.open('Löschvorgang erfolgreich abgebrochen');
+        this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_CANCELED);
       }
     });
+  }
+
+  private deleteMilestonePermanently(): void {
+    this.projectMilestones.delete(':id', this.milestone.id).pipe(take(1)).subscribe({
+      next: (deletionSuccessful) => {
+        if (deletionSuccessful) {
+          this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_SUCCEEDED);
+        } else {
+          this.snackbar.showWarning(SnackbarMessage.DELETE_OPERATION_FAILED_CONFIRMATION);
+        }
+
+        this.onDelete.emit();
+      },
+      error: (exception: HttpException) => {
+        this.snackbar.showException(SnackbarMessage.DELETE_OPERATION_FAILED, exception);
+      },
+    });
+  }
+
+  boundFilterDates = this.filterDates.bind(this);
+
+  private filterDates(date: DateTime | null): boolean {
+    if (!date) return false;
+
+    return this.date.isWithinInterval(date, this.reportInterval, this.reportStart, this.reportEnd);
+  }
+
+  convertToDateTime(date: string): DateTime {
+    return DateTime.fromSQL(date);
+  }
+
+  get isMilestoneReached(): boolean {
+    return Boolean(this.form.get('milestoneReached')?.value);
+  }
+
+  private toggleFormActivation(): void {
+    if (this.isMilestoneReached) {
+      this.form.disable({ emitEvent: false });
+      this.form.controls['milestoneReached'].enable({ emitEvent: false });
+    } else {
+      this.form.enable({ emitEvent: false });
+    }
   }
 }

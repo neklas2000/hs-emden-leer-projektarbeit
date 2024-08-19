@@ -94,4 +94,68 @@ export class DateService {
       DateTime.fromSQL(source).diff(DateTime.fromSQL(target), unit).toObject(),
     )[unit as string];
   }
+
+  /**
+   * @description
+   * This function checks if a given date is within the report interval, taking the start and
+   * optionally the end date into account.
+   *
+   * @param date The date to check if it's within the interval.
+   * @param interval The report interval.
+   * @param start The start date from which to check if the date is within the interval.
+   * @param end Optionally the end date of the interval to make sure the date didn't surpass it.
+   * @returns `true` if the date is within the interval, otherwise `false`.
+   */
+  isWithinInterval(
+    date: string | DateTime,
+    interval: number,
+    start: string | DateTime,
+    end: Nullable<string | DateTime>,
+  ): boolean {
+    if (date instanceof DateTime) {
+      date = date.toFormat('yyyy-MM-dd');
+    }
+
+    if (start instanceof DateTime) {
+      start = start.toFormat('yyyy-MM-dd');
+    }
+
+    if (end !== null && end instanceof DateTime) {
+      end = end.toFormat('yyyy-MM-dd');
+    }
+
+    if (this.compare(start, date) % interval !== 0) return false;
+    if (!end) return true;
+
+    return this.compare(date, end) <= 0;
+  }
+
+  /**
+   * @description
+   * This function takes a start date and the report interval. It adds the interval in days onto to
+   * the start date and returns the new date in the format 'yyyy-MM-dd'.
+   *
+   * @param start The start date on which the report interval will be added in days.
+   * @param interval The report interval to get the next date of the interval.
+   * @returns The next valid date in the report interval in the format 'yyyy-MM-dd'.
+   */
+  getNextDateInInterval(start: string | DateTime, interval: number): string {
+    if (typeof start === 'string') start = DateTime.fromSQL(start);
+
+    return start.plus({ days: interval }).toFormat('yyyy-MM-dd');
+  }
+
+  /**
+   * @description
+   * This function takes a date either as a string or as a `DateTime` object. In case the date is
+   * a `DateTime` object, it will be transformed to the format 'yyyy-MM-dd'.
+   *
+   * @param date The date either as a string or as a `DateTime` object.
+   * @returns The date as a string in the format 'yyyy-MM-dd'.
+   */
+  toString(date: string | DateTime): string {
+    if (date instanceof DateTime) return date.toFormat('yyyy-MM-dd');
+
+    return date;
+  }
 }

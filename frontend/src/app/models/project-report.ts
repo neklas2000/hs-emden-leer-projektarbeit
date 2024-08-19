@@ -3,15 +3,15 @@ import { Nullable } from '@Types';
 
 /**
  * @description
- * This model represents the entity `ProjectReport`.
+ * This model type represents the entity `ProjectReport`.
  */
-export class ProjectReport {
-  id: Nullable<string> = null;
-  sequenceNumber: number = 0;
-  reportDate: Nullable<string> = null;
-  deliverables: string = '';
-  hazards: string = '';
-  objectives: string = '';
-  other: Nullable<string> = null;
-  project: Nullable<Project> = null;
+export type ProjectReport = {
+  id: string;
+  sequenceNumber: number;
+  reportDate: string;
+  deliverables: string;
+  hazards: string;
+  objectives: string;
+  other: Nullable<string>;
+  project: Project;
 }

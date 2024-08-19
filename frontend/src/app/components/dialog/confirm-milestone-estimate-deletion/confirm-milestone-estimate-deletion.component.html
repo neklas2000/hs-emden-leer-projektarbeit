@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>
+  Meilenstein löschen?
+</h1>
+<mat-dialog-content>
+  Wollen Sie die ausgewählte Meilensteinprognose wirklich unwiderruflich löschen?
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)='onCancel()' mat-button cdkFocusInitial>Nein</button>
+  <button [mat-dialog-close]='true' mat-button>Ja, unwiderruflich löschen</button>
+</mat-dialog-actions>

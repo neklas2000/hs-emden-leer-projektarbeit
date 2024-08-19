@@ -12,11 +12,11 @@ export enum ProjectRole {
 
 /**
  * @description
- * This model represents the entity `ProjectMember`.
+ * This model type represents the entity `ProjectMember`.
  */
-export class ProjectMember {
-  id!: string;
-  role!: ProjectRole;
-  user!: User;
-  project!: Project;
+export type ProjectMember = {
+  id: string;
+  role: ProjectRole;
+  user: User;
+  project: Project;
 }

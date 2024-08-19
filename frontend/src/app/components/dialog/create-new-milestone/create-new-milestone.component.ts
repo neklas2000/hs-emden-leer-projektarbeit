@@ -5,7 +5,6 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { ProjectMilestone } from '@Models/project-milestone';
 import { FormValidators } from '@Validators';
 
 @Component({
@@ -23,9 +22,8 @@ import { FormValidators } from '@Validators';
   ],
 })
 export class CreateNewMilestoneComponent {
-  milestone: ProjectMilestone = new ProjectMilestone();
   form = new FormGroup({
-    name: new FormControl(this.milestone.name, [FormValidators.required]),
+    name: new FormControl('', [FormValidators.required]),
   });
 
   constructor(
@@ -38,8 +36,7 @@ export class CreateNewMilestoneComponent {
 
   closeWithData(): void {
     this.dialogRef.close({
-      ...this.milestone,
-      name: this.form.get('name')?.value ?? this.milestone.name,
+      name: this.form.get('name')?.value ?? '',
     });
   }
 }
