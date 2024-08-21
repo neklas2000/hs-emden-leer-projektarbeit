@@ -13,7 +13,7 @@
       </hsel-register-credentials>
       <hsel-register-personal-details
         class="w-full"
-        (onBack)="oneStepBack()"
+        (onBack)="gotoFirstStep()"
         (onCancel)="cancel()"
         (onNext)="registerUser(true)"
         [style.display]="step === 1 ? 'block' : 'none'"

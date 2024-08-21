@@ -40,7 +40,7 @@ export class RegisterComponent {
     private readonly snackbar: SnackbarService,
   ) {}
 
-  oneStepBack(): void {
+  gotoFirstStep(): void {
     this.step = 0;
   }
 
