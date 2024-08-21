@@ -40,4 +40,12 @@ describe('Component: MarkdownProvideExternalUrlComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onCancelClick(): void', () => {
+    it('should close the dialog', () => {
+      component.onCancelClick();
+
+      expect(dialogRefCloseSpy).toHaveBeenCalled();
+    });
+  });
 });

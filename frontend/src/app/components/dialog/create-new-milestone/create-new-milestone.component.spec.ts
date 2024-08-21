@@ -33,4 +33,26 @@ describe('Component: CreateNewMilestoneComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onCancelClick(): void', () => {
+    it('should close the dialog', () => {
+      component.onCancelClick();
+
+      expect(dialogRefCloseSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('closeWithData(): void', () => {
+    it('should close the dialog with data', () => {
+      component.form.patchValue({
+        name: 'New Milestone',
+      });
+
+      component.closeWithData();
+
+      expect(dialogRefCloseSpy).toHaveBeenCalledWith({
+        name: 'New Milestone'
+      });
+    });
+  });
 });

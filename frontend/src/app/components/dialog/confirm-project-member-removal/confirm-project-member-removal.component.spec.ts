@@ -31,4 +31,12 @@ describe('Component: ConfirmProjectMemberRemovalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onCancel(): void', () => {
+    it('should close the dialog', () => {
+      component.onCancel();
+
+      expect(dialogRefCloseSpy).toHaveBeenCalled();
+    });
+  });
 });
