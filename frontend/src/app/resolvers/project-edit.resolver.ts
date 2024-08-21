@@ -43,7 +43,7 @@ export const projectEditResolver: ResolveFn<Nullable<Observable<Nullable<Project
       includes: ['owner', 'members', 'members.user', 'reports', 'milestones', 'milestones.estimates'],
       sparseFieldsets: {
         members: ['id', 'role'],
-        'members.user': ['id', 'firstName', 'lastName', 'matriculationNumber', 'email', 'phoneNumber'],
+        'members.user': ['id', 'academicTitle', 'firstName', 'lastName', 'matriculationNumber', 'email', 'phoneNumber'],
         reports: ['id', 'sequenceNumber', 'reportDate'],
         milestones: ['id', 'name', 'milestoneReached'],
       },

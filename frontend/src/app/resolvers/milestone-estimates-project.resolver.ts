@@ -39,7 +39,7 @@ export const milestoneEstimatesProjectResolver: ResolveFn<Nullable<Observable<Nu
 
   return projects.read<Project>({
     route: ':id',
-    ids: route.paramMap.get('id') ?? undefined,
+    ids: id!,
     query: {
       sparseFieldsets: {
         project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
