@@ -40,7 +40,7 @@
       "@AuthComponents/*": ["app/components/auth/*"],
       "@UserComponents/*": ["app/components/user/*"],
       "@Constants": ["constants/index.ts"],
-      "@Validators": ["app/validators/index.ts"],
+      "@Validators": ["app/validators/form-validators.ts"],
       "@Pipes/*": ["app/pipes/*"],
       "@Dialogs/*": ["app/components/dialog/*"]
     }

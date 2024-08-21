@@ -72,8 +72,8 @@ export class FormValidators extends Validators {
       }
 
       const diff = this.dateService.compare(
-        control.value.toFormat('yyyy-MM-dd'),
-        otherControl.value.toFormat('yyyy-MM-dd'),
+        this.dateService.toString(control.value),
+        this.dateService.toString(otherControl.value),
       );
 
       if (diff % daysInterval === 0) return null;
@@ -117,8 +117,8 @@ export class FormValidators extends Validators {
       if (!valueOfOtherControl) return null;
 
       const diff = this.dateService.compare(
-        control.value.toFormat('yyyy-MM-dd'),
-        valueOfOtherControl.toFormat('yyyy-MM-dd'),
+        this.dateService.toString(control.value),
+        this.dateService.toString(valueOfOtherControl),
       );
 
       if (diff > 0) return null;
@@ -144,7 +144,7 @@ export class FormValidators extends Validators {
    * An error map with the property `phoneNumber` if the validation check fails, otherwise null.
    */
   static phoneNumber(control: AbstractControl): Nullable<ValidationErrors> {
-    if (!control.value || String(control.value).length === 0) return null;
+    if (!control.value) return null;
     if (isValidPhoneNumber(control.value)) return null;
 
     return {
@@ -174,7 +174,7 @@ export class FormValidators extends Validators {
    */
   static matchWith(controlName: string): ValidatorFn {
     return (control: AbstractControl): Nullable<ValidationErrors> => {
-      if (!control.value || String(control.value).length === 0) return null;
+      if (!control.value) return null;
       if (String(control.value) === String(control.parent?.get(controlName)?.value ?? '')) return null;
 
       return {
