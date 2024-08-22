@@ -14,6 +14,7 @@ import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-ed
 import { DateService } from '@Services/date.service';
 import { ProjectReportService } from '@Services/project-report.service';
 import { SnackbarService } from '@Services/snackbar.service';
+import { WindowProviderService } from '@Services/window-provider.service';
 import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
@@ -39,10 +40,6 @@ type State = {
     MatInputModule,
     ReactiveFormsModule,
   ],
-  providers: [{
-    provide: Window,
-    useFactory: () => window,
-  }],
 })
 export class NewReportComponent implements OnInit {
   private projectId!: Nullable<string>;
@@ -54,6 +51,7 @@ export class NewReportComponent implements OnInit {
   hazards = '';
   objectives = '';
   other: Nullable<string> = '';
+  private window: Window;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -62,8 +60,10 @@ export class NewReportComponent implements OnInit {
     private readonly projectReports: ProjectReportService,
     private readonly date: DateService,
     private readonly snackbar: SnackbarService,
-    private readonly window: Window,
-  ) {}
+    private readonly windowProvider: WindowProviderService,
+  ) {
+    this.window = this.windowProvider.getWindow();
+  }
 
   ngOnInit(): void {
     const { sequenceNumber }: State = this.window.history.state;
@@ -78,7 +78,7 @@ export class NewReportComponent implements OnInit {
   }
 
   onCancelClick(): void {
-    window.history.back();
+    this.window.history.back();
   }
 
   onSaveClick(): void {

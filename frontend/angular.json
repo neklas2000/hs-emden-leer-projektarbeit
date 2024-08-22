@@ -108,7 +108,7 @@
             ],
             "scripts": [],
             "codeCoverageExclude": [
-              "src/**/to-base64.ts"
+              "src/**/models/*"
             ]
           }
         }

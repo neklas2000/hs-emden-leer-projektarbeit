@@ -20,6 +20,7 @@ import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
 import { DateService } from '@Services/date.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { ProjectService } from '@Services/project.service';
+import { WindowProviderService } from '@Services/window-provider.service';
 import { DeepPartial, Nullable, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
@@ -55,6 +56,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
   private intervalChangesSubscription: Undefinable<Subscription>;
   private startDateChangesSubscription: Undefinable<Subscription>;
   private projectId!: string; // Will be initialized inside #ngOnInit
+  private window: Window;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -63,7 +65,10 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     private readonly snackbar: SnackbarService,
     private readonly project: ProjectService,
     private readonly router: Router,
-  ) {}
+    private readonly windowProvider: WindowProviderService,
+  ) {
+    this.window = this.windowProvider.getWindow();
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -135,7 +140,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
   }
 
   onCancelClick(): void {
-    window.history.back();
+    this.window.history.back();
   }
 
   onSubmitClick(): void {

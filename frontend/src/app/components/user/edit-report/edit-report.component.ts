@@ -12,6 +12,7 @@ import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-ed
 import { ProjectReport } from '@Models/project-report';
 import { ProjectReportService } from '@Services/project-report.service';
 import { SnackbarService } from '@Services/snackbar.service';
+import { WindowProviderService } from '@Services/window-provider.service';
 import { HttpException } from '@Utils/http-exception';
 
 @Component({
@@ -35,13 +36,17 @@ export class EditReportComponent implements OnInit {
   objectives: string = '';
   hazards: string = '';
   other: string = '';
+  private window: Window;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly projectReportService: ProjectReportService,
     private readonly snackbar: SnackbarService,
-  ) { }
+    private readonly windowProvider: WindowProviderService,
+  ) {
+    this.window = this.windowProvider.getWindow();
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data
@@ -96,6 +101,6 @@ export class EditReportComponent implements OnInit {
   }
 
   back(): Promise<boolean> {
-    return this.router.navigateByUrl(window.location.pathname.replace('/edit', ''));
+    return this.router.navigateByUrl(this.window.location.pathname.replace('/edit', ''));
   }
 }

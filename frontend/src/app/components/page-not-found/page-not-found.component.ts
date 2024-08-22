@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 
+import { WindowProviderService } from '@Services/window-provider.service';
+
 @Component({
   selector: 'hsel-page-not-found',
   templateUrl: './page-not-found.component.html',
@@ -14,10 +16,17 @@ import { Router } from '@angular/router';
   ],
 })
 export class PageNotFoundComponent {
-  constructor(private readonly router: Router) {}
+  private window: Window;
+
+  constructor(
+    private readonly router: Router,
+    private readonly windowProvider: WindowProviderService,
+  ) {
+    this.window = this.windowProvider.getWindow();
+  }
 
   goOneBack() {
-    window.history.back();
+    this.window.history.back();
   }
 
   goToHomepage(): void {

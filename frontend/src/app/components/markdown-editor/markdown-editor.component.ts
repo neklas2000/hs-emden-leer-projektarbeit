@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,6 +12,8 @@ import {
   MarkdownProvideExternalUrlComponent
 } from '@Dialogs/markdown-provide-external-url/markdown-provide-external-url.component';
 import { DialogService } from '@Services/dialog.service';
+import { WindowProviderService } from '@Services/window-provider.service';
+import { Undefinable } from '@Types';
 
 @Component({
   selector: 'hsel-markdown-editor',
@@ -34,39 +36,58 @@ import { DialogService } from '@Services/dialog.service';
     },
   ],
 })
-export class MarkdownEditorComponent implements AfterViewInit, ControlValueAccessor {
+export class MarkdownEditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
   @ViewChild('editorButtons') editorButtons!: ElementRef<HTMLElement>;
   @Input() label: string = 'Textarea';
   @Input() required: boolean = false;
-
   markdown: string = '';
   previewOpen: boolean = false;
   touched = false;
   disabled = false;
-
   private currentCursorPosition!: [number, number];
   private cursorPositionUpdateBlocked: boolean = false;
   private shiftPressed: boolean = false;
+  private window: Window;
+  private area: Undefinable<HTMLTextAreaElement>;
+  private buttons: Undefinable<HTMLElement>;
+  private readonly areaClickHandler = () => this.markAsTouched();
+  private readonly windowClickHandler = (ev: MouseEvent) => this.handleWindowClick(ev);
 
-  constructor(private readonly dialog: DialogService) { }
+  constructor(
+    private readonly dialog: DialogService,
+    private readonly windowProvider: WindowProviderService,
+  ) {
+		this.window = this.windowProvider.getWindow();
+	}
 
   ngAfterViewInit(): void {
-    const area = this.textArea.nativeElement;
-    const buttons = this.editorButtons.nativeElement;
+    this.area = this.textArea.nativeElement;
+    this.buttons = this.editorButtons.nativeElement;
     this.currentCursorPosition = [-1, -1];
 
-    window.addEventListener('click', (ev) => {
-      const node = ev.target as Node;
+    this.window.addEventListener('click', this.windowClickHandler);
+    this.area.addEventListener('click', this.areaClickHandler);
+  }
 
-      if (!area.contains(node) && !buttons.contains(node) && !this.cursorPositionUpdateBlocked) {
-        this.currentCursorPosition = [-1, -1];
-      }
-    });
+  ngOnDestroy(): void {
+    if (this.window) {
+      this.window.removeEventListener('click', this.windowClickHandler);
+    }
 
-    area.addEventListener('click', () => {
-      this.markAsTouched();
-    });
+    if (this.area) {
+      this.area.removeEventListener('click', this.areaClickHandler);
+    }
+  }
+
+  private handleWindowClick(ev: MouseEvent): void {
+    const node = ev.target as Node;
+    const area = this.area!;
+    const buttons = this.buttons!;
+
+    if (!area.contains(node) && !buttons.contains(node) && !this.cursorPositionUpdateBlocked) {
+      this.currentCursorPosition = [-1, -1];
+    }
   }
 
   onChange = (markdown: string) => { };

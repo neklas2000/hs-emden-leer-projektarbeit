@@ -23,6 +23,7 @@ import { DateService } from '@Services/date.service';
 import { DialogService } from '@Services/dialog.service';
 import { ProjectService } from '@Services/project.service';
 import { SnackbarService } from '@Services/snackbar.service';
+import { WindowProviderService } from '@Services/window-provider.service';
 import { Nullable, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
@@ -60,6 +61,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   private intervalChangesSubscription: Undefinable<Subscription>;
   private startDateChangesSubscription: Undefinable<Subscription>;
   private userId!: string;
+  private window: Window;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -69,7 +71,10 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     private readonly project: ProjectService,
     private readonly router: Router,
     private readonly authentication: AuthenticationService,
-  ) {}
+    private readonly windowProvider: WindowProviderService,
+  ) {
+    this.window = this.windowProvider.getWindow();
+  }
 
   ngOnInit(): void {
     this.intervalChangesSubscription = this.form.get('interval')?.valueChanges
@@ -207,7 +212,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   onCancelClick(): void {
-    window.history.back();
+    this.window.history.back();
   }
 
   onSubmitClick(): void {
