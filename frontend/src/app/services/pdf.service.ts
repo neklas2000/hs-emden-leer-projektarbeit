@@ -1,12 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { DateTime } from 'luxon';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Content } from 'pdfmake/interfaces';
+import { switchMap, take } from 'rxjs';
 
 import { ZONE } from '@Constants';
 import { ProjectReportContent, ProjectReportSchema } from '@PdfSchemas/project-report.schema';
+import { PdfMakeProviderService } from '@Services/pdf-make-provider.service';
+import { SnackbarService } from '@Services/snackbar.service';
+import { UtilityProviderService } from '@Services/utility-provider.service';
 import { Nullable, Undefinable } from '@Types';
 
 /**
@@ -20,35 +23,20 @@ import { Nullable, Undefinable } from '@Types';
   providedIn: 'root'
 })
 export class PdfService {
-  private backgroundDataUri: Nullable<string> = null;
+  private backgroundDataUri: Undefinable<Nullable<string>> = null;
 
   constructor(
+    private readonly httpClient: HttpClient,
+    private readonly pdfMake: PdfMakeProviderService,
+    private readonly utility: UtilityProviderService,
     private readonly reportSchema: ProjectReportSchema,
+    private readonly snackbar: SnackbarService,
   ) {
-    (async () => {
-      const response = await fetch('../../assets/background.png');
-      const blobData = await response.blob();
-
-      this.backgroundDataUri = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-
-        reader.onload = () => {
-          let result: Nullable<string> = null;
-
-          if (!(reader.result instanceof ArrayBuffer)) {
-            result = reader.result;
-          }
-
-          resolve(result);
-        };
-
-        reader.onerror = (err) => {
-          reject(new Error('An error occurred while loading the pdf background.', { cause: err }));
-        };
-
-        reader.readAsDataURL(blobData);
+    this.httpClient.get('/assets/background.png', { responseType: 'blob' })
+      .pipe(take(1), switchMap(this.utility.toBase64))
+      .subscribe((base64) => {
+        this.backgroundDataUri = base64;
       });
-    })();
   }
 
   /**
@@ -64,23 +52,27 @@ export class PdfService {
       .then((documentDefinitions) => {
         const isoDate = DateTime.fromSQL(content.reportDate).setZone(ZONE).toFormat('yyyy-MM-dd');
 
-        pdfMake.createPdf(documentDefinitions, undefined, undefined, pdfFonts.pdfMake.vfs)
+        this.pdfMake.createPdf(documentDefinitions, undefined, undefined, this.pdfMake.fonts)
           .download(`MTA-Report_${isoDate}_${content.projectTitle.replaceAll(' ', '')}.pdf`);
       })
       .catch((err) => {
-        console.error(err);
+        this.snackbar.showError('Das PDF Dokument konnte nicht erstellt werden (HSEL-400-999)');
       });
 	}
 
   private getBackground(): Undefinable<Content> {
-    return (this.backgroundDataUri ? [{
-      image: this.backgroundDataUri,
-      width: 595,
-      height: 842,
-      absolutePosition: {
-        x: 0,
-        y: 0,
-      },
-    }] : undefined);
+    if (this.backgroundDataUri) {
+      return [{
+        image: this.backgroundDataUri,
+        width: 595,
+        height: 842,
+        absolutePosition: {
+          x: 0,
+          y: 0,
+        },
+      }];
+    }
+
+    return undefined;
   }
 }
