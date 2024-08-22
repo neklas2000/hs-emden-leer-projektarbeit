@@ -59,18 +59,7 @@ export class DateService {
         previous.push(...current);
 
         return previous;
-      }, [])
-      .filter((value) => {
-        if (value === null) return false;
-
-        const date = value.toFormat('yyyy-MM-dd');
-
-        if (dates.includes(date)) return false;
-
-        dates.push(date);
-
-        return true;
-      }) as DateTime[];
+      }, []) as DateTime[];
   }
 
   /**

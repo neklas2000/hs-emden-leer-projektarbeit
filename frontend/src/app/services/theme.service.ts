@@ -1,7 +1,8 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+
+import { WindowProviderService } from '@Services/window-provider.service';
 
 /**
  * @description
@@ -45,15 +46,21 @@ export enum ThemeMode {
 })
 export class ThemeService {
   private modeStateSubject = new BehaviorSubject(ThemeMode.LIGHT);
+  private window: Window;
+  private document: Document;
   modeStateChanged$: Observable<ThemeMode>;
 
-  constructor(@Inject(DOCUMENT) private readonly document: Document) {
+  constructor(
+    private readonly windowProvider: WindowProviderService,
+  ) {
     this.modeStateChanged$ = this.modeStateSubject.asObservable();
+    this.window = this.windowProvider.getWindow();
+    this.document = this.windowProvider.getDocument();
     this.init();
   }
 
   private init(): void {
-    const deviceMode = window.matchMedia('(prefers-color-scheme: dark)');
+    const deviceMode = this.window.matchMedia('(prefers-color-scheme: dark)');
 
     if (deviceMode.matches) {
       this.activateDarkMode();

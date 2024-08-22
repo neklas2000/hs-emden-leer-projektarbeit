@@ -62,10 +62,6 @@ export class MediaMatching {
    * component within the lifycycle hook `OnDestroy`.
    */
   destroy(): void {
-    if (!this.mobileQueryListener) {
-      return;
-    }
-
     for (const breakpoint in this.mobileQueries) {
       this.mobileQueries[breakpoint].removeEventListener('change', this.mobileQueryListener);
     }

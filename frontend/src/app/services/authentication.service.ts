@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, catchError, map, of, switchMap, take, throwError } from 'rxjs';
+import { Observable, catchError, map, of, take, throwError } from 'rxjs';
 
 import { User } from '@Models/user';
 import { JsonApiConnectorService } from '@Services/json-api-connector.service';
@@ -91,7 +91,7 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     ).pipe(
       take(1),
       map((response) => {
-        this.sessionStorage.setUser(response.user.id ?? '');
+        this.sessionStorage.setUser(response.user.id);
         this.sessionStorage.setAccessToken(response.accessToken);
         this.sessionStorage.setRefreshToken(response.refreshToken);
 
@@ -156,7 +156,7 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
     return this.create<TokensResponse>('refresh', {})
       .pipe(
         take(1),
-        switchMap((tokens) => {
+        map((tokens) => {
           this.sessionStorage.setAccessToken(tokens.accessToken);
           this.sessionStorage.setRefreshToken(tokens.refreshToken);
 
@@ -177,12 +177,12 @@ export class AuthenticationService extends JsonApiConnectorService<User> {
   canRefreshTokensWithCookie(): Observable<boolean> {
     return this.create<TokensWithUserResponse>('refresh', {}).pipe(
       take(1),
-      switchMap((tokens) => {
+      map((tokens) => {
         this.sessionStorage.setAccessToken(tokens.accessToken);
         this.sessionStorage.setRefreshToken(tokens.refreshToken);
-        this.sessionStorage.setUser(tokens.user?.id ?? '');
+        this.sessionStorage.setUser(tokens.user.id);
 
-        return of(true);
+        return true;
       }),
       catchError((_) => {
         return of(false);

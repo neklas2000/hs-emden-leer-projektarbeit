@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { WindowProviderService } from '@Services/window-provider.service';
 import { Nullable } from '@Types';
 
 const USER_KEY = 'auth-user';
@@ -15,12 +16,18 @@ const REFRESH_TOKEN_KEY = 'auth-refresh-token';
   providedIn: 'root'
 })
 export class SessionStorageService {
+  private window: Window;
+
+  constructor(private readonly windowProvider: WindowProviderService) {
+    this.window = this.windowProvider.getWindow();
+  }
+
   /**
    * @description
    * This function clears all stored data. This could be used when a user signs out of the app.
    */
   clear(): void {
-    window.sessionStorage.clear();
+    this.window.sessionStorage.clear();
   }
 
   /**
@@ -30,7 +37,7 @@ export class SessionStorageService {
    * @param id The user id to be stored.
    */
   setUser(id: string): void {
-    window.sessionStorage.setItem(USER_KEY, id);
+    this.window.sessionStorage.setItem(USER_KEY, id);
   }
 
   /**
@@ -41,7 +48,7 @@ export class SessionStorageService {
    * @returns The stored user id or `null`.
    */
   getUser(): Nullable<string> {
-    return window.sessionStorage.getItem(USER_KEY);
+    return this.window.sessionStorage.getItem(USER_KEY);
   }
 
   /**
@@ -51,7 +58,7 @@ export class SessionStorageService {
    * @param token The access token to be stored.
    */
   setAccessToken(token: string): void {
-    window.sessionStorage.setItem(ACCESS_TOKEN_KEY, token);
+    this.window.sessionStorage.setItem(ACCESS_TOKEN_KEY, token);
   }
 
   /**
@@ -62,7 +69,7 @@ export class SessionStorageService {
    * @returns The stored access token or `null`.
    */
   getAccessToken(): Nullable<string> {
-    return window.sessionStorage.getItem(ACCESS_TOKEN_KEY);
+    return this.window.sessionStorage.getItem(ACCESS_TOKEN_KEY);
   }
 
   /**
@@ -72,7 +79,7 @@ export class SessionStorageService {
    * @param token The refresh token to be stored.
    */
   setRefreshToken(token: string): void {
-    window.sessionStorage.setItem(REFRESH_TOKEN_KEY, token);
+    this.window.sessionStorage.setItem(REFRESH_TOKEN_KEY, token);
   }
 
   /**
@@ -83,6 +90,6 @@ export class SessionStorageService {
    * @returns The stored refresh token or `null`.
    */
   getRefreshToken(): Nullable<string> {
-    return window.sessionStorage.getItem(REFRESH_TOKEN_KEY);
+    return this.window.sessionStorage.getItem(REFRESH_TOKEN_KEY);
   }
 }

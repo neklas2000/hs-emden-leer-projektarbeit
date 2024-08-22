@@ -9,10 +9,16 @@ import { Observable } from 'rxjs';
 export class UtilityProviderService {
   constructor() {}
 
+  get blobToDataURL() {
+    return blobToDataURL;
+  }
+
   get toBase64() {
+    const transformBlobToDataURI = this.blobToDataURL;
+
     return function(blob: Blob): Observable<string> {
       return new Observable<string>((observer) => {
-        blobToDataURL(blob)
+        transformBlobToDataURI(blob)
           .then((base64) => {
             observer.next(base64);
           })
