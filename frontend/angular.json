@@ -108,7 +108,8 @@
             ],
             "scripts": [],
             "codeCoverageExclude": [
-              "src/**/models/*"
+              "src/**/models/*",
+              "src/constants/*"
             ]
           }
         }
