@@ -23,7 +23,7 @@ export class ProjectTypePipe implements PipeTransform {
    * @returns Either an empty string or a populated label.
    */
   transform(value: Nullable<string>): string {
-    if (!value || value.length === 0) return '';
+    if (!value) return '';
 
     return `vom Typ "${value}" -`;
   }

@@ -28,7 +28,6 @@ export class UndefinedStringPipe implements PipeTransform {
     fallback: string = 'Nicht definiert',
   ): string {
     if (!value) return fallback;
-    if (typeof value === 'string' && value.length === 0) return fallback;
 
     return `${value}`;
   }
