@@ -237,7 +237,7 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
 
   formatTaskList(): void {
     if (this.currentCursorPosition[0] < 0) return;
-    if (!this.extendMarkdown('- [ ] List Item', [6, 15])) {
+    if (!this.extendMarkdown('- [ ] List item', [6, 15])) {
       this.formatMarkdown('- [ ] :selection', 6);
     }
 
