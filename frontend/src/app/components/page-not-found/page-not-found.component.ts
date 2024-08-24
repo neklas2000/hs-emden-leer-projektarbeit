@@ -25,7 +25,7 @@ export class PageNotFoundComponent {
     this.window = this.windowProvider.getWindow();
   }
 
-  goOneBack() {
+  goOneBack(): void {
     this.window.history.back();
   }
 
