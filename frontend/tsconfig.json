@@ -42,7 +42,8 @@
       "@Constants": ["constants/index.ts"],
       "@Validators": ["app/validators/form-validators.ts"],
       "@Pipes/*": ["app/pipes/*"],
-      "@Dialogs/*": ["app/components/dialog/*"]
+      "@Dialogs/*": ["app/components/dialog/*"],
+      "@Test/*": ["../test/*"]
     }
   },
   "angularCompilerOptions": {
