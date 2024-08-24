@@ -11,7 +11,7 @@ import { take } from 'rxjs';
 import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
 import { ProjectReport } from '@Models/project-report';
 import { ProjectReportService } from '@Services/project-report.service';
-import { SnackbarService } from '@Services/snackbar.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { WindowProviderService } from '@Services/window-provider.service';
 import { HttpException } from '@Utils/http-exception';
 
@@ -31,7 +31,7 @@ import { HttpException } from '@Utils/http-exception';
   ],
 })
 export class EditReportComponent implements OnInit {
-  projectReport!: ProjectReport;
+  projectReport!: ProjectReport; // Will be initialized inside #ngOnInit
   deliverables: string = '';
   objectives: string = '';
   hazards: string = '';
@@ -53,16 +53,14 @@ export class EditReportComponent implements OnInit {
       .pipe(take(1))
       .subscribe(({ report }: Data) => {
         this.projectReport = report;
-        this.deliverables = this.projectReport?.deliverables || '';
-        this.objectives = this.projectReport?.objectives || '';
-        this.hazards = this.projectReport?.hazards || '';
-        this.other = this.projectReport?.other ?? '';
+        this.deliverables = this.projectReport.deliverables;
+        this.objectives = this.projectReport.objectives;
+        this.hazards = this.projectReport.hazards;
+        this.other = this.projectReport.other ?? '';
       });
   }
 
   save(): void {
-    if (!this.projectReport?.id) return;
-
     const updateResponse$ = this.projectReportService.update(
       ':id',
       this.projectReport.id,
@@ -80,18 +78,14 @@ export class EditReportComponent implements OnInit {
         next: (patchSuccessful) => {
           if (patchSuccessful) {
             this.back().then(() => {
-              this.snackbar.open('Änderungen gespeichert');
+              this.snackbar.showInfo(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
             });
           } else {
-            this.snackbar.open('Es ist ein Fehler aufgetreten');
+            this.snackbar.showWarning(SnackbarMessage.SAVE_OPERATION_FAILED_CONFIRMATION);
           }
         },
         error: (exception: HttpException) => {
-          if (exception.code === 'HSEL-400-002') {
-            this.snackbar.open('Erfolg der Änderung konnte nicht verifiziert werden (HSEL-400-002)', 5000);
-          } else {
-            this.snackbar.open('Es ist ein Fehler aufgetreten');
-          }
+          this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
         },
       });
   }

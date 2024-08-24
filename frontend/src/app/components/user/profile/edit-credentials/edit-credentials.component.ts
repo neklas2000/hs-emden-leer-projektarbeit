@@ -103,10 +103,10 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
     this.profile.validateCredentials({
       userId: this.data.userId,
       email: this.form.get('oldEmail')?.value,
-      password: this.form.get('password')?.value,
+      password: this.form.get('password')!.value,
     }).pipe(take(1)).subscribe({
-      next: (user) => {
-        if (!user) {
+      next: (foundUser) => {
+        if (!foundUser) {
           this.snackbar.showError(SnackbarMessage.INCORRECT_CREDENTIALS);
         } else if (this.data.type === Credentials.EMAIL) {
           this.updateEmail();
@@ -122,12 +122,14 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
 
   private updateEmail(): void {
     this.profile.update(':id', this.data.userId, {
-      email: this.form.get('newEmail')?.value,
+      email: this.form.get('newEmail')!.value,
     }).pipe(take(1)).subscribe({
       next: (updatedSuccessfully) => {
         if (updatedSuccessfully) {
           this.snackbar.showInfo(SnackbarMessage.UPDATE_EMAIL_SUCCEEDED);
-          this.dialogRef.close(this.form.get('newEmail')?.value ?? null);
+          this.dialogRef.close(this.form.get('newEmail')!.value);
+        } else {
+          this.snackbar.showWarning(SnackbarMessage.UPDATE_EMAIL_FAILED_CONFIRMATION);
         }
       },
       error: (exception: HttpException) => {
@@ -139,12 +141,14 @@ export class EditCredentialsComponent implements OnInit, OnDestroy {
 
   private updatePassword(): void {
     this.profile.update(':id', this.data.userId, {
-      password: this.form.get('newPassword')?.value,
+      password: this.form.get('newPassword')!.value,
     }).pipe(take(1)).subscribe({
       next: (updatedSuccessfully) => {
         if (updatedSuccessfully) {
           this.snackbar.showInfo(SnackbarMessage.UPDATE_PASSWORD_SUCCEEDED);
           this.onCancelClick();
+        } else {
+          this.snackbar.showWarning(SnackbarMessage.UPDATE_PASSWORD_FAILED_CONFIRMATION);
         }
       },
       error: (exception: HttpException) => {

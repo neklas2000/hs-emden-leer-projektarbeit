@@ -22,7 +22,7 @@ import { AuthenticationService } from '@Services/authentication.service';
 import { DateService } from '@Services/date.service';
 import { DialogService } from '@Services/dialog.service';
 import { ProjectService } from '@Services/project.service';
-import { SnackbarService } from '@Services/snackbar.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { WindowProviderService } from '@Services/window-provider.service';
 import { Nullable, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
@@ -77,20 +77,20 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.intervalChangesSubscription = this.form.get('interval')?.valueChanges
+    this.intervalChangesSubscription = this.form.get('interval')!.valueChanges
       .subscribe((_) => {
-        const control = this.form.get('endDate');
+        const control = this.form.get('endDate')!;
 
-        if (control?.dirty) {
+        if (control.dirty) {
           control.updateValueAndValidity();
         }
       });
 
-    this.startDateChangesSubscription = this.form.get('startDate')?.valueChanges
+    this.startDateChangesSubscription = this.form.get('startDate')!.valueChanges
       .subscribe((_) => {
-        const control = this.form.get('endDate');
+        const control = this.form.get('endDate')!;
 
-        if (control?.dirty) {
+        if (control.dirty) {
           control.updateValueAndValidity();
         }
       });
@@ -111,8 +111,8 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   private filterEndDate(date: DateTime | null): boolean {
     if (!date) return false;
 
-    const interval = parseInt(this.form.get('interval')?.value ?? 1);
-    const start: DateTime = this.form.get('startDate')?.value ?? this.date.getToday();
+    const interval = parseInt(this.form.get('interval')!.value ?? 1);
+    const start: DateTime = this.form.get('startDate')!.value ?? this.date.getToday();
     const diff = this.date.compare(date.toFormat('yyyy-MM-dd'), start.toFormat('yyyy-MM-dd'));
 
     if (diff <= 0) return false;
@@ -128,7 +128,9 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().pipe(take(1)).subscribe((milestone: Nullable<ProjectMilestone>) => {
       if (milestone) {
         this.milestones.push(milestone);
-        this.snackbar.open('Meilenstein temporär hinzugefügt');
+        this.snackbar.showInfo('Meilenstein temporär hinzugefügt');
+      } else {
+        this.snackbar.showInfo(SnackbarMessage.CANCELED);
       }
     });
   }
@@ -147,7 +149,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable<ProjectMember>) => {
       if (!member) return;
       if (member.user.id === this.userId) {
-        this.snackbar.open('Sie können sich nicht selber einladen');
+        this.snackbar.showWarning('Sie können sich nicht selber einladen');
 
         return;
       }
@@ -170,7 +172,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable<ProjectMember>) => {
       if (!member) return;
       if (member.user.id === this.userId) {
-        this.snackbar.open('Sie können sich nicht selber einladen');
+        this.snackbar.showWarning('Sie können sich nicht selber einladen');
 
         return;
       }
@@ -226,17 +228,17 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       ...(this.companions.length > 0 || this.students.length > 0 ? { members: [...this.companions, ...this.students] } : {}),
     }).pipe(take(1)).subscribe({
       next: (createdProject) => {
-        this.snackbar.open('Projekt erfolgreich gespeichert');
+        this.snackbar.showInfo(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
         this.router.navigateByUrl(`/projects/${createdProject.id}`);
       },
       error: (exception: HttpException) => {
-        this.snackbar.showException('Speichern fehlgeschlagen', exception);
+        this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
       },
     });
   }
 
   private getOfficialEnd(): Nullable<string> {
-    if (this.form.get('endDate')?.value) {
+    if (this.form.get('endDate')!.value) {
       if (this.form.get('endDate')!.value instanceof DateTime) {
         return this.form.get('endDate')!.value.toFormat('yyyy-MM-dd');
       }
@@ -246,7 +248,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   private getProjectType(): Nullable<string> {
-    if (this.form.get('type')?.value) {
+    if (this.form.get('type')!.value) {
       if (this.form.get('type')!.value.length > 0) {
         return this.form.get('type')!.value;
       }

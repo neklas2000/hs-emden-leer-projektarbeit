@@ -13,7 +13,7 @@ import { take } from 'rxjs';
 import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
 import { DateService } from '@Services/date.service';
 import { ProjectReportService } from '@Services/project-report.service';
-import { SnackbarService } from '@Services/snackbar.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { WindowProviderService } from '@Services/window-provider.service';
 import { Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
@@ -83,8 +83,8 @@ export class NewReportComponent implements OnInit {
 
   onSaveClick(): void {
     this.projectReports.create('', {
-      sequenceNumber: this.form.get('sequenceNumber')?.value!,
-      reportDate: this.form.get('reportDate')?.value.toFormat('yyyy-MM-dd'),
+      sequenceNumber: this.form.get('sequenceNumber')!.value,
+      reportDate: this.date.toString(this.form.get('reportDate')!.value),
       deliverables: this.deliverables,
       hazards: this.hazards,
       objectives: this.objectives,
@@ -98,18 +98,18 @@ export class NewReportComponent implements OnInit {
       ),
     }).pipe(take(1)).subscribe({
       next: (projectReport) => {
-        this.snackbar.open('Erfolgreich gespeichert');
-        this.router.navigateByUrl(`/projects/${projectReport.project?.id}/report/${projectReport.id}`);
+        this.snackbar.showInfo(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
+        this.router.navigateByUrl(`/projects/${projectReport.project.id}/report/${projectReport.id}`);
       },
       error: (exception: HttpException) => {
-        this.snackbar.showException('Speichervorgang fehlgeschlagen', exception);
+        this.snackbar.showException(SnackbarMessage.SAVE_OPERATION_FAILED, exception);
       },
     });
   }
 
   get invalid(): boolean {
-    if (!this.form.get('sequenceNumber')?.value) return true;
-    if (!this.form.get('reportDate')?.value) return true;
+    if (!this.form.get('sequenceNumber')!.value) return true;
+    if (!this.form.get('reportDate')!.value) return true;
     if (!this.deliverables) return true;
     if (!this.hazards) return true;
     if (!this.objectives) return true;

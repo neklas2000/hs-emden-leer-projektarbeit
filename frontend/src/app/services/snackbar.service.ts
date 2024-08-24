@@ -31,8 +31,10 @@ export enum SnackbarMessage {
   NO_CHANGES = 'Es konnten keine Änderungen festgestellt werden',
   UPDATE_EMAIL_SUCCEEDED = 'E-Mail-Adresse erfolgreich aktualisiert',
   UPDATE_EMAIL_FAILED = 'E-Mail-Adresse konnte nicht aktualisiert werden',
+  UPDATE_EMAIL_FAILED_CONFIRMATION = 'Aktualisierung der E-Mail-Adresse konnte nicht bestätigt werden',
   UPDATE_PASSWORD_SUCCEEDED = 'Passwort erfolgreich aktualisiert',
   UPDATE_PASSWORD_FAILED = 'Passwort konnte nicht aktualisiert werden',
+  UPDATE_PASSWORD_FAILED_CONFIRMATION = 'Aktualisierung des Passworts konnte nicht bestätigt werden',
 }
 
 /**

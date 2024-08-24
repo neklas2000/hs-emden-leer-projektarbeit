@@ -11,7 +11,7 @@ import { take } from 'rxjs';
 import { User } from '@Models/user';
 import { ProfileService } from '@Services/profile.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
-import { DeepPartial, Nullable } from '@Types';
+import { DeepPartial, DeepPartialWithIdField, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
 
@@ -39,7 +39,7 @@ type Form = FormGroup<{
   ],
 })
 export class EditPersonalInformationComponent implements OnInit {
-  @Input() profile!: DeepPartial<User>;
+  @Input() profile!: DeepPartialWithIdField<User>;
   @Output() onCancel: EventEmitter<void> = new EventEmitter();
   @Output() onSubmit: EventEmitter<DeepPartial<User>> = new EventEmitter();
   form: Form = this.formBuilder.group({
@@ -67,12 +67,6 @@ export class EditPersonalInformationComponent implements OnInit {
   }
 
   saveChanges(): void {
-    if (!this.profile.id) {
-      this.snackbar.open('Änderungen können nicht gespeichert werden');
-
-      return;
-    }
-
     const data = {
       academicTitle: this.form.get('academicTitle')!.value ?? null,
       firstName: this.form.get('firstName')!.value,

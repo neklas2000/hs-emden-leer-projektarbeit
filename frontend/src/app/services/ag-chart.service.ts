@@ -158,7 +158,7 @@ export class AgChartService {
 
           return {
             [key]: categories.indexOfAxisLabel(
-              DateTime.fromSQL(estimate.estimationDate ?? '').toFormat('MM/dd'),
+              DateTime.fromSQL(this.date.toString(estimate.estimationDate)).toFormat('MM/dd'),
               'x',
             ),
           };

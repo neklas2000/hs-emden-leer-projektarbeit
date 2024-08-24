@@ -24,12 +24,12 @@ import {
 } from '@Dialogs/confirm-profile-deletion/confirm-profile-deletion.component';
 import { User } from '@Models/user';
 import { UndefinedStringPipe } from '@Pipes/undefined-string.pipe';
+import { AuthenticationService } from '@Services/authentication.service';
 import { DialogService } from '@Services/dialog.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { UserService } from '@Services/user.service';
-import { DeepPartial, Nullable } from '@Types';
+import { DeepPartial, DeepPartialWithIdField, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
-import { AuthenticationService } from '@Services/authentication.service';
 
 @Component({
   selector: 'hsel-profile',
@@ -52,7 +52,7 @@ import { AuthenticationService } from '@Services/authentication.service';
   ],
 })
 export class ProfileComponent implements OnInit {
-  profile!: DeepPartial<User>;
+  profile!: DeepPartialWithIdField<User>; // Will be initialized inside #ngOnInit
   private editingPersonalInformation: boolean = false;
 
   constructor(
@@ -130,7 +130,7 @@ export class ProfileComponent implements OnInit {
     this.users.delete().subscribe({
       next: (deletionSuccessful) => {
         if (!deletionSuccessful) {
-          this.snackbar.showError(SnackbarMessage.DELETE_OPERATION_FAILED);
+          this.snackbar.showWarning(SnackbarMessage.DELETE_OPERATION_FAILED_CONFIRMATION);
         } else {
           this.auth.clear();
           this.snackbar.showInfo(SnackbarMessage.DELETE_OPERATION_SUCCEEDED);

@@ -25,10 +25,6 @@ import { DeepPartial, Nullable, Undefinable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
 
-type RouteData = Data & {
-  project?: Project;
-};
-
 @Component({
   selector: 'hsel-edit-project',
   templateUrl: './edit-project.component.html',
@@ -55,7 +51,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
   students: ProjectMember[] = [];
   private intervalChangesSubscription: Undefinable<Subscription>;
   private startDateChangesSubscription: Undefinable<Subscription>;
-  private projectId!: string; // Will be initialized inside #ngOnInit
+  private project!: Project; // Will be initialized inside #ngOnInit
   private window: Window;
 
   constructor(
@@ -63,7 +59,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     private readonly formBuilder: FormBuilder,
     private readonly date: DateService,
     private readonly snackbar: SnackbarService,
-    private readonly project: ProjectService,
+    private readonly projects: ProjectService,
     private readonly router: Router,
     private readonly windowProvider: WindowProviderService,
   ) {
@@ -82,35 +78,33 @@ export class EditProjectComponent implements OnInit, OnDestroy {
       type: [''],
     });
 
-    this.intervalChangesSubscription = this.form.get('interval')?.valueChanges
+    this.intervalChangesSubscription = this.form.get('interval')!.valueChanges
       .subscribe((_) => {
-        const control = this.form.get('endDate');
+        const control = this.form.get('endDate')!;
 
-        if (control?.dirty) {
+        if (control.dirty) {
           control.updateValueAndValidity();
         }
       });
 
-    this.startDateChangesSubscription = this.form.get('startDate')?.valueChanges
+    this.startDateChangesSubscription = this.form.get('startDate')!.valueChanges
       .subscribe((_) => {
-        const control = this.form.get('endDate');
+        const control = this.form.get('endDate')!;
 
-        if (control?.dirty) {
+        if (control.dirty) {
           control.updateValueAndValidity();
         }
       });
 
-    this.activatedRoute.data.pipe(take(1)).subscribe(({ project }: RouteData) => {
-      if (!project) return;
-
-      this.projectId = project.id;
+    this.activatedRoute.data.pipe(take(1)).subscribe(({ project }: Data) => {
+      this.project = project;
 
       this.form.patchValue({
-        name: project.name ?? '',
-        interval: project.reportInterval ?? 7,
-        startDate: project.officialStart ? DateTime.fromSQL(project.officialStart) : this.date.getToday(),
-        endDate: project.officialEnd ? DateTime.fromSQL(project.officialEnd) : '',
-        type: project.type ?? '',
+        name: this.project.name,
+        interval: this.project.reportInterval,
+        startDate: DateTime.fromSQL(this.project.officialStart),
+        endDate: this.project.officialEnd ? DateTime.fromSQL(project.officialEnd) : '',
+        type: this.project.type ?? '',
       });
     });
   }
@@ -130,9 +124,9 @@ export class EditProjectComponent implements OnInit, OnDestroy {
   private filterEndDate(date: DateTime | null): boolean {
     if (!date) return false;
 
-    const interval = parseInt(this.form.get('interval')?.value ?? 1);
-    const start: DateTime = this.form.get('startDate')?.value ?? this.date.getToday();
-    const diff = this.date.compare(date.toFormat('yyyy-MM-dd'), start.toFormat('yyyy-MM-dd'));
+    const interval = parseInt(this.form.get('interval')!.value ?? 1);
+    const start = this.date.toString(this.form.get('startDate')!.value);
+    const diff = this.date.compare(date.toFormat('yyyy-MM-dd'), start);
 
     if (diff <= 0) return false;
 
@@ -152,13 +146,13 @@ export class EditProjectComponent implements OnInit, OnDestroy {
       type: this.getProjectType(),
     };
 
-    this.project.update(':id', this.projectId, payload).pipe(take(1)).subscribe({
+    this.projects.update(':id', this.project.id, payload).pipe(take(1)).subscribe({
       next: (updatedSuccessfully) => {
         if (updatedSuccessfully) {
-          this.snackbar.showInfo('Projekt erfolgreich aktualisiert');
-          this.router.navigateByUrl(`/projects/${this.projectId}`);
+          this.snackbar.showInfo(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
+          this.router.navigateByUrl(`/projects/${this.project.id}`);
         } else {
-          this.snackbar.showWarning('Die Aktualisierung konnte nicht bestätigt werden');
+          this.snackbar.showWarning(SnackbarMessage.SAVE_OPERATION_FAILED_CONFIRMATION);
         }
       },
       error: (exception: HttpException) => {
@@ -168,7 +162,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
   }
 
   private getOfficialEnd(): Nullable<string> {
-    if (this.form.get('endDate')?.value) {
+    if (this.form.get('endDate')!.value) {
       if (this.form.get('endDate')!.value instanceof DateTime) {
         return this.form.get('endDate')!.value.toFormat('yyyy-MM-dd');
       }
@@ -178,7 +172,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
   }
 
   private getProjectType(): Nullable<string> {
-    if (this.form.get('type')?.value) {
+    if (this.form.get('type')!.value) {
       if (this.form.get('type')!.value.length > 0) {
         return this.form.get('type')!.value;
       }
