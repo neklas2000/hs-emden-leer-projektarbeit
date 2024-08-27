@@ -4,7 +4,6 @@ import { Response } from 'express';
 import { Observable } from 'rxjs';
 
 import { User } from '@Decorators/user.decorator';
-import env from '@Environment';
 import { AccessTokenGuard } from '@Guards/access-token.guard';
 import { RefreshTokenGuard } from '@Guards/refresh-token.guard';
 import {
@@ -12,9 +11,7 @@ import {
 	RegisterPayload,
 	TokensWithUserResponse,
 } from '@Services/authentication.service';
-import { DateService } from '@Services/date.service';
-import { ACCESS_TOKEN_COOKIE } from '@Tokens/access-token-cookie';
-import { REFRESH_TOKEN_COOKIE } from '@Tokens/refresh-token-cookie';
+import { CookieService } from '@Services/cookie.service';
 import { Success as LogoutResult } from '@Types/success';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
@@ -27,7 +24,7 @@ type AuthenticationPayload = {
 export class AuthenticationController {
 	constructor(
 		private readonly authenticationService: AuthenticationService,
-		private readonly date: DateService,
+		private readonly cookies: CookieService,
 	) {}
 
 	@Post('register')
@@ -38,7 +35,7 @@ export class AuthenticationController {
 		res: Response,
 	): Observable<TokensWithUserResponse> {
 		return promiseToObservable(this.authenticationService.register(payload), (result) => {
-			this.setCookies(result, res);
+			this.cookies.set(result, res);
 
 			return result;
 		});
@@ -54,7 +51,7 @@ export class AuthenticationController {
 		return promiseToObservable(
 			this.authenticationService.login(payload.email, payload.password),
 			(result) => {
-				this.setCookies(result, res);
+				this.cookies.set(result, res);
 
 				return result;
 			},
@@ -72,11 +69,10 @@ export class AuthenticationController {
 		return promiseToObservable(this.authenticationService.logout(user['sub']), (result) => {
 			let success = false;
 
-			if (result.affected && result.affected === 1) success = true;
+			if (result?.affected === 1) success = true;
 
 			if (success) {
-				res.clearCookie(ACCESS_TOKEN_COOKIE);
-				res.clearCookie(REFRESH_TOKEN_COOKIE);
+				this.cookies.clear(res);
 			}
 
 			return { success } as LogoutResult;
@@ -97,26 +93,10 @@ export class AuthenticationController {
 		return promiseToObservable(
 			this.authenticationService.refreshTokens(userEmail, refreshToken),
 			(result) => {
-				this.setCookies(result, res);
+				this.cookies.set(result, res);
 
 				return result;
 			},
 		);
-	}
-
-	private setCookies(tokens: TokensWithUserResponse, res: Response): void {
-		res.cookie(ACCESS_TOKEN_COOKIE, tokens.accessToken, {
-			httpOnly: true,
-			secure: true,
-			sameSite: 'lax',
-			expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
-		});
-
-		res.cookie(REFRESH_TOKEN_COOKIE, tokens.refreshToken, {
-			httpOnly: true,
-			secure: true,
-			sameSite: 'lax',
-			expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
-		});
 	}
 }
