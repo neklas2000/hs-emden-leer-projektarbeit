@@ -5,7 +5,11 @@ describe('Decorator: User', () => {
 		const httpContext = {
 			getRequest: () => {
 				return {
-					user: 'This is the user',
+					user: {
+						id: '1',
+						firstName: 'Max',
+						lastName: 'Mustermann',
+					},
 				};
 			},
 		} as any;
@@ -20,6 +24,10 @@ describe('Decorator: User', () => {
 
 		expect(context.switchToHttp).toHaveBeenCalledTimes(1);
 		expect(httpContext.getRequest).toHaveBeenCalledTimes(1);
-		expect(user).toEqual('This is the user');
+		expect(user).toEqual({
+			id: '1',
+			firstName: 'Max',
+			lastName: 'Mustermann',
+		});
 	});
 });

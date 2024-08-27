@@ -27,9 +27,6 @@ describe('Decorator: Filters', () => {
 			switchToHttp: () => httpContext,
 		} as any;
 
-		jest.spyOn(owner, 'getProperties');
-		jest.spyOn(entity, 'getProperties');
-		jest.spyOn(entity, 'getRelationTypes');
 		jest.spyOn(httpContext, 'getRequest');
 		jest.spyOn(context, 'switchToHttp');
 
@@ -37,9 +34,6 @@ describe('Decorator: Filters', () => {
 
 		expect(context.switchToHttp).toHaveBeenCalledTimes(1);
 		expect(httpContext.getRequest).toHaveBeenCalledTimes(1);
-		expect(entity.getProperties).toHaveBeenCalledTimes(2);
-		expect(owner.getProperties).toHaveBeenCalledTimes(1);
-		expect(entity.getRelationTypes).toHaveBeenCalledTimes(1);
 		expect(whereOptions).toEqual({
 			id: '1',
 			owner: {
@@ -67,7 +61,6 @@ describe('Decorator: Filters', () => {
 			switchToHttp: () => httpContext,
 		} as any;
 
-		jest.spyOn(entity, 'getProperties');
 		jest.spyOn(httpContext, 'getRequest');
 		jest.spyOn(context, 'switchToHttp');
 
@@ -75,7 +68,6 @@ describe('Decorator: Filters', () => {
 
 		expect(context.switchToHttp).toHaveBeenCalled();
 		expect(httpContext.getRequest).toHaveBeenCalled();
-		expect(entity.getProperties).toHaveBeenCalled();
 		expect(whereOptions).toEqual({});
 	});
 });

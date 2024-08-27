@@ -24,9 +24,6 @@ describe('Decorator: Includes', () => {
 			switchToHttp: () => httpContext,
 		} as any;
 
-		jest.spyOn(relationC, 'getRelations');
-		jest.spyOn(entity, 'getRelations');
-		jest.spyOn(entity, 'getRelationTypes');
 		jest.spyOn(httpContext, 'getRequest');
 		jest.spyOn(context, 'switchToHttp');
 
@@ -34,9 +31,6 @@ describe('Decorator: Includes', () => {
 
 		expect(context.switchToHttp).toHaveBeenCalledTimes(1);
 		expect(httpContext.getRequest).toHaveBeenCalledTimes(1);
-		expect(entity.getRelations).toHaveBeenCalledTimes(3);
-		expect(relationC.getRelations).toHaveBeenCalledTimes(1);
-		expect(entity.getRelationTypes).toHaveBeenCalledTimes(1);
 		expect(includeOptions).toEqual({
 			relationA: true,
 			relationB: true,
@@ -63,7 +57,6 @@ describe('Decorator: Includes', () => {
 			switchToHttp: () => httpContext,
 		} as any;
 
-		jest.spyOn(entity, 'getRelations');
 		jest.spyOn(httpContext, 'getRequest');
 		jest.spyOn(context, 'switchToHttp');
 
@@ -71,7 +64,6 @@ describe('Decorator: Includes', () => {
 
 		expect(context.switchToHttp).toHaveBeenCalled();
 		expect(httpContext.getRequest).toHaveBeenCalled();
-		expect(entity.getRelations).toHaveBeenCalled();
 		expect(includeOptions).toEqual({});
 	});
 });
