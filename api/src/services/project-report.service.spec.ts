@@ -24,86 +24,114 @@ describe('Service: ProjectReportService', () => {
 		repository = module.get(PROJECT_REPORT_REPOSITORY_TOKEN);
 	});
 
-	it('should be created', () => {
+	it('should create', () => {
 		expect(service).toBeTruthy();
 	});
 
-	it('should find one project report by an id', (done) => {
-		jest.spyOn(repository, 'findOne').mockResolvedValue('Project Report' as any);
+	describe('findOne(string, FindOptionsWhere, FindOptionsSelect, FindOptionsRelations): Promise<ProjectReport>', () => {
+		it('should find one project report by an id', (done) => {
+			const report = {
+				id: '1',
+				sequenceNumber: 1,
+				reportDate: '2024-01-01',
+				deliverables: 'These are some deliverables',
+				hazards: 'These are some hazards',
+				objectives: 'These are some objectives',
+				other: 'This is some other information',
+			} as any;
+			jest.spyOn(repository, 'findOne').mockResolvedValue(report);
 
-		service.findOne('1', {}, {}, {}).then((result) => {
-			expect(repository.findOne).toHaveBeenCalledWith({
-				where: {
-					id: '1',
-				},
-				select: {},
-				relations: {},
+			service.findOne('1', {}, {}, {}).then((result) => {
+				expect(repository.findOne).toHaveBeenCalledWith({
+					where: {
+						id: '1',
+					},
+					select: {},
+					relations: {},
+				});
+				expect(result).toEqual(report);
+
+				done();
 			});
-			expect(result).toEqual('Project Report');
-
-			done();
 		});
 	});
 
-	it('should successfully patch one project report', (done) => {
-		jest.spyOn(repository, 'update').mockResolvedValue({
-			affected: 1,
-			raw: '',
-			generatedMaps: [],
+	describe('patchOne(string, DeepPartial<ProjectReport>): Promise<boolean>', () => {
+		it('should throw an exception, since there was an error with the sql query', (done) => {
+			const error = new Error('SQL ERROR: Query malformed');
+			jest.spyOn(repository, 'update').mockRejectedValue(error);
+
+			service.patchOne('1', { hazards: 'Patched' }).catch((exception) => {
+				expect(exception).toBeInstanceOf(BadRequestException);
+				expect(exception).toHaveProperty('cause', error);
+
+				done();
+			});
 		});
 
-		service.patchOne('1', { hazards: 'Patched' }).then((success) => {
-			expect(repository.update).toHaveBeenCalledWith(
-				{
-					id: '1',
-				},
-				{
-					hazards: 'Patched',
-				},
-			);
-			expect(success).toBeTruthy();
+		it('should throw an exception, since the patch could not be confirmed', (done) => {
+			jest.spyOn(repository, 'update').mockResolvedValue({
+				affected: 0,
+				raw: '',
+				generatedMaps: [],
+			});
 
-			done();
+			service.patchOne('1', { hazards: 'Patched' }).catch((exception) => {
+				expect(exception).toBeInstanceOf(NoAffectedRowException);
+
+				done();
+			});
+		});
+
+		it('should successfully patch one project report', (done) => {
+			jest.spyOn(repository, 'update').mockResolvedValue({
+				affected: 1,
+				raw: '',
+				generatedMaps: [],
+			});
+
+			service.patchOne('1', { hazards: 'Patched' }).then((success) => {
+				expect(repository.update).toHaveBeenCalledWith(
+					{
+						id: '1',
+					},
+					{
+						hazards: 'Patched',
+					},
+				);
+				expect(success).toBe(true);
+
+				done();
+			});
 		});
 	});
 
-	it('should throw an exception since no record could be patched', (done) => {
-		jest.spyOn(repository, 'update').mockResolvedValue({
-			affected: 0,
-			raw: '',
-			generatedMaps: [],
-		});
+	describe('create(DeepPartial<ProjectReport>): Promise<ProjectReport>', () => {
+		it('should create a new project report', (done) => {
+			const report = {
+				sequenceNumber: 2,
+				reportDate: '2024-01-08',
+				deliverables: 'These are some deliverables',
+				hazards: 'These are some hazards',
+				objectives: 'These are some objectives',
+				other: 'This is some other information',
+			} as any;
+			jest.spyOn(repository, 'create').mockReturnValue({
+				save: jest.fn().mockResolvedValue({
+					...report,
+					id: '2',
+				}),
+			} as any);
 
-		service.patchOne('1', { hazards: 'Patched' }).catch((exception) => {
-			expect(repository.update).toHaveBeenCalledWith(
-				{
-					id: '1',
-				},
-				{
-					hazards: 'Patched',
-				},
-			);
-			expect(exception).toBeInstanceOf(NoAffectedRowException);
+			service.create(report).then((result) => {
+				expect(repository.create).toHaveBeenCalledWith(report);
+				expect(result).toEqual({
+					...report,
+					id: '2',
+				});
 
-			done();
-		});
-	});
-
-	it('should throw an exception since there was an error with the sql query', (done) => {
-		jest.spyOn(repository, 'update').mockRejectedValue('SQL ERROR: Query malformed');
-
-		service.patchOne('1', { hazards: 'Patched' }).catch((exception) => {
-			expect(repository.update).toHaveBeenCalledWith(
-				{
-					id: '1',
-				},
-				{
-					hazards: 'Patched',
-				},
-			);
-			expect(exception).toBeInstanceOf(BadRequestException);
-
-			done();
+				done();
+			});
 		});
 	});
 });

@@ -53,7 +53,7 @@ export class UserService {
 	}
 
 	findByIdAndCredentials(id: string, where: FindOptionsWhere<User> = {}): Promise<Nullable<User>> {
-		if (where?.password) {
+		if (where.password) {
 			where.password = this.crypto.hash(where.password as string);
 		}
 
@@ -73,7 +73,7 @@ export class UserService {
 			throw new NotFoundException();
 		}
 
-		if (payload?.password) {
+		if (payload.password) {
 			payload.password = this.crypto.hash(payload.password);
 		}
 

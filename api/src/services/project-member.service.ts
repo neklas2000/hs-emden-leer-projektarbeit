@@ -80,7 +80,7 @@ export class ProjectMemberService {
 		return projectMember.save();
 	}
 
-	async update(id: string, updatedFields: DeepPartial<Project>): Promise<boolean> {
+	async update(id: string, updatedFields: DeepPartial<ProjectMember>): Promise<boolean> {
 		try {
 			const updated = await this.projectMemberRepository.update({ id }, updatedFields);
 

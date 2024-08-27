@@ -15,13 +15,15 @@ describe('Service: CryptoService', () => {
 		service = module.get(CryptoService);
 	});
 
-	it('should be created', () => {
+	it('should create', () => {
 		expect(service).toBeTruthy();
 	});
 
-	it('should create a correct SHA256 hash', () => {
-		expect(service.hash('1234567890')).toEqual(
-			'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646',
-		);
+	describe('hash(string): string', () => {
+		it('should create a correct SHA256 hash', () => {
+			expect(service.hash('1234567890')).toEqual(
+				'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646',
+			);
+		});
 	});
 });
