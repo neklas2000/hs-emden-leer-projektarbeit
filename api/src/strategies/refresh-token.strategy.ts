@@ -2,7 +2,7 @@ import { Injectable, Req, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 
 import { Request } from 'express';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ExtractJwt, JwtFromRequestFunction, Strategy } from 'passport-jwt';
 
 import env from '@Environment';
 import { TokenWhitelistService } from '@Services/token-whitelist.service';
@@ -16,7 +16,7 @@ type JwtPayload = {
 
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
-	public static fromCookie() {
+	public static fromCookie(): JwtFromRequestFunction<Request> {
 		return (req: Request): string | null => {
 			if (req.cookies && Object.hasOwn(req.cookies, REFRESH_TOKEN_COOKIE)) {
 				return req.cookies[REFRESH_TOKEN_COOKIE];

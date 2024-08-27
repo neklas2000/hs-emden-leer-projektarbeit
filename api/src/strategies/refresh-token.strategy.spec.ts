@@ -20,15 +20,17 @@ import { provideTokenWhitelistRepository } from '@Test/Providers/token-whitelist
 import { REFRESH_TOKEN_COOKIE } from '@Tokens/refresh-token-cookie';
 
 describe('Strategy: RefreshTokenStrategy', () => {
-	const PREVIOUS_PROCESS_ENVIRONMENT = process.env;
+	let oldEnvironment: NodeJS.ProcessEnv;
 	let strategy: RefreshTokenStrategy;
 	let tokenWhitelist: TokenWhitelistService;
 
-	beforeEach(async () => {
-		jest.resetModules();
-		process.env = { ...PREVIOUS_PROCESS_ENVIRONMENT };
+	beforeAll(() => {
+		oldEnvironment = process.env;
 		process.env.JWT_REFRESH_SECRET = 'jwt refresh token secret';
+		jest.resetModules();
+	});
 
+	beforeEach(async () => {
 		const module = await Test.createTestingModule({
 			providers: [
 				RefreshTokenStrategy,
@@ -44,74 +46,78 @@ describe('Strategy: RefreshTokenStrategy', () => {
 	});
 
 	afterAll(() => {
-		process.env = PREVIOUS_PROCESS_ENVIRONMENT;
+		process.env = oldEnvironment;
 	});
 
-	it('should be created', () => {
+	it('should create', () => {
 		expect(strategy).toBeTruthy();
 	});
 
-	it('should extract the refresh token from a cookie', () => {
-		const request = {
-			cookies: {
-				[REFRESH_TOKEN_COOKIE]: 'refreshToken',
-			},
-		} as any;
-		const extractAccessToken = RefreshTokenStrategy.fromCookie();
+	describe('fromCookie(): JwtFromRequestFunction<Request>', () => {
+		it('should extract the refresh token from a cookie', () => {
+			const request = {
+				cookies: {
+					[REFRESH_TOKEN_COOKIE]: 'refreshToken',
+				},
+			} as any;
+			const extractAccessToken = RefreshTokenStrategy.fromCookie();
 
-		expect(extractAccessToken(request)).toEqual('refreshToken');
+			expect(extractAccessToken(request)).toEqual('refreshToken');
+		});
+
+		it('should try to extract the refresh token from a cookie and return null', () => {
+			const request = {
+				cookies: {},
+			} as any;
+			const extractAccessToken = RefreshTokenStrategy.fromCookie();
+
+			expect(extractAccessToken(request)).toBeNull();
+		});
 	});
 
-	it('should try to extract the refresh token from a cookie and return null', () => {
-		const request = {
-			cookies: {},
-		} as any;
-		const extractAccessToken = RefreshTokenStrategy.fromCookie();
+	describe('validate(Request, JwtPayload): JwtPayload', () => {
+		it('should throw an exception since the verification failed', (done) => {
+			const extractor = jest.fn().mockReturnValue('refreshToken');
+			(ExtractJwt.fromAuthHeaderAsBearerToken as jest.Mock).mockReturnValue(extractor);
+			jest.spyOn(tokenWhitelist, 'verifyRefreshToken').mockResolvedValue(false);
 
-		expect(extractAccessToken(request)).toBeNull();
-	});
-
-	it('should throw an exception since the verification failed', (done) => {
-		const extractor = jest.fn().mockReturnValue('refreshToken');
-		(ExtractJwt.fromAuthHeaderAsBearerToken as jest.Mock).mockReturnValue(extractor);
-		jest.spyOn(tokenWhitelist, 'verifyRefreshToken').mockResolvedValue(false);
-
-		strategy
-			.validate({} as any, {
-				sub: '1',
-				email: 'max.mustermann@gmx.de',
-			})
-			.catch((exception) => {
-				expect(ExtractJwt.fromAuthHeaderAsBearerToken).toHaveBeenCalled();
-				expect(extractor).toHaveBeenCalledWith({});
-				expect(tokenWhitelist.verifyRefreshToken).toHaveBeenCalledWith('1', 'refreshToken');
-				expect(exception).toBeInstanceOf(UnauthorizedException);
-
-				done();
-			});
-	});
-
-	it('should verify the refresh token', (done) => {
-		const extractor = jest.fn().mockReturnValue('refreshToken');
-		(ExtractJwt.fromAuthHeaderAsBearerToken as jest.Mock).mockReturnValue(extractor);
-		jest.spyOn(tokenWhitelist, 'verifyRefreshToken').mockResolvedValue(true);
-
-		strategy
-			.validate({} as any, {
-				sub: '1',
-				email: 'max.mustermann@gmx.de',
-			})
-			.then((result) => {
-				expect(ExtractJwt.fromAuthHeaderAsBearerToken).toHaveBeenCalled();
-				expect(extractor).toHaveBeenCalledWith({});
-				expect(tokenWhitelist.verifyRefreshToken).toHaveBeenCalledWith('1', 'refreshToken');
-				expect(result).toEqual({
+			strategy
+				.validate({} as any, {
 					sub: '1',
 					email: 'max.mustermann@gmx.de',
-					refreshToken: 'refreshToken',
-				});
+				})
+				.catch((exception) => {
+					expect(ExtractJwt.fromAuthHeaderAsBearerToken).toHaveBeenCalled();
+					expect(extractor).toHaveBeenCalledWith({});
+					expect(tokenWhitelist.verifyRefreshToken).toHaveBeenCalledWith('1', 'refreshToken');
+					expect(exception).toBeInstanceOf(UnauthorizedException);
 
-				done();
-			});
+					done();
+				});
+		});
+
+		it('should verify the refresh token', (done) => {
+			const extractor = jest.fn().mockReturnValue('refreshToken');
+			(ExtractJwt.fromAuthHeaderAsBearerToken as jest.Mock).mockReturnValue(extractor);
+			jest.spyOn(tokenWhitelist, 'verifyRefreshToken').mockResolvedValue(true);
+
+			strategy
+				.validate({} as any, {
+					sub: '1',
+					email: 'max.mustermann@gmx.de',
+				})
+				.then((result) => {
+					expect(ExtractJwt.fromAuthHeaderAsBearerToken).toHaveBeenCalled();
+					expect(extractor).toHaveBeenCalledWith({});
+					expect(tokenWhitelist.verifyRefreshToken).toHaveBeenCalledWith('1', 'refreshToken');
+					expect(result).toEqual({
+						sub: '1',
+						email: 'max.mustermann@gmx.de',
+						refreshToken: 'refreshToken',
+					});
+
+					done();
+				});
+		});
 	});
 });
