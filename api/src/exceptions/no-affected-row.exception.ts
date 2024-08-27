@@ -3,7 +3,7 @@ import { HttpStatus } from '@nestjs/common';
 import { BaseException } from './base.exception';
 
 export class NoAffectedRowException extends BaseException {
-	constructor(cause: any) {
+	constructor(cause: any = null) {
 		super(HttpStatus.BAD_REQUEST, 3, {
 			message: 'The request resulted in no affected rows.',
 			description:

@@ -4,7 +4,7 @@ import { BaseException } from '@Exceptions/base.exception';
 import { Nullable } from '@Types/nullable';
 
 export class UserDoesNotExistException extends BaseException {
-	constructor(email: Nullable<string>, cause: any) {
+	constructor(email: Nullable<string>, cause: any = null) {
 		super(HttpStatus.BAD_REQUEST, 5, {
 			message: 'User does not exist',
 			description: email
