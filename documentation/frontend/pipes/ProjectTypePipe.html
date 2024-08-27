@@ -264,7 +264,7 @@ export class ProjectTypePipe implements PipeTransform {
    * @returns Either an empty string or a populated label.
    */
   transform(value: Nullable&lt;string&gt;): string {
-    if (!value || value.length &#x3D;&#x3D;&#x3D; 0) return &#x27;&#x27;;
+    if (!value) return &#x27;&#x27;;
 
     return &#x60;vom Typ &quot;${value}&quot; -&#x60;;
   }

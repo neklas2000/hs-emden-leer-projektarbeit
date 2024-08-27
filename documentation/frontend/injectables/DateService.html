@@ -202,8 +202,8 @@ analysis chart.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="86"
-                                    class="link-to-prism">src/app/services/date.service.ts:86</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/services/date.service.ts:75</a></div>
                         </td>
                     </tr>
 
@@ -318,8 +318,8 @@ dates needs to match &#39;yyyy-MM-dd&#39;.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="142"
-                                    class="link-to-prism">src/app/services/date.service.ts:142</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/app/services/date.service.ts:131</a></div>
                         </td>
                     </tr>
 
@@ -572,8 +572,8 @@ Europe/Berlin.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="109"
-                                    class="link-to-prism">src/app/services/date.service.ts:109</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/app/services/date.service.ts:98</a></div>
                         </td>
                     </tr>
 
@@ -696,8 +696,8 @@ optionally the end date into account.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="156"
-                                    class="link-to-prism">src/app/services/date.service.ts:156</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/services/date.service.ts:145</a></div>
                         </td>
                     </tr>
 
@@ -819,18 +819,7 @@ export class DateService {
         previous.push(...current);
 
         return previous;
-      }, [])
-      .filter((value) &#x3D;&gt; {
-        if (value &#x3D;&#x3D;&#x3D; null) return false;
-
-        const date &#x3D; value.toFormat(&#x27;yyyy-MM-dd&#x27;);
-
-        if (dates.includes(date)) return false;
-
-        dates.push(date);
-
-        return true;
-      }) as DateTime[];
+      }, []) as DateTime[];
   }
 
   /**

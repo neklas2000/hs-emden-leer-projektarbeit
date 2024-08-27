@@ -541,7 +541,7 @@
 
   return projects.read&lt;Project&gt;({
     route: &#x27;:id&#x27;,
-    ids: route.paramMap.get(&#x27;id&#x27;) ?? undefined,
+    ids: id!,
     query: {
       sparseFieldsets: {
         project: [&#x27;id&#x27;, &#x27;officialStart&#x27;, &#x27;officialEnd&#x27;, &#x27;reportInterval&#x27;],
@@ -701,7 +701,7 @@
       includes: [&#x27;owner&#x27;, &#x27;members&#x27;, &#x27;members.user&#x27;, &#x27;reports&#x27;, &#x27;milestones&#x27;, &#x27;milestones.estimates&#x27;],
       sparseFieldsets: {
         members: [&#x27;id&#x27;, &#x27;role&#x27;],
-        &#x27;members.user&#x27;: [&#x27;id&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;, &#x27;matriculationNumber&#x27;, &#x27;email&#x27;, &#x27;phoneNumber&#x27;],
+        &#x27;members.user&#x27;: [&#x27;id&#x27;, &#x27;academicTitle&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;, &#x27;matriculationNumber&#x27;, &#x27;email&#x27;, &#x27;phoneNumber&#x27;],
         reports: [&#x27;id&#x27;, &#x27;sequenceNumber&#x27;, &#x27;reportDate&#x27;],
         milestones: [&#x27;id&#x27;, &#x27;name&#x27;, &#x27;milestoneReached&#x27;],
       },

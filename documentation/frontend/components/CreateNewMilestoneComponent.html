@@ -440,7 +440,7 @@ export class CreateNewMilestoneComponent {
 
   closeWithData(): void {
     this.dialogRef.close({
-      name: this.form.get(&#x27;name&#x27;)?.value ?? &#x27;&#x27;,
+      name: this.form.get(&#x27;name&#x27;)!.value,
     });
   }
 }

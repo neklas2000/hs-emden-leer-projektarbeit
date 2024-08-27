@@ -200,7 +200,7 @@
 import { BaseException } from &#x27;./base.exception&#x27;;
 
 export class BadRequestException extends BaseException {
-	constructor(cause: any) {
+	constructor(cause: any &#x3D; null) {
 		super(HttpStatus.BAD_REQUEST, 1, {
 			message: &#x27;Bad Request&#x27;,
 			description: &#x27;An error occured while performing the sql query.&#x27;,

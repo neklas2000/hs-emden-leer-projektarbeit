@@ -548,11 +548,11 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>this.formBuilder.group({
-    academicTitle: [&#x27;&#x27;, []],
-    firstName: [&#x27;&#x27;, [FormValidators.required]],
-    lastName: [&#x27;&#x27;, [FormValidators.required]],
-    matriculationNumber: [null, [FormValidators.required]],
-    phoneNumber: [&#x27;&#x27;, []],
+    academicTitle: new FormControl&lt;Nullable&lt;string&gt;&gt;(null),
+    firstName: new FormControl&lt;Nullable&lt;string&gt;&gt;(null, [FormValidators.required]),
+    lastName: new FormControl&lt;Nullable&lt;string&gt;&gt;(null, [FormValidators.required]),
+    matriculationNumber: new FormControl&lt;Nullable&lt;number&gt;&gt;(null),
+    phoneNumber: new FormControl&lt;Nullable&lt;string&gt;&gt;(null, [FormValidators.phoneNumber]),
   })</code>
                     </td>
                 </tr>
@@ -572,7 +572,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Output } from &#x27;@angular/core&#x27;;
-import { FormBuilder, FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
@@ -585,7 +585,7 @@ export type PersonalDetails &#x3D; {
   academicTitle: Nullable&lt;string&gt;;
   firstName: string;
   lastName: string;
-  matriculationNumber: number;
+  matriculationNumber: Nullable&lt;number&gt;;
   phoneNumber: Nullable&lt;string&gt;;
 };
 
@@ -609,11 +609,11 @@ export class RegisterPersonalDetailsComponent {
   @Output() onNext: EventEmitter&lt;void&gt; &#x3D; new EventEmitter();
 
   form &#x3D; this.formBuilder.group({
-    academicTitle: [&#x27;&#x27;, []],
-    firstName: [&#x27;&#x27;, [FormValidators.required]],
-    lastName: [&#x27;&#x27;, [FormValidators.required]],
-    matriculationNumber: [null, [FormValidators.required]],
-    phoneNumber: [&#x27;&#x27;, []],
+    academicTitle: new FormControl&lt;Nullable&lt;string&gt;&gt;(null),
+    firstName: new FormControl&lt;Nullable&lt;string&gt;&gt;(null, [FormValidators.required]),
+    lastName: new FormControl&lt;Nullable&lt;string&gt;&gt;(null, [FormValidators.required]),
+    matriculationNumber: new FormControl&lt;Nullable&lt;number&gt;&gt;(null),
+    phoneNumber: new FormControl&lt;Nullable&lt;string&gt;&gt;(null, [FormValidators.phoneNumber]),
   });
 
   constructor(private readonly formBuilder: FormBuilder) {}
@@ -632,11 +632,11 @@ export class RegisterPersonalDetailsComponent {
 
   getPersonalDetails(): PersonalDetails {
     return {
-      academicTitle: this.form.get(&#x27;academicTitle&#x27;)?.value ?? null,
-      firstName: this.form.get(&#x27;firstName&#x27;)?.value ?? &#x27;&#x27;,
-      lastName: this.form.get(&#x27;lastName&#x27;)?.value ?? &#x27;&#x27;,
-      matriculationNumber: this.form.get(&#x27;matriculationNumber&#x27;)?.value ?? 0,
-      phoneNumber: this.form.get(&#x27;phoneNumber&#x27;)?.value ?? &#x27;&#x27;,
+      academicTitle: this.form.get(&#x27;academicTitle&#x27;)!.value ?? null,
+      firstName: this.form.get(&#x27;firstName&#x27;)!.value ?? &#x27;&#x27;,
+      lastName: this.form.get(&#x27;lastName&#x27;)!.value ?? &#x27;&#x27;,
+      matriculationNumber: this.form.get(&#x27;matriculationNumber&#x27;)!.value ?? null,
+      phoneNumber: this.form.get(&#x27;phoneNumber&#x27;)!.value ?? null,
     };
   }
 }
@@ -663,19 +663,24 @@ export class RegisterPersonalDetailsComponent {
       &lt;mat-error&gt;Dies ist ein &lt;strong&gt;Pflichtfeld&lt;/strong&gt;&lt;/mat-error&gt;
     }
   &lt;/mat-form-field&gt;
-  &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
-    &lt;mat-label aria-required&#x3D;&quot;true&quot;&gt;Matrikelnummer&lt;/mat-label&gt;
-    &lt;input type&#x3D;&quot;number&quot; formControlName&#x3D;&quot;matriculationNumber&quot; aria-required&#x3D;&quot;true&quot; pattern&#x3D;&quot;\d+&quot; required matInput /&gt;
-    @if (form.get(&#x27;matriculationNumber&#x27;)?.hasError(&#x27;required&#x27;)) {
-      &lt;mat-error&gt;Dies ist ein &lt;strong&gt;Pflichtfeld&lt;/strong&gt;&lt;/mat-error&gt;
-    } @else if (form.get(&#x27;matriculationNumber&#x27;)?.hasError(&#x27;pattern&#x27;)) {
+  &lt;mat-form-field class&#x3D;&quot;w-full&quot; subscriptSizing&#x3D;&quot;dynamic&quot;&gt;
+    &lt;mat-label&gt;Matrikelnummer&lt;/mat-label&gt;
+    &lt;input type&#x3D;&quot;number&quot; min&#x3D;&quot;1&quot; formControlName&#x3D;&quot;matriculationNumber&quot; pattern&#x3D;&quot;\d+&quot; matInput /&gt;
+    @if (form.get(&#x27;matriculationNumber&#x27;)?.hasError(&#x27;pattern&#x27;)) {
       &lt;mat-error&gt;Für die Matrikelnummer wird eine Ganzzahl erwartet&lt;/mat-error&gt;
     }
+    &lt;mat-hint&gt;
+      Studierende sollten hier auf jeden Fall die Matrikelnummer angegeben.
+      Betreuer können dieses Feld leer lassen, aber können hier auch eine Nummer (z. B. eine Mitarbeiternummer) o. ä. angeben.
+    &lt;/mat-hint&gt;
   &lt;/mat-form-field&gt;
   &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
     &lt;mat-label&gt;Telefonnummer&lt;/mat-label&gt;
     &lt;input type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;phoneNumber&quot; matInput /&gt;
     &lt;mat-icon matPrefix&gt;phone&lt;/mat-icon&gt;
+    @if (form.get(&#x27;phoneNumber&#x27;)?.hasError(&#x27;phoneNumber&#x27;)) {
+      &lt;mat-error&gt;Das Format der Telefonnummer ist nicht korrekt&lt;/mat-error&gt;
+    }
   &lt;/mat-form-field&gt;
   &lt;div class&#x3D;&quot;mt-8 flex flex-row justify-end&quot;&gt;
     &lt;button (click)&#x3D;&quot;onBackClick()&quot; mat-button&gt;Zurück&lt;/button&gt;
@@ -712,7 +717,7 @@ export class RegisterPersonalDetailsComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><form [formGroup]="form" class="flex flex-col">  <mat-form-field class="w-full">    <mat-label>Akademischer Titel</mat-label>    <input type="text" formControlName="academicTitle" matInput />  </mat-form-field>  <mat-form-field class="w-full">    <mat-label aria-required="true">Vorname</mat-label>    <input type="text" formControlName="firstName" aria-required="true" required matInput />    @if (form.get(\'firstName\')?.hasError(\'required\')) {      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>    }  </mat-form-field>  <mat-form-field class="w-full">    <mat-label aria-required="true">Nachname</mat-label>    <input type="text" formControlName="lastName" aria-required="true" required matInput />    @if (form.get(\'lastName\')?.hasError(\'required\')) {      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>    }  </mat-form-field>  <mat-form-field class="w-full">    <mat-label aria-required="true">Matrikelnummer</mat-label>    <input type="number" formControlName="matriculationNumber" aria-required="true" pattern="\d+" required matInput />    @if (form.get(\'matriculationNumber\')?.hasError(\'required\')) {      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>    } @else if (form.get(\'matriculationNumber\')?.hasError(\'pattern\')) {      <mat-error>Für die Matrikelnummer wird eine Ganzzahl erwartet</mat-error>    }  </mat-form-field>  <mat-form-field class="w-full">    <mat-label>Telefonnummer</mat-label>    <input type="text" formControlName="phoneNumber" matInput />    <mat-icon matPrefix>phone</mat-icon>  </mat-form-field>  <div class="mt-8 flex flex-row justify-end">    <button (click)="onBackClick()" mat-button>Zurück</button>    <button (click)="onCancelClick()" color="accent" mat-button>Abbrechen</button>    <button type="submit" (click)="onNextClick()" [disabled]="form.invalid" color="primary" mat-button>Registrieren</button>  </div></form></div>'
+        var COMPONENT_TEMPLATE = '<div><form [formGroup]="form" class="flex flex-col">  <mat-form-field class="w-full">    <mat-label>Akademischer Titel</mat-label>    <input type="text" formControlName="academicTitle" matInput />  </mat-form-field>  <mat-form-field class="w-full">    <mat-label aria-required="true">Vorname</mat-label>    <input type="text" formControlName="firstName" aria-required="true" required matInput />    @if (form.get(\'firstName\')?.hasError(\'required\')) {      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>    }  </mat-form-field>  <mat-form-field class="w-full">    <mat-label aria-required="true">Nachname</mat-label>    <input type="text" formControlName="lastName" aria-required="true" required matInput />    @if (form.get(\'lastName\')?.hasError(\'required\')) {      <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>    }  </mat-form-field>  <mat-form-field class="w-full" subscriptSizing="dynamic">    <mat-label>Matrikelnummer</mat-label>    <input type="number" min="1" formControlName="matriculationNumber" pattern="\d+" matInput />    @if (form.get(\'matriculationNumber\')?.hasError(\'pattern\')) {      <mat-error>Für die Matrikelnummer wird eine Ganzzahl erwartet</mat-error>    }    <mat-hint>      Studierende sollten hier auf jeden Fall die Matrikelnummer angegeben.      Betreuer können dieses Feld leer lassen, aber können hier auch eine Nummer (z. B. eine Mitarbeiternummer) o. ä. angeben.    </mat-hint>  </mat-form-field>  <mat-form-field class="w-full">    <mat-label>Telefonnummer</mat-label>    <input type="text" formControlName="phoneNumber" matInput />    <mat-icon matPrefix>phone</mat-icon>    @if (form.get(\'phoneNumber\')?.hasError(\'phoneNumber\')) {      <mat-error>Das Format der Telefonnummer ist nicht korrekt</mat-error>    }  </mat-form-field>  <div class="mt-8 flex flex-row justify-end">    <button (click)="onBackClick()" mat-button>Zurück</button>    <button (click)="onCancelClick()" color="accent" mat-button>Abbrechen</button>    <button type="submit" (click)="onNextClick()" [disabled]="form.invalid" color="primary" mat-button>Registrieren</button>  </div></form></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmMilestoneDeletionComponent', 'selector': 'hsel-confirm-milestone-deletion'},{'name': 'ConfirmMilestoneEstimateDeletionComponent', 'selector': 'hsel-confirm-milestone-estimate-deletion'},{'name': 'ConfirmProfileDeletionComponent', 'selector': 'hsel-confirm-profile-deletion'},{'name': 'ConfirmProjectDeletionComponent', 'selector': 'hsel-confirm-project-deletion'},{'name': 'ConfirmProjectMemberRemovalComponent', 'selector': 'hsel-confirm-project-member-removal'},{'name': 'CreateNewMilestoneComponent', 'selector': 'hsel-create-new-milestone'},{'name': 'CustomSnackBarComponent', 'selector': 'hsel-custom-snack-bar'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InfoBoxComponent', 'selector': 'hsel-info-box'},{'name': 'InviteProjectMemberComponent', 'selector': 'hsel-invite-project-member'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownProvideExternalUrlComponent', 'selector': 'hsel-markdown-provide-external-url'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'PageNotFoundComponent', 'selector': 'hsel-page-not-found'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'RegisterPersonalDetailsComponent'};

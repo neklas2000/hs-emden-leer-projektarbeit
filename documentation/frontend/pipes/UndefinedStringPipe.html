@@ -291,7 +291,6 @@ export class UndefinedStringPipe implements PipeTransform {
     fallback: string &#x3D; &#x27;Nicht definiert&#x27;,
   ): string {
     if (!value) return fallback;
-    if (typeof value &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; value.length &#x3D;&#x3D;&#x3D; 0) return fallback;
 
     return &#x60;${value}&#x60;;
   }

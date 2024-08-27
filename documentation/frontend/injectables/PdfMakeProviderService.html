@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>API Dokumentation</title>
+        <title>Frontend Dokumentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -65,7 +65,7 @@
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">API Dokumentation</a>
+                    <a href="../" class="navbar-brand">Frontend Dokumentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -80,7 +80,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content injectable">
                    <div class="content-data">
 
 
@@ -90,13 +90,9 @@
 
 
 
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >InvalidUUIDFormatException</li>
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >PdfMakeProviderService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -120,20 +116,43 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/exceptions/invalid-uuid-format.exception.ts</code>
+            <code>src/app/services/pdf-make-provider.service.ts</code>
         </p>
 
 
 
-            <p class="comment">
-                <h3>Extends</h3>
-            </p>
-            <p class="comment">
-                            <code><a href="../classes/BaseException.html" target="_self" >BaseException</a></code>
-            </p>
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
 
 
 
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#createPdf" >createPdf</a>
+                                </li>
+                                <li>
+                                    <a href="#fonts" >fonts</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
 
             <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
@@ -141,76 +160,101 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(cause: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>constructor()</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/exceptions/invalid-uuid-format.exception.ts:4</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/services/pdf-make-provider.service.ts:9</a></div>
                             </td>
                         </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>cause</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
             </tbody>
         </table>
 </section>
 
 
 
+            <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createPdf"></a>
+                        <span class="name"><b>createPdf</b><a href="#createPdf"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>createPdf()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/services/pdf-make-provider.service.ts:12</a></div>
+                                </td>
+                            </tr>
 
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fonts"></a>
+                        <span class="name"><b>fonts</b><a href="#fonts"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>fonts()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/pdf-make-provider.service.ts:16</a></div>
+                                </td>
+                            </tr>
 
-
+            </tbody>
+        </table>
+</section>
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BaseException } from &#x27;@Exceptions/base.exception&#x27;;
-import { HttpStatus } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 
-export class InvalidUUIDFormatException extends BaseException {
-	constructor(cause: any &#x3D; null) {
-		super(HttpStatus.NOT_ACCEPTABLE, 1, {
-			message: &#x27;The value of the parameter is malformed&#x27;,
-			description:
-				&#x27;The parameter for the requested resource expected an uuid but it was malformed.&#x27;,
-			cause,
-		});
+import * as pdfMake from &#x27;pdfmake/build/pdfmake&#x27;;
+import * as pdfFonts from &#x27;pdfmake/build/vfs_fonts&#x27;;
+
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class PdfMakeProviderService {
+  constructor() {}
+
+	get createPdf() {
+		return pdfMake.createPdf;
+	}
+
+	get fonts() {
+		return pdfFonts.pdfMake.vfs;
 	}
 }
 </code></pre>
     </div>
+
 </div>
+
+
+
+
 
 
 
@@ -245,8 +289,8 @@ export class InvalidUUIDFormatException extends BaseException {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'InvalidUUIDFormatException.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'PdfMakeProviderService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

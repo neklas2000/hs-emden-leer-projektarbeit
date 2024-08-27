@@ -200,7 +200,7 @@
 import { BaseException } from &#x27;@Exceptions/base.exception&#x27;;
 
 export class DeleteProjectNotAllowedException extends BaseException {
-	constructor(cause: any) {
+	constructor(cause: any &#x3D; null) {
 		super(HttpStatus.METHOD_NOT_ALLOWED, 1, {
 			message: &#x27;Project cannot be deleted&#x27;,
 			description:

@@ -200,7 +200,7 @@
 import { BaseException } from &#x27;./base.exception&#x27;;
 
 export class NoAffectedRowException extends BaseException {
-	constructor(cause: any) {
+	constructor(cause: any &#x3D; null) {
 		super(HttpStatus.BAD_REQUEST, 3, {
 			message: &#x27;The request resulted in no affected rows.&#x27;,
 			description:

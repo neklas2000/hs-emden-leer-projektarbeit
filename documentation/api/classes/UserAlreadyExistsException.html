@@ -212,7 +212,7 @@
 import { BaseException } from &#x27;./base.exception&#x27;;
 
 export class UserAlreadyExistsException extends BaseException {
-	constructor(email: string, cause: any) {
+	constructor(email: string, cause: any &#x3D; null) {
 		super(HttpStatus.BAD_REQUEST, 4, {
 			message: &#x27;User already exists&#x27;,
 			description: &#x60;The provided email address (${email}) is already registered.&#x60;,

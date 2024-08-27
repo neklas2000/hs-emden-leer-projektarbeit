@@ -239,8 +239,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="272"
-                                    class="link-to-prism">src/app/pdf-schemas/project-report.schema.ts:272</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="277"
+                                    class="link-to-prism">src/app/pdf-schemas/project-report.schema.ts:277</a></div>
                         </td>
                     </tr>
 
@@ -574,7 +574,12 @@ export class ProjectReportSchema implements PdfSchema&lt;ProjectReportContent&gt
 						}],
 						...content.students.map((student, idx, arr) &#x3D;&gt; {
 							const row &#x3D; [];
-							row.push({ text: &#x60;${student.firstName} ${student.lastName}&#x60; });
+              const name &#x3D; [];
+
+              if (student.academicTitle) name.push(student.academicTitle);
+              name.push(student.firstName, student.lastName);
+
+							row.push({ text: name.join(&#x27; &#x27;) });
 							row.push({ text: student.email });
 							row.push({ text: student.phoneNumber ?? &#x27;&#x27; });
 							row.push({ text: student.matriculationNumber ?? &#x27;&#x27; });

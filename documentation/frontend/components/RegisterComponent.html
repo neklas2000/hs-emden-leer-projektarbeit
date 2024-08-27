@@ -223,10 +223,10 @@
                                 <a href="#cancel" >cancel</a>
                             </li>
                             <li>
-                                <a href="#nextStep" >nextStep</a>
+                                <a href="#gotoFirstStep" >gotoFirstStep</a>
                             </li>
                             <li>
-                                <a href="#oneStepBack" >oneStepBack</a>
+                                <a href="#nextStep" >nextStep</a>
                             </li>
                             <li>
                                 <a href="#registerUser" >registerUser</a>
@@ -366,6 +366,43 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="gotoFirstStep"></a>
+                    <span class="name">
+                        <span ><b>gotoFirstStep</b></span>
+                        <a href="#gotoFirstStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>gotoFirstStep()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/components/auth/register/register.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="nextStep"></a>
                     <span class="name">
                         <span ><b>nextStep</b></span>
@@ -425,43 +462,6 @@
                             <div class="io-description">
                                 
                             </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="oneStepBack"></a>
-                    <span class="name">
-                        <span ><b>oneStepBack</b></span>
-                        <a href="#oneStepBack"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>oneStepBack()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">src/app/components/auth/register/register.component.ts:43</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
                 </td>
             </tr>
         </tbody>
@@ -690,7 +690,7 @@ export class RegisterComponent {
     private readonly snackbar: SnackbarService,
   ) {}
 
-  oneStepBack(): void {
+  gotoFirstStep(): void {
     this.step &#x3D; 0;
   }
 
@@ -757,7 +757,7 @@ export class RegisterComponent {
       &lt;/hsel-register-credentials&gt;
       &lt;hsel-register-personal-details
         class&#x3D;&quot;w-full&quot;
-        (onBack)&#x3D;&quot;oneStepBack()&quot;
+        (onBack)&#x3D;&quot;gotoFirstStep()&quot;
         (onCancel)&#x3D;&quot;cancel()&quot;
         (onNext)&#x3D;&quot;registerUser(true)&quot;
         [style.display]&#x3D;&quot;step &#x3D;&#x3D;&#x3D; 1 ? &#x27;block&#x27; : &#x27;none&#x27;&quot;
@@ -802,7 +802,7 @@ export class RegisterComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="flex flex-row">  <mat-card class="w-full">    <mat-card-content class="!flex flex-col items-center">      <hsel-logo        imgClasses="pt-8 mb-16 s-150 lt-sm:pt-4 lt-sm:mb-8 lt-sm:s-125 lt-xs:pt-2 lt-xs:mb-4 lt-xs:s-90"      ></hsel-logo>      <hsel-register-credentials        class="w-full"        (onCancel)="cancel()"        (onNext)="nextStep($event)"        [style.display]="step === 0 ? \'block\' : \'none\'"        #provideCredentials>      </hsel-register-credentials>      <hsel-register-personal-details        class="w-full"        (onBack)="oneStepBack()"        (onCancel)="cancel()"        (onNext)="registerUser(true)"        [style.display]="step === 1 ? \'block\' : \'none\'"        #providePersonalDetails>      </hsel-register-personal-details>      <div        class="w-full flex-col gap-y-4 items-center py-8 px-4 text-center"        [style.display]="step === 2 ? \'flex\' : \'none\'"      >        <span>Sie wurden erfolgreich registriert.</span>        <span>In Kürze werden Sie zur Startseite umgeleitet.</span>      </div>    </mat-card-content>  </mat-card></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="flex flex-row">  <mat-card class="w-full">    <mat-card-content class="!flex flex-col items-center">      <hsel-logo        imgClasses="pt-8 mb-16 s-150 lt-sm:pt-4 lt-sm:mb-8 lt-sm:s-125 lt-xs:pt-2 lt-xs:mb-4 lt-xs:s-90"      ></hsel-logo>      <hsel-register-credentials        class="w-full"        (onCancel)="cancel()"        (onNext)="nextStep($event)"        [style.display]="step === 0 ? \'block\' : \'none\'"        #provideCredentials>      </hsel-register-credentials>      <hsel-register-personal-details        class="w-full"        (onBack)="gotoFirstStep()"        (onCancel)="cancel()"        (onNext)="registerUser(true)"        [style.display]="step === 1 ? \'block\' : \'none\'"        #providePersonalDetails>      </hsel-register-personal-details>      <div        class="w-full flex-col gap-y-4 items-center py-8 px-4 text-center"        [style.display]="step === 2 ? \'flex\' : \'none\'"      >        <span>Sie wurden erfolgreich registriert.</span>        <span>In Kürze werden Sie zur Startseite umgeleitet.</span>      </div>    </mat-card-content>  </mat-card></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'hsel-root'},{'name': 'AuthComponent', 'selector': 'hsel-auth'},{'name': 'ConfirmMilestoneDeletionComponent', 'selector': 'hsel-confirm-milestone-deletion'},{'name': 'ConfirmMilestoneEstimateDeletionComponent', 'selector': 'hsel-confirm-milestone-estimate-deletion'},{'name': 'ConfirmProfileDeletionComponent', 'selector': 'hsel-confirm-profile-deletion'},{'name': 'ConfirmProjectDeletionComponent', 'selector': 'hsel-confirm-project-deletion'},{'name': 'ConfirmProjectMemberRemovalComponent', 'selector': 'hsel-confirm-project-member-removal'},{'name': 'CreateNewMilestoneComponent', 'selector': 'hsel-create-new-milestone'},{'name': 'CustomSnackBarComponent', 'selector': 'hsel-custom-snack-bar'},{'name': 'EditCredentialsComponent', 'selector': 'hsel-edit-credentials'},{'name': 'EditMilestoneEstimatesComponent', 'selector': 'hsel-edit-milestone-estimates'},{'name': 'EditMilestoneEstimatesTabComponent', 'selector': 'hsel-edit-milestone-estimates-tab'},{'name': 'EditPersonalInformationComponent', 'selector': 'hsel-edit-personal-information'},{'name': 'EditProjectComponent', 'selector': 'hsel-edit-project'},{'name': 'EditReportComponent', 'selector': 'hsel-edit-report'},{'name': 'HomeComponent', 'selector': 'hsel-home'},{'name': 'InfoBoxComponent', 'selector': 'hsel-info-box'},{'name': 'InviteProjectMemberComponent', 'selector': 'hsel-invite-project-member'},{'name': 'LayoutComponent', 'selector': 'hsel-layout'},{'name': 'LoginComponent', 'selector': 'hsel-login'},{'name': 'LogoComponent', 'selector': 'hsel-logo'},{'name': 'MarkdownEditorComponent', 'selector': 'hsel-markdown-editor'},{'name': 'MarkdownProvideExternalUrlComponent', 'selector': 'hsel-markdown-provide-external-url'},{'name': 'MilestoneTrendAnalysisChartComponent', 'selector': 'hsel-milestone-trend-analysis-chart'},{'name': 'NewProjectComponent', 'selector': 'hsel-new-project'},{'name': 'NewReportComponent', 'selector': 'hsel-new-report'},{'name': 'PageNotFoundComponent', 'selector': 'hsel-page-not-found'},{'name': 'ProfileComponent', 'selector': 'hsel-profile'},{'name': 'ProjectDetailsComponent', 'selector': 'hsel-project-details'},{'name': 'ProjectsComponent', 'selector': 'hsel-projects'},{'name': 'RegisterComponent', 'selector': 'hsel-register'},{'name': 'RegisterCredentialsComponent', 'selector': 'hsel-register-credentials'},{'name': 'RegisterPersonalDetailsComponent', 'selector': 'hsel-register-personal-details'},{'name': 'ReportDetailsComponent', 'selector': 'hsel-report-details'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'RegisterComponent'};

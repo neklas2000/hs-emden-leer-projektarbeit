@@ -1634,7 +1634,7 @@ export class JsonApiConnectorService&lt;T&gt; {
       if (!route.includes(&#x27;:id&#x27;)) {
         throw new Error(
           &#x27;The provided value for ids was of the type &quot;string&quot;, so it was expected that the &#x27; +
-          &#x27;route includes the pattern &quot;:id&quot;, but it does not (the route: ${route}).&#x27;,
+          &#x60;route includes the pattern &quot;:id&quot;, but it does not (the route: ${route}).&#x60;,
         );
       }
 
@@ -1749,11 +1749,13 @@ export class JsonApiConnectorService&lt;T&gt; {
       map((responseBody) &#x3D;&gt; {
         if (responseBody.data &#x3D;&#x3D;&#x3D; null) {
           throw new HttpException({
-            code: &#x27;HSEL-404-001&#x27;,
-            description: &#x27;The http request resulted in no data which could be found by the given &#x27; +
-              &#x27;filter criteria.&#x27;,
-            message: &#x27;No data record/s could be found&#x27;,
-            status: 404,
+            error: {
+              code: &#x27;HSEL-404-001&#x27;,
+              description: &#x27;The http request resulted in no data which could be found by the &#x27; +
+                &#x27;given filter criteria.&#x27;,
+              message: &#x27;No data record/s could be found&#x27;,
+              status: 404,
+            },
             name: &#x27;Not Found&#x27;,
             ok: false,
             statusText: &#x27;Http error 404 Not Found&#x27;,

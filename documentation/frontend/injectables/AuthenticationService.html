@@ -1972,7 +1972,7 @@ connector.update(&#39;:id&#39;, &#39;1&#39;, { name: &#39;Hello World&#39; }).su
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 
-import { Observable, catchError, map, of, switchMap, take, throwError } from &#x27;rxjs&#x27;;
+import { Observable, catchError, map, of, take, throwError } from &#x27;rxjs&#x27;;
 
 import { User } from &#x27;@Models/user&#x27;;
 import { JsonApiConnectorService } from &#x27;@Services/json-api-connector.service&#x27;;
@@ -2035,7 +2035,7 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     ).pipe(
       take(1),
       map((response) &#x3D;&gt; {
-        this.sessionStorage.setUser(response.user.id ?? &#x27;&#x27;);
+        this.sessionStorage.setUser(response.user.id);
         this.sessionStorage.setAccessToken(response.accessToken);
         this.sessionStorage.setRefreshToken(response.refreshToken);
 
@@ -2063,7 +2063,7 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     ).pipe(
       take(1),
       map((response) &#x3D;&gt; {
-        this.sessionStorage.setUser(response.user.id ?? &#x27;&#x27;);
+        this.sessionStorage.setUser(response.user.id);
         this.sessionStorage.setAccessToken(response.accessToken);
         this.sessionStorage.setRefreshToken(response.refreshToken);
 
@@ -2128,7 +2128,7 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
     return this.create&lt;TokensResponse&gt;(&#x27;refresh&#x27;, {})
       .pipe(
         take(1),
-        switchMap((tokens) &#x3D;&gt; {
+        map((tokens) &#x3D;&gt; {
           this.sessionStorage.setAccessToken(tokens.accessToken);
           this.sessionStorage.setRefreshToken(tokens.refreshToken);
 
@@ -2149,12 +2149,12 @@ export class AuthenticationService extends JsonApiConnectorService&lt;User&gt; {
   canRefreshTokensWithCookie(): Observable&lt;boolean&gt; {
     return this.create&lt;TokensWithUserResponse&gt;(&#x27;refresh&#x27;, {}).pipe(
       take(1),
-      switchMap((tokens) &#x3D;&gt; {
+      map((tokens) &#x3D;&gt; {
         this.sessionStorage.setAccessToken(tokens.accessToken);
         this.sessionStorage.setRefreshToken(tokens.refreshToken);
-        this.sessionStorage.setUser(tokens.user?.id ?? &#x27;&#x27;);
+        this.sessionStorage.setUser(tokens.user.id);
 
-        return of(true);
+        return true;
       }),
       catchError((_) &#x3D;&gt; {
         return of(false);

@@ -24,71 +24,71 @@
 <title>cluster_ProjectModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-70 8,-268 518,-268 518,-70 8,-70"/>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_ProjectModule_imports</title>
-<polygon fill="none" stroke="black" points="174,-78 174,-130 510,-130 510,-78 174,-78"/>
+<g id="clust6" class="cluster">
+<title>cluster_ProjectModule_providers</title>
+<polygon fill="none" stroke="black" points="360,-78 360,-130 510,-130 510,-78 360,-78"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_ProjectModule_exports</title>
-<polygon fill="none" stroke="black" points="201,-208 201,-260 319,-260 319,-208 201,-208"/>
+<polygon fill="none" stroke="black" points="212,-208 212,-260 330,-260 330,-208 212,-208"/>
 </g>
-<g id="clust6" class="cluster">
-<title>cluster_ProjectModule_providers</title>
-<polygon fill="none" stroke="black" points="16,-78 16,-130 166,-130 166,-78 16,-78"/>
+<g id="clust3" class="cluster">
+<title>cluster_ProjectModule_imports</title>
+<polygon fill="none" stroke="black" points="16,-78 16,-130 352,-130 352,-78 16,-78"/>
 </g>
 <!-- ProjectMemberModule -->
 <g id="node1" class="node">
 <title>ProjectMemberModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="502.13,-122 499.13,-126 478.13,-126 475.13,-122 355.87,-122 355.87,-86 502.13,-86 502.13,-122"/>
-<text text-anchor="middle" x="429" y="-99.8" font-family="Times,serif" font-size="14.00">ProjectMemberModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="344.13,-122 341.13,-126 320.13,-126 317.13,-122 197.87,-122 197.87,-86 344.13,-86 344.13,-122"/>
+<text text-anchor="middle" x="271" y="-99.8" font-family="Times,serif" font-size="14.00">ProjectMemberModule</text>
 </g>
 <!-- ProjectModule -->
 <g id="node3" class="node">
 <title>ProjectModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="309.7,-187 306.7,-191 285.7,-191 282.7,-187 210.3,-187 210.3,-151 309.7,-151 309.7,-187"/>
-<text text-anchor="middle" x="260" y="-164.8" font-family="Times,serif" font-size="14.00">ProjectModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="320.7,-187 317.7,-191 296.7,-191 293.7,-187 221.3,-187 221.3,-151 320.7,-151 320.7,-187"/>
+<text text-anchor="middle" x="271" y="-164.8" font-family="Times,serif" font-size="14.00">ProjectModule</text>
 </g>
 <!-- ProjectMemberModule&#45;&gt;ProjectModule -->
 <g id="edge1" class="edge">
 <title>ProjectMemberModule&#45;&gt;ProjectModule</title>
-<path fill="none" stroke="black" d="M429,-122.11C429,-141.34 429,-169 429,-169 429,-169 319.79,-169 319.79,-169"/>
-<polygon fill="black" stroke="black" points="319.79,-165.5 309.79,-169 319.79,-172.5 319.79,-165.5"/>
+<path fill="none" stroke="black" d="M271,-122.11C271,-122.11 271,-140.99 271,-140.99"/>
+<polygon fill="black" stroke="black" points="267.5,-140.99 271,-150.99 274.5,-140.99 267.5,-140.99"/>
 </g>
 <!-- ProjectMilestoneModule -->
 <g id="node2" class="node">
 <title>ProjectMilestoneModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="337.69,-122 334.69,-126 313.69,-126 310.69,-122 182.31,-122 182.31,-86 337.69,-86 337.69,-122"/>
-<text text-anchor="middle" x="260" y="-99.8" font-family="Times,serif" font-size="14.00">ProjectMilestoneModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="179.69,-122 176.69,-126 155.69,-126 152.69,-122 24.31,-122 24.31,-86 179.69,-86 179.69,-122"/>
+<text text-anchor="middle" x="102" y="-99.8" font-family="Times,serif" font-size="14.00">ProjectMilestoneModule</text>
 </g>
 <!-- ProjectMilestoneModule&#45;&gt;ProjectModule -->
 <g id="edge2" class="edge">
 <title>ProjectMilestoneModule&#45;&gt;ProjectModule</title>
-<path fill="none" stroke="black" d="M260,-122.11C260,-122.11 260,-140.99 260,-140.99"/>
-<polygon fill="black" stroke="black" points="256.5,-140.99 260,-150.99 263.5,-140.99 256.5,-140.99"/>
+<path fill="none" stroke="black" d="M102,-122.11C102,-141.34 102,-169 102,-169 102,-169 211.21,-169 211.21,-169"/>
+<polygon fill="black" stroke="black" points="211.21,-172.5 221.21,-169 211.21,-165.5 211.21,-172.5"/>
 </g>
 <!-- ProjectService  -->
 <g id="node4" class="node">
 <title>ProjectService </title>
-<polygon fill="#fb8072" stroke="black" points="310.63,-252 209.37,-252 209.37,-216 310.63,-216 310.63,-252"/>
-<text text-anchor="middle" x="260" y="-229.8" font-family="Times,serif" font-size="14.00">ProjectService </text>
+<polygon fill="#fb8072" stroke="black" points="321.63,-252 220.37,-252 220.37,-216 321.63,-216 321.63,-252"/>
+<text text-anchor="middle" x="271" y="-229.8" font-family="Times,serif" font-size="14.00">ProjectService </text>
 </g>
 <!-- ProjectModule&#45;&gt;ProjectService  -->
 <g id="edge3" class="edge">
 <title>ProjectModule&#45;&gt;ProjectService </title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M260,-187.11C260,-187.11 260,-205.99 260,-205.99"/>
-<polygon fill="black" stroke="black" points="256.5,-205.99 260,-215.99 263.5,-205.99 256.5,-205.99"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M271,-187.11C271,-187.11 271,-205.99 271,-205.99"/>
+<polygon fill="black" stroke="black" points="267.5,-205.99 271,-215.99 274.5,-205.99 267.5,-205.99"/>
 </g>
 <!-- ProjectService -->
 <g id="node5" class="node">
 <title>ProjectService</title>
-<ellipse fill="#fdb462" stroke="black" cx="91" cy="-104" rx="67.19" ry="18"/>
-<text text-anchor="middle" x="91" y="-99.8" font-family="Times,serif" font-size="14.00">ProjectService</text>
+<ellipse fill="#fdb462" stroke="black" cx="435" cy="-104" rx="67.19" ry="18"/>
+<text text-anchor="middle" x="435" y="-99.8" font-family="Times,serif" font-size="14.00">ProjectService</text>
 </g>
 <!-- ProjectService&#45;&gt;ProjectModule -->
 <g id="edge4" class="edge">
 <title>ProjectService&#45;&gt;ProjectModule</title>
-<path fill="none" stroke="black" d="M91,-122.11C91,-141.34 91,-169 91,-169 91,-169 200.21,-169 200.21,-169"/>
-<polygon fill="black" stroke="black" points="200.21,-172.5 210.21,-169 200.21,-165.5 200.21,-172.5"/>
+<path fill="none" stroke="black" d="M435,-122.11C435,-141.34 435,-169 435,-169 435,-169 330.65,-169 330.65,-169"/>
+<polygon fill="black" stroke="black" points="330.65,-165.5 320.65,-169 330.65,-172.5 330.65,-165.5"/>
 </g>
 </g>
 </svg>

@@ -225,6 +225,10 @@
                                 <a href="#downloadPdf" >downloadPdf</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateAndDownloadPdf" >generateAndDownloadPdf</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                         </ul>
@@ -250,7 +254,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:39</a></div>
                             </td>
                         </tr>
 
@@ -365,8 +369,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:59</a></div>
                         </td>
                     </tr>
 
@@ -378,6 +382,75 @@
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateAndDownloadPdf"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateAndDownloadPdf</b></span>
+                        <a href="#generateAndDownloadPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateAndDownloadPdf(project: <a href="../undefineds/Project.html" target="_self">Project</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>project</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#Project" target="_self" >Project</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -402,8 +475,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -444,7 +517,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/user/report-details/report-details.component.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -469,6 +542,7 @@ import { ActivatedRoute, Data, RouterModule } from &#x27;@angular/router&#x27;;
 import { MarkdownPipe } from &#x27;ngx-markdown&#x27;;
 import { take } from &#x27;rxjs&#x27;;
 
+import { Project } from &#x27;@Models/project&#x27;;
 import { ProjectRole } from &#x27;@Models/project-member&#x27;;
 import { ProjectReport } from &#x27;@Models/project-report&#x27;;
 import { AgChartService } from &#x27;@Services/ag-chart.service&#x27;;
@@ -494,7 +568,7 @@ import { HttpException } from &#x27;@Utils/http-exception&#x27;;
   ],
 })
 export class ReportDetailsComponent implements OnInit {
-  projectReport!: ProjectReport;
+  projectReport!: ProjectReport; // Will be initialized inside #ngOnInit
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -508,8 +582,8 @@ export class ReportDetailsComponent implements OnInit {
     this.activatedRoute.data
       .pipe(take(1))
       .subscribe({
-        next: (data: Data) &#x3D;&gt; {
-          this.projectReport &#x3D; data[&#x27;report&#x27;];
+        next: ({ report }: Data) &#x3D;&gt; {
+          this.projectReport &#x3D; report;
         }
       });
   }
@@ -517,7 +591,7 @@ export class ReportDetailsComponent implements OnInit {
   downloadPdf(): void {
     const project$ &#x3D; this.projects.read({
       route: &#x27;:id&#x27;,
-      ids: this.projectReport.project?.id,
+      ids: this.projectReport.project.id,
       query:       {
         includes: [&#x27;owner&#x27;, &#x27;members&#x27;, &#x27;members.user&#x27;, &#x27;milestones&#x27;, &#x27;milestones.estimates&#x27;],
         sparseFieldsets: {
@@ -532,48 +606,50 @@ export class ReportDetailsComponent implements OnInit {
       next: (project) &#x3D;&gt; {
         if (!project) {
           this.snackbar.showError(&#x27;PDF kann nicht erstellt werden&#x27;);
-
-          return;
+        } else {
+          this.generateAndDownloadPdf(project);
         }
-
-        this.agChart.defineOptions({
-          start: project.officialStart!,
-          end: project.officialEnd,
-          milestones: project.milestones,
-          interval: project.reportInterval,
-        });
-
-        this.agChart.dataUri$
-          .then((milestoneTrendAnalysisChart) &#x3D;&gt; {
-            this.pdf.generateProjectReport({
-              companions: project.members
-                .filter((member) &#x3D;&gt; member.role &#x3D;&#x3D;&#x3D; ProjectRole.Viewer)
-                .map((member) &#x3D;&gt; member.user),
-              deliverables: this.projectReport?.deliverables ?? &#x27;&#x27;,
-              hazards: this.projectReport?.hazards ?? &#x27;&#x27;,
-              objectives: this.projectReport?.objectives ?? &#x27;&#x27;,
-              other: this.projectReport?.other ?? &#x27;&#x27;,
-              projectTitle: project.name,
-              projectType: project.type,
-              reportDate: this.projectReport?.reportDate ?? &#x27;&#x27;,
-              reportEnd: project.officialEnd ?? &#x27;&#x27;,
-              reportInterval: project.reportInterval,
-              reportStart: project.officialStart!,
-              sequenceNumber: this.projectReport?.sequenceNumber ?? NaN,
-              students: project.members
-                .filter((member) &#x3D;&gt; member.role &#x3D;&#x3D;&#x3D; ProjectRole.Contributor)
-                .map((member) &#x3D;&gt; member.user).concat(project.owner),
-              milestoneTrendAnalysis: milestoneTrendAnalysisChart,
-            });
-          })
-          .catch((_) &#x3D;&gt; {
-            this.snackbar.showError(&#x27;MTA Diagramm konnte nicht erzeugt werden&#x27;);
-          });
       },
       error: (exception: HttpException) &#x3D;&gt; {
         this.snackbar.showException(&#x27;Daten konnten nicht geladen werden&#x27;, exception);
       }
-    })
+    });
+  }
+
+  private generateAndDownloadPdf(project: Project): void {
+    this.agChart.defineOptions({
+      start: project.officialStart,
+      end: project.officialEnd,
+      milestones: project.milestones,
+      interval: project.reportInterval,
+    });
+
+    this.agChart.dataUri$
+      .then((milestoneTrendAnalysisChart) &#x3D;&gt; {
+        this.pdf.generateProjectReport({
+          companions: project.members
+            .filter((member) &#x3D;&gt; member.role &#x3D;&#x3D;&#x3D; ProjectRole.Viewer)
+            .map((member) &#x3D;&gt; member.user),
+          deliverables: this.projectReport?.deliverables ?? &#x27;&#x27;,
+          hazards: this.projectReport?.hazards ?? &#x27;&#x27;,
+          objectives: this.projectReport?.objectives ?? &#x27;&#x27;,
+          other: this.projectReport?.other ?? &#x27;&#x27;,
+          projectTitle: project.name,
+          projectType: project.type,
+          reportDate: this.projectReport?.reportDate ?? &#x27;&#x27;,
+          reportEnd: project.officialEnd ?? &#x27;&#x27;,
+          reportInterval: project.reportInterval,
+          reportStart: project.officialStart,
+          sequenceNumber: this.projectReport?.sequenceNumber ?? NaN,
+          students: project.members
+            .filter((member) &#x3D;&gt; member.role &#x3D;&#x3D;&#x3D; ProjectRole.Contributor)
+            .map((member) &#x3D;&gt; member.user).concat(project.owner),
+          milestoneTrendAnalysis: milestoneTrendAnalysisChart,
+        });
+      })
+      .catch((_) &#x3D;&gt; {
+        this.snackbar.showError(&#x27;MTA Diagramm konnte nicht erzeugt werden&#x27;);
+      });
   }
 }
 </code></pre>

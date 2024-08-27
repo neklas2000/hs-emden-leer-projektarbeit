@@ -120,7 +120,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/validators/index.ts</code>
+            <code>src/app/validators/form-validators.ts</code>
         </p>
 
 
@@ -236,7 +236,7 @@ and <code>matchWith</code>.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/validators/index.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/validators/form-validators.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -273,7 +273,7 @@ and <code>matchWith</code>.</p>
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="111"
-                                    class="link-to-prism">src/app/validators/index.ts:111</a></div>
+                                    class="link-to-prism">src/app/validators/form-validators.ts:111</a></div>
                         </td>
                     </tr>
 
@@ -364,7 +364,7 @@ otherwise null.</p>
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/app/validators/index.ts:58</a></div>
+                                    class="link-to-prism">src/app/validators/form-validators.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -479,7 +479,7 @@ validation check fails, otherwise null.</p>
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="175"
-                                    class="link-to-prism">src/app/validators/index.ts:175</a></div>
+                                    class="link-to-prism">src/app/validators/form-validators.ts:175</a></div>
                         </td>
                     </tr>
 
@@ -561,7 +561,7 @@ error map with the property <code>matchingInputs</code> if the validation check 
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="146"
-                                    class="link-to-prism">src/app/validators/index.ts:146</a></div>
+                                    class="link-to-prism">src/app/validators/form-validators.ts:146</a></div>
                         </td>
                     </tr>
 
@@ -636,7 +636,7 @@ console.log(control).errors); // { phoneNumber: true }</code></pre></div><p>An e
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="186"
-                                    class="link-to-prism">src/app/validators/index.ts:186</a></div>
+                                    class="link-to-prism">src/app/validators/form-validators.ts:186</a></div>
                         </td>
                     </tr>
 
@@ -798,8 +798,8 @@ export class FormValidators extends Validators {
       }
 
       const diff &#x3D; this.dateService.compare(
-        control.value.toFormat(&#x27;yyyy-MM-dd&#x27;),
-        otherControl.value.toFormat(&#x27;yyyy-MM-dd&#x27;),
+        this.dateService.toString(control.value),
+        this.dateService.toString(otherControl.value),
       );
 
       if (diff % daysInterval &#x3D;&#x3D;&#x3D; 0) return null;
@@ -843,8 +843,8 @@ export class FormValidators extends Validators {
       if (!valueOfOtherControl) return null;
 
       const diff &#x3D; this.dateService.compare(
-        control.value.toFormat(&#x27;yyyy-MM-dd&#x27;),
-        valueOfOtherControl.toFormat(&#x27;yyyy-MM-dd&#x27;),
+        this.dateService.toString(control.value),
+        this.dateService.toString(valueOfOtherControl),
       );
 
       if (diff &gt; 0) return null;
@@ -870,7 +870,7 @@ export class FormValidators extends Validators {
    * An error map with the property &#x60;phoneNumber&#x60; if the validation check fails, otherwise null.
    */
   static phoneNumber(control: AbstractControl): Nullable&lt;ValidationErrors&gt; {
-    if (!control.value || String(control.value).length &#x3D;&#x3D;&#x3D; 0) return null;
+    if (!control.value) return null;
     if (isValidPhoneNumber(control.value)) return null;
 
     return {
@@ -900,7 +900,7 @@ export class FormValidators extends Validators {
    */
   static matchWith(controlName: string): ValidatorFn {
     return (control: AbstractControl): Nullable&lt;ValidationErrors&gt; &#x3D;&gt; {
-      if (!control.value || String(control.value).length &#x3D;&#x3D;&#x3D; 0) return null;
+      if (!control.value) return null;
       if (String(control.value) &#x3D;&#x3D;&#x3D; String(control.parent?.get(controlName)?.value ?? &#x27;&#x27;)) return null;
 
       return {

@@ -200,7 +200,7 @@
 import { BaseException } from &#x27;./base.exception&#x27;;
 
 export class UnauthorizedException extends BaseException {
-	constructor(cause: any) {
+	constructor(cause: any &#x3D; null) {
 		super(HttpStatus.UNAUTHORIZED, 1, {
 			message: &#x27;Unauthorized&#x27;,
 			description: &#x27;This request requires authorization provided by an access token.&#x27;,

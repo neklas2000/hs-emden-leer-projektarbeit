@@ -312,8 +312,8 @@ component within the lifycycle hook <code>OnDestroy</code>.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="84"
-                                    class="link-to-prism">src/app/services/media-matching.service.ts:84</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/services/media-matching.service.ts:80</a></div>
                         </td>
                     </tr>
 
@@ -544,10 +544,6 @@ export class MediaMatching {
    * component within the lifycycle hook &#x60;OnDestroy&#x60;.
    */
   destroy(): void {
-    if (!this.mobileQueryListener) {
-      return;
-    }
-
     for (const breakpoint in this.mobileQueries) {
       this.mobileQueries[breakpoint].removeEventListener(&#x27;change&#x27;, this.mobileQueryListener);
     }

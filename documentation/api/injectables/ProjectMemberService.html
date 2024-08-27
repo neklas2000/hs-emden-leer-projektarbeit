@@ -555,7 +555,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>update(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updatedFields: <a href="../entitys/Project.html" target="_self">DeepPartial&lt;Project&gt;</a>)</code>
+                    <code>update(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updatedFields: DeepPartial<ProjectMember>)</code>
                 </td>
             </tr>
 
@@ -598,7 +598,7 @@
                                         <tr>
                                                 <td>updatedFields</td>
                                             <td>
-                                                            <code><a href="../entitys/Project.html" target="_self" >DeepPartial&lt;Project&gt;</a></code>
+                                                        <code>DeepPartial&lt;ProjectMember&gt;</code>
                                             </td>
 
                                             <td>
@@ -709,7 +709,7 @@ export class ProjectMemberService {
 		return projectMember.save();
 	}
 
-	async update(id: string, updatedFields: DeepPartial&lt;Project&gt;): Promise&lt;boolean&gt; {
+	async update(id: string, updatedFields: DeepPartial&lt;ProjectMember&gt;): Promise&lt;boolean&gt; {
 		try {
 			const updated &#x3D; await this.projectMemberRepository.update({ id }, updatedFields);
 

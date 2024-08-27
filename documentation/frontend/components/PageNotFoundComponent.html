@@ -186,6 +186,21 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#window" >window</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -219,12 +234,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(router: Router)</code>
+<code>constructor(router: Router, windowProvider: <a href="../injectables/WindowProviderService.html" target="_self">WindowProviderService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/page-not-found/page-not-found.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/page-not-found/page-not-found.component.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -246,6 +261,18 @@
                                                   
                                                         <td>
                                                                     <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>windowProvider</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WindowProviderService.html" target="_self" >WindowProviderService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -291,8 +318,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="19"
-                                    class="link-to-prism">src/app/components/page-not-found/page-not-found.component.ts:19</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/app/components/page-not-found/page-not-found.component.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -328,8 +355,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">src/app/components/page-not-found/page-not-found.component.ts:23</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/components/page-not-found/page-not-found.component.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -346,6 +373,39 @@
         </tbody>
     </table>
 </section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>window</b></span>
+                        <a href="#window"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Window</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/page-not-found/page-not-found.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
 
 </div>
 
@@ -355,6 +415,8 @@
 import { Component } from &#x27;@angular/core&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
+
+import { WindowProviderService } from &#x27;@Services/window-provider.service&#x27;;
 
 @Component({
   selector: &#x27;hsel-page-not-found&#x27;,
@@ -367,10 +429,17 @@ import { Router } from &#x27;@angular/router&#x27;;
   ],
 })
 export class PageNotFoundComponent {
-  constructor(private readonly router: Router) {}
+  private window: Window;
 
-  goOneBack() {
-    window.history.back();
+  constructor(
+    private readonly router: Router,
+    private readonly windowProvider: WindowProviderService,
+  ) {
+    this.window &#x3D; this.windowProvider.getWindow();
+  }
+
+  goOneBack(): void {
+    this.window.history.back();
   }
 
   goToHomepage(): void {

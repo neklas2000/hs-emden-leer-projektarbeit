@@ -248,7 +248,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>    <code>(req: Request) &#x3D;&gt; string</code>
+                            <b>Returns : </b>    <code>JwtFromRequestFunction&lt;Request&gt;</code>
 
                         </div>
                 </td>
@@ -346,7 +346,7 @@
 import { PassportStrategy } from &#x27;@nestjs/passport&#x27;;
 
 import { Request } from &#x27;express&#x27;;
-import { ExtractJwt, Strategy } from &#x27;passport-jwt&#x27;;
+import { ExtractJwt, JwtFromRequestFunction, Strategy } from &#x27;passport-jwt&#x27;;
 
 import env from &#x27;@Environment&#x27;;
 import { TokenWhitelistService } from &#x27;@Services/token-whitelist.service&#x27;;
@@ -360,7 +360,7 @@ type JwtPayload &#x3D; {
 
 @Injectable()
 export class AccessTokenStrategy extends PassportStrategy(Strategy, &#x27;jwt&#x27;) {
-	public static fromCookie() {
+	public static fromCookie(): JwtFromRequestFunction&lt;Request&gt; {
 		return (req: Request): string | null &#x3D;&gt; {
 			if (req.cookies &amp;&amp; Object.hasOwn(req.cookies, ACCESS_TOKEN_COOKIE)) {
 				return req.cookies[ACCESS_TOKEN_COOKIE];

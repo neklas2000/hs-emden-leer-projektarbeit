@@ -205,8 +205,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="42"
-                                    class="link-to-prism">src/controllers/authentication.controller.ts:42</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/controllers/authentication.controller.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -294,8 +294,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="72"
-                                    class="link-to-prism">src/controllers/authentication.controller.ts:72</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/controllers/authentication.controller.ts:63</a></div>
                         </td>
                     </tr>
 
@@ -383,8 +383,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="94"
-                                    class="link-to-prism">src/controllers/authentication.controller.ts:94</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/controllers/authentication.controller.ts:84</a></div>
                         </td>
                     </tr>
 
@@ -457,7 +457,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>register(payload: <a href="../undefineds/RegisterPayload.html" target="_self">RegisterPayload</a>)</code>
+                    <code>register(payload: <a href="../undefineds/RegisterPayload.html" target="_self">RegisterPayload</a>, res: Response)</code>
                 </td>
             </tr>
 
@@ -471,8 +471,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/controllers/authentication.controller.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">src/controllers/authentication.controller.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -496,6 +496,18 @@
                                                 <td>payload</td>
                                             <td>
                                                             <code><a href="../miscellaneous/typealiases.html#RegisterPayload" target="_self" >RegisterPayload</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>res</td>
+                                            <td>
+                                                        <code>Response</code>
                                             </td>
 
                                             <td>
@@ -528,7 +540,6 @@ import { Response } from &#x27;express&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 
 import { User } from &#x27;@Decorators/user.decorator&#x27;;
-import env from &#x27;@Environment&#x27;;
 import { AccessTokenGuard } from &#x27;@Guards/access-token.guard&#x27;;
 import { RefreshTokenGuard } from &#x27;@Guards/refresh-token.guard&#x27;;
 import {
@@ -536,9 +547,7 @@ import {
 	RegisterPayload,
 	TokensWithUserResponse,
 } from &#x27;@Services/authentication.service&#x27;;
-import { DateService } from &#x27;@Services/date.service&#x27;;
-import { ACCESS_TOKEN_COOKIE } from &#x27;@Tokens/access-token-cookie&#x27;;
-import { REFRESH_TOKEN_COOKIE } from &#x27;@Tokens/refresh-token-cookie&#x27;;
+import { CookieService } from &#x27;@Services/cookie.service&#x27;;
 import { Success as LogoutResult } from &#x27;@Types/success&#x27;;
 import { promiseToObservable } from &#x27;@Utils/promise-to-oberservable&#x27;;
 
@@ -551,15 +560,21 @@ type AuthenticationPayload &#x3D; {
 export class AuthenticationController {
 	constructor(
 		private readonly authenticationService: AuthenticationService,
-		private readonly date: DateService,
+		private readonly cookies: CookieService,
 	) {}
 
 	@Post(&#x27;register&#x27;)
 	register(
 		@Body()
 		payload: RegisterPayload,
+		@Res({ passthrough: true })
+		res: Response,
 	): Observable&lt;TokensWithUserResponse&gt; {
-		return promiseToObservable(this.authenticationService.register(payload));
+		return promiseToObservable(this.authenticationService.register(payload), (result) &#x3D;&gt; {
+			this.cookies.set(result, res);
+
+			return result;
+		});
 	}
 
 	@Post(&#x27;login&#x27;)
@@ -572,19 +587,7 @@ export class AuthenticationController {
 		return promiseToObservable(
 			this.authenticationService.login(payload.email, payload.password),
 			(result) &#x3D;&gt; {
-				res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: &#x27;lax&#x27;,
-					expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
-				});
-
-				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: &#x27;lax&#x27;,
-					expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
-				});
+				this.cookies.set(result, res);
 
 				return result;
 			},
@@ -602,11 +605,10 @@ export class AuthenticationController {
 		return promiseToObservable(this.authenticationService.logout(user[&#x27;sub&#x27;]), (result) &#x3D;&gt; {
 			let success &#x3D; false;
 
-			if (result.affected &amp;&amp; result.affected &#x3D;&#x3D;&#x3D; 1) success &#x3D; true;
+			if (result?.affected &#x3D;&#x3D;&#x3D; 1) success &#x3D; true;
 
 			if (success) {
-				res.clearCookie(ACCESS_TOKEN_COOKIE);
-				res.clearCookie(REFRESH_TOKEN_COOKIE);
+				this.cookies.clear(res);
 			}
 
 			return { success } as LogoutResult;
@@ -627,19 +629,7 @@ export class AuthenticationController {
 		return promiseToObservable(
 			this.authenticationService.refreshTokens(userEmail, refreshToken),
 			(result) &#x3D;&gt; {
-				res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: &#x27;lax&#x27;,
-					expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
-				});
-
-				res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, {
-					httpOnly: true,
-					secure: true,
-					sameSite: &#x27;lax&#x27;,
-					expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
-				});
+				this.cookies.set(result, res);
 
 				return result;
 			},

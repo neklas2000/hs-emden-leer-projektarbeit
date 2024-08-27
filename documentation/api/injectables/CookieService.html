@@ -92,7 +92,7 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >RefreshTokenStrategy</li>
+  <li class="breadcrumb-item" >CookieService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -116,17 +116,11 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/strategies/refresh-token.strategy.ts</code>
+            <code>src/services/cookie.service.ts</code>
         </p>
 
 
 
-            <p class="comment">
-                <h3>Extends</h3>
-            </p>
-            <p class="comment">
-                        <code>PassportStrategy(Strategy, &#x27;jwt-refresh&#x27;)</code>
-            </p>
 
 
             <section data-compodoc="block-index">
@@ -143,12 +137,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Static</span>
-                                <a href="#fromCookie" >fromCookie</a>
+                                <a href="#clear" >clear</a>
                             </li>
                             <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#validate" >validate</a>
+                                <a href="#set" >set</a>
                             </li>
                         </ul>
                     </td>
@@ -168,12 +160,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(tokenWhitelistService: <a href="../injectables/TokenWhitelistService.html" target="_self">TokenWhitelistService</a>)</code>
+<code>constructor(date: <a href="../injectables/DateService.html" target="_self">DateService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/strategies/refresh-token.strategy.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/services/cookie.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -191,10 +183,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>tokenWhitelistService</td>
+                                                        <td>date</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/TokenWhitelistService.html" target="_self" >TokenWhitelistService</a></code>
+                                                                        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -220,65 +212,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="fromCookie"></a>
+                    <a name="clear"></a>
                     <span class="name">
-                            <span class="modifier">Static</span>
-                        <span ><b>fromCookie</b></span>
-                        <a href="#fromCookie"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>clear</b></span>
+                        <a href="#clear"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>fromCookie()</code>
+<code>clear(response: Response)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="19"
-                                    class="link-to-prism">src/strategies/refresh-token.strategy.ts:19</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>JwtFromRequestFunction&lt;Request&gt;</code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="validate"></a>
-                    <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>validate</b></span>
-                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validate(request: Request, payload: <a href="../undefineds/JwtPayload.html" target="_self">JwtPayload</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="40"
-                                    class="link-to-prism">src/strategies/refresh-token.strategy.ts:40</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">src/services/cookie.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -299,21 +250,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>request</td>
+                                                <td>response</td>
                                             <td>
-                                                        <code>Request</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>payload</td>
-                                            <td>
-                                                            <code><a href="../miscellaneous/typealiases.html#JwtPayload" target="_self" >JwtPayload</a></code>
+                                                        <code>Response</code>
                                             </td>
 
                                             <td>
@@ -326,7 +265,86 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="set"></a>
+                    <span class="name">
+                        <span ><b>set</b></span>
+                        <a href="#set"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>set(tokens: <a href="../undefineds/TokensWithUserResponse.html" target="_self">TokensWithUserResponse</a>, response: Response)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="15"
+                                    class="link-to-prism">src/services/cookie.service.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tokens</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#TokensWithUserResponse" target="_self" >TokensWithUserResponse</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>response</td>
+                                            <td>
+                                                        <code>Response</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -342,62 +360,39 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Req, UnauthorizedException } from &#x27;@nestjs/common&#x27;;
-import { PassportStrategy } from &#x27;@nestjs/passport&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
 
-import { Request } from &#x27;express&#x27;;
-import { ExtractJwt, JwtFromRequestFunction, Strategy } from &#x27;passport-jwt&#x27;;
+import { Response } from &#x27;express&#x27;;
 
 import env from &#x27;@Environment&#x27;;
-import { TokenWhitelistService } from &#x27;@Services/token-whitelist.service&#x27;;
+import { TokensWithUserResponse } from &#x27;@Services/authentication.service&#x27;;
+import { DateService } from &#x27;@Services/date.service&#x27;;
+import { ACCESS_TOKEN_COOKIE } from &#x27;@Tokens/access-token-cookie&#x27;;
 import { REFRESH_TOKEN_COOKIE } from &#x27;@Tokens/refresh-token-cookie&#x27;;
-import { Nullable } from &#x27;@Types/nullable&#x27;;
-
-type JwtPayload &#x3D; {
-	sub: string;
-	email: string;
-};
 
 @Injectable()
-export class RefreshTokenStrategy extends PassportStrategy(Strategy, &#x27;jwt-refresh&#x27;) {
-	public static fromCookie(): JwtFromRequestFunction&lt;Request&gt; {
-		return (req: Request): string | null &#x3D;&gt; {
-			if (req.cookies &amp;&amp; Object.hasOwn(req.cookies, REFRESH_TOKEN_COOKIE)) {
-				return req.cookies[REFRESH_TOKEN_COOKIE];
-			}
+export class CookieService {
+	constructor(private readonly date: DateService) {}
 
-			return null;
-		};
-	}
+	set(tokens: TokensWithUserResponse, response: Response): void {
+		response.cookie(ACCESS_TOKEN_COOKIE, tokens.accessToken, {
+			httpOnly: true,
+			secure: true,
+			sameSite: &#x27;lax&#x27;,
+			expires: this.date.getExpirationDateWithOffset(env.ACCESS_TOKEN_EXPIRATION),
+		});
 
-	constructor(private readonly tokenWhitelistService: TokenWhitelistService) {
-		super({
-			jwtFromRequest: ExtractJwt.fromExtractors([
-				RefreshTokenStrategy.fromCookie(),
-				ExtractJwt.fromAuthHeaderAsBearerToken(),
-			]),
-			secretOrKey: env.JWT_REFRESH_SECRET,
-			passReqToCallback: true,
+		response.cookie(REFRESH_TOKEN_COOKIE, tokens.refreshToken, {
+			httpOnly: true,
+			secure: true,
+			sameSite: &#x27;lax&#x27;,
+			expires: this.date.getExpirationDateWithOffset(env.REFRESH_TOKEN_EXPIRATION),
 		});
 	}
 
-	async validate(@Req() request: Request, payload: JwtPayload) {
-		let refreshToken: Nullable&lt;string&gt; &#x3D; RefreshTokenStrategy.fromCookie()(request);
-
-		if (!refreshToken) {
-			refreshToken &#x3D; ExtractJwt.fromAuthHeaderAsBearerToken()(request);
-		}
-
-		const verified &#x3D; await this.tokenWhitelistService.verifyRefreshToken(payload.sub, refreshToken);
-
-		if (!verified) {
-			throw new UnauthorizedException();
-		}
-
-		return {
-			...payload,
-			refreshToken,
-		};
+	clear(response: Response): void {
+		response.clearCookie(ACCESS_TOKEN_COOKIE);
+		response.clearCookie(REFRESH_TOKEN_COOKIE);
 	}
 }
 </code></pre>
@@ -443,7 +438,7 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, &#x27;jwt-r
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'RefreshTokenStrategy.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'CookieService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -166,7 +166,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
                             <li class="link">
-                                <a href="classes/Categories.html" data-type="entity-link" >Categories</a>
+                                <a href="classes/ChartCategories.html" data-type="entity-link" >ChartCategories</a>
                             </li>
                             <li class="link">
                                 <a href="classes/FormValidators.html" data-type="entity-link" >FormValidators</a>
@@ -212,6 +212,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/NotFoundService.html" data-type="entity-link" >NotFoundService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/PdfMakeProviderService.html" data-type="entity-link" >PdfMakeProviderService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/PdfService.html" data-type="entity-link" >PdfService</a>
                                 </li>
                                 <li class="link">
@@ -243,6 +246,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/UserService.html" data-type="entity-link" >UserService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/UtilityProviderService.html" data-type="entity-link" >UtilityProviderService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/WindowProviderService.html" data-type="entity-link" >WindowProviderService</a>
                                 </li>
                             </ul>
                         </li>
