@@ -23,7 +23,6 @@ services:
     expose:
       - '${API_PORT}'
     environment:
-      BASE_URL: ${BASE_URL}
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
