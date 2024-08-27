@@ -9,8 +9,8 @@ Content-Type: application/json
 
 ###
 
-@accessToken = {{ LoginRequest.response.body.accessToken }}
-@refreshToken = {{ LoginRequest.response.body.refreshToken }}
+@accessToken = {{ LoginRequest.response.body.data.accessToken }}
+@refreshToken = {{ LoginRequest.response.body.data.refreshToken }}
 
 ###
 

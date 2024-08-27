@@ -42,7 +42,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "./server.ts"
+    "./server.ts",
+    "test/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

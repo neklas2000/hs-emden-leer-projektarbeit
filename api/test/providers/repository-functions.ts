@@ -29,4 +29,6 @@ export const createRepositoryFunctions = <T>() => ({
 			partialEntity,
 		});
 	},
+	insert: (entityLike: DeepPartial<T>) => Promise.resolve(entityLike),
+	createQueryBuilder: (tableAlias: string) => tableAlias,
 });
