@@ -8,13 +8,16 @@ import { DateService } from '@Services/date.service';
 describe('Filter: AllExceptionsFilter', () => {
 	let filter: AllExceptionsFilter;
 	let httpAdapterHost: HttpAdapterHost;
-	const oldEnv = { ...process.env };
+	let oldEnvironment: NodeJS.ProcessEnv;
 
-	beforeEach(async () => {
+	beforeAll(() => {
+		oldEnvironment = { ...process.env };
 		process.env.TZ = 'Europe/Berlin';
 		jest.useFakeTimers();
 		jest.setSystemTime(new Date('2024-01-01T06:00:00'));
+	});
 
+	beforeEach(async () => {
 		const module = await Test.createTestingModule({
 			providers: [
 				AllExceptionsFilter,
@@ -37,87 +40,89 @@ describe('Filter: AllExceptionsFilter', () => {
 		filter = module.get(AllExceptionsFilter);
 	});
 
-	afterEach(() => {
+	afterAll(() => {
 		jest.useRealTimers();
-		process.env = oldEnv;
+		process.env = oldEnvironment;
 	});
 
-	it('should be created', () => {
+	it('should create', () => {
 		expect(httpAdapterHost).toBeTruthy();
 		expect(filter).toBeTruthy();
 	});
 
-	it('should reply an internal server error exception', () => {
-		const context = {
-			getResponse: () => {},
-			getRequest: () => {},
-		};
-		const argumentHost = {
-			switchToHttp: () => context,
-		} as any;
+	describe('catch(any, ArgumentsHost): void', () => {
+		it('should reply an internal server error exception', () => {
+			const context = {
+				getResponse: () => {},
+				getRequest: () => {},
+			};
+			const argumentHost = {
+				switchToHttp: () => context,
+			} as any;
 
-		jest.spyOn(context, 'getResponse').mockReturnValue({ type: 'response' } as any);
-		jest.spyOn(context, 'getRequest').mockReturnValue({ type: 'request' } as any);
-		jest.spyOn(argumentHost, 'switchToHttp');
-		jest.spyOn(httpAdapterHost.httpAdapter, 'getRequestUrl').mockReturnValue('request path');
-		jest.spyOn(httpAdapterHost.httpAdapter, 'reply');
+			jest.spyOn(context, 'getResponse').mockReturnValue({ type: 'response' } as any);
+			jest.spyOn(context, 'getRequest').mockReturnValue({ type: 'request' } as any);
+			jest.spyOn(argumentHost, 'switchToHttp');
+			jest.spyOn(httpAdapterHost.httpAdapter, 'getRequestUrl').mockReturnValue('request path');
+			jest.spyOn(httpAdapterHost.httpAdapter, 'reply');
 
-		filter.catch(
-			{
-				code: 'HSEL-500-001',
-			},
-			argumentHost,
-		);
+			filter.catch(
+				{
+					code: 'HSEL-500-001',
+				},
+				argumentHost,
+			);
 
-		expect(argumentHost.switchToHttp).toHaveBeenCalled();
-		expect(context.getRequest).toHaveBeenCalled();
-		expect(httpAdapterHost.httpAdapter.getRequestUrl).toHaveBeenCalledWith({ type: 'request' });
-		expect(httpAdapterHost.httpAdapter.reply).toHaveBeenCalledWith(
-			{
-				type: 'response',
-			},
-			{
-				timestamp: '2024-01-01T06:00:00Z',
-				path: 'request path',
-				code: 'HSEL-500-001',
-				status: HttpStatus.INTERNAL_SERVER_ERROR,
-			},
-			HttpStatus.INTERNAL_SERVER_ERROR,
-		);
-	});
+			expect(argumentHost.switchToHttp).toHaveBeenCalled();
+			expect(context.getRequest).toHaveBeenCalled();
+			expect(httpAdapterHost.httpAdapter.getRequestUrl).toHaveBeenCalledWith({ type: 'request' });
+			expect(httpAdapterHost.httpAdapter.reply).toHaveBeenCalledWith(
+				{
+					type: 'response',
+				},
+				{
+					timestamp: '2024-01-01T06:00:00Z',
+					path: 'request path',
+					code: 'HSEL-500-001',
+					status: HttpStatus.INTERNAL_SERVER_ERROR,
+				},
+				HttpStatus.INTERNAL_SERVER_ERROR,
+			);
+		});
 
-	it('should reply the provided http exception', () => {
-		const context = {
-			getResponse: () => {},
-			getRequest: () => {},
-		};
-		const argumentHost = {
-			switchToHttp: () => context,
-		} as any;
+		it('should reply the provided http exception', () => {
+			const context = {
+				getResponse: () => {},
+				getRequest: () => {},
+			};
+			const argumentHost = {
+				switchToHttp: () => context,
+			} as any;
 
-		jest.spyOn(context, 'getResponse').mockReturnValue({ type: 'response' } as any);
-		jest.spyOn(context, 'getRequest').mockReturnValue({ type: 'request' } as any);
-		jest.spyOn(argumentHost, 'switchToHttp');
-		jest.spyOn(httpAdapterHost.httpAdapter, 'getRequestUrl').mockReturnValue('request path');
-		jest.spyOn(httpAdapterHost.httpAdapter, 'reply');
-		const exception = new HttpException('exception message', HttpStatus.NOT_FOUND);
+			jest.spyOn(context, 'getResponse').mockReturnValue({ type: 'response' } as any);
+			jest.spyOn(context, 'getRequest').mockReturnValue({ type: 'request' } as any);
+			jest.spyOn(argumentHost, 'switchToHttp');
+			jest.spyOn(httpAdapterHost.httpAdapter, 'getRequestUrl').mockReturnValue('request path');
+			jest.spyOn(httpAdapterHost.httpAdapter, 'reply');
+			const exception = new HttpException('exception message', HttpStatus.NOT_FOUND);
 
-		filter.catch(exception, argumentHost);
+			filter.catch(exception, argumentHost);
 
-		expect(argumentHost.switchToHttp).toHaveBeenCalled();
-		expect(context.getRequest).toHaveBeenCalled();
-		expect(httpAdapterHost.httpAdapter.getRequestUrl).toHaveBeenCalledWith({ type: 'request' });
-		expect(httpAdapterHost.httpAdapter.reply).toHaveBeenCalledWith(
-			{
-				type: 'response',
-			},
-			{
-				timestamp: '2024-01-01T06:00:00Z',
-				path: 'request path',
-				...Object(exception.getResponse()),
-				status: HttpStatus.NOT_FOUND,
-			},
-			HttpStatus.NOT_FOUND,
-		);
+			expect(argumentHost.switchToHttp).toHaveBeenCalled();
+			expect(context.getRequest).toHaveBeenCalled();
+			expect(httpAdapterHost.httpAdapter.getRequestUrl).toHaveBeenCalledWith({ type: 'request' });
+			expect(httpAdapterHost.httpAdapter.reply).toHaveBeenCalledWith(
+				{
+					type: 'response',
+				},
+				{
+					timestamp: '2024-01-01T06:00:00Z',
+					path: 'request path',
+					...Object(exception.getResponse()),
+					status: HttpStatus.NOT_FOUND,
+				},
+				HttpStatus.NOT_FOUND,
+			);
+		});
 	});
 });

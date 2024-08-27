@@ -15,7 +15,7 @@ describe('Util: promiseToObservable', () => {
 		expect(observable$).toBeInstanceOf(Observable);
 
 		observable$.pipe(take(1)).subscribe((result) => {
-			expect(result).toBeTruthy();
+			expect(result).toBe(true);
 
 			done();
 		});
