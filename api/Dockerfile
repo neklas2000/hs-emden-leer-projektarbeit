@@ -8,7 +8,6 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-ENV NODE_ENV production
 RUN npm run build
 
 FROM node:18-alpine

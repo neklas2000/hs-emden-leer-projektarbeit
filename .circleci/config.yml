@@ -134,7 +134,7 @@ jobs:
           name: Building API
           command: |
             cd api
-            npm run build:prod
+            npm run build
 
   api_deploy:
     working_directory: ~/project
