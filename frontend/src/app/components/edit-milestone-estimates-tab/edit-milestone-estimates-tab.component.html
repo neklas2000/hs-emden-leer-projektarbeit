@@ -64,7 +64,10 @@
       <mat-checkbox formControlName="milestoneReached">Meilenstein erreicht?</mat-checkbox>
     </form>
   </mat-card-content>
-  <mat-card-actions align="end" class="gap-x-4">
+  <mat-card-actions align="end" class="gap-x-2">
+    <button mat-raised-button color="accent" (click)="onBack()">
+      Zurück
+    </button>
     <button mat-raised-button (click)="onMilestoneDelete()" color="warn">
       Meilenstein löschen
     </button>

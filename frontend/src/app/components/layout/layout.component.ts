@@ -10,7 +10,7 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
-import { RouterOutlet, RouterModule, Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { RouterOutlet, RouterModule, Router, NavigationStart, EventType } from '@angular/router';
 
 import { Subscription, take } from 'rxjs';
 
@@ -145,7 +145,13 @@ export class LayoutComponent extends MediaMatching implements OnInit, OnDestroy 
       if (ev instanceof NavigationStart) {
         this.navigationSuccessful = true;
         this.isLoading = true;
-      } else if (ev instanceof NavigationEnd) {
+      } else if (
+        [
+          EventType.NavigationEnd,
+          EventType.NavigationCancel,
+          EventType.NavigationSkipped,
+        ].includes(ev.type)
+      ) {
         this.isLoading = false;
       }
     });

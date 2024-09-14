@@ -27,6 +27,7 @@ import { DialogService } from '@Services/dialog.service';
 import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
+import { WindowProviderService } from '@Services/window-provider.service';
 import { DeepPartial, Nullable } from '@Types';
 import { HttpException } from '@Utils/http-exception';
 import { FormValidators } from '@Validators';
@@ -67,6 +68,7 @@ export class EditMilestoneEstimatesTabComponent implements OnInit, OnDestroy {
   estimateControls: EstimateAndControl[] = [];
   maxDate: Nullable<DateTime> = null;
   private milestoneReachedChangesSubscription!: Subscription;
+  private readonly window: Window;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -75,7 +77,10 @@ export class EditMilestoneEstimatesTabComponent implements OnInit, OnDestroy {
     private readonly dialog: DialogService,
     private readonly snackbar: SnackbarService,
     private readonly date: DateService,
-  ) { }
+    private readonly windowProvider: WindowProviderService,
+  ) {
+    this.window = this.windowProvider.getWindow();
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -319,5 +324,9 @@ export class EditMilestoneEstimatesTabComponent implements OnInit, OnDestroy {
     } else {
       this.form.enable({ emitEvent: false });
     }
+  }
+
+  onBack(): void {
+    this.window.history.back();
   }
 }

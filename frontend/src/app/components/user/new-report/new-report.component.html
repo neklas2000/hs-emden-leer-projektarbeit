@@ -4,7 +4,7 @@
       <form [formGroup]="form">
         <mat-form-field class="w-full">
           <mat-label aria-required="true">Berichtszeitpunkt</mat-label>
-          <input [matDatepicker]="dpReportDate" formControlName="reportDate" matInput required />
+          <input [matDatepicker]="dpReportDate" [matDatepickerFilter]="boundFilterEndDate" formControlName="reportDate" matInput required />
           <mat-datepicker-toggle [for]="dpReportDate" matIconSuffix></mat-datepicker-toggle>
           <mat-datepicker #dpReportDate></mat-datepicker>
           @if (form.get('reportDate')?.hasError('required')) {
@@ -58,7 +58,7 @@
   </mat-card>
   <mat-card>
     <mat-card-actions align="end">
-      <button (click)="onCancelClick()" color="accent" class="mr-4" mat-raised-button>
+      <button (click)="onCancelClick()" color="accent" class="mr-2" mat-raised-button>
         Abbrechen
       </button>
       <button (click)="onSaveClick()" [disabled]="invalid" color="primary" mat-raised-button>

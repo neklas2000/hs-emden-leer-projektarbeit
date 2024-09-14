@@ -1,39 +1,40 @@
 <div class="markdown-editor-and-preview">
   <section class="markdown-editor-buttons" #editorButtons>
-    <button mat-icon-button matTooltip='Bold' (click)="formatBold()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Bold' (click)="formatBold()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>format_bold</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Italic' (click)="formatItalic()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Italic' (click)="formatItalic()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>format_italic</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Heading' (click)="formatHeading()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Heading' (click)="formatHeading()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>format_size</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Strikethrough' (click)="formatStrikethrough()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Strikethrough' (click)="formatStrikethrough()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>format_strikethrough</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Unordered list' (click)="formatBulletList()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Unordered list' (click)="formatBulletList()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>format_list_bulleted</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Ordered list' (click)="formatNumberedList()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Ordered list' (click)="formatNumberedList()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>format_list_numbered</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Task List' (click)="formatTaskList()" [disabled]="previewOpen">
+    <!-- TODO: Optimize the checkbox of the task -->
+    <!-- <button mat-icon-button matTooltip='Task List' (click)="formatTaskList()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>checklist</mat-icon>
-    </button>
-    <button mat-icon-button matTooltip='Blockquote' (click)="formatQuote()" [disabled]="previewOpen">
+    </button> -->
+    <button mat-icon-button matTooltip='Blockquote' (click)="formatQuote()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>format_quote</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Code' (click)="formatCode()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Code' (click)="formatCode()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>code</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Table' (click)="formatTable()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Table' (click)="formatTable()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>table_chart</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Link' (click)="formatLink()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Link' (click)="formatLink()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>link</mat-icon>
     </button>
-    <button mat-icon-button matTooltip='Image' (click)="formatImage()" [disabled]="previewOpen">
+    <button mat-icon-button matTooltip='Image' (click)="formatImage()" [disabled]="previewOpen || !hasCursorBeenPlaced">
       <mat-icon>image</mat-icon>
     </button>
     <button

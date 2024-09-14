@@ -82,8 +82,10 @@ export class EditProjectComponent implements OnInit, OnDestroy {
       .subscribe((_) => {
         const control = this.form.get('endDate')!;
 
-        if (control.dirty) {
-          control.updateValueAndValidity();
+        if (control.dirty || !!control.value) {
+          control.updateValueAndValidity({ emitEvent: false, onlySelf: true });
+          control.markAsDirty({ onlySelf: true });
+          control.markAsTouched({ onlySelf: true });
         }
       });
 
@@ -91,8 +93,10 @@ export class EditProjectComponent implements OnInit, OnDestroy {
       .subscribe((_) => {
         const control = this.form.get('endDate')!;
 
-        if (control.dirty) {
-          control.updateValueAndValidity();
+        if (control.dirty || !!control.value) {
+          control.updateValueAndValidity({ emitEvent: false, onlySelf: true });
+          control.markAsDirty({ onlySelf: true });
+          control.markAsTouched({ onlySelf: true });
         }
       });
 

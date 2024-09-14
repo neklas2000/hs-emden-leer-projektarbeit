@@ -1,5 +1,6 @@
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, SecurityContext } from '@angular/core';
+import { DefaultValueAccessor } from '@angular/forms';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -12,6 +13,16 @@ import { CHECKED_CHECKBOX, UNCHECKED_CHECKBOX } from '../constants';
 import { AuthenticationInterceptor } from '@Interceptors/authentication.interceptor';
 import { credentialsInterceptor } from '@Interceptors/credentials.interceptor';
 import { AuthenticationService } from '@Services/authentication.service';
+
+const originalRegisterOnChange = DefaultValueAccessor.prototype.registerOnChange;
+
+DefaultValueAccessor.prototype.registerOnChange = function (fn) {
+  return originalRegisterOnChange.call(this, value => {
+    const trimmed = (typeof value === 'string') ? value.trim() : value;
+
+    return fn(trimmed);
+  });
+};
 
 /**
  * @description

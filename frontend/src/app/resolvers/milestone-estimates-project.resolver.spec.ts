@@ -13,7 +13,7 @@ import { Nullable } from '@Types';
 describe('Resolver: milestoneEstimatesProjectResolver', () => {
   const executeResolver: ResolveFn<Nullable<Observable<Nullable<Project>>>> =
     (...resolverParameters) => TestBed.runInInjectionContext(
-      () => milestoneEstimatesProjectResolver(...resolverParameters),
+      () => milestoneEstimatesProjectResolver()(...resolverParameters),
     );
   let project: ProjectService;
   let notFound: NotFoundService;
@@ -64,8 +64,10 @@ describe('Resolver: milestoneEstimatesProjectResolver', () => {
         route: ':id',
         ids: 'b16d42fe-60a6-4cdc-84a3-313260320a1e',
         query: {
+          includes: ['reports'],
           sparseFieldsets: {
             project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
+            reports: ['id', 'sequenceNumber', 'reportDate'],
           },
         },
       });
@@ -93,8 +95,10 @@ describe('Resolver: milestoneEstimatesProjectResolver', () => {
         route: ':id',
         ids: 'b16d42fe-60a6-4cdc-84a3-313260320a1e',
         query: {
+          includes: ['reports'],
           sparseFieldsets: {
             project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
+            reports: ['id', 'sequenceNumber', 'reportDate'],
           },
         },
       });

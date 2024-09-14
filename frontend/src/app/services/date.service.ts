@@ -113,7 +113,8 @@ export class DateService {
       end = end.toFormat('yyyy-MM-dd');
     }
 
-    if (this.compare(start, date) % interval !== 0) return false;
+    const diff = this.compare(date, start);
+    if (diff < 0 || diff % interval !== 0) return false;
     if (!end) return true;
 
     return this.compare(date, end) <= 0;

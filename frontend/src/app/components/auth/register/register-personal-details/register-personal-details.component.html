@@ -1,25 +1,25 @@
 <form [formGroup]="form" class="flex flex-col">
   <mat-form-field class="w-full">
     <mat-label>Akademischer Titel</mat-label>
-    <input type="text" formControlName="academicTitle" matInput />
+    <input type="text" formControlName="academicTitle" tabindex="0" matInput />
   </mat-form-field>
   <mat-form-field class="w-full">
     <mat-label aria-required="true">Vorname</mat-label>
-    <input type="text" formControlName="firstName" aria-required="true" required matInput />
+    <input type="text" formControlName="firstName" tabindex="1" aria-required="true" required matInput />
     @if (form.get('firstName')?.hasError('required')) {
       <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
     }
   </mat-form-field>
   <mat-form-field class="w-full">
     <mat-label aria-required="true">Nachname</mat-label>
-    <input type="text" formControlName="lastName" aria-required="true" required matInput />
+    <input type="text" formControlName="lastName" tabindex="2" aria-required="true" required matInput />
     @if (form.get('lastName')?.hasError('required')) {
       <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
     }
   </mat-form-field>
   <mat-form-field class="w-full" subscriptSizing="dynamic">
     <mat-label>Matrikelnummer</mat-label>
-    <input type="number" min="1" formControlName="matriculationNumber" pattern="\d+" matInput />
+    <input type="number" min="1" formControlName="matriculationNumber" tabindex="3" pattern="\d+" matInput />
     @if (form.get('matriculationNumber')?.hasError('pattern')) {
       <mat-error>Für die Matrikelnummer wird eine Ganzzahl erwartet</mat-error>
     }
@@ -30,15 +30,15 @@
   </mat-form-field>
   <mat-form-field class="w-full">
     <mat-label>Telefonnummer</mat-label>
-    <input type="text" formControlName="phoneNumber" matInput />
+    <input type="text" formControlName="phoneNumber" tabindex="4" matInput />
     <mat-icon matPrefix>phone</mat-icon>
     @if (form.get('phoneNumber')?.hasError('phoneNumber')) {
       <mat-error>Das Format der Telefonnummer ist nicht korrekt</mat-error>
     }
   </mat-form-field>
   <div class="mt-8 flex flex-row justify-end">
-    <button (click)="onBackClick()" mat-button>Zurück</button>
-    <button (click)="onCancelClick()" color="accent" mat-button>Abbrechen</button>
-    <button type="submit" (click)="onNextClick()" [disabled]="form.invalid" color="primary" mat-button>Registrieren</button>
+    <button (click)="onBackClick()" tabindex="7" mat-button>Zurück</button>
+    <button (click)="onCancelClick()" tabindex="6" color="accent" mat-button>Abbrechen</button>
+    <button type="submit" (click)="onNextClick()" tabindex="5" [disabled]="form.invalid" color="primary" mat-button>Registrieren</button>
   </div>
 </form>

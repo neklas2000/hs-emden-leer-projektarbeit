@@ -47,14 +47,14 @@
     </mat-card-content>
     @if (project.owner.id === userId) {
       <mat-card-actions class="!justify-end">
-        <button (click)="deleteProject()" mat-button>
+        <button (click)="deleteProject()" color="warn" mat-button>
           Projekt unwiderruflich löschen
         </button>
       </mat-card-actions>
     }
   </mat-card>
-  <div class="flex flex-row gap-x-4">
-    <mat-card style="flex: 50%;">
+  <div class="flex gt-md:flex-row gt-md:gap-x-4 lt-md:flex-col lt-md:gap-y-4">
+    <mat-card class="gt-md:flex-1/2 lt-md:flex-fit">
       <mat-card-header>
         <mat-card-title>Studierende</mat-card-title>
       </mat-card-header>
@@ -82,6 +82,10 @@
                 </span>
               }
             </mat-list-item>
+          } @empty {
+            <mat-list-item>
+              <span matListItemTitle>Das Projekt hat noch keine Studierenden als Mitglieder</span>
+            </mat-list-item>
           }
         </mat-list>
       </mat-card-content>
@@ -91,7 +95,7 @@
         </button>
       </mat-card-actions>
     </mat-card>
-    <mat-card style="flex: 50%;">
+    <mat-card class="gt-md:flex-1/2 lt-md:flex-fit">
       <mat-card-header>
         <mat-card-title>Betreuer</mat-card-title>
       </mat-card-header>
@@ -133,8 +137,8 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  <div class="flex flex-row gap-x-4">
-    <mat-card style="flex: 50%;">
+  <div class="flex gt-md:flex-row gt-md:gap-x-4 lt-md:flex-col lt-md:gap-y-4">
+    <mat-card class="gt-md:flex-1/2 lt-md:flex-fit">
       <mat-card-header>
         <mat-card-title>Projektberichte</mat-card-title>
       </mat-card-header>
@@ -170,7 +174,7 @@
         </button>
       </mat-card-actions>
     </mat-card>
-    <mat-card style="flex: 50%;">
+    <mat-card class="gt-md:flex-1/2 lt-md:flex-fit">
       <mat-card-header>
         <mat-card-title>Meilensteine</mat-card-title>
       </mat-card-header>
@@ -184,7 +188,7 @@
                 <mat-icon style="color: var(--pending);" matTooltip="Noch in Arbeit" matListItemIcon>pending</mat-icon>
               }
               <span class="flex flex-row justify-between items-center" matListItemTitle>
-                {{ milestone.name }}
+                <span>{{ milestone.name }}</span>
                 <button (click)="deleteMilestone($index)" mat-icon-button>
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -198,7 +202,7 @@
         </mat-list>
       </mat-card-content>
       <mat-card-actions align='end'>
-        <button class="mr-4" [routerLink]="['milestones/edit']" mat-button>
+        <button class="mr-2" [routerLink]="['milestones/edit']" mat-button>
           Meilensteine bearbeiten
         </button>
         <button (click)="onNewMilestoneClick()" mat-button>
@@ -217,7 +221,7 @@
   #chart>
 </hsel-milestone-trend-analysis-chart>
 <div class="fab-button-toolbar">
-  <button color="accent" [routerLink]="['edit']" mat-fab>
+  <button color="primary" [routerLink]="['edit']" mat-fab>
     <mat-icon>edit</mat-icon>
   </button>
 </div>

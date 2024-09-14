@@ -16,6 +16,7 @@
       <mat-form-field class="w-full">
         <mat-label aria-required="true">Berichtsintervall</mat-label>
         <input formControlName="interval" type="number" min="1" step="1" matInput required />
+        <span class="pr-4" matSuffix>Tag/e</span>
         @if (form.get('interval')?.hasError('required')) {
           <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
         } @else if (form.get('interval')?.hasError('min')) {
@@ -36,7 +37,7 @@
         }
         <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
       </mat-form-field>
-      <mat-form-field class="w-full">
+      <mat-form-field class="w-full" subscriptSizing="dynamic">
         <mat-label>Projektende</mat-label>
         <input [matDatepickerFilter]="boundFilterEndDate" [matDatepicker]="dpProjectEnd" formControlName="endDate" matInput />
         <mat-datepicker-toggle [for]="dpProjectEnd" matIconSuffix></mat-datepicker-toggle>
@@ -46,7 +47,7 @@
         } @else if (form.get('endDate')?.hasError('matchesInterval')) {
           <mat-error>Das Projektende muss mindestens um ein Intervall nach dem Projektstart liegen</mat-error>
         }
-        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
+        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet und muss im Intervall liegen (Projektstart + ein vielfaches vom Berichtsintervall)</mat-hint>
       </mat-form-field>
     </form>
   </mat-card-content>

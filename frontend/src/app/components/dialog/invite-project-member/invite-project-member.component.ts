@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { Observable, of, startWith, switchMap } from 'rxjs';
 
+import { InfoBoxComponent } from '@Components/info-box/info-box.component';
 import { ProjectMember, ProjectRole } from '@Models/project-member';
 import { User } from '@Models/user';
 import { FullTitleNamePipe } from '@Pipes/full-title-name.pipe';
@@ -37,6 +38,7 @@ type DialogData = {
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
+    InfoBoxComponent,
   ],
 })
 export class InviteProjectMemberComponent implements OnInit {

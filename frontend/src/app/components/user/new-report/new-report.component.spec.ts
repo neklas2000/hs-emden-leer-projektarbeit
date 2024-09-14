@@ -79,9 +79,17 @@ describe('Component: NewReportComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of({
-              get: () => {
-                return '1';
+            data: of({
+              project: {
+                id: '1',
+                reports: [{
+                  sequenceNumber: 1,
+                  reportDate: '2023-12-25',
+                }, {
+                  sequenceNumber: 2,
+                  reportDate: '2024-01-01',
+                }],
+                reportInterval: 7,
               },
             }),
           },
@@ -157,8 +165,6 @@ describe('Component: NewReportComponent', () => {
     });
 
     it('should fail to create the project report, due to an error', () => {
-      component['projectId'] = null;
-      delete changes.project;
       const exception = new HttpException({ error: { code: 'HSEL-400-010' }});
       spyOn(projectReports, 'create').and.returnValue(throwError(() => exception));
       spyOn(router, 'navigateByUrl');

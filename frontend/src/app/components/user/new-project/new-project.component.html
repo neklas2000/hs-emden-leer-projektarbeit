@@ -8,7 +8,7 @@
     <form [formGroup]="form">
       <mat-form-field class="w-full">
         <mat-label aria-required="true">Projektname</mat-label>
-        <input formControlName="name" type="text" matInput required />
+        <input formControlName="name" type="text" matInput required autofocus />
         @if (form.get('name')?.hasError('required')) {
           <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
         }
@@ -16,6 +16,7 @@
       <mat-form-field class="w-full">
         <mat-label aria-required="true">Berichtsintervall</mat-label>
         <input formControlName="interval" type="number" min="1" step="1" matInput required />
+        <span class="pr-4" matSuffix>Tag/e</span>
         @if (form.get('interval')?.hasError('required')) {
           <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
         } @else if (form.get('interval')?.hasError('min')) {
@@ -36,7 +37,7 @@
         }
         <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
       </mat-form-field>
-      <mat-form-field class="w-full">
+      <mat-form-field class="w-full" subscriptSizing="dynamic">
         <mat-label>Projektende</mat-label>
         <input [matDatepickerFilter]="boundFilterEndDate" [matDatepicker]="dpProjectEnd" formControlName="endDate" matInput />
         <mat-datepicker-toggle [for]="dpProjectEnd" matIconSuffix></mat-datepicker-toggle>
@@ -46,13 +47,13 @@
         } @else if (form.get('endDate')?.hasError('matchesInterval')) {
           <mat-error>Das Projektende muss mindestens um ein Intervall nach dem Projektstart liegen</mat-error>
         }
-        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet</mat-hint>
+        <mat-hint>Das Datum wird im Format DD.MM.YYYY erwartet und muss im Intervall liegen (Projektstart + ein vielfaches vom Berichtsintervall)</mat-hint>
       </mat-form-field>
     </form>
   </mat-card-content>
 </mat-card>
-<div class="mt-4 flex flex-row gap-x-4">
-  <mat-card class="flex-1/2">
+<div class="mt-4 flex gt-md:flex-row gt-md:gap-x-4 lt-md:flex-col lt-md:gap-y-4">
+  <mat-card class="gt-md:flex-1/2 lt-md:flex-fit">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>Studierende</mat-card-title>
@@ -82,11 +83,11 @@
         }
       </mat-list>
     </mat-card-content>
-    <mat-card-actions align="end">
-      <button color="primary" (click)="inviteStudent()" mat-raised-button>Studierenden hinzufügen</button>
+    <mat-card-actions align="end" class="mt-auto">
+      <button (click)="inviteStudent()" mat-button>Studierenden hinzufügen</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card class="flex-1/2">
+  <mat-card class="gt-md:flex-1/2 lt-md:flex-fit">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>Betreuer</mat-card-title>
@@ -116,8 +117,8 @@
         }
       </mat-list>
     </mat-card-content>
-    <mat-card-actions align="end">
-      <button color="primary" (click)="inviteCompanion()" mat-raised-button>Betreuer hinzufügen</button>
+    <mat-card-actions align="end" class="mt-auto">
+      <button (click)="inviteCompanion()" mat-button>Betreuer hinzufügen</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -147,10 +148,10 @@
     </mat-list>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button color="primary" (click)="addMilestone()" mat-raised-button>Meilenstein hinzufügen</button>
+    <button (click)="addMilestone()" mat-button>Meilenstein hinzufügen</button>
   </mat-card-actions>
 </mat-card>
-<div class="mt-8 flex flex-row gap-x-4 justify-end">
+<div class="mt-8 flex flex-row gap-x-2 justify-end">
   <button color="accent" (click)="onCancelClick()" mat-raised-button>Änderungen verwerfen</button>
   <button
     color="primary"

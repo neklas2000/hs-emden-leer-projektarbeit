@@ -37,7 +37,7 @@
     }
   </mat-form-field>
 </form>
-<div class="flex justify-end">
-  <button color="accent" (click)="onCancel.emit()" mat-button>Änderungen verwerfen</button>
-  <button color="primary" [disabled]="form.invalid" (click)="saveChanges()" mat-button>Änderungen speichern</button>
+<div class="flex justify-end gap-x-2">
+  <button color="accent" (click)="onCancel.emit()" mat-raised-button>Änderungen verwerfen</button>
+  <button color="primary" [disabled]="form.invalid" (click)="saveChanges()" mat-raised-button>Änderungen speichern</button>
 </div>

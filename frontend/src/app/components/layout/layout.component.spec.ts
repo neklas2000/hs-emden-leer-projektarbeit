@@ -4,7 +4,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { NavigationEnd, NavigationStart, provideRouter, Router, RouterEvent } from '@angular/router';
+import { EventType, NavigationEnd, NavigationStart, provideRouter, Router, RouterEvent } from '@angular/router';
 
 import { BehaviorSubject, of } from 'rxjs';
 
@@ -67,7 +67,9 @@ describe('Component: LayoutComponent', () => {
     });
 
     it('should toggle the isLoading flag', () => {
-      const routerEvents$ = new BehaviorSubject<RouterEvent | null>(null);
+      const routerEvents$ = new BehaviorSubject<RouterEvent>(
+        new NavigationEnd(EventType.NavigationEnd, '/test', ''),
+      );
       Object.defineProperty(router, 'events', {
         value: routerEvents$.asObservable(),
       });
@@ -75,11 +77,11 @@ describe('Component: LayoutComponent', () => {
 
       expect(component.isLoading).toBeFalsy();
 
-      routerEvents$.next(new NavigationStart(1, '/test'));
+      routerEvents$.next(new NavigationStart(EventType.NavigationStart, '/test'));
 
       expect(component.isLoading).toBeTruthy();
 
-      routerEvents$.next(new NavigationEnd(1, '/test', ''));
+      routerEvents$.next(new NavigationEnd(EventType.NavigationEnd, '/test', ''));
 
       expect(component.isLoading).toBeFalsy();
     });

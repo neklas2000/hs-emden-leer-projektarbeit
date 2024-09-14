@@ -79,7 +79,7 @@ export const routes: Routes = [
       {
         path: 'projects/new',
         component: NewProjectComponent,
-        title: 'Neues Projekte',
+        title: 'Neues Projekt',
         canActivate: [authenticationGuard],
       },
       {
@@ -106,7 +106,7 @@ export const routes: Routes = [
         title: 'Meilensteinprognosen bearbeiten',
         resolve: {
           milestones: milestoneEstimatesEditResolver,
-          project: milestoneEstimatesProjectResolver,
+          project: milestoneEstimatesProjectResolver(),
         },
         canActivate: [authenticationGuard],
       },
@@ -114,6 +114,9 @@ export const routes: Routes = [
         path: 'projects/:projectId/report/new',
         component: NewReportComponent,
         title: 'Projektbericht erstellen',
+        resolve: {
+          project: milestoneEstimatesProjectResolver('projectId'),
+        },
         canActivate: [authenticationGuard, projectExistsGuard],
       },
       {

@@ -43,7 +43,7 @@
   </mat-card-content>
   @if (!isEditingPersonalInformationActivated) {
     <mat-card-actions align="end">
-      <button color="primary" (click)="editPersonalInformation()" mat-button>Bearbeiten</button>
+      <button (click)="editPersonalInformation()" mat-button>Bearbeiten</button>
     </mat-card-actions>
   }
 </mat-card>
@@ -75,7 +75,7 @@
 <div class='fab-button-toolbar'>
   <button
     matTooltip="Profil unwiderruflich löschen"
-    color='primary'
+    color='warn'
     (click)="deleteProfile()"
     mat-fab
   >

@@ -11,43 +11,47 @@ import { UUID } from '@Utils/uuid';
 
 /**
  * @description
- * This resolver resolves a specific project in order to use it's data while editing milestone
- * estimates. While accessing the data only the required fields for the editing are loaded through
- * the sparse fieldsets.
+ * This function returns a resolver which resolves a specific project in order
+ * to use it's data while editing milestone estimates or creating a new project
+ * report. While accessing the data only the required fields for the editing are
+ * loaded through the sparse fieldsets.
  *
- * @param route The activated route snapshot.
- * @param state The router state snapshot.
- * @param projects An automatically injected service to access the resource "projects".
- * @returns An observable which resolves to the correct project or `null`, if it couldn't be
- * found.
+ * @param projectIdParam The param name of the project id. - default: `'id'`
+ * @returns The resolver function.
  */
-export const milestoneEstimatesProjectResolver: ResolveFn<Nullable<Observable<Nullable<Project>>>> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  projects: ProjectService = inject(ProjectService),
-  notFound: NotFoundService = inject(NotFoundService),
-) => {
-  const { paramMap } = route;
+export function milestoneEstimatesProjectResolver(
+  projectIdParam: string = 'id',
+): ResolveFn<Nullable<Observable<Nullable<Project>>>> {
+  return (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+    projects: ProjectService = inject(ProjectService),
+    notFound: NotFoundService = inject(NotFoundService),
+  ) => {
+    const { paramMap } = route;
 
-  const id = paramMap.get('id');
+    const id = paramMap.get(projectIdParam);
 
-  if (!UUID.isWellFormed(id)) {
-    notFound.emitNotFound();
+    if (!UUID.isWellFormed(id)) {
+      notFound.emitNotFound();
 
-    return null;
-  }
+      return null;
+    }
 
-  return projects.read<Project>({
-    route: ':id',
-    ids: id!,
-    query: {
-      sparseFieldsets: {
-        project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
+    return projects.read<Project>({
+      route: ':id',
+      ids: id!,
+      query: {
+        includes: ['reports'],
+        sparseFieldsets: {
+          project: ['id', 'officialStart', 'officialEnd', 'reportInterval'],
+          reports: ['id', 'sequenceNumber', 'reportDate'],
+        },
       },
-    },
-  }).pipe(catchError(() => {
-    notFound.emitNotFound();
+    }).pipe(catchError(() => {
+      notFound.emitNotFound();
 
-    return of(null);
-  }));
+      return of(null);
+    }));
+  };
 };

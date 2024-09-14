@@ -14,6 +14,7 @@ import { DialogService } from '@Services/dialog.service';
 import { MilestoneEstimateService } from '@Services/milestone-estimate.service';
 import { ProjectMilestoneService } from '@Services/project-milestone.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
+import { WindowProviderService } from '@Services/window-provider.service';
 import { HttpException } from '@Utils/http-exception';
 
 describe('Component: EditMilestoneEstimatesTabComponent', () => {
@@ -24,8 +25,11 @@ describe('Component: EditMilestoneEstimatesTabComponent', () => {
   let snackbar: SnackbarService;
   let projectMilestones: ProjectMilestoneService;
   let date: DateService;
+  let windowHistoryBackSpy: jasmine.Spy<jasmine.Func>;
 
   beforeEach(async () => {
+    windowHistoryBackSpy = jasmine.createSpy();
+
     await TestBed.configureTestingModule({
       imports: [EditMilestoneEstimatesTabComponent],
       providers: [
@@ -38,6 +42,16 @@ describe('Component: EditMilestoneEstimatesTabComponent', () => {
         DateService,
         provideAnimations(),
         provideLuxonDateAdapter(),
+        {
+          provide: WindowProviderService,
+          useValue: {
+            getWindow: () => ({
+              history: {
+                back: windowHistoryBackSpy,
+              },
+            }),
+          },
+        },
       ],
     }).compileComponents();
 
@@ -408,6 +422,14 @@ describe('Component: EditMilestoneEstimatesTabComponent', () => {
       });
       expect(snackbar.showInfo).toHaveBeenCalledWith(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
       expect(component.milestone.estimates[0].estimationDate).toEqual('2024-01-08');
+    });
+  });
+
+  describe('back(): void', () => {
+    it('should go one back in the windows history', () => {
+      component.onBack();
+
+      expect(windowHistoryBackSpy).toHaveBeenCalled();
     });
   });
 });

@@ -1,24 +1,25 @@
 <h1 mat-dialog-title>Meilenstein hinzufügen</h1>
-<div mat-dialog-content>
+<mat-dialog-content>
   <form [formGroup]="form" (submit)="closeWithData()">
     <mat-form-field class="w-full">
       <mat-label>Name des Meilensteins</mat-label>
       <input formControlName="name" aria-required="true" required matInput />
-      @if (form.get('name')?.hasError('required')) {
+      @if (form.get('name')!.hasError('required')) {
         <mat-error>Dies ist ein <strong>Pflichfeld</strong></mat-error>
       }
     </mat-form-field>
   </form>
-</div>
-<div class="!justify-end" mat-dialog-actions>
-  <button (click)="onCancelClick()" mat-button>Abbrechen</button>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="onCancelClick()" color="accent" mat-raised-button>Abbrechen</button>
   <button
     type="submit"
     (click)="closeWithData()"
     [disabled]="form.invalid"
-    mat-button
+    color="primary"
+    mat-raised-button
     cdkFocusInitial
   >
     Hinzufügen
   </button>
-</div>
+</mat-dialog-actions>

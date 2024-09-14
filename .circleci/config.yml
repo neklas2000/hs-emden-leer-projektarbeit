@@ -59,7 +59,7 @@ jobs:
           name: Building Client
           command: |
             cd frontend
-            npm run build
+            npm run build:prod
 
   api_unit_tests:
     working_directory: ~/project
@@ -134,7 +134,7 @@ jobs:
           name: Building API
           command: |
             cd api
-            npm run build
+            npm run build:prod
 
   api_deploy:
     working_directory: ~/project

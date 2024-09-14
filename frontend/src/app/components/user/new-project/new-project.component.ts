@@ -81,8 +81,8 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       .subscribe((_) => {
         const control = this.form.get('endDate')!;
 
-        if (control.dirty) {
-          control.updateValueAndValidity();
+        if (control.dirty || !!control.value) {
+          control.updateValueAndValidity({ emitEvent: true, onlySelf: true });
         }
       });
 
@@ -90,8 +90,8 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       .subscribe((_) => {
         const control = this.form.get('endDate')!;
 
-        if (control.dirty) {
-          control.updateValueAndValidity();
+        if (control.dirty || !!control.value) {
+          control.updateValueAndValidity({ emitEvent: true, onlySelf: true });
         }
       });
 
@@ -147,7 +147,12 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable<ProjectMember>) => {
-      if (!member) return;
+      if (!member) {
+        this.snackbar.showInfo(SnackbarMessage.CANCELED);
+
+        return;
+      }
+
       if (member.user.id === this.userId) {
         this.snackbar.showWarning('Sie können sich nicht selber einladen');
 
@@ -159,6 +164,8 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       } else {
         this.companions.push(member);
       }
+
+      this.snackbar.showInfo('Projektmitglied temporär hinzugefügt');
     });
   }
 
@@ -170,7 +177,12 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().pipe(take(1)).subscribe((member: Nullable<ProjectMember>) => {
-      if (!member) return;
+      if (!member) {
+        this.snackbar.showInfo(SnackbarMessage.CANCELED);
+
+        return;
+      }
+
       if (member.user.id === this.userId) {
         this.snackbar.showWarning('Sie können sich nicht selber einladen');
 
@@ -182,6 +194,8 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       } else {
         this.students.push(member);
       }
+
+      this.snackbar.showInfo('Projektmitglied temporär hinzugefügt');
     });
   }
 
@@ -193,6 +207,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     }
 
     this.companions.push(...student);
+    this.snackbar.showInfo('Erfolgreich zu einen Betreuer umgewandelt');
   }
 
   moveToStudents(index: number): void {
@@ -203,14 +218,17 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     }
 
     this.students.push(...companion);
+    this.snackbar.showInfo('Erfolgreich zu einen Studierenden umgewandelt');
   }
 
   removeStudent(index: number): void {
     this.students.splice(index, 1);
+    this.snackbar.showInfo('Studierenden entfernt');
   }
 
   removeCompanion(index: number): void {
     this.companions.splice(index, 1);
+    this.snackbar.showInfo('Betreuer entfernt');
   }
 
   onCancelClick(): void {

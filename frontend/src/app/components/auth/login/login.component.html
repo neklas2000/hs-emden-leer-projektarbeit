@@ -23,7 +23,7 @@
       @if (formGroup.get('password')?.hasError('required')) {
         <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
       }
-      <button (click)="toggleHide($event)" matSuffix mat-icon-button>
+      <button (click)="toggleHide($event)" tabindex="-1" matSuffix mat-icon-button>
         <mat-icon>
           @if (hide) {
             visibility_off
@@ -38,6 +38,7 @@
     [disabled]="formGroup.invalid"
     class="flex self-end w-fit"
     color="primary"
+    type="submit"
     (click)="login()"
     mat-raised-button
   >

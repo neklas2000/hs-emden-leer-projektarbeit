@@ -2,12 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { provideMarkdown } from 'ngx-markdown';
+import { of } from 'rxjs';
 
+import { MarkdownProvideExternalUrlComponent } from '@Components/dialog/markdown-provide-external-url/markdown-provide-external-url.component';
 import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
 import { DialogService } from '@Services/dialog.service';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 import { WindowProviderService } from '@Services/window-provider.service';
-import { of } from 'rxjs';
-import { MarkdownProvideExternalUrlComponent } from '@Components/dialog/markdown-provide-external-url/markdown-provide-external-url.component';
 
 describe('Component: MarkdownEditorComponent', () => {
   let component: MarkdownEditorComponent;
@@ -15,6 +16,7 @@ describe('Component: MarkdownEditorComponent', () => {
   let windowProvider: WindowProviderService;
   let dialog: DialogService;
   let window: Window;
+  let snackbar: SnackbarService;
 
   class WindowStub {
     private static instance: WindowStub;
@@ -61,12 +63,14 @@ describe('Component: MarkdownEditorComponent', () => {
             getWindow: () => WindowStub.getSingleton(),
           },
         },
+        SnackbarService,
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MarkdownEditorComponent);
     dialog = TestBed.inject(DialogService);
     windowProvider = TestBed.inject(WindowProviderService);
+    snackbar = TestBed.inject(SnackbarService);
     component = fixture.componentInstance;
     fixture.detectChanges();
     window = windowProvider.getWindow();
@@ -714,14 +718,27 @@ describe('Component: MarkdownEditorComponent', () => {
     });
 
     it('should format a selected text and set an empty link for an external resource', () => {
-      spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of(null) } as any);
+      spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of('#url') } as any);
       component.writeValue('Hello World');
       component['currentCursorPosition'] = [0, 11];
 
       component.formatLink();
 
       expect(dialog.open).toHaveBeenCalled();
-      expect(component.markdown).toEqual('[Hello World]()');
+      expect(component.markdown).toEqual('[Hello World](#url)');
+    });
+
+    it('should show a snackbar since no value has been returned', () => {
+      spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of(null) } as any);
+      spyOn(snackbar, 'showInfo');
+      component.writeValue('Hello World');
+      component['currentCursorPosition'] = [0, 11];
+
+      component.formatLink();
+
+      expect(dialog.open).toHaveBeenCalled();
+      expect(snackbar.showInfo).toHaveBeenCalledWith(SnackbarMessage.CANCELED);
+      expect(component.markdown).toEqual('Hello World');
     });
   });
 
@@ -753,14 +770,27 @@ describe('Component: MarkdownEditorComponent', () => {
     });
 
     it('should format a selected text and set an empty link for an image', () => {
-      spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of(null) } as any);
+      spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of('#url') } as any);
       component.writeValue('Hello World');
       component['currentCursorPosition'] = [0, 11];
 
       component.formatImage();
 
       expect(dialog.open).toHaveBeenCalled();
-      expect(component.markdown).toEqual('![Hello World]()');
+      expect(component.markdown).toEqual('![Hello World](#url)');
+    });
+
+    it('should show a snackbar since no value has been returned', () => {
+      spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of(null) } as any);
+      spyOn(snackbar, 'showInfo');
+      component.writeValue('Hello World');
+      component['currentCursorPosition'] = [0, 11];
+
+      component.formatImage();
+
+      expect(dialog.open).toHaveBeenCalled();
+      expect(snackbar.showInfo).toHaveBeenCalledWith(SnackbarMessage.CANCELED);
+      expect(component.markdown).toEqual('Hello World');
     });
   });
 

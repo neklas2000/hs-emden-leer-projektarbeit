@@ -14,6 +14,7 @@ import {
 import { DialogService } from '@Services/dialog.service';
 import { WindowProviderService } from '@Services/window-provider.service';
 import { Undefinable } from '@Types';
+import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
 
 @Component({
   selector: 'hsel-markdown-editor',
@@ -45,7 +46,7 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
   previewOpen: boolean = false;
   touched = false;
   disabled = false;
-  private currentCursorPosition!: [number, number];
+  private currentCursorPosition: [number, number] = [-1, -1];
   private cursorPositionUpdateBlocked: boolean = false;
   private shiftPressed: boolean = false;
   private window: Window;
@@ -57,6 +58,7 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
   constructor(
     private readonly dialog: DialogService,
     private readonly windowProvider: WindowProviderService,
+    private readonly snackbar: SnackbarService,
   ) {
 		this.window = this.windowProvider.getWindow();
 	}
@@ -64,7 +66,6 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
   ngAfterViewInit(): void {
     this.area = this.textArea.nativeElement;
     this.buttons = this.editorButtons.nativeElement;
-    this.currentCursorPosition = [-1, -1];
 
     this.window.addEventListener('click', this.windowClickHandler);
     this.area.addEventListener('click', this.areaClickHandler);
@@ -88,6 +89,10 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     if (!area.contains(node) && !buttons.contains(node) && !this.cursorPositionUpdateBlocked) {
       this.currentCursorPosition = [-1, -1];
     }
+  }
+
+  get hasCursorBeenPlaced(): boolean {
+    return this.currentCursorPosition[0] > -1;
   }
 
   onChange = (markdown: string) => { };
@@ -287,7 +292,12 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     dialogRef.afterClosed()
       .pipe(take(1))
       .subscribe((result) => {
-        result = result ?? '';
+        if (!result) {
+          this.snackbar.showInfo(SnackbarMessage.CANCELED);
+
+          return;
+        }
+
         this.cursorPositionUpdateBlocked = false;
 
         if (!this.extendMarkdown(`[enter link description here](${result})`, [1, 28])) {
@@ -311,7 +321,12 @@ export class MarkdownEditorComponent implements AfterViewInit, ControlValueAcces
     dialogRef.afterClosed()
       .pipe(take(1))
       .subscribe((result) => {
-        result = result ?? '';
+        if (!result) {
+          this.snackbar.showInfo(SnackbarMessage.CANCELED);
+
+          return;
+        }
+
         this.cursorPositionUpdateBlocked = false;
 
         if (!this.extendMarkdown(`![enter image description here](${result})`, [2, 30])) {

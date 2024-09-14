@@ -6,11 +6,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { DateTime } from 'luxon';
 import { take } from 'rxjs';
 
 import { MarkdownEditorComponent } from '@Components/markdown-editor/markdown-editor.component';
+import { Project } from '@Models/project';
 import { DateService } from '@Services/date.service';
 import { ProjectReportService } from '@Services/project-report.service';
 import { SnackbarMessage, SnackbarService } from '@Services/snackbar.service';
@@ -42,7 +44,7 @@ type State = {
   ],
 })
 export class NewReportComponent implements OnInit {
-  private projectId!: Nullable<string>;
+  private project!: Project;
   form: FormGroup = this.formBuilder.group({
     sequenceNumber: [null, [FormValidators.required, FormValidators.min(1)]],
     reportDate: [this.date.getToday(), [FormValidators.required]],
@@ -72,8 +74,22 @@ export class NewReportComponent implements OnInit {
       this.form.patchValue({ sequenceNumber });
     }
 
-    this.activatedRoute.paramMap.pipe(take(1)).subscribe((paramMap: ParamMap) => {
-      this.projectId = paramMap.get('projectId');
+    this.activatedRoute.data.pipe(take(1)).subscribe(({ project }) => {
+      this.project = project;
+      this.form.patchValue({ sequenceNumber: this.project.reports.length + 1 });
+      let reportDate = DateTime.fromSQL(this.project.officialStart);
+
+      if (this.project.reports.length > 0) {
+        this.project.reports.sort((a, b) => b.sequenceNumber - a.sequenceNumber);
+        reportDate = DateTime.fromSQL(
+          this.date.getNextDateInInterval(
+            this.project.reports[0].reportDate,
+            this.project.reportInterval,
+          ),
+        );
+      }
+
+      this.form.patchValue({ reportDate });
     });
   }
 
@@ -89,13 +105,9 @@ export class NewReportComponent implements OnInit {
       hazards: this.hazards,
       objectives: this.objectives,
       other: this.other,
-      ...(
-        this.projectId ? {
-          project: {
-            id: this.projectId,
-          },
-        } : {}
-      ),
+      project: {
+        id: this.project.id,
+      },
     }).pipe(take(1)).subscribe({
       next: (projectReport) => {
         this.snackbar.showInfo(SnackbarMessage.SAVE_OPERATION_SUCCEEDED);
@@ -106,6 +118,18 @@ export class NewReportComponent implements OnInit {
       },
     });
   }
+
+  private filterEndDate(date: DateTime | null): boolean {
+    if (!date) return false;
+
+    const interval = this.project.reportInterval;
+    const start = this.date.toString(this.project.officialStart);
+
+    return this.date
+      .isWithinInterval(date, interval, start, this.project.officialEnd);
+  }
+
+  boundFilterEndDate = this.filterEndDate.bind(this);
 
   get invalid(): boolean {
     if (!this.form.get('sequenceNumber')!.value) return true;
