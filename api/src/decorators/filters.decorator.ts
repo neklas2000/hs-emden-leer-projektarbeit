@@ -1,14 +1,9 @@
-import { ExecutionContext, createParamDecorator } from '@nestjs/common';
+import { ExecutionContext, Type, createParamDecorator } from '@nestjs/common';
 
 import { Request } from 'express';
 import { FindOptionsWhere } from 'typeorm';
 
-import { BaseEntityWithExtras } from '@Common/base-entity-with-extras';
-
-export const filtersFactory = <T extends BaseEntityWithExtras>(
-	entity: typeof BaseEntityWithExtras,
-	ctx: ExecutionContext,
-) => {
+export const filtersFactory = <T extends Type>(entity: Type, ctx: ExecutionContext) => {
 	const request = ctx.switchToHttp().getRequest<Request>();
 	const where: FindOptionsWhere<T> = {};
 
@@ -16,7 +11,7 @@ export const filtersFactory = <T extends BaseEntityWithExtras>(
 		filters: object,
 		fields: string[],
 		value: string,
-		entity: typeof BaseEntityWithExtras,
+		entity: any,
 	) => {
 		const field = fields[0];
 		fields = fields.slice(1);

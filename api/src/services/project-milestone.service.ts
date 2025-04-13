@@ -123,7 +123,7 @@ export class ProjectMilestoneService {
 
 			if (!milestone) throw new BadRequestException(null);
 
-			await milestone.remove();
+			await this.projectMilestoneRepository.remove(milestone);
 
 			return true;
 		} catch (exception) {

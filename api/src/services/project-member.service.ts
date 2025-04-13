@@ -45,7 +45,7 @@ export class ProjectMemberService {
 			memberPartials.map((memberPartial) => {
 				const projectMember = this.projectMemberRepository.create(memberPartial);
 
-				return projectMember.save();
+				return this.projectMemberRepository.save(projectMember);
 			}),
 		);
 	}
@@ -77,7 +77,7 @@ export class ProjectMemberService {
 
 		const projectMember = this.projectMemberRepository.create(memberPartial);
 
-		return projectMember.save();
+		return this.projectMemberRepository.save(projectMember);
 	}
 
 	async update(id: string, updatedFields: DeepPartial<ProjectMember>): Promise<boolean> {
@@ -102,7 +102,7 @@ export class ProjectMemberService {
 				throw new NotFoundException();
 			}
 
-			await member.remove();
+			await this.projectMemberRepository.remove(member);
 
 			return true;
 		} catch (exception) {

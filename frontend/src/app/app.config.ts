@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, SecurityContext } from '@angular/core';
 import { DefaultValueAccessor } from '@angular/forms';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
@@ -11,7 +11,6 @@ import { routes } from './app.routes';
 import { appInitializerFactory } from './app-initializer-factory';
 import { CHECKED_CHECKBOX, UNCHECKED_CHECKBOX } from '../constants';
 import { AuthenticationInterceptor } from '@Interceptors/authentication.interceptor';
-import { credentialsInterceptor } from '@Interceptors/credentials.interceptor';
 import { AuthenticationService } from '@Services/authentication.service';
 
 const originalRegisterOnChange = DefaultValueAccessor.prototype.registerOnChange;
@@ -64,7 +63,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    provideHttpClient(withInterceptorsFromDi(), withInterceptors([credentialsInterceptor])),
+    provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,

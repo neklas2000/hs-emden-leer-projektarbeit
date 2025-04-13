@@ -13,7 +13,10 @@ import { Success } from '@Types/success';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
-@Controller('project/members')
+@Controller({
+	path: 'project/members',
+	version: '1',
+})
 export class ProjectMemberController {
 	constructor(
 		private readonly projectMemberService: ProjectMemberService,

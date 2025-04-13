@@ -47,7 +47,7 @@ export class TokenWhitelistService {
 			refreshTokenExpirationDate,
 		});
 
-		await newRecord.save();
+		await this.tokenWhitelistRepository.save(newRecord);
 	}
 
 	delete(userId: string): Promise<DeleteResult> {

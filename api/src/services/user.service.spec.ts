@@ -221,8 +221,8 @@ describe('Service: UserService', () => {
 
 		it('should update the email address of an user', (done) => {
 			const user = users[0];
-			user.save = jest.fn().mockResolvedValue(user);
 			jest.spyOn(repository, 'findOneBy').mockResolvedValue(user);
+			jest.spyOn(repository, 'save').mockResolvedValue(user);
 
 			service.update('1', { email: 'max.mustermann@hotmail.com' }).then((result) => {
 				expect(repository.findOneBy).toHaveBeenCalledWith({ id: '1' });
@@ -237,9 +237,9 @@ describe('Service: UserService', () => {
 
 		it('should update the password of an user', (done) => {
 			const user = users[0];
-			user.save = jest.fn().mockResolvedValue(user);
 			jest.spyOn(repository, 'findOneBy').mockResolvedValue(user);
 			jest.spyOn(crypto, 'hash').mockReturnValue('hashed password');
+			jest.spyOn(repository, 'save').mockResolvedValue(user);
 
 			service.update('1', { password: 'new very secure password' }).then((result) => {
 				expect(repository.findOneBy).toHaveBeenCalledWith({ id: '1' });

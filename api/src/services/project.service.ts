@@ -74,7 +74,7 @@ export class ProjectService {
 					id: userId,
 				},
 			});
-			const createdProject = await newProject.save();
+			const createdProject = await this.projectRepository.save(newProject);
 
 			if (project.milestones) {
 				const projectMilestones = await this.milestoneService.createAll(
@@ -147,7 +147,7 @@ export class ProjectService {
 
 			if (project.owner.id !== userId) throw new DeleteProjectNotAllowedException(null);
 
-			await project.remove();
+			await this.projectRepository.remove(project);
 
 			return true;
 		} catch (exception) {

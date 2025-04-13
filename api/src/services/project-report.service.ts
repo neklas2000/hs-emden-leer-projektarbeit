@@ -53,6 +53,6 @@ export class ProjectReportService {
 	create(partialReport: DeepPartial<ProjectReport>): Promise<ProjectReport> {
 		const newReport = this.projectReportRepository.create(partialReport);
 
-		return newReport.save();
+		return this.projectReportRepository.save(newReport);
 	}
 }

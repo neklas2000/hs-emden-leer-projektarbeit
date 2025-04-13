@@ -8,6 +8,7 @@ import config from './config';
 import { AllExceptionsFilter } from '@Filters/all-exceptions.filter';
 import { JsonApiInterceptor } from '@Interceptors/json-api.interceptor';
 import { DateService } from '@Services/date.service';
+import { VersioningType } from '@nestjs/common';
 
 export async function bootstrap(port: number) {
 	await createDatabase({
@@ -17,7 +18,10 @@ export async function bootstrap(port: number) {
 	});
 
 	const app = await NestFactory.create(AppModule);
-	app.setGlobalPrefix('/api/v1');
+	app.setGlobalPrefix('/api');
+	app.enableVersioning({
+		type: VersioningType.URI,
+	});
 	const httpAdapterHost = app.get(HttpAdapterHost);
 	const date = app.get(DateService);
 	app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost, date));

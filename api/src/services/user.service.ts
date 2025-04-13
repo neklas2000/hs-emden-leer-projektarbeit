@@ -63,7 +63,7 @@ export class UserService {
 	register(userData: DeepPartial<User>): Promise<User> {
 		const user = this.userRepository.create(userData);
 
-		return user.save();
+		return this.userRepository.save(user);
 	}
 
 	async update(id: string, payload: DeepPartial<User>): Promise<User> {
@@ -81,7 +81,7 @@ export class UserService {
 			user[attribute] = payload[attribute];
 		}
 
-		return user.save();
+		return this.userRepository.save(user);
 	}
 
 	async delete(id: string) {
@@ -90,7 +90,7 @@ export class UserService {
 
 			if (!user) throw new UserDoesNotExistException(null, null);
 
-			await user.remove();
+			await this.userRepository.remove(user);
 
 			return true;
 		} catch (exception) {

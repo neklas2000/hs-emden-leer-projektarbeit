@@ -1,14 +1,9 @@
-import { ExecutionContext, createParamDecorator } from '@nestjs/common';
+import { ExecutionContext, Type, createParamDecorator } from '@nestjs/common';
 
 import { Request } from 'express';
 import { FindOptionsSelect } from 'typeorm';
 
-import { BaseEntityWithExtras } from '@Common/base-entity-with-extras';
-
-export const sparseFieldsetsFactory = <T extends BaseEntityWithExtras>(
-	entity: typeof BaseEntityWithExtras,
-	ctx: ExecutionContext,
-) => {
+export const sparseFieldsetsFactory = <T extends Type>(entity: any, ctx: ExecutionContext) => {
 	const request = ctx.switchToHttp().getRequest<Request>();
 	const sparseFieldsets: FindOptionsSelect<T> = {};
 
@@ -16,7 +11,7 @@ export const sparseFieldsetsFactory = <T extends BaseEntityWithExtras>(
 		fieldsets: object,
 		tables: string[],
 		fields: string[],
-		subEntity: typeof BaseEntityWithExtras,
+		subEntity: any,
 	) => {
 		const table = tables[0];
 		tables = tables.slice(1);

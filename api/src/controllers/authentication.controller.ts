@@ -20,7 +20,10 @@ type AuthenticationPayload = {
 	password: string;
 };
 
-@Controller('auth')
+@Controller({
+	path: 'auth',
+	version: '1',
+})
 export class AuthenticationController {
 	constructor(
 		private readonly authenticationService: AuthenticationService,

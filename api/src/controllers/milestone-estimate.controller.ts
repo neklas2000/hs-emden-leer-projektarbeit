@@ -11,7 +11,10 @@ import { Success } from '@Types/success';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
-@Controller('milestone/estimates')
+@Controller({
+	path: 'milestone/estimates',
+	version: '1',
+})
 export class MilestoneEstimateController {
 	constructor(private readonly milestoneEstimateService: MilestoneEstimateService) {}
 

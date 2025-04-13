@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "Node16",
+    "module": "NodeNext",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES6",
+    "sourceMap": true,
+    "outDir": "./build",
+    "baseUrl": "./src",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "lib": ["ESNext"],
+    "paths": {
+      "@Common/*": ["common/*"],
+      "@Entities/*": ["entities/*"],
+      "@Exceptions/*": ["exceptions/*"],
+      "@Guards/*": ["guards/*"],
+      "@JsonApi/*": ["json-api/*"],
+      "@JsonSchema/*": ["json-schema/*"],
+      "@Modules/*": ["modules/*"],
+      "@Strategies/*": ["strategies/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,24 +1,15 @@
-import { ExecutionContext, createParamDecorator } from '@nestjs/common';
+import { ExecutionContext, Type, createParamDecorator } from '@nestjs/common';
 
 import { Request } from 'express';
 import { FindOptionsRelations } from 'typeorm';
 
-import { BaseEntityWithExtras } from '@Common/base-entity-with-extras';
-
 export type JsonApiIncludes = string[];
 
-export const includesFactory = <T extends BaseEntityWithExtras>(
-	entity: typeof BaseEntityWithExtras,
-	ctx: ExecutionContext,
-) => {
+export const includesFactory = <T extends Type>(entity: Type, ctx: ExecutionContext) => {
 	const request = ctx.switchToHttp().getRequest<Request>();
 	const relations: FindOptionsRelations<T> = {};
 
-	const assignPartialIncludes = (
-		relations: object,
-		includes: string[],
-		entity: typeof BaseEntityWithExtras,
-	) => {
+	const assignPartialIncludes = (relations: object, includes: string[], entity: any) => {
 		const include = includes[0];
 		includes = includes.slice(1);
 		const existingRelations = entity.getRelations();

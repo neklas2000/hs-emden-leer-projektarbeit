@@ -1,0 +1,36 @@
+services:
+  database:
+    container_name: projektarbeit_database
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    expose:
+      - '${DB_PORT}'
+    volumes:
+      - mysql_volume:/var/lib/mysql
+
+  proxy:
+    container_name: projektarbeit_proxy
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+    expose:
+      - '${APP_PORT}'
+    volumes:
+      # - ./frontend/dist/frontend/browser/:/usr/share/nginx/html
+      - ./client/dist/client/browser/:/usr/share/nginx/html
+    environment:
+      APP_PORT: '${APP_PORT}'
+      API_HOST: '${API_HOST}'
+      API_PORT: '${API_PORT}'
+
+volumes:
+  mysql_volume:

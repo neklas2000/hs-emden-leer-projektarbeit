@@ -1,0 +1,62 @@
+<mat-sidenav-container class="flex flex-row h-full w-full">
+  <mat-sidenav [mode]="isLowerThanXS ? 'over' : 'side'" opened class="mat-elevation-z4 w-300!">
+    <a target="_blank" href="https://www.hs-emden-leer.de/">
+      <img class="p-2 scale-95 hover:scale-100" src="hsel-logo_light-mode.svg" alt="Das Logo der Hochschule Emden Leer" />
+    </a>
+    @for (navigationGroup of navigationGroups; track navigationGroup.id) {
+      @if (!navigationGroup?.requiresAuthentication || (navigationGroup.requiresAuthentication && isAuthenticated)) {
+        @if (!$first) {
+          <mat-divider></mat-divider>
+        }
+        <div class="flex px-4 py-4 bg-gray">
+          <span>{{ navigationGroup.name }}</span>
+        </div>
+        <mat-nav-list>
+          @for (navigationItem of navigationGroup.children; track navigationItem.id) {
+            @if (
+              (!navigationItem?.shouldHide || !navigationItem.shouldHide!()) &&
+              (!navigationItem?.requiresAuthentication || (navigationItem.requiresAuthentication && isAuthenticated))
+            ) {
+              @if (navigationItem.onClick) {
+                <a
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: !!navigationItem?.exact }"
+                  (click)="navigationItem.onClick($event)"
+                  mat-list-item
+                >
+                  @if (navigationItem?.icon) {
+                    <mat-icon matListItemIcon>{{ navigationItem.icon }}</mat-icon>
+                  }
+                  <span>{{ navigationItem.name }}</span>
+                </a>
+              } @else {
+                <a
+                  [routerLink]="navigationItem.path"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: !!navigationItem?.exact }"
+                  mat-list-item
+                >
+                  @if (navigationItem?.icon) {
+                    <mat-icon matListItemIcon>{{ navigationItem.icon }}</mat-icon>
+                  }
+                  <span>{{ navigationItem.name }}</span>
+                </a>
+              }
+            }
+          }
+        </mat-nav-list>
+      }
+    }
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="mat-elevation-z4">
+      <span>Meilensteintrendanalyse &mdash; Hochschule Emden/Leer</span>
+    </mat-toolbar>
+    <main
+      class="p-4 w-full overflow-y-auto"
+      style="height: calc(100% - var(--mat-toolbar-standard-height, 64px)); max-height: calc(100% - var(--mat-toolbar-standard-height, 64px));"
+    >
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

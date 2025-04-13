@@ -15,8 +15,8 @@ import { Nullable } from '@Types';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
+  private readonly accessTokenSubject = new BehaviorSubject<Nullable<string>>(null);
   private isRefreshing = false;
-  private accessTokenSubject = new BehaviorSubject<Nullable<string>>(null);
 
   constructor(
     private readonly authentication: AuthenticationService,
@@ -40,21 +40,25 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
     if (accessToken) {
       request = this.addToken(request, accessToken);
+    } else {
+      request = this.addCredentials(request);
     }
 
-    return next.handle(request).pipe(catchError((error, caught) => {
-      if (this.isUnauthorizedRequest(request, error)) {
-        if (this.isRefreshRequest(request)) {
-          this.router.navigateByUrl('/auth/login');
+    return next.handle(request).pipe(
+      catchError((error, caught) => {
+        if (this.isUnauthorizedRequest(request, error)) {
+          if (this.isRefreshRequest(request)) {
+            this.router.navigateByUrl('/auth/login');
 
+            return throwError(() => error);
+          }
+
+          return this.handleUnauthorizedError(request, next);
+        } else {
           return throwError(() => error);
         }
-
-        return this.handleUnauthorizedError(request, next);
-      } else {
-        return throwError(() => error);
-      }
-    }));
+      }),
+    );
   }
 
   /**
@@ -69,9 +73,30 @@ export class AuthenticationInterceptor implements HttpInterceptor {
    */
   private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
     return req.clone({
+      body: {
+        data: req.body || null,
+      },
+      withCredentials: true,
       setHeaders: {
         Authorization: `Bearer ${token}`,
       },
+    });
+  }
+
+  /**
+   * @description
+   * This function takes a http request object as it's argument. The provided request will be cloned
+   * and  sets the option `withCredentials` to `true` while doing so.
+   *
+   * @param req The http request object.
+   * @returns The cloned and populated http request.
+   */
+  private addCredentials(req: HttpRequest<any>): HttpRequest<any> {
+    return req.clone({
+      body: {
+        data: req.body || null,
+      },
+      withCredentials: true,
     });
   }
 

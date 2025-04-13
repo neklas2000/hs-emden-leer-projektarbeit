@@ -1,7 +1,8 @@
+import { Type } from '@nestjs/common';
 import { BaseEntity } from 'typeorm';
 
 export type RelationTypes = {
-	[property: string]: typeof BaseEntityWithExtras;
+	[property: string]: Type;
 };
 
 export class BaseEntityWithExtras extends BaseEntity {

@@ -1,0 +1,95 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use "tailwindcss";
+@use "sass:color";
+@use "sass:math";
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body { height: 100%; width: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$dark-text: #000000;
+$light-text: #ffffff;
+
+@function gamma-correction($c) {
+  @if $c <= 0.03928 {
+    @return math.div($c, 12.92);
+  }
+
+  @return pow((math.div(($c + 0.055), 1.055)), 2.4);
+}
+
+@function relative-luminance($color) {
+  $r: gamma-correction(math.div(color.channel($color, 'red', $space: rgb), 255));
+  $g: gamma-correction(math.div(color.channel($color, 'green', $space: rgb), 255));
+  $b: gamma-correction(math.div(color.channel($color, 'blue', $space: rgb), 255));
+  $alpha: color.alpha($color);
+
+  @if $alpha > 0 {
+    $r: 255 - math.div($alpha, 255) * (255 - $r);
+    $g: 255 - math.div($alpha, 255) * (255 - $g);
+    $b: 255 - math.div($alpha, 255) * (255 - $b);
+  }
+
+  @return $r * 0.2126 + $g * 0.7152 + $b * 0.0722;
+}
+
+@function text-color($background-color) {
+  $luminance: relative-luminance($background-color);
+
+  @if $luminance > 0.5 {
+    @return $dark-text;
+  }
+
+  @return $light-text;
+}
+
+@layer utilities {
+  .w-300\! {
+    width: 300px !important;
+  }
+
+  .max-w-inherit {
+    max-width: inherit;
+  }
+
+  .max-w-3\/4 {
+    max-width: 75%;
+  }
+
+  .min-h-50 {
+    min-height: 12.5rem;
+  }
+
+  .max-h-125 {
+    max-height: 31.25rem;
+  }
+
+  .flex-1\/2 {
+    flex: 50%;
+  }
+
+  .flex-fit {
+    flex: fit-content;
+  }
+
+  .bg-gray {
+    background-color: #0000000a;
+    color: text-color(#0000000a);
+  }
+}
+
+/**
+      'gt-lg': { min: '1920px' },
+      'lt-lg': { max: '1919.99px' },
+      'gt-md': { min: '1280px' },
+      'lt-md': { max: '1279.99px' },
+      'gt-sm': { min: '960px' },
+      'lt-sm': { max: '959.99px' },
+      'gt-xs': { min: '600px' },
+      'lt-xs': { max: '599.99px' },
+*/

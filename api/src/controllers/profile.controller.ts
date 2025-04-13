@@ -15,7 +15,10 @@ import { Success } from '@Types/success';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
-@Controller('profile')
+@Controller({
+	path: 'profile',
+	version: '1',
+})
 export class ProfileController {
 	constructor(private readonly userService: UserService) {}
 

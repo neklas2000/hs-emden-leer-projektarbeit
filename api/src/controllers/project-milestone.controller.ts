@@ -14,7 +14,10 @@ import { Success } from '@Types/success';
 import { promiseToObservable } from '@Utils/promise-to-oberservable';
 
 @UseGuards(AccessTokenGuard)
-@Controller('project/milestones')
+@Controller({
+	path: 'project/milestones',
+	version: '1',
+})
 export class ProjectMilestoneController {
 	constructor(private readonly projectMilestoneService: ProjectMilestoneService) {}
 
