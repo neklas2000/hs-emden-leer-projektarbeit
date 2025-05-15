@@ -1,0 +1,22 @@
+<hsel-auth-stepper i18nTitle="Registrierung" [step]="activeStep">
+  <hsel-auth-step>
+    <form>
+
+    </form>
+    <hsel-auth-step-actions>
+      <button color="primary" class="!absolute right-4" (click)="activeStep = activeStep + 1" mat-stroked-button>
+        Weiter
+      </button>
+    </hsel-auth-step-actions>
+  </hsel-auth-step>
+  <hsel-auth-step>
+    <hsel-auth-step-actions>
+      <button color="primary" class="!absolute right-4" (click)="activeStep = activeStep + 1" mat-stroked-button>
+        Weiter
+      </button>
+    </hsel-auth-step-actions>
+  </hsel-auth-step>
+  <hsel-auth-step>
+    <hsel-auth-step-actions></hsel-auth-step-actions>
+  </hsel-auth-step>
+</hsel-auth-stepper>

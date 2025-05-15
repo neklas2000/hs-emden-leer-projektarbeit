@@ -1,0 +1,47 @@
+<hsel-auth-stepper i18nTitle="Anmeldung">
+  <hsel-auth-step>
+    <form [formGroup]="formGroup">
+      <mat-form-field class="w-full">
+        <mat-label [ariaRequired]="true">
+          <hsel-i18n-text i18nKey="inputs.email.default-label" />
+        </mat-label>
+        <input formControlName="email" type="email" [ariaRequired]="true" required matInput />
+        @if (formGroup.get('email')?.hasError('required')) {
+          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+        } @else if (formGroup.get('email')?.hasError('email')) {
+          <mat-error>Geben Sie eine <strong>valide</strong> E-Mail-Adresse an</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label [ariaRequired]="true">
+          <hsel-i18n-text i18nKey="inputs.password.default-label" />
+        </mat-label>
+        <input formControlName="password" [type]="passwordHide ? 'password' : 'text'" [ariaRequired]="true" required matInput />
+        <button (click)="togglePasswordHide($event)" tabindex="-1" mat-icon-button matIconSuffix>
+          <mat-icon>
+            @if (passwordHide) {
+              visibility
+            } @else {
+              visibility_off
+            }
+          </mat-icon>
+        </button>
+        @if (formGroup.get('password')?.hasError('required')) {
+          <mat-error>Dies ist ein <strong>Pflichtfeld</strong></mat-error>
+        }
+      </mat-form-field>
+    </form>
+    <a routerLink="../register">Noch keinen Account?</a>
+    <hsel-auth-step-actions>
+      <button
+        color="primary"
+        class="!absolute right-4"
+        (click)="signIn()"
+        [disabled]="formGroup.invalid"
+        mat-stroked-button
+      >
+        Anmelden
+      </button>
+    </hsel-auth-step-actions>
+  </hsel-auth-step>
+</hsel-auth-stepper>

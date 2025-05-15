@@ -1,0 +1,118 @@
+{
+  "app": {
+    "title": "Meilensteintrendanalyse",
+    "footer": {
+      "imprint": "Impressum",
+      "privacy": "Datenschutz"
+    }
+  },
+  "settings": {
+    "language": {
+      "image-alt": "Die Flagge der ausgewählten Sprache",
+      "name": "Sprache",
+      "german": "Deutsch",
+      "english": "Englisch"
+    },
+    "display": {
+      "name": "Anzeigeeinstellungen",
+      "color-mode": {
+        "name": "Farbmodus",
+        "dark": "Dunkel",
+        "light": "Hell"
+      },
+      "date-format": {
+        "name": "Datumsformat",
+        "separator": {
+          "slash": {
+            "day-month-year": "\"Tag / Monat / Jahr\" — Wird bspw. in Südamerika, Afrika und Osteuropa verwendet",
+            "year-month-day": "\"Jahr / Monat / Tag\" — Wird bspw. in China, Mongolei und Japan verwendet"
+          },
+          "dot": {
+            "day-month-year": "\"Tag . Monat . Jahr\" — Wird bspw. in Westeuropa, Asien, Australien, USA und Kanada verwendet",
+            "month-day-year": "\"Monat . Tag . Jahr\" — Wird bspw. in USA, Grönland, Philippinen und Kanada verwendet",
+            "year-month-day": "\"Jahr . Monat . Tag\" — Wird bspw. in Westeuropa, Asien, Australien, Grönland, Philippinen und Kanada verwendet"
+          }
+        }
+      },
+      "time-format": {
+        "name": "Uhrzeitformat",
+        "12-hours": "12-stündiges Format mit AM und PM",
+        "24-hours": "24-stündiges Format — Militärzeit"
+      },
+      "primary-action-positioning": {
+        "name": "Positionierung der primären Aktion",
+        "preview-toolbar": "Vorschau der Positionierung",
+        "bottom-right": "Am unteren rechten Bildschirmrand",
+        "toolbar-bottom-right": "Am unteren rechten Rand der Toolbar"
+      },
+      "snackbar-positioning": {
+        "name": "Positionierung der Benachrichtungen",
+        "bottom-right": "Unten rechts",
+        "bottom-center": "Unten mitte",
+        "bottom-left": "Unten links",
+        "top-right": "Oben rechts",
+        "top-center": "Oben mitte",
+        "top-left": "Oben links"
+      }
+    },
+    "notifications": {
+      "name": "E-Mail Benachrichtungen",
+      "project-invitation": "Einladung zu einem Projekt",
+      "project-changes": "Änderungen an einem Projekt (exkl. der Projektberichte)",
+      "new-project-report": {
+        "name": "Ein neuer Projektbericht wurde erstellt",
+        "attach-pdf": "Bericht als PDF im Anhang hinzufügen"
+      },
+      "latest-project-report-changes": {
+        "name": "Änderungen am neusten Projektbericht",
+        "attach-pdf": "Bericht als PDF im Anhang hinzufügen"
+      }
+    }
+  },
+  "sidenav": {
+    "general": {
+      "name": "Allgemein",
+      "home": "Startseite",
+      "settings": "Einstellungen"
+    },
+    "account": {
+      "name": "Account",
+      "signin": "Anmelden",
+      "signout": "Abmelden",
+      "profile": "Profil"
+    },
+    "my-area": {
+      "name": "Mein Bereich",
+      "projects": "Projekte",
+      "gantt-chart": "Gantt Diagramm",
+      "critical-path-analysis": "Netzplantechnik"
+    }
+  },
+  "snackbar": {
+    "preview": "Dies ist nur ein Vorschautext",
+    "logout": {
+      "success": "Erfolgreich ausgeloggt",
+      "failure": "Ausloggen fehlgeschlagen"
+    },
+    "changes": {
+      "success": "Änderungen gespeichert",
+      "failure": {
+        "warning": "Änderungen konnten nicht gespeichert werden",
+        "error": "Speichern fehlgeschlagen ({{exceptionCode}})"
+      }
+    },
+    "settings": {
+      "changes": {
+        "no-id": "Speichern ist nicht möglich (HSEL-400-999)"
+      }
+    }
+  },
+  "inputs": {
+    "email": {
+      "default-label": "E-Mail-Adresse"
+    },
+    "password": {
+      "default-label": "Passwort"
+    }
+  }
+}

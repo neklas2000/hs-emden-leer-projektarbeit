@@ -1,0 +1,215 @@
+<div class="flex flex-row gap-x-2 items-center hsel-i18n-headline-container">
+  <mat-icon>language</mat-icon>
+  <hsel-i18n-headline i18nKey="settings.language.name" [level]="3" />
+</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <hsel-i18n-text i18nKey="settings.language.name" />
+      </mat-card-title>
+      <mat-icon>language</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <mat-select [(value)]="activeLanguage" (selectionChange)="onLanguageChange($event.value)">
+      <mat-select-trigger>
+        @if (activeLanguage) {
+          <div class="flex flex-row items-center gap-x-4">
+            <hsel-i18n-image [src]="languages.getValue(activeLanguage).imagePath" width="64" i18nAlt="settings.language.image-alt" />
+            <span>{{ `settings.language.${languages.getValue(activeLanguage).i18nKey}` | translate }}</span>
+          </div>
+        }
+      </mat-select-trigger>
+      @for (language of languages.iterate(); track language.key) {
+        <mat-option [value]="language.key" [ariaSelected]="language.key === activeLanguage">
+          <div class="flex flex-row items-center gap-x-4">
+            <hsel-i18n-image [src]="language.value.imagePath" width="64" i18nAlt="settings.language.image-alt" />
+            <hsel-i18n-text [i18nKey]="`settings.language.${language.value.i18nKey}`" />
+          </div>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-card-content>
+</mat-card>
+<div class="flex flex-row gap-x-2 items-center hsel-i18n-headline-container">
+  <mat-icon>display_settings</mat-icon>
+  <hsel-i18n-headline i18nKey="settings.display.name" [level]="3" />
+</div>
+<mat-card class="mb-3">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <hsel-i18n-text i18nKey="settings.display.color-mode.name" />
+      </mat-card-title>
+      <mat-icon>invert_colors</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <mat-radio-group [value]="activeColorMode" class="flex gap-x-4" (change)="onColorModeChange($event)">
+      <mat-radio-button value="LIGHT" class="flex-1/2">
+        <hsel-i18n-text i18nKey="settings.display.color-mode.light" />
+      </mat-radio-button>
+      <mat-radio-button value="DARK" class="flex-1/2">
+        <hsel-i18n-text i18nKey="settings.display.color-mode.dark" />
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="flex flex-row gap-x-4">
+      <div class="color-theme-preview" (click)="setLightMode()" (keydown)="setLightMode()"></div>
+      <div class="theme-dark color-theme-preview" (click)="setDarkMode()" (keydown)="setDarkMode()"></div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card class="mb-3">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <hsel-i18n-text i18nKey="settings.display.date-format.name" />
+      </mat-card-title>
+      <mat-icon>calendar_month</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <mat-select [(value)]="activeDateFormat" (valueChange)="onDateFormatChange($event)">
+      <mat-select-trigger>
+        @if (activeDateFormat) {
+          <span>{{ activeDateFormat.name | translate }}</span>
+        }
+      </mat-select-trigger>
+      @for (dateFormat of dateFormats; track $index) {
+        <mat-option [value]="dateFormat">{{ dateFormat.name | translate }}</mat-option>
+      }
+    </mat-select>
+  </mat-card-content>
+  <mat-card-footer class="p-4">
+    Vorschau: {{ now | date:activeDateFormat.format }}
+  </mat-card-footer>
+</mat-card>
+<mat-card class="mb-3">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <hsel-i18n-text i18nKey="settings.display.time-format.name" />
+      </mat-card-title>
+      <mat-icon>access_time</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <mat-select [(value)]="activeTimeFormat" (valueChange)="onTimeFormatChange($event)">
+      <mat-select-trigger>
+        @if (activeTimeFormat) {
+          <span>{{ activeTimeFormat.name | translate }}</span>
+        }
+      </mat-select-trigger>
+      @for (timeFormat of timeFormats; track $index) {
+        <mat-option [value]="timeFormat">{{ timeFormat.name | translate }}</mat-option>
+      }
+    </mat-select>
+  </mat-card-content>
+  <mat-card-footer class="p-4">
+    Vorschau: {{ now | date:activeTimeFormat.format }} {{ activeTimeFormat.format === 'HH:mm' ? 'Uhr' : '' }}
+  </mat-card-footer>
+</mat-card>
+<mat-card class="mb-3">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <hsel-i18n-text i18nKey="settings.display.primary-action-positioning.name" />
+      </mat-card-title>
+      <mat-icon>edit_location</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <mat-select [(value)]="activePrimaryActionPosition" (valueChange)="updatePrimaryActionPosition($event)">
+      <mat-select-trigger>
+        @if (activePrimaryActionPosition) {
+          <span>{{ `settings.display.primary-action-positioning.${activePrimaryActionPosition}` | translate }}</span>
+        }
+      </mat-select-trigger>
+      @for (primaryActionPosition of primaryActionPositions; track $index) {
+        <mat-option [value]="primaryActionPosition">
+          {{ `settings.display.primary-action-positioning.${primaryActionPosition}` | translate }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="flex flex-col w-full" style="height: 400px;">
+      <mat-toolbar color="primary">
+        <hsel-i18n-text i18nKey="settings.display.primary-action-positioning.preview-toolbar" />
+      </mat-toolbar>
+      <section class="flex-auto">
+        <p class="p-4 pt-8">
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </p>
+        <div [class]="`preview-${activePrimaryActionPosition}`">
+          <button color="primary" mat-fab>
+            <mat-icon>build</mat-icon>
+          </button>
+        </div>
+      </section>
+      <hsel-footer />
+    </div>
+  </mat-card-actions>
+</mat-card>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <hsel-i18n-text i18nKey="settings.display.snackbar-positioning.name" />
+      </mat-card-title>
+      <mat-icon>edit_location</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <mat-select [(value)]="activeSnackbarPosition" (valueChange)="updateSnackbarPosition($event)">
+      <mat-select-trigger>
+        @if (activeSnackbarPosition) {
+          <span>{{ `settings.display.snackbar-positioning.${activeSnackbarPosition}` | translate }}</span>
+        }
+      </mat-select-trigger>
+      @for (snackbarPosition of snackbarPositions; track $index) {
+        <mat-option [value]="snackbarPosition">{{ `settings.display.snackbar-positioning.${snackbarPosition}` | translate }}</mat-option>
+      }
+    </mat-select>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="onClickSnackbarPreview()" class="w-full" color="primary" mat-stroked-button>Vorschau</button>
+  </mat-card-actions>
+</mat-card>
+<div class="flex flex-row gap-x-2 items-center hsel-i18n-headline-container">
+  <mat-icon>edit_notifications</mat-icon>
+  <hsel-i18n-headline i18nKey="settings.notifications.name" [level]="3" />
+</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <hsel-i18n-text i18nKey="settings.notifications.name" />
+      </mat-card-title>
+      <mat-icon>edit_notifications</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="mt-2">
+    <form [formGroup]="notificationsFormGroup" class="flex flex-col">
+      <mat-checkbox formControlName="projectInvitation" (change)="toggleNotification('projectInvitation')">
+        <hsel-i18n-text i18nKey="settings.notifications.project-invitation" />
+      </mat-checkbox>
+      <mat-checkbox formControlName="projectChanges" (change)="toggleNotification('projectChanges')">
+        <hsel-i18n-text i18nKey="settings.notifications.project-changes" />
+      </mat-checkbox>
+      <mat-checkbox formControlName="newProjectReport" (change)="toggleNotification('newProjectReport')">
+        <hsel-i18n-text i18nKey="settings.notifications.new-project-report.name" />
+      </mat-checkbox>
+      <mat-checkbox formControlName="newProjectReportAttachPdf" class="ml-8" (change)="toggleNotification('newProjectReportAttachPdf')">
+        <hsel-i18n-text i18nKey="settings.notifications.new-project-report.attach-pdf" />
+      </mat-checkbox>
+      <mat-checkbox formControlName="latestProjectReportChanges" (change)="toggleNotification('latestProjectReportChanges')">
+        <hsel-i18n-text i18nKey="settings.notifications.latest-project-report-changes.name" />
+      </mat-checkbox>
+      <mat-checkbox formControlName="latestProjectReportChangesAttachPdf" class="ml-8" (change)="toggleNotification('latestProjectReportChangesAttachPdf')">
+        <hsel-i18n-text i18nKey="settings.notifications.latest-project-report-changes.attach-pdf" />
+      </mat-checkbox>
+    </form>
+  </mat-card-content>
+</mat-card>

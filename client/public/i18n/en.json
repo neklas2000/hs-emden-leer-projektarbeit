@@ -1,0 +1,118 @@
+{
+  "app": {
+    "title": "Milestone Trend Analysis",
+    "footer": {
+      "imprint": "Imprint",
+      "privacy": "Privacy"
+    }
+  },
+  "settings": {
+    "language": {
+      "image-alt": "The flag of the selected language",
+      "name": "Language",
+      "german": "German",
+      "english": "English"
+    },
+    "display": {
+      "name": "Display Settings",
+      "color-mode": {
+        "name": "Color mode",
+        "dark": "Dark",
+        "light": "Light"
+      },
+      "date-format": {
+        "name": "Date format",
+        "separator": {
+          "slash": {
+            "day-month-year": "\"Day / Month / Year\" — Used in South America, Africa and eastern Europe",
+            "year-month-day": "\"Year / Month / Day\" — Used in China, Mongolia and Japan"
+          },
+          "dot": {
+            "day-month-year": "\"Day . Month . Year\" — Used in western Europe, Asia, Australia, USA and Canada",
+            "month-day-year": "\"Month . Day . Year\" — Used in USA, Greenland, Philippines and Canada",
+            "year-month-day": "\"Year . Month . Day\" — Used in western Europe, Asia, Australia, Greenland, Philippines and Canada"
+          }
+        }
+      },
+      "time-format": {
+        "name": "Time format",
+        "12-hours": "12 hour format including am and pm",
+        "24-hours": "24 hour format — military time"
+      },
+      "primary-action-positioning": {
+        "name": "Positioning of the primary action",
+        "preview-toolbar": "Preview of the positioning",
+        "bottom-right": "The bottom right edge of the screen",
+        "toolbar-bottom-right": "The bottom right edge of the toolbar"
+      },
+      "snackbar-positioning": {
+        "name": "Positioning of the toast messages",
+        "bottom-right": "Bottom right",
+        "bottom-center": "Bottom center",
+        "bottom-left": "Bottom left",
+        "top-right": "Top right",
+        "top-center": "Top center",
+        "top-left": "Top left"
+      }
+    },
+    "notifications": {
+      "name": "E-Mail notifications",
+      "project-invitation": "Invitation to a project",
+      "project-changes": "Changes at a project (excluding project reports)",
+      "new-project-report": {
+        "name": "A new project report has been created",
+        "attach-pdf": "Add the report as a pdf in the attachments"
+      },
+      "latest-project-report-changes": {
+        "name": "Changes at the latest project report",
+        "attach-pdf": "Add the report as a pdf in the attachments"
+      }
+    }
+  },
+  "sidenav": {
+    "general": {
+      "name": "General",
+      "home": "Home",
+      "settings": "Settings"
+    },
+    "account": {
+      "name": "Account",
+      "signin": "Sign In",
+      "signout": "Sign Out",
+      "profile": "Profile"
+    },
+    "my-area": {
+      "name": "My Area",
+      "projects": "Projects",
+      "gantt-chart": "Gantt Chart",
+      "critical-path-analysis": "Critical Path Analysis"
+    }
+  },
+  "snackbar": {
+    "preview": "This is just a preview text",
+    "logout": {
+      "success": "Successfully signed out",
+      "failure": "Sign out failed"
+    },
+    "changes": {
+      "success": "Changes saved",
+      "failure": {
+        "warning": "Couldn't save changes",
+        "error": "Saving failed ({{exceptionCode}})"
+      }
+    },
+    "settings": {
+      "changes": {
+        "no-id": "Saving isn't possible (HSEL-400-999)"
+      }
+    }
+  },
+  "inputs": {
+    "email": {
+      "default-label": "E-Mail-Address"
+    },
+    "password": {
+      "default-label": "Password"
+    }
+  }
+}

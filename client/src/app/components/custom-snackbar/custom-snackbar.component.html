@@ -1,0 +1,10 @@
+<div class="flex items-center">
+  <mat-icon
+    class="pl-2"
+    style="flex: 40px;"
+    [style.color]="`var(--${data.type}-color)`"
+  >
+    {{ data.type }}
+  </mat-icon>
+  <span matSnackBarLabel>{{ data.label }}</span>
+</div>

@@ -1,15 +1,15 @@
 <mat-sidenav-container class="flex flex-row h-full w-full">
-  <mat-sidenav [mode]="isLowerThanXS ? 'over' : 'side'" opened class="mat-elevation-z4 w-300!">
+  <mat-sidenav [mode]="isLowerThanXS ? 'over' : 'side'" [opened]="!isLowerThanXS || sidenavOpened" class="mat-elevation-z4 w-300!" (closed)="sidenavOpened = false">
     <a target="_blank" href="https://www.hs-emden-leer.de/">
-      <img class="p-2 scale-95 hover:scale-100" src="hsel-logo_light-mode.svg" alt="Das Logo der Hochschule Emden Leer" />
+      <img class="p-2 scale-95 hover:scale-100 hover:ease-linear hover:duration-100" src="hsel-logo_light-mode.svg" alt="Das Logo der Hochschule Emden Leer" />
     </a>
     @for (navigationGroup of navigationGroups; track navigationGroup.id) {
       @if (!navigationGroup?.requiresAuthentication || (navigationGroup.requiresAuthentication && isAuthenticated)) {
         @if (!$first) {
           <mat-divider></mat-divider>
         }
-        <div class="flex px-4 py-4 bg-gray">
-          <span>{{ navigationGroup.name }}</span>
+        <div class="flex bg-gray">
+          <hsel-i18n-text [i18nKey]="navigationGroup.name" matSubheader/>
         </div>
         <mat-nav-list>
           @for (navigationItem of navigationGroup.children; track navigationItem.id) {
@@ -21,25 +21,26 @@
                 <a
                   routerLinkActive="active"
                   [routerLinkActiveOptions]="{ exact: !!navigationItem?.exact }"
-                  (click)="navigationItem.onClick($event)"
+                  (click)="sidenavOpened = false; navigationItem.onClick($event)"
                   mat-list-item
                 >
                   @if (navigationItem?.icon) {
                     <mat-icon matListItemIcon>{{ navigationItem.icon }}</mat-icon>
                   }
-                  <span>{{ navigationItem.name }}</span>
+                  <hsel-i18n-text [i18nKey]="navigationItem.name" />
                 </a>
               } @else {
                 <a
                   [routerLink]="navigationItem.path"
                   routerLinkActive="active"
                   [routerLinkActiveOptions]="{ exact: !!navigationItem?.exact }"
+                  (click)="sidenavOpened = false"
                   mat-list-item
                 >
                   @if (navigationItem?.icon) {
                     <mat-icon matListItemIcon>{{ navigationItem.icon }}</mat-icon>
                   }
-                  <span>{{ navigationItem.name }}</span>
+                  <hsel-i18n-text [i18nKey]="navigationItem.name" />
                 </a>
               }
             }
@@ -49,14 +50,20 @@
     }
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary" class="mat-elevation-z4">
-      <span>Meilensteintrendanalyse &mdash; Hochschule Emden/Leer</span>
-    </mat-toolbar>
+    <hsel-header>
+      @if (isLowerThanXS) {
+        <button mat-icon-button (click)="sidenavOpened = !sidenavOpened">
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
+    </hsel-header>
     <main
       class="p-4 w-full overflow-y-auto"
-      style="height: calc(100% - var(--mat-toolbar-standard-height, 64px)); max-height: calc(100% - var(--mat-toolbar-standard-height, 64px));"
+      [style.height]="'calc(100% - calc(var(--mat-toolbar-standard-height, 64px) * 2))'"
+      [style.max-height]="'calc(100% - calc(var(--mat-toolbar-standard-height, 64px) * 2));'"
     >
       <router-outlet></router-outlet>
     </main>
+    <hsel-footer></hsel-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

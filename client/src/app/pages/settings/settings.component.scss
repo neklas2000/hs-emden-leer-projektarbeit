@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.hsel-i18n-headline-container {
+  margin-bottom: 16px;
+}
+
+.hsel-i18n-headline-container:not(:first-of-type) {
+  margin-top: 16px;
+}
+
+.color-theme-preview {
+  flex: 50%;
+  min-height: 200px;
+  max-height: 500px;
+  background-color: var(--mat-app-background-color);
+}
+
+.preview-bottom-right {
+  position: absolute;
+  right: 16px;
+  bottom: 80px;
+}
+
+.preview-toolbar-bottom-right {
+  position: absolute;
+  right: 48px;
+  top: 112px;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%;
+}

@@ -1,0 +1,38 @@
+@use "sass:color";
+@use "sass:math";
+
+$dark-text: #000000;
+$light-text: #ffffff;
+
+@function gamma-correction($c) {
+  @if $c <= 0.03928 {
+    @return math.div($c, 12.92);
+  }
+
+  @return pow((math.div(($c + 0.055), 1.055)), 2.4);
+}
+
+@function relative-luminance($color) {
+  $r: gamma-correction(math.div(color.channel($color, 'red', $space: rgb), 255));
+  $g: gamma-correction(math.div(color.channel($color, 'green', $space: rgb), 255));
+  $b: gamma-correction(math.div(color.channel($color, 'blue', $space: rgb), 255));
+  $alpha: color.alpha($color);
+
+  @if $alpha > 0 {
+    $r: 255 - math.div($alpha, 255) * (255 - $r);
+    $g: 255 - math.div($alpha, 255) * (255 - $g);
+    $b: 255 - math.div($alpha, 255) * (255 - $b);
+  }
+
+  @return $r * 0.2126 + $g * 0.7152 + $b * 0.0722;
+}
+
+@function text-color($background-color) {
+  $luminance: relative-luminance($background-color);
+
+  @if $luminance > 0.5 {
+    @return $dark-text;
+  }
+
+  @return $light-text;
+}
