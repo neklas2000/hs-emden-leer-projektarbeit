@@ -1,13 +1,13 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
+import { text } from '@Common/utils/text-node';
+import { JsonSchema } from '@JsonSchema/lib';
 import { CommonEntityFields } from './common-entity-fields';
 import { User } from './user';
 import { ProjectMember } from './project-member';
 import { ProjectReport } from './project-report';
 import { ProjectMilestone } from './project-milestone';
 import { ProjectActivity } from './project-activity';
-import { JsonSchema } from '@JsonSchema/lib';
-import { text } from '@Common/utils/text-node';
 
 @JsonSchema.Resource({
 	name: 'projects',
@@ -105,7 +105,7 @@ export class Project extends CommonEntityFields {
 		`,
 	})
 	@ManyToOne(() => User, (user) => user.projects, { onDelete: 'CASCADE' })
-	// @JoinColumn({ name: 'owner_id' })
+	@JoinColumn({ name: 'owner_id' })
 	owner: User;
 
 	@OneToMany(() => ProjectMember, (member) => member.project)

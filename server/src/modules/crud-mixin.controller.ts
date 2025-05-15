@@ -39,6 +39,12 @@ abstract class BaseController<T> {
 		sparseFieldsets: SparseFieldsets<T>,
 		includes: Includes<T>,
 	): Observable<boolean | T>;
+	abstract updateOneByFilter(
+		updateData: DeepPartial<T>,
+		sparseFieldsets: SparseFieldsets<T>,
+		includes: Includes<T>,
+		filters: Filters<T>,
+	): Observable<boolean | T>;
 	abstract delete(filters: Filters<T>): Observable<boolean>;
 	abstract deleteOneById(id: UUID): Observable<boolean>;
 }
@@ -191,6 +197,35 @@ function UpdateOneMixin<T>(baseClass: Type<MixinControllerBase<T>>): UpdateOneMi
 	return <any>Mixin;
 }
 
+abstract class UpdateOneByFilterMixinController<T> extends MixinControllerBase<T> {
+	abstract updateOneByFilter(
+		updateData: DeepPartial<T>,
+		sparseFieldsets: SparseFieldsets<T>,
+		includes: Includes<T>,
+		filters: Filters<T>,
+	): Observable<boolean | T>;
+}
+
+function UpdateOneByFilterMixin<T>(
+	baseClass: Type<MixinControllerBase<T>>,
+): UpdateOneByFilterMixinController<T> {
+	abstract class Mixin extends baseClass {
+		@Patch('/filter/by')
+		updateOneByFilter(
+			@Body() updateData: DeepPartial<T>,
+			@JsonApi.SparseFieldsets() sparseFieldsets: SparseFieldsets<T>,
+			@JsonApi.Includes() includes: Includes<T>,
+			@JsonApi.Filters() filters: Filters<T>,
+		): Observable<boolean | T> {
+			return promiseToObervable(
+				this.service.updateOneByFilter(filters, updateData, sparseFieldsets, includes),
+			);
+		}
+	}
+
+	return <any>Mixin;
+}
+
 abstract class DeleteMixinController<T> extends MixinControllerBase<T> {
 	abstract delete(filters: Filters<T>): Observable<boolean>;
 }
@@ -232,6 +267,7 @@ export const EXCLUDE_ALL_ENDPOINTS: (keyof Omit<BaseController<any>, 'service'>)
 	'findOneById',
 	'update',
 	'updateOne',
+	'updateOneByFilter',
 ];
 
 export function CRUDControllerMixin<T, K extends keyof Omit<BaseController<T>, 'service'> = never>(
@@ -258,6 +294,10 @@ export function CRUDControllerMixin<T, K extends keyof Omit<BaseController<T>, '
 
 	if (!excludedEndpoints.includes(<any>'update')) {
 		mixin = UpdateMixin(mixin);
+	}
+
+	if (!excludedEndpoints.includes(<any>'updateOneByFilter')) {
+		mixin = UpdateOneByFilterMixin(mixin);
 	}
 
 	if (!excludedEndpoints.includes(<any>'updateOne')) {

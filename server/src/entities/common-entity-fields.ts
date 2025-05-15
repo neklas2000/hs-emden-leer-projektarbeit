@@ -51,9 +51,7 @@ export abstract class CommonEntityFields {
 
 	@BeforeInsert()
 	async beforeInsert(): Promise<void> {
-		if (this.id === null) {
-			this.id = undefined;
-		}
+		this.id ??= undefined;
 
 		if (this.createdAt) {
 			this.createdAt = undefined;

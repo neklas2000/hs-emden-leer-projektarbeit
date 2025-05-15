@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { CommonEntityFields } from './common-entity-fields';
 import { ProjectMilestone } from './project-milestone';
@@ -19,5 +19,6 @@ export class MilestoneEstimate extends CommonEntityFields {
 	estimatedDate: string;
 
 	@ManyToOne(() => ProjectMilestone, (milestone) => milestone.estimates, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'milestone_id' })
 	milestone: ProjectMilestone;
 }

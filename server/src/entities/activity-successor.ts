@@ -1,4 +1,4 @@
-import { Entity, ManyToOne } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { JsonSchema } from '@JsonSchema/lib';
 import { CommonEntityFields } from './common-entity-fields';
@@ -11,20 +11,21 @@ import { ProjectActivity } from './project-activity';
 })
 @Entity('activity_successors')
 export class ActivitySuccessor extends CommonEntityFields {
-	@JsonSchema.Property({
-		type: 'string',
-		format: 'uuid',
-		pattern:
-			'/^([A-Fa-f0-9]){8}-([A-Fa-f0-9]){4}-([A-Fa-f0-9]){4}-([A-Fa-f0-9]){4}-([A-Fa-f0-9]){12}$/',
-		title: 'The unique identifier of a record',
-		description:
-			'This field is a generated universally unique identifier used to uniquely identify each record.',
+	@JsonSchema.Relationship({
+		type: 'ProjectActivity',
+		title: '',
+		description: '',
 	})
-	id: string;
-
 	@ManyToOne(() => ProjectActivity, (activity) => activity.id, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'host_activity_id' })
 	hostActivity: ProjectActivity;
 
+	@JsonSchema.Relationship({
+		type: 'ProjectActivity',
+		title: '',
+		description: '',
+	})
 	@ManyToOne(() => ProjectActivity, (activity) => activity.successors, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'successor_activity_id' })
 	successorActivity: ProjectActivity;
 }

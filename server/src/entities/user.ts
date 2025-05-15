@@ -6,6 +6,7 @@ import { CommonEntityFields } from './common-entity-fields';
 import { File } from './file';
 import { TokenPair } from './token-pair';
 import { Project } from './project';
+import { AppSettings } from './app-settings';
 
 @JsonSchema.Resource({
 	name: 'users',
@@ -64,6 +65,13 @@ export class User extends CommonEntityFields {
 	})
 	emailAddress: string;
 
+	@Column({
+		name: 'email_verified',
+		type: 'tinyint',
+		default: false,
+	})
+	emailVerified: boolean;
+
 	@Column({ type: 'varchar' })
 	password: string;
 
@@ -79,6 +87,9 @@ export class User extends CommonEntityFields {
 
 	@OneToOne(() => TokenPair, (tokenPair) => tokenPair.user)
 	tokenPair: TokenPair;
+
+	@OneToOne(() => AppSettings, (appSettings) => appSettings.user)
+	appSettings: AppSettings;
 
 	@OneToMany(() => File, (file) => file.uploadedBy)
 	files: File[];

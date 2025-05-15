@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { CommonEntityFields } from './common-entity-fields';
 import { Project } from './project';
@@ -20,6 +20,7 @@ export class ProjectActivity extends CommonEntityFields {
 	end: string;
 
 	@ManyToOne(() => Project, (project) => project.activities, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'project_id' })
 	project: Project;
 
 	@OneToMany(() => ActivityPredecessor, (predecessor) => predecessor.predecessorActivity)

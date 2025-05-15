@@ -1,5 +1,6 @@
 import { ActivityPredecessor } from './activity-predecessor';
 import { ActivitySuccessor } from './activity-successor';
+import { AppSettings } from './app-settings';
 import { File } from './file';
 import { MilestoneEstimate } from './milestone-estimate';
 import { Project } from './project';
@@ -14,6 +15,7 @@ import { User } from './user';
 const ENTITIES = [
 	ActivityPredecessor,
 	ActivitySuccessor,
+	AppSettings,
 	File,
 	MilestoneEstimate,
 	ProjectActivity,

@@ -1,13 +1,12 @@
 import { Get, UseGuards } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
-import { FindOptionsSelect, FindOptionsRelations, FindOptionsWhere } from 'typeorm';
 
 import { Controller, User } from '@Common/decorators';
 import { promiseToObervable } from '@Common/utils';
 import { Project } from '@Entities/project';
 import { AccessTokenGuard } from '@Guards/access-token.guard';
-import { JsonApi } from '@JsonApi/lib';
+import { JsonApi, SparseFieldsets, Includes, Filters } from '@JsonApi/lib';
 import { ProjectService } from './project.service';
 import { CRUDControllerMixin } from '../crud-mixin.controller';
 
@@ -24,9 +23,9 @@ export class ProjectController extends CRUDControllerMixin(Project, 'findAll') {
 	@Get()
 	findAll(
 		@User() user: Express.User,
-		@JsonApi.SparseFieldsets() sparseFieldsets: FindOptionsSelect<Project>,
-		@JsonApi.Includes() includes: FindOptionsRelations<Project>,
-		@JsonApi.Filters() filters: FindOptionsWhere<Project>,
+		@JsonApi.SparseFieldsets() sparseFieldsets: SparseFieldsets<Project>,
+		@JsonApi.Includes() includes: Includes<Project>,
+		@JsonApi.Filters() filters: Filters<Project>,
 	): Observable<Project[]> {
 		return promiseToObervable(
 			this.projects.readManyBy(sparseFieldsets, includes, {

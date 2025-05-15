@@ -1,9 +1,11 @@
+import { InjectDataSource } from '@nestjs/typeorm';
+
 import { UUID } from 'crypto';
 import { DataSource, DeepPartial, In, Repository } from 'typeorm';
 
 import { BadRequestException } from '@Exceptions/bad-request.exception';
 import { Filters, Includes, SparseFieldsets } from '@JsonApi/lib';
-import dataSource from '../configure-type-orm-module';
+import { NotFoundException } from '@nestjs/common';
 
 export type UpdateManyPayload<T> = {
 	[id: UUID]: DeepPartial<T>;
@@ -14,7 +16,8 @@ export type UpdateManyResult<T> = {
 };
 
 export abstract class CRUDService<T> {
-	protected dataSource: DataSource = dataSource;
+	@InjectDataSource()
+	protected dataSource: DataSource;
 
 	constructor(protected readonly repository: Repository<T>) {}
 
@@ -145,7 +148,7 @@ export abstract class CRUDService<T> {
 		queryRunner.startTransaction();
 
 		try {
-			const result = await this.repository.update(id, <any>partialData);
+			const result = await this.repository.update({ id: <any>id }, <any>partialData);
 
 			if (!shouldResolveUpdatedRecords) {
 				await queryRunner.commitTransaction();
@@ -154,6 +157,49 @@ export abstract class CRUDService<T> {
 			}
 
 			const updatedRecord = await this.readOne(id, select, joins);
+
+			await queryRunner.commitTransaction();
+
+			return updatedRecord;
+		} catch (err) {
+			await queryRunner.rollbackTransaction();
+
+			throw new BadRequestException(err);
+		} finally {
+			await queryRunner.release();
+		}
+	}
+
+	async updateOneByFilter(
+		filters: Filters<T>,
+		partialData: DeepPartial<T>,
+		select?: SparseFieldsets<T>,
+		joins?: Includes<T>,
+	): Promise<boolean | T> {
+		if (!filters || Object.isEmpty(filters)) {
+			throw new BadRequestException();
+		}
+
+		const shouldResolveUpdatedRecord = !Object.isEmpty(select) || !Object.isEmpty(joins);
+
+		const queryRunner = this.getQueryRunner();
+		queryRunner.startTransaction();
+
+		try {
+			const result = await this.repository.update(filters, <any>partialData);
+			console.log(result);
+
+			if (result.affected === 0) {
+				throw new NotFoundException();
+			}
+
+			if (!shouldResolveUpdatedRecord) {
+				await queryRunner.commitTransaction();
+
+				return result.affected > 0;
+			}
+
+			const updatedRecord = await this.readOne(result.generatedMaps[0].id, select, joins);
 
 			await queryRunner.commitTransaction();
 
@@ -180,13 +226,6 @@ export abstract class CRUDService<T> {
 	}
 
 	protected getQueryRunner() {
-		if (this.repository.queryRunner) {
-			console.log('this.repository.queryRunner is defined');
-
-			return this.repository.queryRunner;
-		}
-		console.log('this.repository.queryRunner is undefined');
-
 		return this.dataSource.createQueryRunner();
 	}
 }

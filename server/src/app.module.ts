@@ -19,6 +19,7 @@ import { CommonModule } from './common/common.module';
 import { configureTypeOrmModule } from './configure-type-orm-module';
 import { ActivityPredecessorModule } from './modules/activity-predecessor/activity-predecessor.module';
 import { ActivitySuccessorModule } from './modules/activity-successor/activity-successor.module';
+import { AppSettingsModule } from './modules/app-settings/app-settings.module';
 
 @Module({
 	imports: [
@@ -40,6 +41,7 @@ import { ActivitySuccessorModule } from './modules/activity-successor/activity-s
 		EventEmitterModule.forRoot({ global: true }),
 		ActivityPredecessorModule,
 		ActivitySuccessorModule,
+		AppSettingsModule,
 	],
 })
 export class AppModule {}

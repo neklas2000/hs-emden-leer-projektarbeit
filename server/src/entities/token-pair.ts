@@ -34,6 +34,6 @@ export class TokenPair extends CommonEntityFields {
 	refreshTokenExpirationDate: string;
 
 	@OneToOne(() => User, (user) => user.tokenPair, { onDelete: 'CASCADE' })
-	@JoinColumn()
+	@JoinColumn({ name: 'user_id' })
 	user: User;
 }

@@ -8,6 +8,7 @@ import { omit } from '@Common/utils';
 import { ProjectMember } from '@Entities/project-member';
 import { ProjectMemberAlreadyExistsException } from '@Exceptions/project-member-already-exists.exception';
 import { CRUDService } from '@Modules/crud.service';
+import { Mails } from '@Common/mails';
 
 @Injectable()
 export class ProjectMemberService extends CRUDService<ProjectMember> {
@@ -36,7 +37,7 @@ export class ProjectMemberService extends CRUDService<ProjectMember> {
 			},
 		});
 
-		this.events.emit('project-member.invitation.send', projectMember);
+		this.events.emit(Mails.ProjectInvitation, projectMember);
 
 		projectMember.user = <any>omit(projectMember.user, 'password');
 		projectMember.project.owner = <any>omit(projectMember.project.owner, 'password');

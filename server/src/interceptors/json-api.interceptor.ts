@@ -11,7 +11,7 @@ export class JsonApiInterceptor implements NestInterceptor {
 	): Observable<any> | Promise<Observable<any>> {
 		const request = context.switchToHttp().getRequest<Request>();
 
-		if (['POST', 'PUT'].includes(request.method.toUpperCase())) {
+		if (['POST', 'PUT', 'PATCH'].includes(request.method.toUpperCase())) {
 			if (
 				request.body === null ||
 				request.body === undefined ||

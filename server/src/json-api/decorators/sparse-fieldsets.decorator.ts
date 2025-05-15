@@ -27,7 +27,7 @@ export const sparseFieldsetsFactory = (_data: undefined, ctx: ExecutionContext) 
 	) => {
 		const table = tables.splice(0, 1)[0];
 		fieldsets[table] = {
-			...(fieldsets[table] || {}),
+			...(fieldsets[table] ?? {}),
 		};
 
 		const relation = EntityMetaStorage.getRelationByEntityAndField(subEntity, table);

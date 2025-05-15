@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { CommonEntityFields } from './common-entity-fields';
 import { Project } from './project';
@@ -22,8 +22,10 @@ export class ProjectMember extends CommonEntityFields {
 	invitePending: boolean;
 
 	@ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'user_id' })
 	user: User;
 
 	@ManyToOne(() => Project, (project) => project.members, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'project_id' })
 	project: Project;
 }

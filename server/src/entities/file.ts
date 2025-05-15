@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { CommonEntityFields } from './common-entity-fields';
 import { User } from './user';
@@ -19,6 +19,7 @@ export class File extends CommonEntityFields {
 	uri: string;
 
 	@ManyToOne(() => User, (user) => user.files, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'user_id' })
 	uploadedBy: User;
 
 	@OneToMany(() => ProjectReportAppendix, (appendix) => appendix.file)

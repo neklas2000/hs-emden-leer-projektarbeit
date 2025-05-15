@@ -20,6 +20,7 @@ export function configureTypeOrmModule(): TypeOrmModuleOptions {
 		migrationsTableName: 'type_orm_migrations',
 		logging: true,
 		migrationsRun: true,
+		debug: process.env.ENV === 'development',
 	};
 }
 
