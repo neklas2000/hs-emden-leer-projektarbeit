@@ -12,7 +12,6 @@ import { ProjectMemberModule } from '@Modules/project-member.module';
 import { ProjectMilestoneModule } from '@Modules/project-milestone.module';
 import { ProjectReportModule } from '@Modules/project-report.module';
 import { UserModule } from '@Modules/user.module';
-import { JsonSchemaController } from '@Controllers/json-schema.controller';
 
 @Module({
 	imports: [
@@ -28,7 +27,6 @@ import { JsonSchemaController } from '@Controllers/json-schema.controller';
 		ProjectReportModule,
 		UserModule,
 	],
-	controllers: [JsonSchemaController],
 })
 export class AppModule {
 	constructor(private dataSource: DataSource) {}
