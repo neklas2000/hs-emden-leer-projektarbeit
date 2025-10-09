@@ -23,6 +23,7 @@
     "@ngx-translate/http-loader": "^16.0.1",
     "@tailwindcss/postcss": "^4.1.3",
     "client": "file:",
+    "libphonenumber-js": "^1.12.8",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.3",
