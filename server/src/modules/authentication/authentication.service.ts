@@ -2,18 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
-import { UUID } from 'crypto';
+import { type UUID } from 'crypto';
 import { DeepPartial } from 'typeorm';
 
 import { CryptoService } from '@Common/services';
+import { omit } from '@Common/utils';
 import { User } from '@Entities/user';
 import { AccessDeniedException } from '@Exceptions/access-denied.exception';
 import { BadRequestException } from '@Exceptions/bad-request.exception';
 import { IncorrectCredentialsException } from '@Exceptions/incorrect-credentials.exception';
 import { UserAlreadyExistsException } from '@Exceptions/user-already-exists.exception';
+import { AppSettingsService } from '@Modules/app-settings/app-settings.service';
 import { UserService } from '@Modules/user/user.service';
 import { TokenWhitelistService } from './token-whitelist.service';
-import { omit } from '@Common/utils';
 
 @Injectable()
 export class AuthenticationService {
@@ -23,6 +24,7 @@ export class AuthenticationService {
 		private readonly tokenWhitelist: TokenWhitelistService,
 		private readonly crypto: CryptoService,
 		private readonly config: ConfigService,
+		private readonly appSettings: AppSettingsService,
 	) {}
 
 	async register({
@@ -36,7 +38,11 @@ export class AuthenticationService {
 			throw new UserAlreadyExistsException();
 		}
 
-		const registeredUser = await this.users.register({ emailAddress, password, ...userData });
+		const registeredUser = await this.users.register({
+			emailAddress,
+			password: this.crypto.hash(password),
+			...userData,
+		});
 		const userWithoutPassword = omit(registeredUser, 'password');
 
 		const tokens = await this.generateTokens(
@@ -47,6 +53,7 @@ export class AuthenticationService {
 			...tokens,
 			user: <UUID>registeredUser.id,
 		});
+		await this.appSettings.initializeForNewlyRegisteredUser(<UUID>registeredUser.id);
 
 		return {
 			...tokens,
