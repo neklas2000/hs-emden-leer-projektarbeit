@@ -1,6 +1,6 @@
 <mat-sidenav-container class="flex flex-row h-full w-full">
   <mat-sidenav [mode]="isLowerThanXS ? 'over' : 'side'" [opened]="!isLowerThanXS || sidenavOpened" class="mat-elevation-z4 w-300!" (closed)="sidenavOpened = false">
-    <a target="_blank" href="https://www.hs-emden-leer.de/">
+    <a target="_blank" href="https://www.hs-emden-leer.de/en/">
       <img class="p-2 scale-95 hover:scale-100 hover:ease-linear hover:duration-100" src="hsel-logo_light-mode.svg" alt="Das Logo der Hochschule Emden Leer" />
     </a>
     @for (navigationGroup of navigationGroups; track navigationGroup.id) {

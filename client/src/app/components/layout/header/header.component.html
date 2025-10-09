@@ -1,9 +1,10 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
   <ng-content></ng-content>
-  <span>
-    {{ title.name }}
+  <div>
+    <hsel-i18n-text [i18nKey]="title.name!"></hsel-i18n-text>
     @if (subtitle.name) {
-      &mdash; {{ subtitle.name }}
+      &mdash;
+      <hsel-i18n-text [i18nKey]="subtitle.name"></hsel-i18n-text>
     }
-  </span>
+  </div>
 </mat-toolbar>

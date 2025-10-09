@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, Input, OnChanges, QueryList, SimpleChanges } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+
 import { AuthStepComponent } from '../auth-step/auth-step.component';
 import { LogoComponent } from '../../logo/logo.component';
 import { I18nModule } from "../../i18n/i18n.module";
@@ -17,8 +18,11 @@ export class AuthStepperComponent implements AfterContentInit, OnChanges {
   @Input() step = -1;
   @ContentChildren(AuthStepComponent) steps!: QueryList<AuthStepComponent>;
   activeStep!: AuthStepComponent;
+  private afterContentInit: boolean = false;
 
   ngAfterContentInit(): void {
+    this.afterContentInit = true;
+
     if (this.steps && this.steps.length > 0 && this.step < 0) {
       this.step = 0;
     }
@@ -33,6 +37,8 @@ export class AuthStepperComponent implements AfterContentInit, OnChanges {
   }
 
   private renderSteps(): void {
+    if (!this.afterContentInit) return;
+
     for (const step of this.steps) {
       step.updateDisplay('none');
     }
