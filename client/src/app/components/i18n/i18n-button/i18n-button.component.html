@@ -1,0 +1,27 @@
+@switch (type) {
+  @case ("stroked") {
+    <button [color]="color" [disabled]="disabled" (click)="onClick.emit($event)" mat-stroked-button>
+      <hsel-i18n-text [i18nKey]="i18nText" />
+    </button>
+  }
+  @case ("raised") {
+    <button [color]="color" [disabled]="disabled" (click)="onClick.emit($event)" mat-raised-button>
+      <hsel-i18n-text [i18nKey]="i18nText" />
+    </button>
+  }
+  @case ("flat") {
+    <button [color]="color" [disabled]="disabled" (click)="onClick.emit($event)" mat-flat-button>
+      <hsel-i18n-text [i18nKey]="i18nText" />
+    </button>
+  }
+  @case ("icon") {
+    <button [color]="color" [disabled]="disabled" (click)="onClick.emit($event)" mat-icon-button>
+      <mat-icon>{{ iconName }}</mat-icon>
+    </button>
+  }
+  @default {
+    <button [color]="color" [disabled]="disabled" (click)="onClick.emit($event)" mat-button>
+      <hsel-i18n-text [i18nKey]="i18nText" />
+    </button>
+  }
+}
