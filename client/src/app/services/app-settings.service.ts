@@ -7,6 +7,7 @@ import { AuthenticationService } from './authentication.service';
 import { BehaviorSubject } from '../common/behavior-subject';
 import { JsonApiConnector } from './json-api-connector';
 import { ToastType } from '../components/custom-snackbar/custom-snackbar.component';
+import { SnackbarMessage } from './snackbar.service';
 
 export enum AppLanguage {
 	GERMAN = 'de',
@@ -290,7 +291,11 @@ export class AppSettingsService extends JsonApiConnector<Entities.AppSettings> {
         switchMap((successful) => {
           return of({
             successful,
-            toastMessage: `snackbar.changes.${successful ? 'success' : 'failure.warning'}`,
+            toastMessage: (
+              successful
+                ? SnackbarMessage.CHANGES_SAVED
+                : SnackbarMessage.CHANGES_FAILURE_WARNING
+            ),
             toastType: <ToastType>(successful ? 'info' : 'warning'),
             error: null,
             exception: null,
@@ -300,7 +305,7 @@ export class AppSettingsService extends JsonApiConnector<Entities.AppSettings> {
           if (err !== null) {
             return of({
               successful: false,
-              toastMessage: 'snackbar.changes.failure.error',
+              toastMessage: SnackbarMessage.CHANGES_FAILURE_ERROR,
               toastType: 'error',
               error: null,
               exception: err,
@@ -309,7 +314,7 @@ export class AppSettingsService extends JsonApiConnector<Entities.AppSettings> {
 
           return of({
             successful: false,
-            toastMessage: 'snackbar.changes.failure.warning',
+            toastMessage: SnackbarMessage.CHANGES_FAILURE_WARNING,
             toastType: 'error',
             error: err,
             exception: null,
@@ -320,7 +325,7 @@ export class AppSettingsService extends JsonApiConnector<Entities.AppSettings> {
 
     return of({
       successful: false,
-      toastMessage: 'snackbar.settings.changes.no-id',
+      toastMessage: SnackbarMessage.SETTINGS_CHANGES_NO_ID,
       toastType: 'warning',
       error: null,
       exception: null,

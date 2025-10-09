@@ -25,6 +25,21 @@ export class AuthenticationService extends JsonApiConnector<Entities.User> {
     this.loggedOut$ = this.loggedOut.asObservable();
   }
 
+  register(user: InputTypes.PartialUser): Observable<Entities.User> {
+    return this.create<ResponseTypes.Register>({
+      route: 'register',
+      data: {
+        ...user,
+      },
+    }).pipe(take(1), switchMap((registerResponse) => {
+      this.user = <Entities.User>registerResponse.user;
+      this.accessToken.next(registerResponse.accessToken);
+      this.refreshToken.next(registerResponse.refreshToken);
+
+      return of(this.user);
+    }));
+  }
+
   login(
     emailAddress: string,
     password: string,

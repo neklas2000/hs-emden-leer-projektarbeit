@@ -11,6 +11,14 @@ export enum SnackbarMessage {
   PREVIEW = 'snackbar.preview',
   LOGOUT_SUCCESS = 'snackbar.logout.success',
   LOGOUT_FAILURE = 'snackbar.logout.failure',
+  LOGIN_SUCCESS = 'snackbar.login.success',
+  LOGIN_FAILURE = 'snackbar.login.failure',
+  REGISTER_SUCCESS = 'snackbar.register.success',
+  REGISTER_FAILURE = 'snackbar.register.failure',
+  CHANGES_SAVED = 'snackbar.changes.success',
+  CHANGES_FAILURE_WARNING = 'snackbar.changes.failure.warning',
+  CHANGES_FAILURE_ERROR = 'snackbar.changes.failure.error',
+  SETTINGS_CHANGES_NO_ID = 'snackbar.settings.changes.no-id',
 }
 
 @Injectable({
