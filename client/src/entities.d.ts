@@ -137,9 +137,24 @@ namespace Entities {
   };
 }
 
+namespace InputTypes {
+  export type PartialUser = Partial<Omit<
+    Entities.User,
+    'appSettings' |
+    'createdAt' |
+    'emailVerified' |
+    'files' |
+    'id' |
+    'projects' |
+    'tokenPair' |
+    'updatedAt'
+  >>;
+}
+
 namespace ResponseTypes {
   export type Login = Pick<Entities.TokenPair, 'accessToken' | 'refreshToken'> & {
     user: Omit<Entities.User, 'password' | 'projects' | 'tokenPair' | 'appSettings' | 'files'>;
   };
   export type RefreshTokens = Login;
+  export type Register = Login;
 }

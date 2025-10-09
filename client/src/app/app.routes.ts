@@ -16,7 +16,12 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: HomeComponent, title: DEFAULT_TITLE },
-      { path: 'settings', component: SettingsComponent, title: 'Einstellungen', canActivate: [authenticationGuard] },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        title: 'app.pages.settings.title.long',
+        canActivate: [authenticationGuard],
+      },
       {
         path: 'auth',
         component: AuthComponent,
@@ -28,7 +33,7 @@ export const routes: Routes = [
       {
         path: '**',
         component: PageNotFoundComponent,
-        title: '404 - Page Not Found',
+        title: 'app.pages.page-not-found.title.long',
       },
     ],
   },
