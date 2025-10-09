@@ -133,7 +133,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.title.update('Einstellungen');
+    this.title.update({ title: 'app.pages.settings.title.long' });
 
     this.languageSubscription = this.appSettings.language$.subscribe((language) => {
       this.activeLanguage = language;

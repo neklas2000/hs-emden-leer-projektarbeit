@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { I18nModule } from '@i18n/i18n.module';
 import { AuthStepperComponent } from '../../../components/auth/auth-stepper/auth-stepper.component';
@@ -12,6 +12,7 @@ import { AuthStepComponent } from '../../../components/auth/auth-step/auth-step.
 import { AuthStepActionsComponent } from '../../../components/auth/auth-step-actions/auth-step-actions.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { AppSettingsService } from '../../../services/app-settings.service';
+import { SnackbarMessage, SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'hsel-login',
@@ -40,6 +41,8 @@ export class LoginComponent {
     private readonly formBuilder: FormBuilder,
     private readonly authentication: AuthenticationService,
     private readonly appSettings: AppSettingsService,
+    private readonly snackbar: SnackbarService,
+    private readonly router: Router,
   ) {
     this.formGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -59,8 +62,12 @@ export class LoginComponent {
 
     this.authentication.login(formData.email, formData.password).subscribe({
       next: (loginResponse) => {
-        console.log(loginResponse);
+        this.snackbar.info(SnackbarMessage.LOGIN_SUCCESS);
         this.appSettings.loadInitialSettings(loginResponse.user.id);
+        this.router.navigateByUrl('/');
+      },
+      error: (err) => {
+        this.snackbar.error(SnackbarMessage.LOGIN_FAILURE);
       },
     });
   }

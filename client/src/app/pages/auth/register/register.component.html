@@ -1,22 +1,97 @@
-<hsel-auth-stepper i18nTitle="Registrierung" [step]="activeStep">
+<hsel-auth-stepper i18nTitle="Registrierung" [step]="activeStep" class="w-2/5">
   <hsel-auth-step>
-    <form>
-
+    <form [formGroup]="credentialsForm" class="flex flex-col gap-y-2">
+      <mat-form-field>
+        <mat-label [ariaRequired]="true">
+          <hsel-i18n-text i18nKey="inputs.email.default-label" />
+        </mat-label>
+        <input matInput type="text" formControlName="email" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label [ariaRequired]="true">
+          <hsel-i18n-text i18nKey="inputs.password.default-label" />
+        </mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
+        <button matIconSuffix mat-icon-button (click)="$event.preventDefault(); $event.stopPropagation(); hidePassword = !hidePassword;">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility_on' }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label [ariaRequired]="true">
+          <hsel-i18n-text i18nKey="inputs.repeat-password.default-label" />
+        </mat-label>
+        <input matInput [type]="hidePasswordRepeat ? 'password' : 'text'" formControlName="passwordRepeat" required />
+        <button matIconSuffix mat-icon-button (click)="$event.preventDefault(); $event.stopPropagation(); hidePasswordRepeat = !hidePasswordRepeat;">
+          <mat-icon>{{ hidePasswordRepeat ? 'visibility_off' : 'visibility_on' }}</mat-icon>
+        </button>
+      </mat-form-field>
     </form>
     <hsel-auth-step-actions>
-      <button color="primary" class="!absolute right-4" (click)="activeStep = activeStep + 1" mat-stroked-button>
-        Weiter
-      </button>
+      <hsel-i18n-button
+        class="!absolute right-4"
+        type="raised"
+        color="primary"
+        [disabled]="credentialsForm.invalid"
+        (onClick)="activeStep = activeStep + 1"
+        i18nText="buttons.next.text"
+      />
     </hsel-auth-step-actions>
   </hsel-auth-step>
   <hsel-auth-step>
+    <form [formGroup]="personalDataForm" class="flex flex-col gap-y-2">
+      <mat-form-field>
+        <mat-label>
+          <hsel-i18n-text i18nKey="inputs.academic-title.default-label" />
+        </mat-label>
+        <input matInput type="text" formControlName="academicTitle" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label [ariaRequired]="true">
+          <hsel-i18n-text i18nKey="inputs.firstname.default-label" />
+        </mat-label>
+        <input matInput type="text" formControlName="firstName" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label [ariaRequired]="true">
+          <hsel-i18n-text i18nKey="inputs.lastname.default-label" />
+        </mat-label>
+        <input matInput type="text" formControlName="lastName" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>
+          <hsel-i18n-text i18nKey="inputs.matriculation-number.default-label" />
+        </mat-label>
+        <input matInput min="1" type="number" formControlName="matriculationNumber" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>
+          <hsel-i18n-text i18nKey="inputs.phone-number.default-label" />
+        </mat-label>
+        <input matInput type="text" formControlName="phoneNumber" />
+      </mat-form-field>
+    </form>
     <hsel-auth-step-actions>
-      <button color="primary" class="!absolute right-4" (click)="activeStep = activeStep + 1" mat-stroked-button>
-        Weiter
-      </button>
+      <hsel-i18n-button
+        class="absolute left-4"
+        type="stroked"
+        color="primary"
+        (onClick)="activeStep = activeStep - 1"
+        i18nText="buttons.back.text"
+      />
+      <hsel-i18n-button
+        class="!absolute right-4"
+        type="raised"
+        color="primary"
+        [disabled]="personalDataForm.invalid"
+        (onClick)="registerUser()"
+        i18nText="buttons.register.text"
+      />
     </hsel-auth-step-actions>
   </hsel-auth-step>
   <hsel-auth-step>
-    <hsel-auth-step-actions></hsel-auth-step-actions>
+    <div class="flex flex-col items-center">
+      <span>Sie wurden erfolgreich registriert.</span>
+      <span>In Kürze werden Sie zur Startseite umgeleitet.</span>
+    </div>
   </hsel-auth-step>
 </hsel-auth-stepper>
