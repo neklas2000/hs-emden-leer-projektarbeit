@@ -1,6 +1,53 @@
 {
   "app": {
-    "title": "Meilensteintrendanalyse",
+    "pages": {
+      "home": {
+        "title": {
+          "long": "Meilensteintrendanalyse (MTA)",
+          "short": "MTA"
+        },
+        "subtitle": {
+          "long": "Hochschule Emden/Leer",
+          "short": "HS Emden/Leer"
+        }
+      },
+      "settings": {
+        "title": {
+          "long": "Einstellungen",
+          "short": "Einstellungen"
+        }
+      },
+      "profile": {
+        "title": {
+          "long": "Profil",
+          "short": "Profil"
+        }
+      },
+      "projects": {
+        "title": {
+          "long": "Projekte",
+          "short": "Projekte"
+        }
+      },
+      "gantt-chart": {
+        "title": {
+          "long": "Gantt-Diagramm",
+          "short": "Gantt-Diagramm"
+        }
+      },
+      "critical-path-analysis": {
+        "title": {
+          "long": "Netzplantechnik",
+          "short": "Netzplantechnik"
+        }
+      },
+      "page-not-found": {
+        "title": {
+          "long": "404 - Seite nicht gefunden",
+          "short": "404 - Seite nicht gefunden"
+        }
+      }
+    },
     "footer": {
       "imprint": "Impressum",
       "privacy": "Datenschutz"
@@ -94,6 +141,14 @@
       "success": "Erfolgreich ausgeloggt",
       "failure": "Ausloggen fehlgeschlagen"
     },
+    "login": {
+      "success": "Erfolgreich angemeldet",
+      "failure": "Anmeldung fehlgeschlagen"
+    },
+    "register": {
+      "success": "Erfolgreich registriert",
+      "failure": "Registrierung fehlgeschlagen"
+    },
     "changes": {
       "success": "Änderungen gespeichert",
       "failure": {
@@ -103,7 +158,7 @@
     },
     "settings": {
       "changes": {
-        "no-id": "Speichern ist nicht möglich (HSEL-400-999)"
+        "no-id": "Speichern ist nicht möglich (HSEL-400-900)"
       }
     }
   },
@@ -113,6 +168,35 @@
     },
     "password": {
       "default-label": "Passwort"
+    },
+    "repeat-password": {
+      "default-label": "Passwort wiederholen"
+    },
+    "academic-title": {
+      "default-label": "Akademischer Titel"
+    },
+    "firstname": {
+      "default-label": "Vorname"
+    },
+    "lastname": {
+      "default-label": "Nachname"
+    },
+    "matriculation-number": {
+      "default-label": "Matrikelnummer"
+    },
+    "phone-number": {
+      "default-label": "Telefonnummer"
+    }
+  },
+  "buttons": {
+    "next": {
+      "text": "Weiter"
+    },
+    "back": {
+      "text": "Zurück"
+    },
+    "register": {
+      "text": "Registrieren"
     }
   }
 }

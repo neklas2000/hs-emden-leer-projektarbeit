@@ -1,6 +1,53 @@
 {
   "app": {
-    "title": "Milestone Trend Analysis",
+    "pages": {
+      "home": {
+        "title": {
+          "long": "Milestone Trend Analysis (MTA)",
+          "short": "MTA"
+        },
+        "subtitle": {
+          "long": "University of Applied Sciences Emden/Leer",
+          "short": "UAS Emden/Leer"
+        }
+      },
+      "settings": {
+        "title": {
+          "long": "Settings",
+          "short": "Settings"
+        }
+      },
+      "profile": {
+        "title": {
+          "long": "Profile",
+          "short": "Profile"
+        }
+      },
+      "projects": {
+        "title": {
+          "long": "Projects",
+          "short": "Projects"
+        }
+      },
+      "gantt-chart": {
+        "title": {
+          "long": "Gantt Chart",
+          "short": "Gantt Chart"
+        }
+      },
+      "critical-path-analysis": {
+        "title": {
+          "long": "Critical Path Analysis",
+          "short": "Critical Path Analysis"
+        }
+      },
+      "page-not-found": {
+        "title": {
+          "long": "404 - Page Not Found",
+          "short": "404 - Page Not Found"
+        }
+      }
+    },
     "footer": {
       "imprint": "Imprint",
       "privacy": "Privacy"
@@ -94,6 +141,14 @@
       "success": "Successfully signed out",
       "failure": "Sign out failed"
     },
+    "login": {
+      "success": "Successfully signed in",
+      "failure": "Sign in failed"
+    },
+    "register": {
+      "success": "Successfully registered",
+      "failure": "Registration failed"
+    },
     "changes": {
       "success": "Changes saved",
       "failure": {
@@ -103,7 +158,7 @@
     },
     "settings": {
       "changes": {
-        "no-id": "Saving isn't possible (HSEL-400-999)"
+        "no-id": "Saving isn't possible (HSEL-400-900)"
       }
     }
   },
@@ -113,6 +168,35 @@
     },
     "password": {
       "default-label": "Password"
+    },
+    "repeat-password": {
+      "default-label": "Repeat password"
+    },
+    "academic-title": {
+      "default-label": "Academic title"
+    },
+    "firstname": {
+      "default-label": "First name"
+    },
+    "lastname": {
+      "default-label": "Surname"
+    },
+    "matriculation-number": {
+      "default-label": "Matriculation number"
+    },
+    "phone-number": {
+      "default-label": "Phone number"
+    }
+  },
+  "buttons": {
+    "next": {
+      "text": "Next"
+    },
+    "back": {
+      "text": "Back"
+    },
+    "register": {
+      "text": "Register"
     }
   }
 }
