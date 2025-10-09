@@ -9,6 +9,7 @@ import { credentialsInterceptor } from './interceptors/credentials.interceptor';
 import { jsonApiInterceptor } from './interceptors/json-api.interceptor';
 import { appInitializerFactory } from './app-initializer-factory';
 import { provideInterceptorsFromDi } from './providers/provide-interceptors-from-di.provider';
+import { provideTitleStrategy } from './providers/provide-title-strategy.provider';
 
 const originalRegisterOnChange = DefaultValueAccessor.prototype.registerOnChange;
 
@@ -31,5 +32,6 @@ export const appConfig: ApplicationConfig = {
     provideInterceptorsFromDi(),
     provideI18N(),
     provideAppInitializer(appInitializerFactory),
+    provideTitleStrategy(),
   ],
 };
