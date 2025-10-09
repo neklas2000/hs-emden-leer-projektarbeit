@@ -1,3 +1,5 @@
+import { isEmptyObject } from '../utils/is-empty-object';
+
 type SparseFieldsets = {
   [resource: string]: string[];
 };
@@ -12,14 +14,20 @@ export type JsonApiOptions = {
   filters?: Filters;
 };
 
+function areOptionsDefinedInsufficiently(options: JsonApiOptions): boolean {
+  if (options?.sparseFieldsets && !isEmptyObject(options.sparseFieldsets)) {
+    return false;
+  }
+
+  if (options?.includes && options.includes.length === 0) return false;
+
+  return !(options?.filters && !isEmptyObject(options.filters));
+}
+
 export function parseJsonApiOptions(options?: JsonApiOptions): string {
   if (!options) return '';
-  if (Object.keys(options).length === 0) return '';
-  if (
-    !options.sparseFieldsets &&
-    (!options.includes || options.includes.length === 0) &&
-    (!options.filters || Object.keys(options.filters).length === 0)
-  ) return '';
+  if (isEmptyObject(options)) return '';
+  if (areOptionsDefinedInsufficiently(options)) return '';
 
   const queryParams: string[] = [];
 
