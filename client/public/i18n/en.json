@@ -45,6 +45,15 @@
         "title": {
           "long": "404 - Page Not Found",
           "short": "404 - Page Not Found"
+        },
+        "content": {
+          "title": "The requested page could not be found.",
+          "subtitle": "This may be due to the following reasons:",
+          "description": "You clicked on an outdated or invalid link. The requested resource is not available. Perhaps you made a mistake when entering the URL? Don't worry...",
+          "buttons": {
+            "back": "Back",
+            "home": "Home"
+          }
         }
       }
     },

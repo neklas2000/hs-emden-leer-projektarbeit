@@ -45,6 +45,15 @@
         "title": {
           "long": "404 - Seite nicht gefunden",
           "short": "404 - Seite nicht gefunden"
+        },
+        "content": {
+          "title": "Die angeforderte Seite konnte nicht gefunden werden.",
+          "subtitle": "Das kann folgende Ursachen haben:",
+          "description": "Sie haben auf einen veralteten oder ungültigen Link geklickt. Die angeforderte Ressource ist nicht verfügbar. Sie haben bei der Eingabe der URL vielleicht einen Schreibfehler gemacht? Nicht so schlimm...",
+          "buttons": {
+            "back": "Zurück",
+            "home": "Startseite"
+          }
         }
       }
     },

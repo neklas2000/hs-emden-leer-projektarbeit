@@ -1,13 +1,14 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+
+import { I18nModule } from '@i18n/i18n.module';
 
 @Component({
   selector: 'hsel-page-not-found',
   imports: [
     A11yModule,
-    MatButtonModule,
+    I18nModule,
   ],
   templateUrl: './page-not-found.component.html',
   styleUrl: './page-not-found.component.scss',
@@ -16,11 +17,7 @@ import { Router } from '@angular/router';
 export class PageNotFoundComponent {
   private readonly window: Window;
 
-  constructor(
-    private readonly router: Router,
-    // private readonly windowProvider: WindowProviderService,
-  ) {
-    // this.window = this.windowProvider.getWindow();
+  constructor(private readonly router: Router) {
     this.window = window;
   }
 
