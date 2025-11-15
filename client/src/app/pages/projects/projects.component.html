@@ -1,1 +1,23 @@
-<p>projects works!</p>
+@if (projects.length > 0) {
+  <mat-nav-list>
+    @for (project of projects; track project.id) {
+      <mat-list-item [routerLink]="`/projects/${project.id}`">
+        <h3 matListItemTitle>{{ project.name }}</h3>
+        <span matListItemLine>
+          Start {{ project.officialStart | date }}
+          @if(project.officialEnd) {
+            | Ende {{ project.officialEnd | date }}
+          }
+        </span>
+      </mat-list-item>
+    }
+  </mat-nav-list>
+} @else {
+  <p>Sie besitzen aktuell weder eigene Projekte noch sind Sie in einem Projekt ein Mitglied.</p>
+}
+
+<div [className]="`fab-${primaryActionPosition}`">
+  <button routerLink="/projects/new" mat-fab>
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

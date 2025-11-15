@@ -76,3 +76,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .error-toast {
   border: 2px solid var(--error-color);
 }
+
+.fab-bottom-right {
+  position: absolute;
+  right: 16px;
+  bottom: 80px;
+}
+
+.fab-toolbar-bottom-right {
+  position: absolute;
+  right: 16px;
+  top: 32px;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%;
+}

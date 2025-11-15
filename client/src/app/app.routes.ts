@@ -9,6 +9,8 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { DEFAULT_TITLE } from './common/default-title';
 import { authenticationGuard } from './guards/authentication.guard';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { projectListResolver } from './resolvers/project-list.resolver';
 
 export const routes: Routes = [
   {
@@ -29,6 +31,14 @@ export const routes: Routes = [
           { path: 'login', component: LoginComponent },
           { path: 'register', component: RegisterComponent },
         ],
+      },
+      {
+        path: 'projects',
+        component: ProjectsComponent,
+        resolve: {
+          projects: projectListResolver,
+        },
+        children: [],
       },
       {
         path: '**',

@@ -9,3 +9,11 @@ If you came here to view this project for a portfolio, I encourage you to take a
 
 This project has been developed during my studies at the University of Applied Sciences Emden/Leer.
 It allows an user to monitor the progress of their project through a milestone trend analysis.
+
+## Project using different tech stacks
+
+| API | UI |
+|-----|----|
+| NestJS (NodesJS) + TypeORM | Angular + Angular Material |
+| Java Spring Boot + Hibernate | React + MUI |
+| .Net Core C# + EF Core | Vue.js / Electron / Next.js |
